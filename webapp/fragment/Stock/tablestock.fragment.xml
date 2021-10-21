@@ -1,0 +1,103 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" class="sapUiSizeCompact" xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:mycassini="com.vSimpleApp.controls">
+	<!--	<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true">
+-->
+	<Table id="awaitingTable" class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiSmallMarginTop TableMarginClass" width="1250px"
+	  mode="SingleSelectLeft"   selectionChange="getPath"
+      	items="{ path: 'oStockDataModel>/'}" visible="{VisibleModel>/MaterialTable}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="Stock Material Details" level="H2"/>
+				<ToolbarSpacer/>
+					<Button tooltip ="Notification" type="Attention" text="{count>/count}"  id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
+		<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
+			-->		<Button tooltip="{i18n>addItem}" text="MassUpdate"  id="idMassUpdate" press="MassUpdatePo"/>
+			<Button tooltip="{i18n>addItem}" text="BuyerSheet"  id="idBuyersheet" press="BuyerSheetChat"/>
+		
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			
+			
+	
+			<Column visible="{VisibleModel>/Plant}" minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+				<Text text="Plant "/>
+			</Column>
+			<Column visible="{VisibleModel>/Material}" minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+				<Text text="Material"/>
+			</Column>
+			<Column visible="{VisibleModel>/MatDiscp}" minScreenWidth="Desktop" width="9rem" hAlign="Center" demandPopin="true">
+				<Text text="Material Disptn"/>
+			</Column>
+			<Column visible="{VisibleModel>/MainGrp}" hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Main Group"/>
+			</Column>
+			<Column visible="{VisibleModel>/Grp}" hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Group"/>
+			</Column>
+			<Column visible="{VisibleModel>/SubGrp}" hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="SubGroup"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Available Qnty"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Unit"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Critical threshold"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Warning threshold"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Green threshold"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Excess threshold"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" visible="false" demandPopin="true">
+				<Text text="Color"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Changed On"/>
+			</Column>
+			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+				<Text text="Action"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem press="SelectRows">
+				<cells>
+				
+					<ObjectIdentifier title="{oStockDataModel>Werks}"/>
+					<ObjectIdentifier title="{oStockDataModel>Matnr}"/>
+					<ObjectIdentifier title="{oStockDataModel>Description}"/>
+				
+					<ObjectIdentifier title="{oStockDataModel>Maingrp}"/>
+					<ObjectIdentifier title="{oStockDataModel>Grp}"/>
+					<ObjectIdentifier title="{oStockDataModel>Subgrp}"/>
+					<ObjectNumber number="{oStockDataModel>Labst}"
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+					<ObjectIdentifier title="{oStockDataModel>Unit}"/>
+					<ObjectNumber number="0 - {=${oStockDataModel>Crtlv}}" state="Error"></ObjectNumber>
+					<ObjectNumber number='{=${oStockDataModel>Crtlv}-1+2} - {=${oStockDataModel>Cytlv}}' state="Warning"></ObjectNumber>
+					<ObjectNumber number='{=${oStockDataModel>Cytlv}-1+2} - {=${oStockDataModel>Cgtlv}}' state="Success"></ObjectNumber>
+					<ObjectNumber number='{=${oStockDataModel>Cgtlv}-1+2} - {=${oStockDataModel>Cbtlv}}'
+						state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"></ObjectNumber>
+	<!--			<ObjectIdentifier title="{oStockDataModel>Color}" />
+		-->	
+		<ObjectIdentifier title="{ parts: [ {path: 'oStockDataModel>Color'} ,{path: 'oStockDataModel>Matnr'}, {path: 'oStockDataModel>Werks'}, {path : 'oStockDataModel>Description'} ], formatter: '.formatter.oCreatePurchaseOrder'}"   />
+			<ObjectIdentifier text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
+				 <HBox>
+				
+							<Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
+							<Button id="idRefill" text="Refill" press="onSavePurchaseOrder" type="Accept" ariaLabelledBy="editButtonLabel"/>
+					       </HBox>
+				
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

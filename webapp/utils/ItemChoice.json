@@ -1,0 +1,25 @@
+{
+	"ListItems":[
+						{
+			"ddtext":"Material Number",
+			"ddkey":"material",
+			"ddvisible":true
+		},
+								{
+			"ddtext":"Main-Group",
+			"ddkey":"H1",
+			"ddvisible":true
+		},
+								{
+			"ddtext":"Group",
+			"ddkey":"H2",
+			"ddvisible":true
+		},
+		{
+			"ddtext":"Sub-Group",
+			"ddkey":"H3",
+			"ddvisible":true
+		}
+		]
+	
+}

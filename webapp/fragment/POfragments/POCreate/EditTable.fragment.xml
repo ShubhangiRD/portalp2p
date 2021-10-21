@@ -1,0 +1,347 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:x="sap.uxap" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<t:Table id="idPOItemsTab" class="sapUiSmallMarginTop" rows="{ path: 'PurchaseModel>/TempContract/PoitemSet'}" visibleRowCount="5"
+		selectionMode="MultiToggle">
+		<t:extension>
+			<OverflowToolbar>
+				<Title text="Purchase Order Item"/>
+				<ToolbarSpacer/>
+				<!--	<SearchField search="onSearch" width="17.5rem"/>-->
+				<Button icon="sap-icon://add" type="Transparent" id="idAddbutton" class="remove-attr" tooltip="Add Row" press="onAddNewConditionItem"/>
+				<Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
+					tooltip="Delete Row" press="onDeleteConditionItem"/>
+			</OverflowToolbar>
+		</t:extension>
+	<t:columns>
+			<t:Column  width="11rem" hAlign="Center">
+				<Label text="Material Number"/>
+				<t:template>
+
+					<Input id="Material" class="mtid" textFormatMode="KeyValue" placeholder=" Enter Material No" showSuggestion="true"
+						showValueHelp="true" value="{PurchaseModel>Material}" valueHelpRequest="handlePOMaterialHelp"
+						suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest" liveChange="materialchange"
+						editable="{EditModel>/isEditable}">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+						</suggestionItems>
+					</Input>
+				
+				</t:template>
+			</t:Column>
+			<t:Column  hAlign="Center" width="11rem">
+				<Label text="Material Description"/>
+				<t:template>
+
+					<Input class="ShortText" id="ShortText" value="{PurchaseModel>ShortText}" textFormatMode="KeyValue" placeholder="Enter Material Description" showSuggestion="true"
+						showValueHelp="true" valueHelpRequest="handleMaterialDisVendor" suggestionItems="{ path: 'Lookup>/MaterialDiscription' }"
+					 editable="{EditModel>/isEditable}" suggestionItemSelected="onSuggest">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Description}" text="{Lookup>Materialno}" additionalText="{Lookup>Description}"/>
+						</suggestionItems>
+					</Input>
+				
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="PO Quantity"/>
+				<t:template>
+					
+					<Input id="Quantity" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}" placeholder="Enter PO Quantity"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Unit of Measure"/>
+				<t:template>
+					<Input id="PoUnit" class="measure1" value="{PurchaseModel>PoUnit}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Plant"/>
+				<t:template>
+					<Input id="Plant" textFormatMode="KeyValue" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true"
+						editable="{EditModel>/isEditable}" value="{PurchaseModel>Plant}" valueHelpRequest="handleValueHelpPlant"
+						suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+						</suggestionItems>
+					</Input>
+				
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Price"/>
+				<t:template>
+					<Input id="NetPrice" class="price1"  editable="{EditModel>/isEditable}" value="{PurchaseModel>NetPrice}" />
+					<!--<u:Currency id="Price" class="price1" textAlign="Center" stringValue="{PurchaseModel>NetPrice}" currency="{ }"
+						editable="{EditModel>/isEditable}" useSymbol="true"/>-->
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Status"/>
+				<t:template>
+					<Input id="idstatuss" editable="{EditModel>/isEditable}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Item"/>
+				<t:template>
+					<Input id="PoItem" value="{PurchaseModel>PoItem}"  editable="{EditModel>/isEditable}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="A"/>
+				<t:template>
+					<Input id="Acctasscat"  textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Acctasscat}"></Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="I"/>
+				<t:template>
+					<Input id="ItemCat"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>ItemCat}"
+						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOII" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						suggestionItemSelected="onSuggestII">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+						</suggestionItems>
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Date Cat."/>
+				<t:template>
+						<DateTimePicker id="Pricedate" editable="{EditModel>/isEditable}" value="{PurchaseModel>Pricedate}"/>
+				<!--	<Input id="iddatecat" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Pricedate}"
+						editable="{EditModel>/isEditable}" valueHelpRequest="handlePODateCate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						suggestionItemSelected="onSuggestDateCate">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+						</suggestionItems>
+					</Input>-->
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Deliv.Date "/>
+				<t:template>
+					<DateTimePicker id="iddelivDate" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Order Unit"/>
+				<t:template> 
+
+					<Input id="PoUnit2"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PoUnit}"
+						editable="{EditModel>/isEditable}" valueHelpRequest="handleOrderUnit" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						suggestionItemSelected="onSuggestOrderUnit">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+						</suggestionItems>
+					</Input>
+				</t:template>
+			</t:Column>
+			<!--	<t:Column  width="9rem" hAlign="Center">
+											<Label text="Currency"/>
+											<t:template>
+												<Input id="idCurrencyPO"  class="price1"/>
+											</t:template>
+										</t:Column>-->
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Per"/>
+				<t:template>
+					<Input id="idPer" editable="{EditModel>/isEditable}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Store Location"/>
+				<t:template>
+					<Input id="StgeLoc"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+						value="{PurchaseModel>StgeLoc}" editable="{EditModel>/isEditable}" valueHelpRequest="handlePOStoreLocation"
+						suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggestStoreLocation">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+						</suggestionItems>
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Batch "/>
+				<t:template>
+					<Input id="Batch"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Batch}"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Requestment Number"/>
+				<t:template>
+					<Input id="PrioRequirement" editable="{EditModel>/isEditable}" value="{PurchaseModel>PrioRequirement}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Requisitoner "/>
+				<t:template>
+					<Input id="PreqName" editable="{EditModel>/isEditable}" value="{PurchaseModel>PreqName}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Type Of Subcontracting "/>
+				<t:template>
+					<Input id="idsubcontracting"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Inventory Managed Material "/>
+				<t:template>
+					<Input id="idinventrymaterial"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Info Rec "/>
+				<t:template>
+					<Input id="InfoRec" class="infoClass"  value="{PurchaseModel>InfoRec}"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="5rem" hAlign="Center">
+				<Label text="Returns Items "/>
+				<t:template>
+					<CheckBox id="ReturnsItems" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="5rem" hAlign="Center">
+				<Label text="Free "/>
+				<t:template>
+					<CheckBox id="idFrees" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="5rem" hAlign="Center">
+				<Label text="Texts "/>
+				<t:template>
+					<Input id="idtextss" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Purchase Request "/>
+				<t:template> 
+
+					<Input id="PreqNo1"   value="{PurchaseModel>PreqNo}"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Requisn Item "/>
+				<t:template> 
+
+					<Input id="PreqItem1" editable="{EditModel>/isEditable}" value="{PurchaseModel>PreqItem}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="OutLine Agreement "/>
+				<t:template>
+					<Input id="idOutLineAgmnt"  
+						value="{PurchaseModel>Agreement}" editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Contract Item"/>
+				<t:template>
+					<Input id="SrmContractItm" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Central Contract "/>
+				<t:template>
+					<Input id="SrmContractId" 
+						value="{PurchaseModel>SrmContractId}" editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Cent Contract Item"/>
+				<t:template>
+					<Input id="SrmContractItm2" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="RFQ "/>
+				<t:template>
+					<Input id="RfqNo"   value="{PurchaseModel>RfqNo}"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="RFQ Item"/>
+				<t:template>
+					<Input id="RfqItem" editable="{EditModel>/isEditable}" value="{PurchaseModel>RfqItem}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Purchasing Document "/>
+				<t:template>
+					<Input id="idPurchasingDocument" 
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="PO Document Item"/>
+				<t:template>
+					<Input id="idpodocumentitem" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="ISS Store Location "/>
+				<t:template>
+					<Input id="idissStorLoc"
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Higher Level Item"/>
+				<t:template>
+					<Input id="idHigherLevItem" editable="{EditModel>/isEditable}" />
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="SubItem Category"/>
+				<t:template>
+					<Input id="idSubitemCate" 
+						editable="{EditModel>/isEditable}" >
+					</Input>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="RFX Number /Ext Doc"/>
+				<t:template>
+					<Input id="ExtRfxNumber" editable="{EditModel>/isEditable}" value="{PurchaseModel>ExtRfxNumber}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Ext Item"/>
+				<t:template>
+					<Input id="ExtRfxItem" editable="{EditModel>/isEditable}" value="{PurchaseModel>ExtRfxItem}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="IUID "/>
+				<t:template>
+					<CheckBox id="idIUID" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column  width="9rem" hAlign="Center">
+				<Label text="Fixed Date"/>
+				<t:template>
+					<CheckBox id="idFixedDate" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:Table>
+</core:FragmentDefinition>

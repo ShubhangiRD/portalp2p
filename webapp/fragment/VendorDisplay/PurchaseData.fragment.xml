@@ -1,0 +1,214 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<form:SimpleForm id="FormChange2purchase" editable="true" layout="ResponsiveGridLayout" title="Conditions Data " labelSpanXL="4"
+			labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+			columnsXL="3" columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Waersc" text="Order Currency" required="true"/>
+				<Input id="Waersc" maxLength="5" fieldGroupIds="Waersc" value="{VendorModel>/TempData/Waersc}" class="InputBoxContainer" type="Text"
+					editable="{EditModel>/isEditable}" placeholder="Select Order Currency"></Input>
+				<Label fieldGroupIds="Ztermc" text="Terms Of Payment" required="true"/>
+				<Input maxLength="4" id="Ztermc" fieldGroupIds="Ztermc" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Ztermc}" editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handlePaymenttermsHelp"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggesttermsofpayment">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Inco1c" text="Incoterms"/>
+				<Input maxLength="28" fieldGroupIds="Inco1c" id="Inco1c" textFormatMode="KeyValue" showSuggestion="true"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Inco1c}" showValueHelp="true" valueHelpRequest="handleIncotermsValue"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestIncoterms">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Input maxLength="28" value="{VendorModel>/TempData/Inco2c}" fieldGroupIds="Inco2c" id="Inco2c" placeholder=" Incoterms ..."
+					editable="{EditModel>/isEditable}"></Input>
+				<Label fieldGroupIds="Minbwc" text="Minimum Order Value"/>
+				<Input maxLength="13" value="{VendorModel>/TempData/Minbwc}" class="sapUiSmallMarginTop" fieldGroupIds="Minbwc" id="Minbwc"
+					editable="{EditModel>/isEditable}"></Input>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Kalskc" text="Schema Groupvendor"/>
+				<Input maxLength="2" id="Kalskc" fieldGroupIds="Kalskc" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Kalskc}" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true"
+					valueHelpRequest="handleSchemagroupvendor" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestSchemagroupvendor">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Meprfc" text="Pricing date control" required="true"/>
+				<Input maxLength="1" id="Meprfc" fieldGroupIds="Meprfc" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Meprfc}" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true"
+					valueHelpRequest="handlePricingdatecontrol" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestPricingdatecontrol">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds=" " text="Order Optim Rest"/>
+				<Input id="OrderOptimrest" textFormatMode="KeyValue" fieldGroupIds=" " showSuggestion="true" value="{VendorModel>/TempData/ }"
+					showValueHelp="true" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" valueHelpRequest="handleOrderOptimrest"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestOrderOptimrest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Verkfc" text="Sales Person "/>
+				<Input id="Verkfc" value="{VendorModel>/TempData/Verkfc}" maxLength="30" fieldGroupIds="Verkfc" editable="{EditModel>/isEditable}"/>
+				<!--<Label fieldGroupIds="Telbxa" text="Telephone " required="true"/>
+				<Input maxLength="16" value="{VendorModel>/TempData/Telbxa}" fieldGroupIds="Telf1a" id="Telf2a" editable="{EditModel>/isEditable}"></Input>-->
+				<Label fieldGroupIds="Eiktoc" text="Acc. With vendor"/>
+				<Input id="accwvendorpur" value="{VendorModel>/TempData/Eiktoc}" editable="{EditModel>/isEditable}" fieldGroupIds="Eiktoc"/>
+			</form:content>
+		</form:SimpleForm>
+		<form:SimpleForm id="FormChange3purchase" editable="true" layout="ResponsiveGridLayout" title="Correspondence" labelSpanXL="4"
+			labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+			columnsXL="3" columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Lfabcc" text="ABC indicator"/>
+				<Input id="Lfabcc" fieldGroupIds="Lfabcc" value="{VendorModel>/TempData/Lfabcc}" maxLength="1" editable="{EditModel>/isEditable}"/>
+				<Label fieldGroupIds="Expvzc" text="ModeOfTrnsprt-Border"/>
+				<Input maxLength="2" fieldGroupIds="Expvzc" value="{VendorModel>/TempData/Expvzc}" id="Expvzc" showSuggestion="true"
+					showValueHelp="true" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" valueHelpRequest="handleModeOfTrnsprtBorder"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestModeOfTrnsprtBorder">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Vktra}" text="{Lookup>Vktra}" additionalText="{Lookup>Vktra}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds=" " text="Office of Entry"/>
+				<Input fieldGroupIds=" " id="OfficeofEntry" value="{VendorModel>/TempData/PurchaseOrderCurrency}" showSuggestion="true" showValueHelp="true"
+					editable="{EditModel>/isEditable}" valueHelpRequest="handleCustomerOfficeofEntry"
+					suggestionItems="{ path: 'Lookup>/CustomerOfficeEntryList' }" suggestionItemSelected="onSuggestOfficeofEntry">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Land1}" text="{Lookup>Zolla}" additionalText="{Lookup>Land1}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Skritc" text="Sort Criterion"/>
+				<Input fieldGroupIds="Skritc" maxLength="1" id="Skritc" showSuggestion="true" value="{VendorModel>/TempData/Skritc}"
+					showValueHelp="true" editable="{EditModel>/isEditable}" valueHelpRequest="handleSortCriterion"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestSortCriterion">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Paprfc" text="PROACT Control Prof"/>
+				<Input fieldGroupIds="Paprfc" maxLength="4" id="Paprfc" showSuggestion="true" showValueHelp="true"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Paprfc}" class="sapUiSmallMarginTop"
+					valueHelpRequest="handlePROACTcontrolprof" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestPROACTcontrolprof">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<core:Title text=""/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Webrec" id="Webrec" text="GR Based Inv.Verif" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="" id="AutoEvalGRSetmtDel" text="AutoEvalGRSetmt Del" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Xersrc" id="Xersrc" text="AutoEvalGRSetmt Ret" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Kzabsc" id="Kzabsc" text="Acknowlegment Reqd" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Kzautc" id="Kzautc" text="Automatic purchase order" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Bolrec" id="Bolrec" text="Subsequent Settlement" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Boindc" id="Boindc" text="Subseq Sett.Index" editable="{EditModel>/isEditable}"/>
+				<core:Title text=""/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds=" " id="Revolutionallowed" text="Revolution allowed" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds=" " id="Granddiscountinkind" text="Grand discount in kind" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds=" " id="Releventpricedet" text="Relevent price det" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Agrelc" id="Agrelc" text="Relevent agency business" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Umsaec" id="Umsaec" text="B.vol.comp./ag.nec" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Blindc" id="Blindc" text="Doc.index active" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds="Kzretc" id="Kzretc" text="Return Vendor" editable="{EditModel>/isEditable}"/>
+			</form:content>
+		</form:SimpleForm>
+		<form:SimpleForm id="FormChange4purchase" editable="true" layout="ResponsiveGridLayout" title="Default Data Material" labelSpanXL="4"
+			labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+			columnsXL="3" columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Ekgrpc" text="Purchasing Group" required="true"/>
+				<Input fieldGroupIds="Ekgrpc" id="Ekgrpc" maxLength="3" value="{VendorModel>/TempData/Ekgrpc}" class="InputBoxContainer" type="Text"
+					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
+					suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggestPurchasing">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Ekgrp}" text="{Lookup>Eknam}" additionalText="{Ekgrp}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Plifzc" text="Planned Delivery time"/>
+				<Input fieldGroupIds="Plifzc" maxLength="3" id="Plifzc" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Plifzc}" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true"
+					valueHelpRequest="handleplanneddelevry" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestplanneddelery">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Bstaec" text="Confirmation Control"/>
+				<Input fieldGroupIds="Bstaec" maxLength="4" id="Bstaec" textFormatMode="KeyValue" showSuggestion="true"
+					editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true" valueHelpRequest="handleConfirmationControl"
+					value="{VendorModel>/TempData/Bstaec}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestConfirmationControl">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Megruc" text="Unit of measure grp"/>
+				<Input fieldGroupIds="Megruc" maxLength="4" id="Megruc" textFormatMode="KeyValue" showSuggestion="true"
+					editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true" valueHelpRequest="handleUnitofmeasuregrp"
+					value="{VendorModel>/TempData/Megruc}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestUnitofmeasuregrp">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Rdprfc" text="Rouding profile"/>
+				<Input fieldGroupIds="Rdprfc" maxLength="4" id="Rdprfc" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Rdprfc}" editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleRoudingprofile"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestRoudingprofile">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<core:Title text=""/>
+				<Label fieldGroupIds="Liprec" text="Price marking agreed"/>
+				<Input fieldGroupIds="Liprec" maxLength="2" id="Liprec" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/TempData/Liprec}" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" showValueHelp="true"
+					valueHelpRequest="handlePricemarkingagreed" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestPricemarkingagreed">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+				<Label fieldGroupIds="Liserc" text=""/>
+				<CheckBox fieldGroupIds="Liserc" text="Rack-jobbing service agreed" id="Liserc" editable="{EditModel>/isEditable}"/>
+				<Label text=""/>
+				<CheckBox fieldGroupIds=" " text="Order entry by vendor " id="Orderentrybyvendor" editable="{EditModel>/isEditable}"/>
+				<Label fieldGroupIds="Venslc" text="Serv level"/>
+				<Input id="Venslc" fieldGroupIds="Venslc" value="{VendorModel>/TempData/VenServLevl}" editable="{EditModel>/isEditable}"/>
+				<Label fieldGroupIds="Vsbedc" text="Shipping Conditions"/>
+				<Input fieldGroupIds="Vsbedc" value="{VendorModel>/TempData/Vsbedc}" maxLength="3" id="Vsbedc" showSuggestion="true"
+					showValueHelp="true" editable="{EditModel>/isEditable}" class="sapUiSmallMarginTop" valueHelpRequest="handleShippingCondition"
+					suggestionItems="{path: 'Lookup>/ShippingConditionList' }" suggestionItemSelected="onSuggestShippingConditions">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+					</suggestionItems>
+				</Input>
+			</form:content>
+		</form:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

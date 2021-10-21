@@ -1,0 +1,53 @@
+{
+
+	"categories": [{
+			"name": "Women",
+			"amount": 16.99,
+			"categories": [
+
+				{
+					"name": "Casual Red Dress",
+					"amount": 16.99,
+					"currency": "EUR",
+					"size": "S"
+				}, {
+					"name": "Short Black Dress",
+					"amount": 47.99,
+					"currency": "EUR",
+					"size": "M"
+				}, {
+					"name": "Long Blue Dinner Dress",
+					"amount": 103.99,
+					"currency": "USD",
+					"size": "L"
+				}
+
+			]
+		}, {
+			"name": "Men",
+			"amount": 16.99,
+			"categories": [
+
+				{
+					"name": "Casual Red Dress",
+					"amount": 16.99,
+					"currency": "EUR",
+					"size": "S"
+				}, {
+					"name": "Short Black Dress",
+					"amount": 47.99,
+					"currency": "EUR",
+					"size": "M"
+				}, {
+					"name": "Long Blue Dinner Dress",
+					"amount": 103.99,
+					"currency": "USD",
+					"size": "L"
+				}
+
+			]
+		}
+
+	]
+
+}

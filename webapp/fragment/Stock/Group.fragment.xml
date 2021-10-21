@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="selectDialog" class="sapUiPopupWithPadding fragmentHeading" title="Group List" items="{Lookup>/GroupList}"
+		search="._handleGroupSearch" confirm="._handleGroupClose" cancel="._handleGroupClose">
+		<StandardListItem title="{Lookup>Prodh2}" description="{Lookup>Vtext2}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

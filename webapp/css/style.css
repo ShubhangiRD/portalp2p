@@ -1,0 +1,131 @@
+/* Enter your custom styles here */
+.sapFShellBar {
+	background: #161f29 !important;
+}
+.YellowClassButton{
+  color :#e9730c !important;
+}
+.sapFShellBarHomeIcon {
+	height: 1rem !important;
+}
+.editformclass{
+		margin-right: -12px ;
+	
+}
+.verticlecustomlayout{
+	margin-top: 15px ;
+}
+.customLabel{
+	margin-top: -8px !important;
+}
+.loginPage {
+		background-color: #ffffff;
+/*	background-color: white;
+*/	/*background-image: url(../images/LoginBackground.png);
+    background-size: 100% 100%;*/
+}
+.sapUxAPObjectPageHeaderDetails .sapMObjectNumberEmph.sapMObjectNumber>.sapMObjectNumberText {
+    font-family: "72fallback","72","72full",Arial,Helvetica,sans-serif;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.ClassQuantity{
+background: @sapUiNeutralBG;
+}
+.greenTxtHlight {
+    color: green;
+}
+.yellowTxtHlight {
+    color: yellow;
+}
+.redTxtHlight {
+    color: red;
+}
+.loginFormContainer {
+	height: 100%;
+    width: 35.2%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+}
+.loginFormContainer {
+	text-align: center;
+}
+.loginFormContainer .sapMFlexItemAlignAuto {
+	margin-bottom: 1rem;
+}
+.loginTitle {
+	font-size: 1.5rem;
+}
+.loginFormInput .sapMInputBaseContentWrapper {
+	height: 2rem;
+}
+.loginBtn .sapMBtnInner {
+	height: 2rem;
+	flex-direction: column;
+    justify-content: center;
+}
+.iconTabContainer .sapMITBSep {
+	margin-top: 0.8rem !important;
+}
+.TableMarginClass{
+		margin-right: 5rem !important;
+}
+.sapMTB-Transparent-CTX.sapMTB {
+    padding: 4px 2.5rem 0 0.75rem;
+}
+.iconTabContainer .sapMITBContent {
+	height: min-content !important;
+	margin-bottom: 3.5rem
+}
+.contractForm .sapUiFormTitle {
+	display: none;
+}
+.accrualTabContainer {
+	padding: 0 1rem;
+}
+.vendorText {
+	margin-top: 0.4rem;
+}
+.detailCard {
+	margin-top: 0.1rem;
+}
+.cardLabel {
+	font-size: 0.8rem;
+}
+.valueContainer .sapMFlexItem {
+	text-align: center !important;
+}
+.valueRightAlign {
+	text-align: right !important;
+}
+.amountInput .sapMInputBaseContentWrapper {
+	width: 75% !important;
+}
+
+
+.redClass .sapMObjectIdentifierTitle .sapMText {
+    font-weight: bold;
+    color: #e70c28;
+}
+
+
+
+.greenClass .sapMObjectIdentifierTitle .sapMText {
+    font-weight: bold;
+    color: green;
+}
+
+
+
+.yellowClass .sapMObjectIdentifierTitle .sapMText {
+    font-weight: bold;
+    color: yellow;
+}
+
+
+.blueClass .sapMObjectIdentifierTitle .sapMText {
+    font-weight: bold;
+    color: blue;
+}

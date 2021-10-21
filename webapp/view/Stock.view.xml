@@ -1,0 +1,19 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m" xmlns:f="sap.f"
+	controllerName="com.vSimpleApp.controller.Stock" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<tnt:ToolPage>
+		<tnt:header>
+			<f:ShellBar title="Stock Analysis" showMenuButton="true" homeIcon="./images/Logo.png"></f:ShellBar>
+		</tnt:header>
+		<tnt:mainContents>
+			<VBox height="100%" width="100%" alignItems="Center" class="sapUiMediumMarginBegin sapUiLargeMarginTop genericTileLayout">
+				<l:HorizontalLayout class="sapUiLargeMarginTop" id="TileContainerExpanded" allowWrapping="true">
+					<GenericTile class="sapUiLargeMarginEnd sapUiLargeMarginTop tileLayoutOne" header="Manage Stock Threshold For Materials" press="onPress"></GenericTile>
+					<GenericTile class="sapUiLargeMarginEnd sapUiLargeMarginTop tileLayoutOne"
+						header="Stock Overview/Track Materials Availability In Inventory " press="press"></GenericTile>
+					<GenericTile class="sapUiLargeMarginEnd sapUiLargeMarginTop tileLayoutOne" header="Manually Refill The /Stock Mass Process" press="press"></GenericTile>
+					<GenericTile class="sapUiLargeMarginEnd sapUiLargeMarginTop tileLayoutOne" header="Schedule/Reschedule Auto Refill Processess" press="press"></GenericTile>
+				</l:HorizontalLayout>
+			</VBox>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>

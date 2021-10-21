@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="editformclass">
+		<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanXL="2" labelSpanL="2"
+			labelSpanM="2" labelSpanS="6" singleContainerFullSize="false">
+			<f:content>
+				<Label text="Threshold Level" class="customLabel"/>
+				<Select id="SelectTdlevel">
+					<items>
+							<core:Item key=" " text=" "/>
+						<core:Item key="Red" text="Critical"/>
+						<core:Item key="Yellow" text="Warning"/>
+						<core:Item key="Green" text="Green"/>
+						<core:Item key="Blue" text="Excess "/>
+					</items>
+				</Select>
+				<Label text="New Value" class="customLabel"/>
+				<Input id="idNewValue" liveChange="numValidate" class="editInputclass" placeholder="Enter Value"/>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

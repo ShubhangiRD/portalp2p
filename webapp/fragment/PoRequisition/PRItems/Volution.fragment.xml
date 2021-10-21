@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="DeliveryForm" editable="true" class="sapUiTinyMarginTop">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+					emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Volution Price" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="vprice" maxLength="3" value="{PurchaseItems>/Incoterms1}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="idcontry" maxLength="28" value="{PurchaseItems>/Incoterms2}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+							<Input id="tab2" maxLength="28" value="{PurchaseItems>/Incoterms2}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+					
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Promotion " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Promotion"  value="{PurchaseItems>/UnderDlvTol}"  editable="{EditModel>/isEditable}"  maxLength="3"  textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								<CheckBox id="GoodReceipt" editable="{EditModel>/isEditable}"  text="Good Receipt"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+							<CheckBox id="invRecept" editable="{EditModel>/isEditable}" text="Inv. Receipt" />	
+							</f:fields>
+						</f:FormElement>
+				<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								<CheckBox id="GRnonVoluated" editable="{EditModel>/isEditable}"  text="GR non Voluated"/>
+							</f:fields>
+						</f:FormElement>
+					
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Total Price" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="idTotPrc" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder1}"  textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+					
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

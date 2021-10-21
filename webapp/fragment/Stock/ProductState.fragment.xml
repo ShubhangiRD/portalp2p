@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap">
+	<Dialog class="ProductState" title=" " showHeader="false" id="idProductState" afterClose="onAfterClose" contentHeight="400px"
+		contentWidth="600px">
+		<uxap:ObjectPageLayout id="CollectionGroupDetails">
+	
+			<uxap:sections>
+				<uxap:ObjectPageSection title="Product Hierarchy Sets">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection title="Product Hierarchy Set ">
+							<uxap:blocks>
+							<IconTabBar id="idIconTabBar" upperCase="true" select="onTabSelect">
+									<items>
+										<IconTabFilter key="Allocation" text="AllocationLevel">
+											<Label text="{i18n>allocationquestion}" design="Bold"/>
+											<List id="Allocationlist" mode="MultiSelect" class="sapUiNoContentPadding" items="{ path: 'AddIteamModel>/ListItems' }"
+												selectionChange="onProductAllocationLevel">
+												<StandardListItem title="{AddIteamModel>ddtext}"/>
+											</List>
+										</IconTabFilter>
+										<IconTabFilter key="1" app:tabId="1" text="Main Group" visible="{collectionItemMode>/Main-Group}">
+											<Toolbar>
+												<SearchField liveChange="filterGlobally" width="100%"/>
+											</Toolbar>
+											<List noDataText="{i18n>typeEmptyTable}" id="Hie1list" mode="{collectionItemMode>/ListSelection}" class="sapUiNoContentPadding"
+												items="{ path: 'oProductListMode>/'}" growing="true" growingThreshold="50" growingScrollToLoad="true" selectionChange="onSelectProductHier">
+												<StandardListItem app:level="1" description="{oProductListMode>Maingrpid}" title="{oProductListMode>Maingrp}"/>
+											</List>
+										</IconTabFilter>
+										<IconTabFilter key="Brands" app:tabId="2" text="Group" count="{collectionItemMode>/BrandsSelectionCount}"
+											visible="{collectionItemMode>/Group}">
+											<Toolbar>
+												<SearchField liveChange="filterGlobally" width="100%"/>
+											</Toolbar>
+											<List noDataText="{i18n>typeEmptyTable}" id="Hie2list" mode="{collectionItemMode>/ListSelection}" class="sapUiNoContentPadding"
+												items="{ path: 'oProductGroup>/'}" growing="true" growingThreshold="50" growingScrollToLoad="true" selectionChange="onSelectProductHier">
+												<StandardListItem app:level="2" description="{oProductGroup>Grpid}" title="{oProductGroup>Grp}"/>
+											</List>
+										</IconTabFilter>
+										<IconTabFilter key="QualityGroup" app:tabId="3" text="Sub-Group" count="{collectionItemMode>/QualityGroupSelectionCount}"
+											visible="{collectionItemMode>/Sub-Group}">
+											<Toolbar>
+												<SearchField liveChange="filterGlobally" width="100%"/>
+											</Toolbar>
+											<List noDataText="{i18n>brandEmptyTable}" id="Hie3list" mode="{collectionItemMode>/ListSelection}" class="sapUiNoContentPadding"
+												items="{ path: 'oProdSubGrp>/'}" selectionChange="onSelectProductHier" growing="true" growingThreshold="50" growingScrollToLoad="true">
+												<StandardListItem app:level="3" description="{oProdSubGrp>Subgrpid}" title="{oProdSubGrp>Subgrp}"/>
+											</List>
+										</IconTabFilter>
+									</items>
+								</IconTabBar>
+							</uxap:blocks>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+		<beginButton>
+			<Button text="Save" type="Emphasized" press="onFilterProductstate"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" press="onCloseProductState"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

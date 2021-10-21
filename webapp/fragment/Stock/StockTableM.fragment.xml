@@ -1,0 +1,130 @@
+<core:FragmentDefinition xmlns="sap.ui.table" class="sapUiSizeCompact" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
+	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
+		enableSelectAll="false" ariaLabelledBy="title">
+		<columns>
+			<Column width="13rem">
+				<m:Label text="Material"/>
+				<template>
+					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
+				</template>
+			</Column>
+			<Column width="9rem">
+				<m:Label text="Plant"/>
+				<template>
+					<m:Text text="{oStockDataModel>Werks}"/>
+				</template>
+			</Column>
+			<Column width="13rem">
+				<m:Label text="Available Quantity"/>
+				<template>
+				<!--	<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
+				<!--	<m:ObjectNumber number="{ path : 'oStockDataModel>Labst' }" 
+							state="{= ${oStockDataModel>CurrentThread} >= ${oStockDataModel>Labst}   ? 'Success' :  ${oStockDataModel>Labst} === ${oStockDataModel>CurrentThread} ? 'Error' : 'Success'  }"/> 
+			-->	
+			
+			<m:ObjectNumber number="{oStockDataModel>Labst}" 
+						state="{ parts: [ {path: 'oStockDataModel>Labst'} ], formatter: '.formatter.onQuantityRangeStages' }"/>
+		
+			</template> 
+					
+			</Column>
+			<!--	<Column width="13rem" sorted="true">
+						<m:Label text="Current Threshold"/>
+						<template>
+							<Input value="{= ${test1} === 'S' ? ${test2} === 'P' ? 'Yes' : 'No' : 'No' }" />
+					
+								state="{= ${oStockDataModel>CurrentThread} > ${oStockDataModel>Labst} ? 'Error'  :  'Information'  }"
+							<m:ObjectNumber number="{ path : 'oStockDataModel>CurrentThread' }"
+								state="{= ${oStockDataModel>CurrentThread} > ${oStockDataModel>Labst} ?     'Error' : 'Information' }"/>
+						</template>
+					</Column>-->
+			<!--
+						<Column width="13rem" sorted="true"> 
+						<m:Label text="Current Threshold"/> 
+						<template> 
+							  
+					<m:ObjectNumber number="{ path : 'oStockDataModel>CurrentThread' }" 
+								state="{= ${oStockDataModel>CurrentThread} > ${oStockDataModel>Labst}   ? 'Warning' :  ${oStockDataModel>Labst} > ${oStockDataModel>CurrentThread} ? 'Error' : 'Success'  }"/> 
+						</template> 
+					</Column>
+					-->
+			<!--	<Column width="13rem" sorted="true">
+						<m:Label text="Current Threshold"/>
+						<template>
+							
+					<m:ObjectNumber number="{ path : 'oStockDataModel>CurrentThread' }"
+							
+						state="{= ${oStockDataModel>CurrentThread} > ${oStockDataModel>Labst} ? 'Information' : ${oStockDataModel>Labst} > ${oStockDataModel>CurrentThread} ? 'Error' :  'Success'}"/>	
+						</template>
+					</Column>-->
+			<!--	<Column width="13rem">
+						<m:Label text="Current Threshold"/>
+						<template>
+							<m:Text text="{parts: [
+										{path: 'oStockDataModel>Labst'},
+										{path: 'oStockDataModel>CurrentThread'}
+									],formatter:'.formatter.ColorState'}"
+									
+						 wrapping="false"/>
+						</template>
+					</Column>-->
+			<Column width="13rem">
+				<m:Label text="Current Threshold"/>
+				<template>
+					<m:ObjectNumber number="{oStockDataModel>CurrentThread}" 
+						state="{ parts: [ {path: 'oStockDataModel>CurrentThread'}, {path: 'oStockDataModel>Labst'} ], formatter: '.formatter.onRangeStages' }"/>
+				</template>
+			</Column>
+	<!--		<Column width="13rem">
+				<m:Label text="Previous Threshold"/>
+				<template>
+					<m:ObjectNumber number="{oStockDataModel>PreviousThread}" 
+						state="{ parts: [ {path: 'oStockDataModel>PreviousThread'}, {path: 'oStockDataModel>Labst'} ], formatter: '.formatter.PreviousColorState' }"/>
+			
+				</template>
+			</Column>-->
+			<Column width="13rem">
+				<m:Label text="Date"/>
+				<template>
+					<m:Text text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						wrapping="false"/>
+				</template>
+			</Column>
+		</columns>
+	</TreeTable>
+	<!--  <TreeTable
+                    id="TreeTableBasic"
+                    rows="{path:'StockData>/', parameters: {arrayNames:['categories']}}"
+                    selectionMode="MultiToggle"
+                    enableSelectAll="false"
+                    ariaLabelledBy="title">
+                
+                <columns>
+                    <Column width="13rem">
+                        <m:Label text="Categories"/>
+                        <template>
+                            <m:Text text="{StockData>name}" wrapping="false" />
+                        </template>
+                    </Column>
+                    <Column width="9rem">
+                        <m:Label text="Price"/>
+                        <template>
+                            <u:Currency value="{StockData>amount}" currency="{currency}"/>
+                        </template>
+                    </Column>
+                    <Column width="11rem">
+                        <m:Label text="Size"/>
+                        <template>
+                            <m:Select
+                                    items="{path: '/sizes', templateShareable: true}"
+                                    selectedKey="{size}"
+                                    visible="{= !!${size}}"
+                                    forceSelection="false">
+                                <core:Item key="{key}" text="{value}"/>
+                            </m:Select>
+                        </template>
+                    </Column>
+                </columns>
+            </TreeTable>
+          -->
+</core:FragmentDefinition>

@@ -1,0 +1,81 @@
+
+
+
+<mvc:View controllerName="com.vSimpleApp.controller.StockTable" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core" xmlns:mycassini="com.vSimpleApp.controls">
+	<tnt:ToolHeader>
+		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Button>
+		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Image>
+		<FlexBox direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<FlexBox class="logoContent" direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://comment" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Switch>
+	</tnt:ToolHeader>
+	<Page title="Manage Stock Threshold for Materials">
+		<form:SimpleForm id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd casTiles" singleContainerFullSize="false">
+			<form:content>
+				<Button text="All" id="idAll" press="AllButton"/>
+				<Button text="Red" id="idRedb" press="PressRed"/>
+				<Button text="Yellow" id="idYellowb" press="PressYellow"/>
+				<Button text="Green" id="idGreenb" press="PressGreen"/>
+				<Button text="Blue" id="idBlueb" press="PressBlue"/>
+			</form:content>
+		</form:SimpleForm>
+		<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd casTiles" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text=" "/>
+				<Label text="Material" required="true"/>
+				<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+					value="{MatData>/Material}" change="StockDetails" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+					</suggestionItems>
+				</Input>
+				<core:Title text=" "/>
+				<Label text="Plant" required="true"/>
+				<Input id="Plant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+					value="{MatData>/Plant}" change="StockDetails" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+					</suggestionItems>
+				</Input>
+				<!--	<Input id="Plant" placeholder=" Plant" showSuggestion="true">
+					<suggestionItems>
+						<core:ListItem key="Bwkey" text="Bwkey" additionalText=""/>
+					</suggestionItems>
+				</Input>-->
+			</form:content>
+		</form:SimpleForm>
+		
+		
+
+		<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Mstock" type="XML"/>
+	</Page>
+</mvc:View>

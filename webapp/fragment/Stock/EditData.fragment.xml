@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:mycassini="com.vSimpleApp.controls"
+	xmlns:core="sap.ui.core" xmlns="sap.uxap">
+	<m:Dialog class="titleClassEdit" title=" " showHeader="false" id="EditDialog" afterClose="onAfterClose" contentHeight="380px"
+		contentWidth="500px">
+		<!--	<mycassini:expandTable text="Material Number : {SingleSelectData>/Matnr}" class="sasda"/>
+	-->
+		<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" preserveHeaderStateOnScroll="true">
+			<headerTitle>
+				<ObjectPageHeader id="headerForTest" objectTitle="Material Number : {SingleSelectData>/Matnr}">
+				<!--	<actions>
+						<ObjectPageHeaderActionButton icon="sap-icon://save" id="idSave" type="Transparent" tooltip="Save" press="onSaveThreshold"/>
+						<ObjectPageHeaderActionButton icon="sap-icon://decline" type="Transparent" text="Cancel" tooltip="decline" press="onCloseFu"/>
+					</actions>-->
+				</ObjectPageHeader>
+			</headerTitle>
+			<headerContent>
+				<l:VerticalLayout>
+					<m:ObjectAttribute text="Plant: {SingleSelectData>/Werks}"/>
+					<m:ObjectStatus title="Available Quantity " text="{SingleSelectData>/Labst}"
+						state="{ parts: [ {path: 'SingleSelectData>/Labst'}, {path: 'SingleSelectData>/Crtlv'},
+						{path: 'SingleSelectData>/Cytlv'}, {path: 'SingleSelectData>/Cgtlv'},
+						{path: 'SingleSelectData>/Cbtlv'} ], formatter: '.formatter.statusColor' }"/>
+				</l:VerticalLayout>
+				<l:VerticalLayout>
+					<m:ObjectStatus title="Critical Threshold mark" text="0 - {=${SingleSelectData>/Crtlv}}" state="Error"/>
+					<m:ObjectStatus title="Warning Threshold mark " text="{=${SingleSelectData>/Crtlv}-1+2} - {=${SingleSelectData>/Cytlv}}" state="Warning"/>
+					<m:ObjectStatus title="Green Threshold mark " text="{=${SingleSelectData>/Cytlv}-1+2} - {=${SingleSelectData>/Cgtlv}}" state="Success"/>
+					<m:ObjectStatus title="Excess Threshold mark " text="{=${SingleSelectData>/Cgtlv}-1+2} - {=${SingleSelectData>/Cbtlv}}" state="Information"/>
+				</l:VerticalLayout>
+				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.editform" type="XML"/>
+				<l:VerticalLayout class="sapUiLargeMarginTop verticlecustomlayout"></l:VerticalLayout>
+				<l:VerticalLayout class="sapUiLargeMarginTop"></l:VerticalLayout>
+					<l:VerticalLayout class="sapUiLargeMarginTop"></l:VerticalLayout>
+				<l:VerticalLayout class="sapUiLargeMarginTop"></l:VerticalLayout>
+				<l:VerticalLayout class="sapUiLargeMarginTop"></l:VerticalLayout>
+				<l:VerticalLayout class="sapUiLargeMarginTop"></l:VerticalLayout>
+	
+				
+			</headerContent>
+		</ObjectPageLayout>
+			<m:beginButton>
+			<m:Button text="Save" type="Emphasized" press="onSaveThreshold"/>
+		</m:beginButton>
+		<m:endButton>
+			<m:Button text="Cancel" press="onCloseFu"/>
+		</m:endButton>
+	</m:Dialog>
+</core:FragmentDefinition>

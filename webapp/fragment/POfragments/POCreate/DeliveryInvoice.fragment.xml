@@ -1,0 +1,88 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox >
+		<f:Form id="DeliveryInvoice" editable="true">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+					emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Payment Terms">
+							<f:fields>
+								<Input id="Pmnttrms" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+									value="{PurchaseModel>/TempContract/Pmnttrms}" valueHelpRequest="handlePaymentTermsH"
+									suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="suggestionPaymentTermsH" editable="{EditModel>/isEditable}">
+									<suggestionItems>
+										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+									</suggestionItems>
+								</Input>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Payment In">
+							<f:fields>
+								<Input id="Dscnt1To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt1To}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Payment In">
+							<f:fields>
+								<Input id="Dscnt2To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt2To}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Payment In">
+							<f:fields>
+								<Input id="Dscnt3To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt3To}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Currency">
+							<f:fields>
+								<Input id="Currency1" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+									value="{PurchaseModel>/TempContract/Currency}" valueHelpRequest="handleCurrencyHeader"
+									suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="suggestionCurrencyHeader" editable="{EditModel>/isEditable}">
+									<suggestionItems>
+										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+									</suggestionItems>
+								</Input>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Exchange Rate">
+							<f:fields>
+								<Input id="ExchRate" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+									valueHelpRequest="handleExhangeRateHeader" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+									value="{PurchaseModel>/TempContract/ExchRate}" suggestionItemSelected="suggestionExhangeRateHeader" editable="{EditModel>/isEditable}">
+									<suggestionItems>
+										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
+									</suggestionItems>
+								</Input>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Incoterms">
+							<f:fields>
+								<Input id="Incoterms_1" value="{PurchaseModel>/TempContract/Incoterms1}" maxLength="3" editable="{EditModel>/isEditable}"
+									textFormatMode="KeyValue"/>
+								<Input id="Incoterms_2" value="{PurchaseModel>/TempContract/Incoterms2}" maxLength="28" editable="{EditModel>/isEditable}"
+									textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" ">
+							<f:fields>
+								<CheckBox id="ExchangeRateC" editable="{EditModel>/isEditable}" text="Exch.Rate Fixed"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" ">
+							<f:fields>
+								<CheckBox id="GrmsgC" editable="{EditModel>/isEditable}"  text="GR Message"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="InvoiceForm" editable="true" class="sapUiTinyMarginTop">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+					emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Process Status" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Select id="DpCategories" >
+									<items>
+											<core:Item text=" " key=" "/>
+										<core:Item text="Mandatory Down Payment" key="Mandatory Down Payment"/>
+										<core:Item text="No Down Payment" key="No Down Payment"/>
+										<core:Item text="Voluntory Down Payment" key="Voluntory Down Payment"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Block ID " class="sapUiResponsiveMargin ">
+							<f:fields>
+								<Select id="DiffInvoicing" >
+									<items>
+											<core:Item text=" " key=" "/>
+										<core:Item text="Not Relevent" key="Not Relevent"/>
+										<core:Item text="Relevent" key="Relevent"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+				
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Order Quantity " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="InvReceipt"  editable="{EditModel>/isEditable}" />
+									<Select id="Activ" >
+									<items>
+											<core:Item text=" " key=" "/>
+										<core:Item text="Not Relevent" key="Not Relevent"/>
+										<core:Item text="Relevent" key="Relevent"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="BLKG Text " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Blkgte" editable="{EditModel>/isEditable}"  />
+							</f:fields>
+						</f:FormElement>
+				
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

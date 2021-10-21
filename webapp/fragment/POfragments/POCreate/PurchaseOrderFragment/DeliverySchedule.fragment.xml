@@ -1,0 +1,94 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
+	<t:Table id="idDeliVeryschedule" rows="{path: 'PurchaseModel>/TempContract/PoScheduleSet' }" visibleRowCount="5" selectionMode="MultiToggle">
+		<t:extension>
+			<OverflowToolbar>
+				<Title text="Delivery Schedule"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://add" type="Transparent" id="idAddbuttonDS" class="remove-attr" tooltip="Add Row"
+					press="AddDeliveryScheduleHeaderItems"/>
+				<!--	<Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
+					tooltip="Delete Row" press="onDeleteItemBank"/>-->
+			</OverflowToolbar>
+		</t:extension>
+		<t:columns>
+			<t:Column width="5rem" hAlign="Center">
+				<Label text="Status "/>
+				<t:template>
+					<Input id="idDeliscStatus" class="mtid" editable="{EditModel>/isEditable}"></Input>
+				</t:template>
+			</t:Column>
+			<t:Column width="5rem" hAlign="Center">
+				<Label text="C "/>
+				<t:template>
+					<Input id="DelDatcatExt" class="mtid" editable="{EditModel>/isEditable}" value="{PurchaseModel>DelDatcatExt}"></Input>
+				</t:template>
+			</t:Column>
+			<t:Column hAlign="Center" width="9rem">
+				<Label text="Delivery Date"/>
+				<t:template>
+					<Input class="DeliveryDate" id="DeliveryDateSD" editable="{EditModel>/isEditable}" value="{PurchaseModel>DeliveryDate}"></Input>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Schedule Quantity "/>
+				<t:template>
+					<Input id="Quantity1" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Time"/>
+				<t:template>
+					<Input id="DelivTime" class="measure1"  editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Stat Del.Date"/>
+				<t:template>
+					<Input id="DeliveryDate" value="{PurchaseModel>DeliveryDate}" editable="{EditModel>/isEditable}"></Input>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="GR Quanttity"/>
+				<t:template>
+					<Input id="Quantity2" class="price1" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Purchase Request"/>
+				<t:template>
+					<Input id="PreqNo" class="price1" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Requison Items"/>
+				<t:template>
+					<Input id="PreqItem" class="price1" value="{PurchaseModel>PreqItem}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="No Exped"/>
+				<t:template>
+					<Input id="NoExpedSD" class="price1" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Open Quantity"/>
+				<t:template>
+					<Input id="OpenQuantitySD" class="price1" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Sch Line"/>
+				<t:template>
+					<Input id="SchedLine" class="price1" value="{PurchaseModel>SchedLine}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+			<t:Column width="9rem" hAlign="Center">
+				<Label text="Preq Closed."/>
+				<t:template>
+					<Input id="ReqClosed" class="price1" value="{PurchaseModel>ReqClosed}" editable="{EditModel>/isEditable}"/>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:Table>
+</core:FragmentDefinition>

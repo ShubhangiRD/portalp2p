@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="selectDialog"
+		 class="fragmentHeading"
+		title="Main Group Products"
+		items="{Lookup>/MainGroup}"
+		search="._handleMainGroupSearch"
+		confirm="._handleMainGroupClose"
+		cancel="._handleMainGroupClose">
+		<StandardListItem
+		title="{Lookup>Prodh1}"
+			description="{Lookup>Vtext1}" />
+	</SelectDialog>
+</core:FragmentDefinition>

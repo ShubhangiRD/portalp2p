@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<form:SimpleForm id="DelivAddress" class="sapUiTinyMarginTop" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4"
+			labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
+			columnsL="3" columnsM="1" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text="Office"/>
+				<Label text="Vendor Title" required="true"/>
+				<Input id="vtitle1" fieldGroupIds="Anreda" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleTitles" value="{PurchaseItems>/Anreda}" suggestionItems="{ path: 'Title>/results' }"
+					suggestionItemSelected="onSuggestidsex" editable="{EditModel>/isEditable}">
+					<suggestionItems>
+						<core:ListItem key="{Title>text}" text="{Title>key}" additionalText="{Title>text}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Vendor"/>
+				<Input maxLength="10" editable="{EditModel>/isEditable}" id="Vendor1"></Input>
+				<Input maxLength="35" id="Name1" editable="{EditModel>/isEditable}"></Input>
+				<Label text="Street/House no"/>
+				<Input maxLength="35" editable="{EditModel>/isEditable}" id="idStreet" placeholder=" Your Street">
+					<layoutData>
+						<l:GridData span="XL2 L3 M4 S4"/>
+					</layoutData>
+				</Input>
+				<Input maxLength="10" id="idAddno" editable="{EditModel>/isEditable}" type="Text" placeholder="Address Number"></Input>
+				<Label text="Fax"/>
+				<Input maxLength="31" id="idfax" editable="{EditModel>/isEditable}"/>
+				<core:Title text=" "/>
+				<Label text="Country Code" required="true"/>
+				<Input maxLength="3" id="idCountryCode" textFormatMode="KeyValue" placeholder=" Country Code " showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleValueHelpCountryCode" suggestionItems="{ path: 'Lookup>/CountryCodeRegion' }" editable="{EditModel>/isEditable}"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Land1}" text="{Lookup>Landx}" additionalText="{Lookup>Land1}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Region " required="true"/>
+				<Input id="idRegion" maxLength="3" type="Text" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpCust"
+					editable="{EditModel>/isEditable}" suggestionItems="{ path: 'hierarchy>/results'}" suggestionItemSelected="suggestionItemRegion">
+					<suggestionItems>
+						<core:Item key="{hierarchy>Bezei}" text="{hierarchy>Bland}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Postal Code" required="true"/>
+				<Input maxLength="10" editable="{EditModel>/isEditable}" change="changePostalCode" id="idPostcode" placeholder=" Postal Code "/>
+				<Input maxLength="35" value=" " editable="{EditModel>/isEditable}" id="idCity" placeholder=" City "/>
+				<Label text="Telphone"/>
+				<Input maxLength="16" id="idTel" editable="{EditModel>/isEditable}"/>
+				<Label text="SC Vend"/>
+				<CheckBox id="scVend" editable="{EditModel>/isEditable}"/>
+				<Button id="AddnrDetails" class="sapUiTinyMarginTop" text="Address Details"/>
+			</form:content>
+		</form:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

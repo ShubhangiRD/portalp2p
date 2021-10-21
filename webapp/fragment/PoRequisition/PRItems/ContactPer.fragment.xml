@@ -1,0 +1,67 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="ContForm" editable="true" class="sapUiTinyMarginTop">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+					emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Created By" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Creaby" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Created Indid." class="sapUiTinyMarginTop">
+							<f:fields>
+								<!--	<Input id="CreaInd" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+						-->
+								<Select id="CreaInd">
+									<items>
+										<core:Item text=" " key=" "/>
+										<core:Item text="Not Relevent" key="Not Relevent"/>
+										<core:Item text="Relevent" key="Relevent"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Requisitioner" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Requisitioner" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Purchase Group" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="PoGrpp" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="MRP Controller " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Mrpcont" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Changed On" class="sapUiTinyMarginTop">
+							<f:fields>
+								<DateTimePicker
+						 id="ChangeOnn" editable="{EditModel>/isEditable}"/>
+								
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Tracking Number " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="TracNum" editable="{EditModel>/isEditable}"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

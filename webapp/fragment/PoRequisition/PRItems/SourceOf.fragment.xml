@@ -1,0 +1,79 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="Retails" editable="true" class="sapUiTinyMarginTop">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+					emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Aggreement"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Agg1" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+								<Input id="Agg2" editable="{EditModel>/isEditable}"  maxLength="3"></Input>
+							</f:fields>
+						</f:FormElement>
+							<f:FormElement label="CentContr"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="CentContr1" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+								<Input id="CentContr2" editable="{EditModel>/isEditable}"  maxLength="3"></Input>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Fixed Vendor" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="idFixedVendor" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							</f:fields>
+						</f:FormElement>
+							<f:FormElement label="Info Record " class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="idInfoRec" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							</f:fields>
+						</f:FormElement>
+							<f:FormElement label="Desired Vendor" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="idDesiredVen" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+				<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Purchase Org"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Porg" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							
+							</f:fields>
+						</f:FormElement>
+									<f:FormElement label="Vendor Material No"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="VMatno" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+				<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Order Unit"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="OrUnit" width="50%" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							
+							</f:fields>
+						</f:FormElement>
+									<f:FormElement label="Suppl.Plant"  class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="SuppPlant" width="50%" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+							
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

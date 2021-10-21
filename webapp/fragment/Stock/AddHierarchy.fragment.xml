@@ -1,0 +1,75 @@
+
+
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Add Hierarchy " showHeader="true" id="idAddHierarchyitem" afterClose="onAfterClose" class="sapUiSizeCompact fragmentHeading"
+		contentHeight="200px">
+		<f:SimpleForm id="SimpleForm123" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanXL="4" labelSpanL="4"
+			labelSpanM="2" labelSpanS="4" singleContainerFullSize="false" class="sapUiSmallMarginTopBottom">
+			<f:content>
+				<VBox>
+					<HBox class="sapUiMediumMarginBegin">
+						<VBox>
+							<Label text="Main Group:" class="sapUiTinyMarginTop"/>
+							<Input id="MainGrpf" placeholder="Select Main Group" width="70%" showSuggestion="true" showValueHelp="true" valueHelpRequest="MainGroupSearchHelp"
+								value="{oHierarchyItems>/Maingrp}" suggestionItems="{ path: 'Lookup>/MainGroup' }" suggestionItemSelected="onSuggest" liveChange="alphabeticValidation">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Prodh1}" text="{Lookup>Vtext1}" additionalText="{Lookup>Prodh1}"/>
+								</suggestionItems>
+							</Input>
+						</VBox>
+						<VBox>
+							<Label text="Group:" class="sapUiTinyMarginTop"/>
+							<Input id="AddGroup" placeholder="Select Group" width="70%" showSuggestion="true" showValueHelp="true"
+								valueHelpRequest="handleValueHelpAddGroup" value="{oHierarchyItems>/Grp}" suggestionItems="{ path: 'Lookup>/GroupList' }"
+								suggestionItemSelected="onSuggest" liveChange="alphabeticValidation">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Prodh2}" text="{Lookup>Vtext2}" additionalText="{Lookup>Prodh2}"/>
+								</suggestionItems>
+							</Input>
+						</VBox>
+						<VBox>
+							<Label text="SubGroup:" labelFor="DP1" class="sapUiTinyMarginTop"/>
+							<Input id="AddSubGroup" placeholder="Sub Group" width="70%" showSuggestion="true" showValueHelp="true"
+								valueHelpRequest="handleValueHelpAddSubGroup" value="{oHierarchyItems>/Subgrp}" suggestionItems="{ path: 'Lookup>/SubGroupList' }"
+								suggestionItemSelected="onSuggest" liveChange="alphabeticValidation">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Prodh3}" text="{Lookup>Vtext3}" additionalText="{Lookup>Prodh3}"/>
+								</suggestionItems>
+							</Input>
+						</VBox>
+					<!--	<VBox>
+							<Label text="Date:" labelFor="DP1" class="sapUiTinyMarginTop"/>
+							<DatePicker id="DP11" placeholder="Enter Date" value="{oHierarchyItems>/Changedon}" change="handleChange" class="sapUiSmallMarginBottom"
+								width="70%"/>
+						</VBox>-->
+					</HBox>
+					<HBox class="sapUiMediumMarginTop sapUiMediumMarginBegin">
+						<VBox>
+							<Label text="Critical Threshold:" class="sapUiMediumMarginEnd"/>
+							<Input placeholder="Enter Value" value="{oHierarchyItems>/Crtlv}" liveChange="numValidate" width="70%" class="sapUiMediumMarginEnd"/>
+						</VBox>
+						<VBox>
+							<Label text="Warning Threshold:" class="sapUiMediumMarginEnd"/>
+							<Input placeholder="Enter Value" value="{oHierarchyItems>/Cytlv}" liveChange="numValidate" width="70%" class="sapUiMediumMarginEnd"/>
+						</VBox>
+						<VBox>
+							<Label text="Green Threshold:" class="sapUiMediumMarginEnd"/>
+							<Input placeholder="Enter Value" value="{oHierarchyItems>/Cgtlv}" liveChange="numValidate" width="70%" class="sapUiMediumMarginEnd"/>
+						</VBox>
+						<VBox>
+							<Label text="Excess Threshold:" class="sapUiMediumMarginEnd"/>
+							<Input placeholder="Enter Value" value="{oHierarchyItems>/Cbtlv}" liveChange="numValidate" width="70%" class="sapUiMediumMarginEnd"/>
+						</VBox>
+					</HBox>
+				</VBox>
+			</f:content>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Save" type="Emphasized" press="onAddProduct"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" press="onCloseAddHierarchyitems"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

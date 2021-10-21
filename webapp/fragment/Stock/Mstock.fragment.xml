@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
+	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
+		enableSelectAll="false" ariaLabelledBy="title">
+		<columns>
+			<Column width="13rem">
+				<m:Label text="Material"/>
+				<template>
+					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
+				</template>
+			</Column>
+			<Column width="9rem">
+				<m:Label text="Plant"/>
+				<template>
+					<m:Text text="{oStockDataModel>Werks}"/>
+				</template>
+			</Column>
+			<Column width="13rem">
+				<m:Label text="Available Quantity"/>
+				<template>
+					<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>
+				</template>
+			</Column>
+			<Column width="13rem" sorted="true">
+				<m:Label text="Current Threshold"/>
+				<template>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>CurrentThread' }"
+						state="{= ${oStockDataModel>CurrentThread} > ${oStockDataModel>Labst} ? 'Warning' : ${oStockDataModel>Labst} > ${oStockDataModel>CurrentThread} ? 'Error' : 'Success'}"/>
+				</template>
+			</Column>
+			<Column width="13rem">
+				<m:Label text="Previous Threshold"/>
+				<template>
+					<m:Text text="{oStockDataModel>PreviousThread}" wrapping="false"/>
+				</template>
+			</Column>
+			<Column width="13rem">
+				<m:Label text="Date"/>
+				<template>
+					<m:Text text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						wrapping="false"/>
+				</template>
+			</Column>
+		</columns>
+	</TreeTable>
+</core:FragmentDefinition>

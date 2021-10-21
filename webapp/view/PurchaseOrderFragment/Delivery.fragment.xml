@@ -1,0 +1,146 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<f:Form id="DeliveryForm" editable="true" class="sapUiTinyMarginTop">
+			<f:layout>
+				<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0"
+					emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Overdeliv Tool" class="sapUiTinyMarginTop">
+							<f:fields>
+								
+								<Input id="OverDlvTol" value="{PurchaseItems>/OverDlvTol}" editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue"></Input>
+									<CheckBox id="UnlimitedDlv" editable="{EditModel>/isEditable}" selected="{PurchaseItems>/UnlimitedDlv}" select="onClicked" text="Unlimited"/>
+						
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="UnderDeliv Tool" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="UnderDlvTol" value="{PurchaseItems>/UnderDlvTol}" editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue"/>
+									<CheckBox id="OrigAccept" editable="{EditModel>/isEditable}" selected="{PurchaseItems>/OrigAccept}" select="onClicked" text="Origin accept"/>
+					
+							</f:fields>
+						</f:FormElement>
+							<f:FormElement label="Shippping Instruction" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Select id="ShipppingInstruction">
+									<items>
+										<core:Item text=" " key=" "/>
+										<core:Item text="Shippping Instruction 1 " key="Shippping Instruction 1 "/>
+										<core:Item text=" Shippping Instruction 2" key=" Shippping Instruction 2"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Stock type" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Select id="Stocktype">
+									<items>
+										<core:Item text="Unrestricted Use" key=" Unrestricted Use"/>
+										<core:Item text="Quality inspection" key=" Quality inspection"/>
+										<core:Item text="Blocked Stock" key=" Blocked Stock"/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+					
+						<f:FormElement label="Rem Shelf Life" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="RemShelfLife" editable="{EditModel>/isEditable}" maxLength="4" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+					
+						<f:FormElement label="QA Control Key" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Select id="QAControlKey">
+									<items>
+										<core:Item text=" " key=" "/>
+										<core:Item text=" " key=" "/>
+									</items>
+								</Select>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="1Rem/Exped." class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Reminder1" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder1}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="2Rem/Exped." class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Reminder2" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder2}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="3Rem/Exped." class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Reminder3" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder3}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="No Exped." class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Volume" maxLength="3" value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+							<f:FormElement label="PL Deliv Time" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="PlanDel" editable="{EditModel>/isEditable}" value="{PurchaseItems>/PlanDel}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="GR Proc Time" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="GrPrTime" editable="{EditModel>/isEditable}" value="{PurchaseItems>/GrPrTime}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Latest GR Date" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="GrToDate" value="{PurchaseItems>/GrToDate}" editable="{EditModel>/isEditable}" maxLength="8" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label="Incoterms" class="sapUiTinyMarginTop">
+							<f:fields>
+								<Input id="Incoterms1" maxLength="3" value="{PurchaseItems>/Incoterms1}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
+								<Input id="Incoterms2" maxLength="28" value="{PurchaseItems>/Incoterms2}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+					<!--	<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								</f:fields>
+						</f:FormElement>-->
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								<CheckBox id="GrInd" editable="{EditModel>/isEditable}" selected="{PurchaseItems>/GrInd}" select="onClicked" text="Good Receipt"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								<CheckBox id="GrNonVal" editable="{EditModel>/isEditable}" selected="{PurchaseItems>/GrNonVal}" select="onClicked" text="GR non Voluated"/>
+							</f:fields>
+						</f:FormElement>
+						<f:FormElement label=" " class="sapUiTinyMarginTop">
+							<f:fields>
+								<CheckBox id="NoMoreGr" editable="{EditModel>/isEditable}" selected="{PurchaseItems>/NoMoreGr}" select="onClicked" text="Delivery Complete"/>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</VBox>
+</core:FragmentDefinition>

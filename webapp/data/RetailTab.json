@@ -1,0 +1,23 @@
+{
+	"results": [{
+			"text": "Non-allocation-table-relevent"
+		
+		}, {
+			"text": "Allocation-table-relevent: placement in storage"
+	
+		}, {
+			"text": "Allocation-table-relevent: cross-docking"
+		
+		}, {
+			"text": "Allocation-table-relevent: flow through"
+		
+		}, {
+			"text": "Allocation-table-relevent: cross-docking/flow through"
+		
+		}, {
+			"text": "Allocation-table-relevent: cross-docking/placement in storage"
+		
+		}
+
+	]
+}

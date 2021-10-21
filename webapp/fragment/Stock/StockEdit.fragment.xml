@@ -1,0 +1,58 @@
+<core:FragmentDefinition 	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m" xmlns:core="sap.ui.core" 	>
+	<Dialog class="titleClassEdit" title=" " id="EditDialog" afterClose="onAfterClose" contentHeight="350px" contentWidth="600px">
+	<ObjectHeader
+		id="oh1"
+		responsive="true"
+	
+		intro="{Description}"
+		title="Material Number : {SingleSelectData>/Matnr}"
+		number="{Price}"
+		numberUnit="{CurrencyCode}"
+		showMarkers="true"
+		markFlagged="true"
+		markFavorite="true"
+		numberState="Success"
+		backgroundDesign="Translucent">
+		<attributes>
+			<ObjectAttribute
+				title="Manufacturer"
+				text="{SupplierName}"/>
+		</attributes>
+		<statuses>
+			<ObjectStatus
+				title="Approval"
+				text="Pending"
+				state="Warning"/>
+		</statuses>
+		<headerContainer>
+			<HeaderContainer scrollStep="200" id="headerContainer" scroll="onScroll" content="{/ContentData/}">
+				<NumericContent size="S" scale="M" value="{value}" valueColor="{color}" indicator="{growth}" press="press" />
+			</HeaderContainer>
+		</headerContainer>
+	</ObjectHeader>
+	<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanXL="2" labelSpanL="2"
+		labelSpanM="2" labelSpanS="5" class="sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+		<f:content>
+			<Label text="Threshold Level" class="customLabel"/>
+			<Select id="SelectTdlevel" width="20%" >
+				<items>
+					<core:Item key="Red" text="Critical"/>
+					<core:Item key="Green" text="Green"/>
+					<core:Item key="Yellow" text="Warning"/>
+					<core:Item key="Blue" text="Excess "/>
+				</items>
+			</Select>
+			<Label text="New Value" class="customLabel"/>
+			<Input id="idNewValue" width="15%" class="editInputclass" placeholder="Enter Value"/>
+		</f:content>
+	</f:SimpleForm>
+		<beginButton>
+			<Button text="Save" press="onSaveThreshold"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" press="onCloseFu"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,98 @@
+<mvc:View controllerName="com.vSimpleApp.controller.ManageStockTable" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core" >
+	<Page showHeader="false">
+	<tnt:ToolHeader>
+		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Button>
+		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Image>
+		<FlexBox direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<FlexBox class="logoContent" direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://comment" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Switch>
+	</tnt:ToolHeader>
+	<form:SimpleForm id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+		labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
+		class="sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+		<form:content>
+			<!--	//	<Button text="Allq" id="idAll2" visible="false" press="onFilterSelect"/>
+	-->
+			<Button text="All" id="idAll" type="Default" press="onFilterSelect"/>
+			<Button text="Critical" id="idRedb" type="Reject" class="redClassButton" press="onFilterSelect"/>
+			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect"/>
+			<Button text="Green" type="Accept" id="idGreenb" class="GreenClassButton" press="onFilterSelect"/>
+			<Button text="Excess" id="idBlueb" class="BlueClassButton" press="onFilterSelect"/>
+			<Button text="Allq" id="idAll2" visible="false" press="onFilterSelect"/>
+		
+		</form:content>
+	</form:SimpleForm>
+	<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+		visible="false" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"
+		columnsL="2" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+		<form:content>
+			<Button text="All" id="idAll1" press="onFilterSelectHierarchy"/>
+			<Button text="Critical" id="idRedb1" type="Reject" press="onFilterSelectHierarchy"/>
+			<Button text="Warning" id="idYellowb1" type="Attention" press="onFilterSelectHierarchy"/>
+			<Button text="Green" type="Accept" id="idGreenb1" press="onFilterSelectHierarchy"/>
+			<Button text="Excess" id="idBlueb1" press="onFilterSelectHierarchy"/>
+			<Button text="Allq" id="idAll3" visible="false" press="onFilterSelect"/>
+			
+			<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
+		</form:content>
+	</form:SimpleForm>
+	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckModel>/Material}" select="onShowTable"/>
+	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Hierarchy" selected="{oCheckModel>/Hierarchy}" select="onShowTable"/>
+	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material-Group" selected="{oCheckModel>/MaterialGroup}"
+		select="onShowTableFilterColumn"/>
+	<Button class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Filter" id="idFilterHier1" visible="false" press="onProductState"
+		select="onShowTableFilterColumn"/>
+
+	<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+		adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+		class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+		<form:content>
+			<core:Title text=" "/>
+			<Label text="Material" required="true"/>
+			<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+				value="{MatData>/Material}" liveChange="Validate"  suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+				<suggestionItems>
+					<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+				</suggestionItems>
+			</Input>
+			<core:Title text=" "/>
+			<Label text="Plant" required="true"/>
+			<Input id="Plant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+				value="{MatData>/Plant}" liveChange="Validate"  suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
+				<suggestionItems>
+					<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+				</suggestionItems>
+			</Input>
+			<core:Title text=" "/>
+			<Button text="Clear" id="idclearMaterial" visible="true" width="20%" press="OnclearFilter"/>
+		</form:content>
+	</form:SimpleForm>
+	<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Tablehirarchy" type="XML"/>
+	<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.tablestock" type="XML"/>
+	</Page>
+</mvc:View>

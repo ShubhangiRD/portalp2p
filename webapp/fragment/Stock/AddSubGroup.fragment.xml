@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="SubGroup List" class="sapUiPopupWithPadding fragmentHeading" items="{Lookup>/SubGroupList}"
+		search="_handleAddSubGroupSearch" confirm="_handleAddSubGroupClose" cancel="_handleAddSubGroupClose">
+		<StandardListItem title="{Lookup>Prodh3}" info="{Lookup>Vtext3}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

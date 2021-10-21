@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="selectDialog"
+		title="SubGroup Products"
+		items="{/ProductCollection}"
+		search="._handleSubGroupSearch"
+		confirm="._handleSubGroupClose"
+		cancel="._handleSubGroupClose">
+		<StandardListItem
+		
+			title="{Name}"
+			description="{ProductId}" />
+	</SelectDialog>
+</core:FragmentDefinition>
