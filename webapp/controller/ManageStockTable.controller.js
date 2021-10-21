@@ -136,15 +136,6 @@ sap.ui.define([
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
 
-
-
-
-
-
-
-
-
-
 			this.initializeView();
 		},
 		initializeView: function() {
