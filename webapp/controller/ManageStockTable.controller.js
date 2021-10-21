@@ -30,7 +30,7 @@ sap.ui.define([
     'sap/m/MessageView',
     'sap/m/Popover',
     'sap/m/Bar',
-        'sap/ui/core/IconPool'
+     'sap/ui/core/IconPool'
 
 ], function(Controller, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator, JSONModel, library, Input, Fragment,
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
@@ -42,6 +42,7 @@ sap.ui.define([
 	var yellow;
 	var green;
 	var blue;
+	
 	var sPathSingle, sPathHierarchy;
 	var oController;
 	var oMaterialList = [];
