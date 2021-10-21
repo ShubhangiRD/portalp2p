@@ -16,6 +16,7 @@ sap.ui.define(function() {
 					sIcon = "";
 			}
 			return sIcon;
+			
 		},
 		
 		workflowIcon : function (sValue) {
