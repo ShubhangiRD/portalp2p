@@ -5,7 +5,7 @@
     <layout:FixFlex id='chartFixFlex' minFlexSize="250">
         <!--Below is the setting panel -->
         <layout:fixContent>
-          
+         
         </layout:fixContent>
        <!-- <layout:flexContent>
             <viz:Popover id="idPopOver"></viz:Popover>
