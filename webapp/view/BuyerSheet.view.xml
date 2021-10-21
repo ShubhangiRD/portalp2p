@@ -34,79 +34,23 @@
                 </viz:feeds>
             </viz:VizFrame>
         </layout:flexContent>-->
- <!--<layout:flexContent>  <viz:Popover id="idPopOver2"></viz:Popover>
-            <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
-                height='100%' width="100%" vizType='area'>
-                <viz:dataset>
-                    <viz.data:FlattenedDataset data="{oStockDataModel>/}">
-                        <viz.data:dimensions>
-                            <viz.data:DimensionDefinition name="Material"
-                                value="{oStockDataModel>Matnr}" />
-                        </viz.data:dimensions>
-                        <viz.data:measures>
-                            <viz.data:MeasureDefinition name="Stock"
-                                value="{Labst}" />
-                            <viz.data:MeasureDefinition name="Sales Order"
-                                value="{OpenSalesOrder}" />
-                        </viz.data:measures>
-                    </viz.data:FlattenedDataset>
-                </viz:dataset>
 
-                <viz:feeds>
-                    <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure"
-                        values="Stock" />
-                    <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension"
-                        values="Material" />
-                </viz:feeds>
-            </viz:VizFrame>
-           </layout:flexContent>-->
-           
-           
-           
-        <!--   <layout:flexContent>
-            <viz:Popover id="idPopOver"></viz:Popover>
-            <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
-                height='100%' width="100%" vizType='area'>
-                <viz:dataset>
-                    <viz.data:FlattenedDataset data="{oStockDataModel>/}">
-                        <viz.data:dimensions>
-                            <viz.data:DimensionDefinition name="Material"
-                                value="{Matnr}" />
-                        </viz.data:dimensions>
-                        <viz.data:measures>
-                            <viz.data:MeasureDefinition name="Revenue"
-                                value="{Labst}" />
-                            <viz.data:MeasureDefinition name="Cost"
-                                value="{OpenSalesOrder}" />
-                        </viz.data:measures>
-                    </viz.data:FlattenedDataset>
-                </viz:dataset>
-
-                <viz:feeds>
-                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure"
-                        values="Revenue" />
-                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension"
-                        values="Material" />
-                </viz:feeds>
-            </viz:VizFrame>
-        </layout:flexContent>-->
-        
         
         
           <layout:flexContent>
             <viz:Popover id="idPopOver"></viz:Popover>
             <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
-                height='100%' width="100%" vizType='combination'>
+             vizProperties="{ title: {text : 'Stock vs Sales', visible : true}}"   height='100%' width="100%" vizType='combination'>
                 <viz:dataset>
                     <viz.data:FlattenedDataset data="{oStockDataModel>/}">
                         <viz.data:dimensions>
-                            <viz.data:DimensionDefinition name="Week"
+                            <viz.data:DimensionDefinition name="Material"
                                 value="{Matnr}" />
                         </viz.data:dimensions>
                         <viz.data:measures>
                             <viz.data:MeasureDefinition name="Revenue"
                                 value="{OpenSalesOrder}" />
-                            <viz.data:MeasureDefinition name="Cost"
+                            <viz.data:MeasureDefinition name="Stock in Hand"
                                 value="{Labst}" />
                             <viz.data:MeasureDefinition name="Cost2"
                                 value="{OpenSalesOrder}" />
@@ -120,9 +64,9 @@
                     <viz.feeds:FeedItem uid="valueAxis" type="Measure"
                         values="Revenue" />
                     <viz.feeds:FeedItem uid="valueAxis" type="Measure"
-                        values="Cost" />
+                        values="Stock in Hand" />
                     <viz.feeds:FeedItem id="feedCategoryAxis" uid="categoryAxis" type="Dimension"
-                        values="Week" />
+                        values="Material" />
                 </viz:feeds>
             </viz:VizFrame>
         </layout:flexContent>
