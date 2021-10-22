@@ -3,7 +3,7 @@
 	<!--	<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true">
 -->
 	<Table id="awaitingTable" class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiSmallMarginTop TableMarginClass" width="1250px"
-	  mode="SingleSelectLeft"   selectionChange="getPath"
+	   selectionChange="getPath"
       	items="{ path: 'oStockDataModel>/'}" visible="{VisibleModel>/MaterialTable}">
 		<headerToolbar>
 			<Toolbar>
