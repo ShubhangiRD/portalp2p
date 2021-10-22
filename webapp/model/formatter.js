@@ -3,6 +3,7 @@ sap.ui.define([
 ], function(JSONModel) {
 	"use strict";
 	var oExcess = [];
+	var oExcessHierarchy =[];
 
 	return {
 
@@ -77,7 +78,7 @@ sap.ui.define([
 
 		},
 
-		HierarchyColorState: function(quantity, red, yellow, green, blue) {
+		HierarchyColorState: function(quantity, red, yellow, green, blue,Maingrp) {
 			quantity = quantity;
 			red = red;
 			yellow = yellow;
@@ -91,6 +92,18 @@ sap.ui.define([
 
 			if (quantity > green) {
 				this.getView().getModel("HierarchyData").setProperty("/" + sColumnlength + "/Color", "blue");
+				
+					oExcessHierarchy.push({
+					quantity: quantity,
+					Maingrp: Maingrp
+				});
+
+				this.getView().getModel("oExcessHierarchy").setData(oExcessHierarchy);
+				var length = oExcessHierarchy.length;
+				var count = new JSONModel({
+					count: length
+				});
+				this.getView().setModel(count, "countMod");
 				return "Information";
 
 			} else if (quantity > yellow && quantity < green) {

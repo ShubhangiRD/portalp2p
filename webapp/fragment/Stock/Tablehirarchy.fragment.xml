@@ -8,6 +8,7 @@
 			<Toolbar>
 				<Title text="Stock thresholds" level="H2"/>
 				<ToolbarSpacer/>
+					<Button tooltip ="Notification" type="Attention" text="{countMod>/count}"  id="onbellid2" icon="sap-icon://bell" press="onNotify"/>
 				<Button  icon="sap-icon://refresh" press="OnclearFilterHierarchy"/>
 				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="onAddproductitem" press="onAddHierarchyitems"/>
 		<!--	<Button tooltip="{i18n>addItem}" text="AutoPo"  id="idAutoHier" press="AutoPoCreationforHierarchy"/>
@@ -59,7 +60,7 @@
 					<ObjectIdentifier title="{HierarchyData>Grp}"/>
 					<ObjectIdentifier title="{HierarchyData>Subgrp}"/>
 					<ObjectNumber number="{HierarchyData>Labst}"
-						state="{ parts: [ {path: 'HierarchyData>Labst'}, {path: 'HierarchyData>Crtlv'}, {path: 'HierarchyData>Cytlv'}, {path: 'HierarchyData>Cgtlv'}, {path: 'HierarchyData>Cbtlv'} ], formatter: '.formatter.HierarchyColorState' }"/>
+						state="{ parts: [ {path: 'HierarchyData>Labst'}, {path: 'HierarchyData>Crtlv'}, {path: 'HierarchyData>Cytlv'}, {path: 'HierarchyData>Cgtlv'}, {path: 'HierarchyData>Cbtlv'} ,{path: 'HierarchyData>Maingrp'}], formatter: '.formatter.HierarchyColorState' }"/>
 					<!--	<ObjectIdentifier title="{HierarchyData>Unit}"/>-->
 					<ObjectNumber number="0 - {=${HierarchyData>Crtlv}}" state="Error"></ObjectNumber>
 					<ObjectNumber number='{=${HierarchyData>Crtlv}-1+2} - {=${HierarchyData>Cytlv}}' state="Warning"></ObjectNumber>

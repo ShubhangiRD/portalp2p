@@ -88,6 +88,8 @@ sap.ui.define([
 			//	this.getStockDetailList();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
+var oExcessHierarchy = new JSONModel();
+			oView.setModel(oExcessHierarchy, "oExcessHierarchy");
 
 			var oAutoPoCreation = new JSONModel();
 			oView.setModel(oAutoPoCreation, "AutoPoData");
@@ -392,46 +394,7 @@ sap.ui.define([
 
 			//	});	
 
-			/*	return new Promise(function(res,rej){
-					var	sMaterial = ListofSrs[ls].Matnr,
-						sShorttext =ListofSrs[ls].Description,
-						sPlant = ListofSrs[ls].Werks;
-						var ld= 0;
-							var oPurchaseModel = oView.getModel("PurchaseModel");
-			var oContract = oPurchaseModel.getProperty("/TempContract");
-			var oRequestPayload = oContract.getPayloadRefill();
-			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + ld +" /Ematerial", sMaterial);
-			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + ld +" /Material",sMaterial);
-			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + ld +" /ShortText",sShorttext);
-			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + ld +" /Plant",sPlant);
-							oModels.create("/PoDisplaySet", oRequestPayload, {
-				success:function(oRes, obj){
-					var PoNumber = oRes.data.PoNumber;
-						jQuery.sap.require("sap.m.MessageBox");
-			sap.m.MessageBox.show("Standard PO updated under the number  #" + PoNumber + " ", {
-
-				icon: sap.m.MessageBox.Icon.INFORMATION,
-
-				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
-				onClose: function(oAction) {
-					if (oAction === "OK") {
-						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('ManageStockTable');
-					}
-				}.bind(this)
-			});
-				},
-				 
-				error: function(Error){
-				
-					jQuery.sap.require("sap.m.MessageBox");
-					sap.m.MessageBox.error(
-							"Error creating entry: " + Error.statusCode + " (" + Error.statusText + ")", {
-					details: Error.responseText
-				});
-				}
-			});
-					});*/
+	
 
 		},
 		//	});
@@ -2562,7 +2525,93 @@ sap.ui.define([
         
 
 
+		},
+		
+		
+			onNotifyHierarchy: function(oEvent) {
+			var oModel = oView.getModel("oExcessHierarchy");
+			console.log(oModel.oData);
+			var length = oModel.oData.length;
+		
+		var oMessageTemplate = new MessageItem({
+                type: 'Warning',
+                title:  '{Maingrp}' +" " + "material is in excess quantity" ,
+                description: 'material is in excess quantity',
+                subtitle: '{quantity}',
+                counter: '{counter}',
+                markupDescription: "{markupDescription}",
+                // link: oLink
+            });
+          /*  var aMockMessages = [{
+                type: 'Warning',
+                title: 'Error message',
+                description: 'First Error message description. \n' +
+                'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod',
+                subtitle: 'Example of subtitle',
+                counter: 1
+            }];*/
+            var oModel2 = new JSONModel(),
+                that = this;
+            oModel2.setData(oModel.oData);
+            this.oMessageView = new MessageView({
+                    showDetailsPageHeader: false,
+                    itemSelect: function () {
+                        oBackButton.setVisible(true);
+                    },
+                    items: {
+                        path: "/",
+                        template: oMessageTemplate
+                    }
+                });
+            var oBackButton = new Button({
+                    icon: IconPool.getIconURI("nav-back"),
+                    visible: false,
+                    press: function () {
+                        that.oMessageView.navigateBack();
+                        that._oPopover.focus();
+                        this.setVisible(false);
+                    }
+                });
+            this.oMessageView.setModel(oModel2);
+            var oCloseButton =  new Button({
+                    text: "Close",
+                    press: function () {
+                        that._oPopover.close();
+                    }
+                }),
+                oPopoverFooter = new Bar({
+                    contentRight: oCloseButton
+                }),
+                oPopoverBar = new Bar({
+                    contentLeft: [oBackButton],
+                    contentMiddle: [
+                        new Text({
+                            text: "Messages"
+                        })
+                    ]
+                });
+            this._oPopover = new Popover({
+                customHeader: oPopoverBar,
+                contentWidth: "1000px",
+                contentHeight: "400px",
+                verticalScrolling: false,
+                modal: true,
+                content: [this.oMessageView],
+                footer: oPopoverFooter
+            });
+            
+        
+
+
+
+   
+            this.oMessageView.navigateBack();
+            this._oPopover.openBy(oEvent.getSource());
+        
+
+
 		}
+		
 
 	});
 });

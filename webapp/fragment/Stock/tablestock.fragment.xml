@@ -9,7 +9,7 @@
 			<Toolbar>
 				<Title text="Stock Material Details" level="H2"/>
 				<ToolbarSpacer/>
-					<Button tooltip ="Notification" type="Attention" text="{count>/count}"  id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+					<Button tooltip ="Notification" type="Attention" text="{count>/count}"  id="onbellid" icon="sap-icon://bell" press="onNotifyHierarchy"/>
 				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
 		<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->		<Button tooltip="{i18n>addItem}" text="MassUpdate"  id="idMassUpdate" press="MassUpdatePo"/>
