@@ -42,6 +42,16 @@
 			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
 				<Text text="Available Qnty"/>
 			</Column>
+			
+				
+				<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Stock in hand"/>
+			</Column>
+			
+				<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+				<Text text="Open sales order"/>
+			</Column>
+			
 			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
 				<Text text="Unit"/>
 			</Column>
@@ -80,6 +90,8 @@
 					<ObjectIdentifier title="{oStockDataModel>Subgrp}"/>
 					<ObjectNumber number="{oStockDataModel>Labst}"
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+					<ObjectIdentifier title="{oStockDataModel>Labst}"/>
+					<ObjectIdentifier title="{oStockDataModel>OpenSalesOrder}"/>
 					<ObjectIdentifier title="{oStockDataModel>Unit}"/>
 					<ObjectNumber number="0 - {=${oStockDataModel>Crtlv}}" state="Error"></ObjectNumber>
 					<ObjectNumber number='{=${oStockDataModel>Crtlv}-1+2} - {=${oStockDataModel>Cytlv}}' state="Warning"></ObjectNumber>
