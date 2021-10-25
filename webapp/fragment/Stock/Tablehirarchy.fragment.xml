@@ -8,7 +8,7 @@
 			<Toolbar>
 				<Title text="Stock thresholds" level="H2"/>
 				<ToolbarSpacer/>
-					<Button tooltip ="Notification" type="Attention" text="{countMod>/count}"  id="onbellid2" icon="sap-icon://bell" press="onNotify"/>
+					<Button tooltip ="Notification" type="Attention" text="{countMod>/count}"  id="onbellid2" icon="sap-icon://bell" press="onNotifyHierarchy"/>
 				<Button  icon="sap-icon://refresh" press="OnclearFilterHierarchy"/>
 				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="onAddproductitem" press="onAddHierarchyitems"/>
 		<!--	<Button tooltip="{i18n>addItem}" text="AutoPo"  id="idAutoHier" press="AutoPoCreationforHierarchy"/>
