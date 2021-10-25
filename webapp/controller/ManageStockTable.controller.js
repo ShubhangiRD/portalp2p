@@ -138,6 +138,9 @@ sap.ui.define([
 			AddIteamModel.loadData("utils/ItemChoice.json");
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
+              var oSaleModel = new JSONModel();
+            oView.setModel(oSaleModel, "oSaleModel");
+              this.getSalesOrderDetails();
 
 			this.initializeView();
 		},
@@ -2610,7 +2613,113 @@ sap.ui.define([
         
 
 
-		}
+		},
+			//sales order service
+	getSalesOrderDetails:function(){
+		var oModel = this.getOwnerComponent().getModel("StockModel");
+		oModel.read("/SalesOrdersSet ", {
+				success: function(oData) {
+				// 	var data = oData.results;
+				// 	var data2=[];
+					
+				// 	console.log("data-----------------")
+				// 	console.log(data);
+				// 	oView.getModel("oSaleModel");
+				// console.log("-----------------")
+				// 	for(var i=0 ; i<data.length;i++){
+				// 		if(!uniqueMatnr.includes(data[i].Matnr)){
+					
+						 
+				// 		    uniqueMatnr.push(data[i].Matnr)
+						 	
+						 
+						 	
+				// 		}
+						
+				     
+				// 	}
+				// 	console.log(uniqueMatnr)
+				// 	console.log(data2);
+					
+				// 		for(var x=0 ;x<uniqueMatnr.length;x++)
+				// 			var orderCount = 0;
+				// 			for(var j=0 ;j<data.length; j++){
+				// 		 		if(uniqueMatnr[x].===data[j].Matnr){
+				// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
+				// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
+				// 		 		}
+				// 		 	data2.push(data[j]);
+						 	     
+				// 		 	}
+				
+				
+				var iItem = oData.results.length;
+						var aListofVendoritem = [];
+						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+							//		console.log(iRowIndex);
+							var Matnr = oData.results[iRowIndex].Matnr;
+							aListofVendoritem.push({
+								Matnr: Matnr
+							
+							});
+						}
+						var index = {};
+					
+						aListofVendoritem.forEach(function(point) {
+							var key = "" + point.Matnr+ " ";
+							if (key in index) {
+								index[key].count++;
+							} else {
+								var newEntry = {
+									Matnr: point.Matnr,
+									Kwmeng:"",
+									count: 1
+								};
+								index[key] = newEntry;
+								result.push(newEntry);
+							}
+						});
+						//	console.log(result);
+						result.sort(function(a, b) {
+							return b.count - a.count;
+						});
+						//		console.log(result);
+						var sResultlengrh = result.length; 
+					
+					console.log(result);
+				  
+					var data=oData.results;
+					
+								for(var x=0 ;x<result.length;x++){
+							var orderCount = 0;
+							for(var j=0 ;j<data.length; j++){
+						 		if(result[x].Matnr===data[j].Matnr){
+						 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
+						 	     result[x].Kwmeng=orderCount.toString();
+						 		}
+						 	     
+						 	}
+				
+								}
+						
+	                    oView.getModel("oSaleModel").setData(result);
+	               
+					
+		},	
+			
+	
+	
+		
+				
+					
+			
+				error: function(oError) {
+				
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+		});
+	}
 		
 
 	});
