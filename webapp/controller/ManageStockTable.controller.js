@@ -89,7 +89,7 @@ sap.ui.define([
 			//	this.getStockDetailList();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
-var oExcessHierarchy = new JSONModel();
+			var oExcessHierarchy = new JSONModel();
 			oView.setModel(oExcessHierarchy, "oExcessHierarchy");
 
 			var oAutoPoCreation = new JSONModel();
@@ -2552,8 +2552,8 @@ var oExcessHierarchy = new JSONModel();
 		
 		var oMessageTemplate = new MessageItem({
                 type: 'Warning',
-                title:  '{Maingrp}' +" " + "material is in excess quantity" ,
-                description: 'material is in excess quantity',
+                title:  '{Maingrp}' +" " + "is in excess quantity" ,
+                description: '{Maingrp}'+" " +'is in excess quantity',
                 subtitle: '{quantity}',
                 counter: '{counter}',
                 markupDescription: "{markupDescription}",
