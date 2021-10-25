@@ -48,6 +48,7 @@ sap.ui.define([
 	var oMaterialList = [];
 	var allfiltersLevelFirst = [],
 		allfiltersLevelSecond = [];
+		var result =[];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -139,7 +140,7 @@ var oExcessHierarchy = new JSONModel();
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
               var oSaleModel = new JSONModel();
-            oView.setModel(oSaleModel, "oSaleModel");
+            sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
               this.getSalesOrderDetails();
 
 			this.initializeView();
@@ -288,6 +289,17 @@ var oExcessHierarchy = new JSONModel();
 								}
 							}
 						}
+						
+										if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <=result.length-1; x1++) {
+							
+								if (Matnr === result[x1].Matnr) {
+								var sOpenSalesOrder = result[x1].Kwmeng;
+                                
+								}
+							}
+						}
+					
 						var Pbtlv = odataset.Pbtlv;
 						var Pgtlv = odataset.Pgtlv;
 
@@ -311,6 +323,7 @@ var oExcessHierarchy = new JSONModel();
 							Unit: "PC",
 							Matnr: Matnr,
 							Description: sMatDescription,
+							OpenSO: sOpenSalesOrder,
 							Pbtlv: Pbtlv,
 							Pgtlv: Pgtlv,
 							Prtlv: Prtlv,
@@ -320,9 +333,10 @@ var oExcessHierarchy = new JSONModel();
 
 						});
 						//	console.log(ListofSrs);
-
+                       
 						oView.getModel("oStockDataModel").setData(ListofSrs);
-
+                         sOpenSalesOrder="";
+                         console.log(ListofSrs);
 
 
 
@@ -2652,7 +2666,7 @@ var oExcessHierarchy = new JSONModel();
 						 	     
 				// 		 	}
 				
-				
+				console.log(oData);
 				var iItem = oData.results.length;
 						var aListofVendoritem = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -2686,7 +2700,7 @@ var oExcessHierarchy = new JSONModel();
 						//		console.log(result);
 						var sResultlengrh = result.length; 
 					
-					console.log(result);
+					// console.log(result);
 				  
 					var data=oData.results;
 					
@@ -2701,8 +2715,8 @@ var oExcessHierarchy = new JSONModel();
 						 	}
 				
 								}
-						
-	                    oView.getModel("oSaleModel").setData(result);
+							console.log(result);
+	                    sap.ui.getCore().getModel("oSaleModel").setData(result);
 	               
 					
 		},	
