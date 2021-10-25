@@ -88,7 +88,7 @@
 					<ObjectIdentifier title="{oStockDataModel>Maingrp}"/>
 					<ObjectIdentifier title="{oStockDataModel>Grp}"/>
 					<ObjectIdentifier title="{oStockDataModel>Subgrp}"/>
-					<ObjectNumber number="{oStockDataModel>Labst}"
+					<ObjectNumber number="{=${oStockDataModel>Labst} - ${oStockDataModel>OpenSO}}"
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 					<ObjectIdentifier title="{oStockDataModel>Labst}"/>
 					<ObjectIdentifier title="{oStockDataModel>OpenSO}"/>
