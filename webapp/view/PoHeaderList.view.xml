@@ -61,6 +61,7 @@
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
+						
 							<!--	<fb:FilterItem name="Ekorg" label="Purchase Org">
 								<fb:control>
 									<Select  id="idPurchaseOrg"  change="onSelectChange" forceSelection="true" items="{ path: 'PurchaseORg>/' }">
