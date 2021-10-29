@@ -1,11 +1,17 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-		enableSelectAll="false" ariaLabelledBy="title">
+class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSelectAll="false" ariaLabelledBy="title">
 		<columns>
 			<Column width="13rem">
 				<m:Label text="Material"/>
 				<template>
 					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
+				</template>
+			</Column>
+				<Column width="9rem">
+				<m:Label text="Company Level"/>
+				<template>
+					<m:Text text="{oStockDataModel>Bukrs}"/>
 				</template>
 			</Column>
 			<Column width="9rem">
@@ -21,25 +27,32 @@
 				</template>
 			</Column>
 				<Column width="9rem">
-				<m:Label text="Criticle"/>
+				<m:Label text="Criticle threshold"/>
 				<template>
-					<m:Text text="{oStockDataModel>Crtlv} " />
+				<m:ObjectNumber number="{oStockDataModel>Crtlv}" state="Error"></m:ObjectNumber>		
+						
+				
 				</template>
 			</Column>	<Column width="9rem">
-				<m:Label text="Success"/>
+				<m:Label text="Success threshold"/>
 				<template>
-					<m:Text text="{oStockDataModel>Cgtlv}"/>
+						<m:ObjectNumber number='{oStockDataModel>Cgtlv}' state="Success"></m:ObjectNumber>
+				
+		
 				</template>
 			</Column>	<Column width="9rem">
-				<m:Label text="Warning"/>
+				<m:Label text="Warning threshold" />
 				<template>
-					<m:Text text="{oStockDataModel>Cytlv}"/>
+					<m:ObjectNumber number='{oStockDataModel>Cytlv}' state="Warning"></m:ObjectNumber>
+				
 				</template>
 			</Column>
 				<Column width="9rem">
-				<m:Label text="Excess"/>
+				<m:Label text="Excess threshold"/>
 				<template>
-					<m:Text text="{oStockDataModel>Cbtlv}"/>
+						<m:ObjectNumber number='{oStockDataModel>Cbtlv}'
+						state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"></m:ObjectNumber>
+				
 				</template>
 			</Column>
 			<!--<Column width="13rem" sorted="true">-->

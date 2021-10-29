@@ -225,7 +225,7 @@ sap.ui.define([
 
 							}
 						});
-						//	console.log(result);
+					//		console.log(result);
 
 						result.sort(function(a, b) {
 							return b.count - a.count;

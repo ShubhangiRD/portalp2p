@@ -73,6 +73,7 @@ sap.ui.define([
 			//find out duplicate characters.
 
 		},
+		
 		getFindsame: function() {
 			var str = "SShubhhhhangi";
 
