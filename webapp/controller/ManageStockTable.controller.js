@@ -43,6 +43,10 @@ sap.ui.define([
 	var green;
 	var blue;
 
+		var StockList;
+
+
+
 	var sPathSingle, sPathHierarchy;
 	var oController;
 	var oMaterialList = [];
@@ -62,6 +66,7 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
+				this.getMaterialstockSet();
 			this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
@@ -142,9 +147,16 @@ sap.ui.define([
 			AddIteamModel.loadData("utils/ItemChoice.json");
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
+
+              var oSaleModel = new JSONModel();
+            sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
+              this.getSalesOrderDetails();
+		
+
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
 			this.getSalesOrderDetails();
+
 
 			this.initializeView();
 
@@ -638,7 +650,452 @@ sap.ui.define([
 			});
 		},
 
+			getStockDetailList: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			BusyIndicator.show(true);
+			oModel.read("/STOCK_DATASet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+				var ListofSrs = [];
+					var listOfMat = [];
+					var MaterialList = [];
+					var len = oData.results.length;
+					var childarray = [] ;
+				var InnerChild = [];
+			var	InnerinnerChild = [];
+				for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+					
+						var odataset = oData.results[iRowIndex];
+							var Werks = odataset.Werks;
+					
+						var Cbtlv = odataset.Cbtlv;
+						var Cgtlv = odataset.Cgtlv;
+						var Cytlv = odataset.Cytlv;
+						var Changedon = odataset.Changedon;
+						var Crtlv = odataset.Crtlv;
+						var Labst = odataset.Labst;
+
+				
+						var Matnr = odataset.Matnr;
+					
+						ListofSrs.push({
+							Cbtlv: Cbtlv,
+							Cgtlv: Cgtlv,
+							Cytlv: Cytlv,
+							Changedon: Changedon,
+							Crtlv: Crtlv,
+							Labst: parseInt(Labst),
+							Matnr: Matnr,
+							Werks: Werks,
+						MultipleIt: childarray
+						});
+						for (var j = 0; j < StockList.length; j++) {
+							var stock = StockList[j];
+							var Bukrs = stock.Bukrs;
+							var Lbkum = stock.Lbkum;
+							var Lgort = stock.Lgort;
+							var Werks = stock.Werks;
+
+							if(oData.results[iRowIndex].Matnr === StockList[j].Matnr ){
+								var total = [];
+									var r = "";
+								total.push(parseInt(stock.Lbkum));
+													
+							var sum = 0;
+							
+							for (var i = 0; i < total.length; i++) {
+							    sum += total[i];
+							}
+							console.log(sum);
+										
+							childarray.push({
+							Bukrs: Bukrs,
+							Labst: Lbkum,
+								Matnr: 'Company Level',
+						//	Lgort: Lgort,
+						//	Werks: Werks,
+							MultipleIt : InnerChild
+					
+								});
+								
+								
+									
+							InnerChild.push({
+						//	Bukrs: Bukrs,
+							Labst: Lbkum,
+						//	Lgort: Lgort,
+							Matnr: 'Plant',
+							Werks: Werks,
+							MultipleIt : InnerinnerChild
+					
+								});	
+								
+								
+											
+							InnerinnerChild.push({
+						//	Bukrs: Bukrs,
+							Labst: Lbkum,
+						
+							Matnr: 'SLoc',
+						
+					
+								});	
+								
+							InnerChild = [];	
+								InnerinnerChild = [];
+							//	childarray.push(StockList[j]);
+								console.log(StockList[j]);
+							}
+				}
+				
+						childarray = [];	
+				
+				}
+					console.log(ListofSrs);		
+					oView.getModel("oStockDataModel").setData(ListofSrs)
+				/*	var ListofSrs = [];
+					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+						var odataset = oData.results[iRowIndex];
+
+						var Werks = odataset.Werks;
+					
+						var Cbtlv = odataset.Cbtlv;
+						var Cgtlv = odataset.Cgtlv;
+						var Cytlv = odataset.Cytlv;
+						var Changedon = odataset.Changedon;
+						var Crtlv = odataset.Crtlv;
+						var Labst = odataset.Labst;
+
+				
+						var Matnr = odataset.Matnr;
+
+					if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < oMaterialList.length; x++) {
+								if (Matnr === oMaterialList[x].Materialno) {
+									var sMatDescription = oMaterialList[x].Description;
+
+								}
+							}
+						}
+
+		
+			var arr = [];
+						ListofSrs.push({
+							Cbtlv: Cbtlv,
+							Cgtlv: Cgtlv,
+							Cytlv: Cytlv,
+							Changedon: Changedon,
+							Crtlv: Crtlv,
+							Labst: parseInt(Labst),
+						//	Unit: "PC",
+							Matnr: Matnr,
+						
+							Werks: Werks,
+						//	Color: "",
+							MultipleIt: arr
+						});
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < oMaterialList.length; x++) {
+								if (Matnr === oMaterialList[x].Materialno) {
+									var sMatDescription = oMaterialList[x].Description;
+
+								}
+							}
+						}
+						
+						for(var sameitext=0 ; sameitext<=child.length ; i++){
+							
+						var odataset = oData.results[iRowIndex];
+
+						var Werks = odataset.Werks;
+					
+						var Cbtlv = odataset.Cbtlv;
+						var Cgtlv = odataset.Cgtlv;
+						var Cytlv = odataset.Cytlv;
+						var Changedon = odataset.Changedon;
+						var Crtlv = odataset.Crtlv;
+						var Labst = odataset.Labst;
+
+				
+						var Matnr = odataset.Matnr;
+							
+							arr.push({
+							Cbtlv: Cbtlv,
+							Cgtlv: Cgtlv,
+							Cytlv: Cytlv,
+							Changedon: Changedon,
+							Crtlv: Crtlv,
+							Labst: parseInt(Labst),
+							Matnr: Matnr,
+							Werks: Werks,
+							});
+						}
+						
+	
+				
+
+
+					
+						// var Cbtlv = parseInt(odataset.Cbtlv);
+						// var Cytlv = parseInt(odataset.Cytlv);
+						// var Cgtlv = parseInt(odataset.Cgtlv);
+						// var Changedon = odataset.Changedon;
+						// var Crtlv = parseInt(odataset.Crtlv);
+						// var Labst = parseInt(odataset.Labst);
+						// //	var Labst = LabstQuant * 1000;
+						// var Matnr = odataset.Matnr;
+						// var Pbtlv = odataset.Pbtlv;
+						// var Pgtlv = odataset.Pgtlv;
+						// var Prtlv = odataset.Prtlv;
+						// var Pytlv = odataset.Pytlv;
+						// var Werks = odataset.Werks;
+					
+/*
+						if (Labst < Crtlv) {
+							ListofSrs.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Crtlv,
+								PreviousThread: Prtlv,
+								MultipleIt: arr
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cgtlv,
+								PreviousThread: Pgtlv
+
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cytlv,
+								PreviousThread: Pytlv
+
+							});
+
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cbtlv,
+								PreviousThread: Pbtlv
+
+							});
+							console.log("red");
+
+						} else if (Labst > Crtlv && Labst <= Cytlv) {
+							ListofSrs.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cytlv,
+								PreviousThread: Pytlv,
+								MultipleIt: arr
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cgtlv,
+								PreviousThread: Pgtlv
+
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cbtlv,
+								PreviousThread: Pbtlv
+
+							});
+
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Crtlv,
+								PreviousThread: Prtlv
+
+							});
+						} else if (Labst > Cytlv && Labst <= Cgtlv) {
+							ListofSrs.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cgtlv,
+								PreviousThread: Pgtlv,
+								MultipleIt: arr
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cbtlv,
+								PreviousThread: Pbtlv
+
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cytlv,
+								PreviousThread: Pytlv
+
+							});
+
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Crtlv,
+								PreviousThread: Prtlv
+
+							});
+							console.log("green");
+						}
+
+						//3000 blue = 3500
+						else if (Labst > Cgtlv && Labst <= Cbtlv)
+						//	(Labst === Cbtlv ||  Cbtlv>minBlue  )
+
+						{
+							ListofSrs.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cbtlv,
+								PreviousThread: Pbtlv,
+								MultipleIt: arr
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cgtlv,
+								PreviousThread: Pgtlv
+
+							});
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cytlv,
+								PreviousThread: Pytlv
+
+							});
+
+							arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Crtlv,
+								PreviousThread: Prtlv
+
+							});
+						} else if (Labst > Cbtlv) {
+							console.log("blue")
+						}*/
+
+						/*	arr.push({
+								Matnr: Matnr,
+								Werks: Werks,
+								Labst: Labst,
+								Changedon: Changedon,
+								CurrentThread: Cbtlv,
+								PreviousThread: Pbtlv
+
+							});*/
+						/*	arr.push({
+							Matnr: Matnr,
+							Werks: Werks,
+							Labst: Labst,
+							Changedon: Changedon,
+							CurrentThread: Cgtlv,
+							PreviousThread: Pgtlv
+
+						});
+						arr.push({
+							Matnr: Matnr,
+							Werks: Werks,
+							Labst: Labst,
+							Changedon: Changedon,
+							CurrentThread: Cytlv,
+							PreviousThread: Pytlv
+
+						});
+
+						arr.push({
+							Matnr: Matnr,
+							Werks: Werks,
+							Labst: Labst,
+							Changedon: Changedon,
+							CurrentThread: Crtlv,
+							PreviousThread: Prtlv
+
+						});
+
+						ListofSrs.push({
+							Matnr: Matnr,
+							Werks: Werks,
+							Labst: Labst,
+							Changedon: Changedon,
+							CurrentThread: Cbtlv,
+							PreviousThread: Pbtlv,
+							MultipleIt: arr
+						});
+*/
+				//	}
+				//	console.log(ListofSrs);
+
+				//	oView.getModel("oStockDataModel").setData(ListofSrs);*/
+
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+		getMaterialstockSet1 : function() {
+		var	oModel = this.getOwnerComponent().getModel("StockModel");
+			 oModel.read('/getMaterialstockSet',{
+			 	success : function(odata){
+			 		StockList = odata.results;
+			 		console.log(odata);
+			 	},
+			 	error : function(oerror){
+			 		MessageBox.error(oerror);
+			 	}
+			 });
+		},
+		
+		                                                                                                                                                                                                       
+	
+
 		BuyerSheetChat: function(oEvent) {
+
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("BuyerSheet");
 		},
