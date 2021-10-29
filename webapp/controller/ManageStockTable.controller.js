@@ -42,11 +42,11 @@ sap.ui.define([
 	var yellow;
 	var green;
 	var blue;
-<<<<<<< HEAD
-		var StockList;
-=======
 
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
+		var StockList;
+
+
+
 	var sPathSingle, sPathHierarchy;
 	var oController;
 	var oMaterialList = [];
@@ -147,17 +147,17 @@ sap.ui.define([
 			AddIteamModel.loadData("utils/ItemChoice.json");
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
-<<<<<<< HEAD
+
               var oSaleModel = new JSONModel();
             sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
               this.getSalesOrderDetails();
 		
-=======
+
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
 			this.getSalesOrderDetails();
 
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
+
 			this.initializeView();
 
 			var oCompanyLevel = new JSONModel();
@@ -661,7 +661,7 @@ sap.ui.define([
 				}
 			});
 		},
-<<<<<<< HEAD
+
 			getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -1090,7 +1090,7 @@ sap.ui.define([
 				}
 			});
 		},
-		getMaterialstockSet : function() {
+		getMaterialstockSet1 : function() {
 		var	oModel = this.getOwnerComponent().getModel("StockModel");
 			 oModel.read('/getMaterialstockSet',{
 			 	success : function(odata){
@@ -1104,11 +1104,10 @@ sap.ui.define([
 		},
 		
 		                                                                                                                                                                                                       
-	BuyerSheetChat : function(oEvent){
-=======
+	
 
 		BuyerSheetChat: function(oEvent) {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
+
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("BuyerSheet");
 		},
