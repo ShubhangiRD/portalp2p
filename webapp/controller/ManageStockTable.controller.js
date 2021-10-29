@@ -50,7 +50,7 @@ sap.ui.define([
 		allfiltersLevelSecond = [];
 	var result = [];
 	var CompanyLevelset = [];
-	var TotalLabst =[];
+	var TotalLabst = [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -441,60 +441,55 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read('/getMaterialstockSet', {
 				success: function(odata) {
-					// console.log(odata);
 
 					CompanyLevelset = odata.results;
 					console.log(CompanyLevelset);
 
-					//oView.getModel("oCompanyLevel").setData(odata);
-								var iItem = odata.results.length;
-						var aListofVendoritem = [];
-						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-							//		console.log(iRowIndex);
-							var Matnr = odata.results[iRowIndex].Matnr;
-							aListofVendoritem.push({
-								Matnr: Matnr
+					var iItem = odata.results.length;
+					var ListItem = [];
+					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 
-							});
+						var Matnr = odata.results[iRowIndex].Matnr;
+						ListItem.push({
+							Matnr: Matnr
+
+						});
+					}
+					var index = {};
+
+					ListItem.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+						if (key in index) {
+							index[key].count++;
+						} else {
+							var newEntry = {
+								Matnr: point.Matnr,
+								Labst: "",
+								count: 1
+							};
+							index[key] = newEntry;
+							TotalLabst.push(newEntry);
 						}
-						var index = {};
+					});
 
-						aListofVendoritem.forEach(function(point) {
-							var key = "" + point.Matnr + " ";
-							if (key in index) {
-								index[key].count++;
-							} else {
-								var newEntry = {
-									Matnr: point.Matnr,
-									Labst: "",
-									count: 1
-								};
-								index[key] = newEntry;
-								TotalLabst.push(newEntry);
+					TotalLabst.sort(function(a, b) {
+						return b.count - a.count;
+					});
+
+					var data = odata.results;
+
+					for (var x = 0; x < TotalLabst.length; x++) {
+						var orderCount = 0;
+						for (var j = 0; j < data.length; j++) {
+							if (TotalLabst[x].Matnr === data[j].Matnr) {
+								orderCount = orderCount + parseInt(data[j].Lbkum)
+								TotalLabst[x].Labst = orderCount.toString();
 							}
-						});
-						//	console.log(result);
-						TotalLabst.sort(function(a, b) {
-							return b.count - a.count;
-						});
-						//		console.log(result);
-						var sResultlengrh = TotalLabst.length;
-                        console.log("====")
-						console.log(TotalLabst);
 
-						var data = odata.results;
+						}
 
-						// for (var x = 0; x < result.length; x++) {
-						// 	var orderCount = 0;
-						// 	for (var j = 0; j < data.length; j++) {
-						// 		if (result[x].Matnr === data[j].Matnr) {
-						// 			orderCount = orderCount + parseInt(data[j].Kwmeng)
-						// 			result[x].Kwmeng = orderCount.toString();
-						// 		}
-
-						// 	}
-
-						// }
+					}
+					// console.log(TotalLabst);
 
 				},
 				error: function(oerror) {
@@ -552,12 +547,16 @@ sap.ui.define([
 							}
 						}
 
-						if (!UniqueMatnr.includes(Matnr)) {
-							// UniqueMatnr.push({
-							// 	Matnr:Matnr,
-							// 	Labst:Labst
-							// });
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var z = 0; z < TotalLabst.length; y++) {
+								if (Matnr === TotalLabst[z].Matnr) {
+									var sTotalLabst = TotalLabst[z].Labst;
 
+								}
+							}
+						}
+
+						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
 
 							ListofSrs.push({
@@ -568,24 +567,20 @@ sap.ui.define([
 								Green: Cgtlv,
 								Blue: Cbtlv,
 								Werks: Werks,
-								Labst: Labst,
+								Labst: sTotalLabst,
 								Changedon: Changedon,
 
 								Color: "",
 								MultipleIt: arr
 							});
 							sCompanyCode = "";
-
+							sTotalLabst = "";
 							arr.push({
 								Matnr: "Plant",
 								CompanyCode: Werks,
-								// Labst: Labst,
+
 								Changedon: Changedon,
-								// Red: Crtlv,
-								// Yellow:Cytlv,
-								// Green:Cgtlv,
-								// Blue:Cbtlv,
-								// StorageLoc:Lgort
+
 								Plant: arr2
 
 							});
@@ -602,21 +597,14 @@ sap.ui.define([
 
 							});
 						} else {
-							// ListofSrs.push({
-								
-							// 	MultipleIt: arr
-							// });
-							var index = ListofSrs.length-1;
-					ListofSrs[index].MultipleIt.push({
+
+							var index = ListofSrs.length - 1;
+							ListofSrs[index].MultipleIt.push({
 								Matnr: "Plant",
 								CompanyCode: Werks,
-								// Labst: Labst,
+
 								Changedon: Changedon,
-								// Red: Crtlv,
-								// Yellow:Cytlv,
-								// Green:Cgtlv,
-								// Blue:Cbtlv,
-								// StorageLoc:Lgort
+
 								Plant: arr2
 
 							});
