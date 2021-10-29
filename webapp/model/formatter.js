@@ -43,7 +43,7 @@ sap.ui.define([
 			green = green;
 			blue = blue;
 
-			var oBinding1 = this.getView().byId("awaitingTable").getBinding("items");
+			var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 			var oModel = oBinding1.oModel.oData;
 			var slength = oBinding1.oModel.oData.length;
 			var sColumnlength = slength - 1;

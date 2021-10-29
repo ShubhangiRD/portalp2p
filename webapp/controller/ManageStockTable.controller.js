@@ -25,16 +25,16 @@ sap.ui.define([
 	"com/vSimpleApp/model/RebateConditionItemPO",
 	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/StockContract",
-	 'sap/m/Link',
-    'sap/m/MessageItem',
-    'sap/m/MessageView',
-    'sap/m/Popover',
-    'sap/m/Bar',
-     'sap/ui/core/IconPool'
+	'sap/m/Link',
+	'sap/m/MessageItem',
+	'sap/m/MessageView',
+	'sap/m/Popover',
+	'sap/m/Bar',
+	'sap/ui/core/IconPool'
 
 ], function(Controller, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator, JSONModel, library, Input, Fragment,
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
-	PurchaseHeader, StockContract,Link,MessageItem,MessageView,Popover,Bar,IconPool) {
+	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool) {
 	"use strict";
 	var oView, oComponent, sPathThreshold;
 	var groups = [];
@@ -42,13 +42,19 @@ sap.ui.define([
 	var yellow;
 	var green;
 	var blue;
+<<<<<<< HEAD
 		var StockList;
+=======
+
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 	var sPathSingle, sPathHierarchy;
 	var oController;
 	var oMaterialList = [];
 	var allfiltersLevelFirst = [],
 		allfiltersLevelSecond = [];
-		var result =[];
+	var result = [];
+	var CompanyLevelset = [];
+	var TotalLabst =[];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -87,7 +93,8 @@ sap.ui.define([
 
 			var oStockData = new JSONModel();
 			oView.setModel(oStockData, "oStockDataModel");
-			this.getStockDetailList();
+			this.getMaterialstockSet();
+			this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
 			var oExcessHierarchy = new JSONModel();
@@ -131,7 +138,7 @@ sap.ui.define([
 			this.getView().setModel(oVisibleModel, "VisibleModel");
 
 			var oHierarchyItems = new JSONModel({
-			
+
 			});
 
 			sap.ui.getCore().setModel(oHierarchyItems, "oHierarchyItems");
@@ -140,11 +147,22 @@ sap.ui.define([
 			AddIteamModel.loadData("utils/ItemChoice.json");
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
+<<<<<<< HEAD
               var oSaleModel = new JSONModel();
             sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
               this.getSalesOrderDetails();
 		
+=======
+			var oSaleModel = new JSONModel();
+			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
+			this.getSalesOrderDetails();
+
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 			this.initializeView();
+
+			var oCompanyLevel = new JSONModel();
+			sap.ui.getCore().setModel(oCompanyLevel, "oCompanyLevel");
+
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -164,14 +182,339 @@ sap.ui.define([
 				collectionItemMode.setProperty("/ListSelection", "SingleSelectLeft");
 			}
 
-			
 			//define the odata model for material number
 			var MaterialModel = new sap.ui.model.json.JSONModel({
 				"ListItems": []
 			});
 			this.getView().setModel(MaterialModel, "MaterialModel");
 		},
-				getStockDetailList1: function() {
+		// 				getStockDetailList1: function() {
+		// 			var oModel = this.getOwnerComponent().getModel("StockModel");
+		// 			BusyIndicator.show(true);
+		// 			oModel.read("/STOCK_DATASet", {
+		// 				success: function(oData) {
+		// 					BusyIndicator.hide();
+
+		// 					var listOfMat = [];
+		// 					var MaterialList = [];
+		// 					var len = oData.results.length;
+
+		// 					var ListofSrs = [];
+		// 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+		// 						var odataset = oData.results[iRowIndex];
+
+		// 						var Cbtlv = parseInt(odataset.Cbtlv);
+		// 						var Cytlv = parseInt(odataset.Cytlv);
+		// 						var Cgtlv = parseInt(odataset.Cgtlv);
+		// 						var Changedon = odataset.Changedon;
+		// 						var Crtlv = parseInt(odataset.Crtlv);
+		// 						var Labst = parseInt(odataset.Labst);
+		// 						//	var Labst = LabstQuant * 1000;
+		// 						var Matnr = odataset.Matnr;
+		// 						var Pbtlv = odataset.Pbtlv;
+		// 						var Pgtlv = odataset.Pgtlv;
+		// 						var Prtlv = odataset.Prtlv;
+		// 						var Pytlv = odataset.Pytlv;
+		// 						var Werks = odataset.Werks;
+		// 						var arr = [];
+		// 						// red = Crtlv;
+		// 						// yellow = Cytlv;
+		// 						// green = Cgtlv;
+		// 						// blue = Cbtlv;
+
+		// 						if (Labst < Crtlv) {
+		// 							ListofSrs.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Crtlv,
+		// 								PreviousThread: Prtlv,
+		// 								MultipleIt: arr
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cgtlv,
+		// 								PreviousThread: Pgtlv
+
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cytlv,
+		// 								PreviousThread: Pytlv
+
+		// 							});
+
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cbtlv,
+		// 								PreviousThread: Pbtlv
+
+		// 							});
+		// 							console.log("red");
+
+		// 						} else if (Labst > Crtlv && Labst <= Cytlv) {
+		// 							ListofSrs.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cytlv,
+		// 								PreviousThread: Pytlv,
+		// 								MultipleIt: arr
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cgtlv,
+		// 								PreviousThread: Pgtlv
+
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cbtlv,
+		// 								PreviousThread: Pbtlv
+
+		// 							});
+
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Crtlv,
+		// 								PreviousThread: Prtlv
+
+		// 							});
+		// 						} else if (Labst > Cytlv && Labst <= Cgtlv) {
+		// 							ListofSrs.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cgtlv,
+		// 								PreviousThread: Pgtlv,
+		// 								MultipleIt: arr
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cbtlv,
+		// 								PreviousThread: Pbtlv
+
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cytlv,
+		// 								PreviousThread: Pytlv
+
+		// 							});
+
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Crtlv,
+		// 								PreviousThread: Prtlv
+
+		// 							});
+		// 							console.log("green");
+		// 						}
+
+		// 						//3000 blue = 3500
+		// 						else if (Labst > Cgtlv && Labst <= Cbtlv)
+		// 						//	(Labst === Cbtlv ||  Cbtlv>minBlue  )
+
+		// 						{
+		// 							ListofSrs.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cbtlv,
+		// 								PreviousThread: Pbtlv,
+		// 								MultipleIt: arr
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cgtlv,
+		// 								PreviousThread: Pgtlv
+
+		// 							});
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cytlv,
+		// 								PreviousThread: Pytlv
+
+		// 							});
+
+		// 							arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Crtlv,
+		// 								PreviousThread: Prtlv
+
+		// 							});
+		// 						} else if (Labst > Cbtlv) {
+		// 							console.log("blue")
+		// 						}
+
+		// 						/*	arr.push({
+		// 								Matnr: Matnr,
+		// 								Werks: Werks,
+		// 								Labst: Labst,
+		// 								Changedon: Changedon,
+		// 								CurrentThread: Cbtlv,
+		// 								PreviousThread: Pbtlv
+
+		// 							});*/
+		// 						/*	arr.push({
+		// 							Matnr: Matnr,
+		// 							Werks: Werks,
+		// 							Labst: Labst,
+		// 							Changedon: Changedon,
+		// 							CurrentThread: Cgtlv,
+		// 							PreviousThread: Pgtlv
+
+		// 						});
+		// 						arr.push({
+		// 							Matnr: Matnr,
+		// 							Werks: Werks,
+		// 							Labst: Labst,
+		// 							Changedon: Changedon,
+		// 							CurrentThread: Cytlv,
+		// 							PreviousThread: Pytlv
+
+		// 						});
+
+		// 						arr.push({
+		// 							Matnr: Matnr,
+		// 							Werks: Werks,
+		// 							Labst: Labst,
+		// 							Changedon: Changedon,
+		// 							CurrentThread: Crtlv,
+		// 							PreviousThread: Prtlv
+
+		// 						});
+
+		// 						ListofSrs.push({
+		// 							Matnr: Matnr,
+		// 							Werks: Werks,
+		// 							Labst: Labst,
+		// 							Changedon: Changedon,
+		// 							CurrentThread: Cbtlv,
+		// 							PreviousThread: Pbtlv,
+		// 							MultipleIt: arr
+		// 						});
+		// */
+		// 					}
+		// 					console.log(ListofSrs);
+
+		// 					oView.getModel("oStockDataModel").setData(ListofSrs);
+
+		// 				},
+		// 				error: function(oError) {
+		// 					BusyIndicator.hide();
+		// 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+		// 					MessageToast.show(errorMsg);
+		// 				}
+		// 			});
+		// 		},
+
+		getMaterialstockSet: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read('/getMaterialstockSet', {
+				success: function(odata) {
+					// console.log(odata);
+
+					CompanyLevelset = odata.results;
+					console.log(CompanyLevelset);
+
+					//oView.getModel("oCompanyLevel").setData(odata);
+								var iItem = odata.results.length;
+						var aListofVendoritem = [];
+						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+							//		console.log(iRowIndex);
+							var Matnr = odata.results[iRowIndex].Matnr;
+							aListofVendoritem.push({
+								Matnr: Matnr
+
+							});
+						}
+						var index = {};
+
+						aListofVendoritem.forEach(function(point) {
+							var key = "" + point.Matnr + " ";
+							if (key in index) {
+								index[key].count++;
+							} else {
+								var newEntry = {
+									Matnr: point.Matnr,
+									Labst: "",
+									count: 1
+								};
+								index[key] = newEntry;
+								TotalLabst.push(newEntry);
+							}
+						});
+						//	console.log(result);
+						TotalLabst.sort(function(a, b) {
+							return b.count - a.count;
+						});
+						//		console.log(result);
+						var sResultlengrh = TotalLabst.length;
+                        console.log("====")
+						console.log(TotalLabst);
+
+						var data = odata.results;
+
+						// for (var x = 0; x < result.length; x++) {
+						// 	var orderCount = 0;
+						// 	for (var j = 0; j < data.length; j++) {
+						// 		if (result[x].Matnr === data[j].Matnr) {
+						// 			orderCount = orderCount + parseInt(data[j].Kwmeng)
+						// 			result[x].Kwmeng = orderCount.toString();
+						// 		}
+
+						// 	}
+
+						// }
+
+				},
+				error: function(oerror) {
+					MessageBox.error(oerror);
+				}
+			});
+		},
+		getStockDetailListSiddhi: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/STOCK_DATASet", {
@@ -181,6 +524,7 @@ sap.ui.define([
 					var listOfMat = [];
 					var MaterialList = [];
 					var len = oData.results.length;
+					var UniqueMatnr = [];
 
 					var ListofSrs = [];
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
@@ -200,226 +544,112 @@ sap.ui.define([
 						var Pytlv = odataset.Pytlv;
 						var Werks = odataset.Werks;
 						var arr = [];
-						// red = Crtlv;
-						// yellow = Cytlv;
-						// green = Cgtlv;
-						// blue = Cbtlv;
+						var arr2 = [];
 
-						if (Labst < Crtlv) {
-							ListofSrs.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Crtlv,
-								PreviousThread: Prtlv,
-								MultipleIt: arr
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cgtlv,
-								PreviousThread: Pgtlv
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < CompanyLevelset.length; x++) {
+								if (Matnr === CompanyLevelset[x].Matnr) {
+									var sCompanyCode = CompanyLevelset[x].Bukrs;
 
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cytlv,
-								PreviousThread: Pytlv
-
-							});
-
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cbtlv,
-								PreviousThread: Pbtlv
-
-							});
-							console.log("red");
-
-						} else if (Labst > Crtlv && Labst <= Cytlv) {
-							ListofSrs.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cytlv,
-								PreviousThread: Pytlv,
-								MultipleIt: arr
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cgtlv,
-								PreviousThread: Pgtlv
-
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cbtlv,
-								PreviousThread: Pbtlv
-
-							});
-
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Crtlv,
-								PreviousThread: Prtlv
-
-							});
-						} else if (Labst > Cytlv && Labst <= Cgtlv) {
-							ListofSrs.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cgtlv,
-								PreviousThread: Pgtlv,
-								MultipleIt: arr
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cbtlv,
-								PreviousThread: Pbtlv
-
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cytlv,
-								PreviousThread: Pytlv
-
-							});
-
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Crtlv,
-								PreviousThread: Prtlv
-
-							});
-							console.log("green");
+								}
+							}
 						}
 
-						//3000 blue = 3500
-						else if (Labst > Cgtlv && Labst <= Cbtlv)
-						//	(Labst === Cbtlv ||  Cbtlv>minBlue  )
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var y = 0; y < CompanyLevelset.length; y++) {
+								if (Matnr === CompanyLevelset[y].Matnr) {
+									var sStorageLoc = CompanyLevelset[y].Lgort;
 
-						{
-							ListofSrs.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cbtlv,
-								PreviousThread: Pbtlv,
-								MultipleIt: arr
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cgtlv,
-								PreviousThread: Pgtlv
-
-							});
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Cytlv,
-								PreviousThread: Pytlv
-
-							});
-
-							arr.push({
-								Matnr: Matnr,
-								Werks: Werks,
-								Labst: Labst,
-								Changedon: Changedon,
-								CurrentThread: Crtlv,
-								PreviousThread: Prtlv
-
-							});
-						} else if (Labst > Cbtlv) {
-							console.log("blue")
+								}
+							}
 						}
 
-						/*	arr.push({
+						if (!UniqueMatnr.includes(Matnr)) {
+							// UniqueMatnr.push({
+							// 	Matnr:Matnr,
+							// 	Labst:Labst
+							// });
+
+							UniqueMatnr.push(Matnr);
+
+							ListofSrs.push({
 								Matnr: Matnr,
+								CompanyCode: sCompanyCode,
+								Red: Crtlv,
+								Yellow: Cytlv,
+								Green: Cgtlv,
+								Blue: Cbtlv,
 								Werks: Werks,
 								Labst: Labst,
 								Changedon: Changedon,
-								CurrentThread: Cbtlv,
-								PreviousThread: Pbtlv
 
-							});*/
-						/*	arr.push({
-							Matnr: Matnr,
-							Werks: Werks,
-							Labst: Labst,
-							Changedon: Changedon,
-							CurrentThread: Cgtlv,
-							PreviousThread: Pgtlv
+								Color: "",
+								MultipleIt: arr
+							});
+							sCompanyCode = "";
 
-						});
-						arr.push({
-							Matnr: Matnr,
-							Werks: Werks,
-							Labst: Labst,
-							Changedon: Changedon,
-							CurrentThread: Cytlv,
-							PreviousThread: Pytlv
+							arr.push({
+								Matnr: "Plant",
+								CompanyCode: Werks,
+								// Labst: Labst,
+								Changedon: Changedon,
+								// Red: Crtlv,
+								// Yellow:Cytlv,
+								// Green:Cgtlv,
+								// Blue:Cbtlv,
+								// StorageLoc:Lgort
+								Plant: arr2
 
-						});
+							});
 
-						arr.push({
-							Matnr: Matnr,
-							Werks: Werks,
-							Labst: Labst,
-							Changedon: Changedon,
-							CurrentThread: Crtlv,
-							PreviousThread: Prtlv
+							arr2.push({
+								Matnr: "S.L. ",
+								CompanyCode: sStorageLoc,
+								Labst: Labst,
+								Changedon: Changedon,
+								Red: Crtlv,
+								Yellow: Cytlv,
+								Green: Cgtlv,
+								Blue: Cbtlv
 
-						});
+							});
+						} else {
+							// ListofSrs.push({
+								
+							// 	MultipleIt: arr
+							// });
+							var index = ListofSrs.length-1;
+					ListofSrs[index].MultipleIt.push({
+								Matnr: "Plant",
+								CompanyCode: Werks,
+								// Labst: Labst,
+								Changedon: Changedon,
+								// Red: Crtlv,
+								// Yellow:Cytlv,
+								// Green:Cgtlv,
+								// Blue:Cbtlv,
+								// StorageLoc:Lgort
+								Plant: arr2
 
-						ListofSrs.push({
-							Matnr: Matnr,
-							Werks: Werks,
-							Labst: Labst,
-							Changedon: Changedon,
-							CurrentThread: Cbtlv,
-							PreviousThread: Pbtlv,
-							MultipleIt: arr
-						});
-*/
+							});
+
+							arr2.push({
+								Matnr: "S.L. ",
+								CompanyCode: sStorageLoc,
+								Labst: Labst,
+								Changedon: Changedon,
+								Red: Crtlv,
+								Yellow: Cytlv,
+								Green: Cgtlv,
+								Blue: Cbtlv
+
+							});
+						}
 					}
+
 					console.log(ListofSrs);
+					console.log("--------")
+					console.log(UniqueMatnr);
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
 
@@ -431,6 +661,7 @@ sap.ui.define([
 				}
 			});
 		},
+<<<<<<< HEAD
 			getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -874,6 +1105,10 @@ sap.ui.define([
 		
 		                                                                                                                                                                                                       
 	BuyerSheetChat : function(oEvent){
+=======
+
+		BuyerSheetChat: function(oEvent) {
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("BuyerSheet");
 		},
@@ -992,17 +1227,17 @@ sap.ui.define([
 								}
 							}
 						}
-						
-										if (Matnr !== "" || Matnr !== undefined) {
-							for (var x1 = 0; x1 <=result.length-1; x1++) {
-							
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <= result.length - 1; x1++) {
+
 								if (Matnr === result[x1].Matnr) {
-								var sOpenSalesOrder = result[x1].Kwmeng;
-                                
+									var sOpenSalesOrder = result[x1].Kwmeng;
+
 								}
 							}
 						}
-					
+
 						var Pbtlv = odataset.Pbtlv;
 						var Pgtlv = odataset.Pgtlv;
 
@@ -1036,31 +1271,20 @@ sap.ui.define([
 
 						});
 						//	console.log(ListofSrs);
-                       
+
 						oView.getModel("oStockDataModel").setData(ListofSrs);
-                         sOpenSalesOrder="";
-                         console.log(ListofSrs);
+						sOpenSalesOrder = "";
+						console.log(ListofSrs);
 
+						var len = ListofSrs.length;
+						var ls = len - 1;
+						if (ListofSrs[ls].Color === 'red') {
 
+							Massupload.push(ListofSrs[ls]);
 
-
-
-
-
-
-
-
-							var len = ListofSrs.length;
-							var ls = len - 1;
-							if (ListofSrs[ls].Color === 'red') {
-							
-								Massupload.push(ListofSrs[ls]);
-
-							}
+						}
 
 					}
-
-				
 
 				},
 				error: function(oError) {
@@ -1113,8 +1337,6 @@ sap.ui.define([
 			//		});	
 
 			//	});	
-
-	
 
 		},
 		//	});
@@ -2998,75 +3220,54 @@ sap.ui.define([
 			}
 
 		},
-	
+
 		MassUpdatePo: function(oEvent) {
 			console.log(Massupload)
-				var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-			
-				 (async function loop() {
-				   for (let criticle = 0; criticle < Massupload.length; criticle++) {
-				   	
-				   		var Labst = parseInt(Massupload[criticle].Labst),
-					Cgtlv = parseInt(Massupload[criticle].Cgtlv);
-				var count = Cgtlv - Labst;
-				   	
-				    for (let CritCount = 0; CritCount < count; CritCount++) {
-				        await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
-				     //   console.log(i);
-				        			var Podata = new PurchaseHeader(Massupload[criticle]);
-						oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
 
-						var oRequestPayload = oPurchaseContract.getPayloadRefill();
+			//  (async function loop() {
+			//   for (let criticle = 0; criticle < Massupload.length; criticle++) {
 
-						var vln = oRequestPayload.PoitemSet.length;
-						for (var vlen = 0; vlen < vln; vlen++) {
+			//   		var Labst = parseInt(Massupload[criticle].Labst),
+			// 	Cgtlv = parseInt(Massupload[criticle].Cgtlv);
+			// var count = Cgtlv - Labst;
 
-							oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
-							oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
-							oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
-							oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
-							delete oRequestPayload.PoitemSet[vlen].Vendor;
+			//     for (let CritCount = 0; CritCount < count; CritCount++) {
+			//         await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
+			//      //   console.log(i);
+			//         			var Podata = new PurchaseHeader(Massupload[criticle]);
+			// 		oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
 
-						}
+			// 		var oRequestPayload = oPurchaseContract.getPayloadRefill();
 
-						oModel.create("/PoDisplaySet", oRequestPayload, {
-							success: function(oRes, obj) {
-								var PoNumber = oRes.Purchaseorder;
-								MessageBox.show("Standard PO created under the number  #" + PoNumber + " ");
+			// 		var vln = oRequestPayload.PoitemSet.length;
+			// 		for (var vlen = 0; vlen < vln; vlen++) {
 
-							},
-							error: function(Error) {
-								MessageBox.error(oError);
-							}
-						});
-						
-				    }
-				   	
-				   	
-				   }
-				})();
+			// 			oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
+			// 			oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
+			// 			oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
+			// 			oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
+			// 			delete oRequestPayload.PoitemSet[vlen].Vendor;
 
+			// 		}
 
+			// 		oModel.create("/PoDisplaySet", oRequestPayload, {
+			// 			success: function(oRes, obj) {
+			// 				var PoNumber = oRes.Purchaseorder;
+			// 				MessageBox.show("Standard PO created under the number  #" + PoNumber + " ");
 
+			// 			},
+			// 			error: function(Error) {
+			// 				MessageBox.error(oError);
+			// 			}
+			// 		});
 
+			//     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			//   }
+			// })();
 
 		},
 
@@ -3167,229 +3368,210 @@ sap.ui.define([
 			var oModel = oView.getModel("oExcessModelData");
 			console.log(oModel.oData);
 			var length = oModel.oData.length;
-		
-		var oMessageTemplate = new MessageItem({
-                type: 'Warning',
-                title:  '{Matnr}' +" " + "material is in excess quantity" ,
-                description: 'material is in excess quantity',
-                subtitle: '{quantity}',
-                counter: '{counter}',
-                markupDescription: "{markupDescription}",
-                // link: oLink
-            });
-          /*  var aMockMessages = [{
-                type: 'Warning',
-                title: 'Error message',
-                description: 'First Error message description. \n' +
-                'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod',
-                subtitle: 'Example of subtitle',
-                counter: 1
-            }];*/
-            var oModel2 = new JSONModel(),
-                that = this;
-            oModel2.setData(oModel.oData);
-            this.oMessageView = new MessageView({
-                    showDetailsPageHeader: false,
-                    itemSelect: function () {
-                        oBackButton.setVisible(true);
-                    },
-                    items: {
-                        path: "/",
-                        template: oMessageTemplate
-                    }
-                });
-            var oBackButton = new Button({
-                    icon: IconPool.getIconURI("nav-back"),
-                    visible: false,
-                    press: function () {
-                        that.oMessageView.navigateBack();
-                        that._oPopover.focus();
-                        this.setVisible(false);
-                    }
-                });
-            this.oMessageView.setModel(oModel2);
-            var oCloseButton =  new Button({
-                    text: "Close",
-                    press: function () {
-                        that._oPopover.close();
-                    }
-                }),
-                oPopoverFooter = new Bar({
-                    contentRight: oCloseButton
-                }),
-                oPopoverBar = new Bar({
-                    contentLeft: [oBackButton],
-                    contentMiddle: [
-                        new Text({
-                            text: "Messages"
-                        })
-                    ]
-                });
-            this._oPopover = new Popover({
-                customHeader: oPopoverBar,
-                contentWidth: "1000px",
-                contentHeight: "400px",
-                verticalScrolling: false,
-                modal: true,
-                content: [this.oMessageView],
-                footer: oPopoverFooter
-            });
-            
-        
 
+			var oMessageTemplate = new MessageItem({
+				type: 'Warning',
+				title: '{Matnr}' + " " + "material is in excess quantity",
+				description: 'material is in excess quantity',
+				subtitle: '{quantity}',
+				counter: '{counter}',
+				markupDescription: "{markupDescription}",
+				// link: oLink
+			});
+			/*  var aMockMessages = [{
+			      type: 'Warning',
+			      title: 'Error message',
+			      description: 'First Error message description. \n' +
+			      'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod',
+			      subtitle: 'Example of subtitle',
+			      counter: 1
+			  }];*/
+			var oModel2 = new JSONModel(),
+				that = this;
+			oModel2.setData(oModel.oData);
+			this.oMessageView = new MessageView({
+				showDetailsPageHeader: false,
+				itemSelect: function() {
+					oBackButton.setVisible(true);
+				},
+				items: {
+					path: "/",
+					template: oMessageTemplate
+				}
+			});
+			var oBackButton = new Button({
+				icon: IconPool.getIconURI("nav-back"),
+				visible: false,
+				press: function() {
+					that.oMessageView.navigateBack();
+					that._oPopover.focus();
+					this.setVisible(false);
+				}
+			});
+			this.oMessageView.setModel(oModel2);
+			var oCloseButton = new Button({
+					text: "Close",
+					press: function() {
+						that._oPopover.close();
+					}
+				}),
+				oPopoverFooter = new Bar({
+					contentRight: oCloseButton
+				}),
+				oPopoverBar = new Bar({
+					contentLeft: [oBackButton],
+					contentMiddle: [
+						new Text({
+							text: "Messages"
+						})
+					]
+				});
+			this._oPopover = new Popover({
+				customHeader: oPopoverBar,
+				contentWidth: "1000px",
+				contentHeight: "400px",
+				verticalScrolling: false,
+				modal: true,
+				content: [this.oMessageView],
+				footer: oPopoverFooter
+			});
 
-
-   
-            this.oMessageView.navigateBack();
-            this._oPopover.openBy(oEvent.getSource());
-        
-
+			this.oMessageView.navigateBack();
+			this._oPopover.openBy(oEvent.getSource());
 
 		},
-		
-		
-			onNotifyHierarchy: function(oEvent) {
+
+		onNotifyHierarchy: function(oEvent) {
 			var oModel = oView.getModel("oExcessHierarchy");
 			console.log(oModel.oData);
 			var length = oModel.oData.length;
-		
-		var oMessageTemplate = new MessageItem({
-                type: 'Warning',
-                title:  '{Maingrp}' +" " + "is in excess quantity" ,
-                description: '{Maingrp}'+" " +'is in excess quantity',
-                subtitle: '{quantity}',
-                counter: '{counter}',
-                markupDescription: "{markupDescription}",
-                // link: oLink
-            });
-          /*  var aMockMessages = [{
-                type: 'Warning',
-                title: 'Error message',
-                description: 'First Error message description. \n' +
-                'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod',
-                subtitle: 'Example of subtitle',
-                counter: 1
-            }];*/
-            var oModel2 = new JSONModel(),
-                that = this;
-            oModel2.setData(oModel.oData);
-            this.oMessageView = new MessageView({
-                    showDetailsPageHeader: false,
-                    itemSelect: function () {
-                        oBackButton.setVisible(true);
-                    },
-                    items: {
-                        path: "/",
-                        template: oMessageTemplate
-                    }
-                });
-            var oBackButton = new Button({
-                    icon: IconPool.getIconURI("nav-back"),
-                    visible: false,
-                    press: function () {
-                        that.oMessageView.navigateBack();
-                        that._oPopover.focus();
-                        this.setVisible(false);
-                    }
-                });
-            this.oMessageView.setModel(oModel2);
-            var oCloseButton =  new Button({
-                    text: "Close",
-                    press: function () {
-                        that._oPopover.close();
-                    }
-                }),
-                oPopoverFooter = new Bar({
-                    contentRight: oCloseButton
-                }),
-                oPopoverBar = new Bar({
-                    contentLeft: [oBackButton],
-                    contentMiddle: [
-                        new Text({
-                            text: "Messages"
-                        })
-                    ]
-                });
-            this._oPopover = new Popover({
-                customHeader: oPopoverBar,
-                contentWidth: "1000px",
-                contentHeight: "400px",
-                verticalScrolling: false,
-                modal: true,
-                content: [this.oMessageView],
-                footer: oPopoverFooter
-            });
-            
-        
 
+			var oMessageTemplate = new MessageItem({
+				type: 'Warning',
+				title: '{Maingrp}' + " " + "is in excess quantity",
+				description: '{Maingrp}' + " " + 'is in excess quantity',
+				subtitle: '{quantity}',
+				counter: '{counter}',
+				markupDescription: "{markupDescription}",
+				// link: oLink
+			});
+			/*  var aMockMessages = [{
+			      type: 'Warning',
+			      title: 'Error message',
+			      description: 'First Error message description. \n' +
+			      'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod',
+			      subtitle: 'Example of subtitle',
+			      counter: 1
+			  }];*/
+			var oModel2 = new JSONModel(),
+				that = this;
+			oModel2.setData(oModel.oData);
+			this.oMessageView = new MessageView({
+				showDetailsPageHeader: false,
+				itemSelect: function() {
+					oBackButton.setVisible(true);
+				},
+				items: {
+					path: "/",
+					template: oMessageTemplate
+				}
+			});
+			var oBackButton = new Button({
+				icon: IconPool.getIconURI("nav-back"),
+				visible: false,
+				press: function() {
+					that.oMessageView.navigateBack();
+					that._oPopover.focus();
+					this.setVisible(false);
+				}
+			});
+			this.oMessageView.setModel(oModel2);
+			var oCloseButton = new Button({
+					text: "Close",
+					press: function() {
+						that._oPopover.close();
+					}
+				}),
+				oPopoverFooter = new Bar({
+					contentRight: oCloseButton
+				}),
+				oPopoverBar = new Bar({
+					contentLeft: [oBackButton],
+					contentMiddle: [
+						new Text({
+							text: "Messages"
+						})
+					]
+				});
+			this._oPopover = new Popover({
+				customHeader: oPopoverBar,
+				contentWidth: "1000px",
+				contentHeight: "400px",
+				verticalScrolling: false,
+				modal: true,
+				content: [this.oMessageView],
+				footer: oPopoverFooter
+			});
 
-
-   
-            this.oMessageView.navigateBack();
-            this._oPopover.openBy(oEvent.getSource());
-        
-
+			this.oMessageView.navigateBack();
+			this._oPopover.openBy(oEvent.getSource());
 
 		},
-			//sales order service
-	getSalesOrderDetails:function(){
-		var oModel = this.getOwnerComponent().getModel("StockModel");
-		oModel.read("/SalesOrdersSet ", {
-				success: function(oData) {
-				// 	var data = oData.results;
-				// 	var data2=[];
-					
-				// 	console.log("data-----------------")
-				// 	console.log(data);
-				// 	oView.getModel("oSaleModel");
-				// console.log("-----------------")
-				// 	for(var i=0 ; i<data.length;i++){
-				// 		if(!uniqueMatnr.includes(data[i].Matnr)){
-					
-						 
-				// 		    uniqueMatnr.push(data[i].Matnr)
-						 	
-						 
-						 	
-				// 		}
-						
-				     
-				// 	}
-				// 	console.log(uniqueMatnr)
-				// 	console.log(data2);
-					
-				// 		for(var x=0 ;x<uniqueMatnr.length;x++)
-				// 			var orderCount = 0;
-				// 			for(var j=0 ;j<data.length; j++){
-				// 		 		if(uniqueMatnr[x].===data[j].Matnr){
-				// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
-				// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
-				// 		 		}
-				// 		 	data2.push(data[j]);
-						 	     
-				// 		 	}
-				
-				console.log(oData);
-				var iItem = oData.results.length;
+		//sales order service
+		getSalesOrderDetails: function() {
+				var oModel = this.getOwnerComponent().getModel("StockModel");
+				oModel.read("/SalesOrdersSet ", {
+					success: function(oData) {
+						// 	var data = oData.results;
+						// 	var data2=[];
+
+						// 	console.log("data-----------------")
+						// 	console.log(data);
+						// 	oView.getModel("oSaleModel");
+						// console.log("-----------------")
+						// 	for(var i=0 ; i<data.length;i++){
+						// 		if(!uniqueMatnr.includes(data[i].Matnr)){
+
+						// 		    uniqueMatnr.push(data[i].Matnr)
+
+						// 		}
+
+						// 	}
+						// 	console.log(uniqueMatnr)
+						// 	console.log(data2);
+
+						// 		for(var x=0 ;x<uniqueMatnr.length;x++)
+						// 			var orderCount = 0;
+						// 			for(var j=0 ;j<data.length; j++){
+						// 		 		if(uniqueMatnr[x].===data[j].Matnr){
+						// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
+						// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
+						// 		 		}
+						// 		 	data2.push(data[j]);
+
+						// 		 	}
+
+						console.log(oData);
+						var iItem = oData.results.length;
 						var aListofVendoritem = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 							//		console.log(iRowIndex);
 							var Matnr = oData.results[iRowIndex].Matnr;
 							aListofVendoritem.push({
 								Matnr: Matnr
-							
+
 							});
 						}
 						var index = {};
-					
+
 						aListofVendoritem.forEach(function(point) {
-							var key = "" + point.Matnr+ " ";
+							var key = "" + point.Matnr + " ";
 							if (key in index) {
 								index[key].count++;
 							} else {
 								var newEntry = {
 									Matnr: point.Matnr,
-									Kwmeng:"",
+									Kwmeng: "",
 									count: 1
 								};
 								index[key] = newEntry;
@@ -3401,43 +3583,36 @@ sap.ui.define([
 							return b.count - a.count;
 						});
 						//		console.log(result);
-						var sResultlengrh = result.length; 
-					
-					// console.log(result);
-				  
-					var data=oData.results;
-					
-								for(var x=0 ;x<result.length;x++){
+						var sResultlengrh = result.length;
+
+						// console.log(result);
+
+						var data = oData.results;
+
+						for (var x = 0; x < result.length; x++) {
 							var orderCount = 0;
-							for(var j=0 ;j<data.length; j++){
-						 		if(result[x].Matnr===data[j].Matnr){
-						 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
-						 	     result[x].Kwmeng=orderCount.toString();
-						 		}
-						 	     
-						 	}
-				
+							for (var j = 0; j < data.length; j++) {
+								if (result[x].Matnr === data[j].Matnr) {
+									orderCount = orderCount + parseInt(data[j].Kwmeng)
+									result[x].Kwmeng = orderCount.toString();
 								}
-							console.log(result);
-	                    sap.ui.getCore().getModel("oSaleModel").setData(result);
-	               
-					
-		},	
-			
-	
-	
-		
-				
-					
-			
-				error: function(oError) {
-				
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-		});
-	}
-		
+
+							}
+
+						}
+						console.log(result);
+						sap.ui.getCore().getModel("oSaleModel").setData(result);
+
+					},
+
+					error: function(oError) {
+
+						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(errorMsg);
+					}
+				});
+			}
+			//comapny stock level service
 
 	});
 });
