@@ -301,7 +301,8 @@ sap.ui.define([
 								Yellow: Cytlv,
 								Green: Cgtlv,
 								Blue: Cbtlv,
-								Labst: sTotalLabst,
+								Labst:parseInt(sTotalLabst),
+							
 								Changedon: Changedon,
 
 								Color: "",
@@ -321,7 +322,7 @@ sap.ui.define([
 
 							arr2.push({
 								Werks: "S.L " + sStorageLoc,
-								Labst: Labst,
+								Labst: parseInt(Labst),
 								Changedon: Changedon,
 								Red: Crtlv,
 								Yellow: Cytlv,
@@ -344,7 +345,7 @@ sap.ui.define([
 
 							arr2.push({
 								Werks: "S.L " + sStorageLoc,
-								Labst: Labst,
+								Labst: parseInt(Labst),
 								Changedon: Changedon,
 								Red: Crtlv,
 								Yellow: Cytlv,
