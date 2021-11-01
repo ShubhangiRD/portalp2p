@@ -301,7 +301,7 @@ sap.ui.define([
 								Cytlv: Cytlv,
 								Cgtlv: Cgtlv,
 								Cbtlv: Cbtlv,
-								Labst: parseInt(sTotalLabst),
+								TLabst: parseInt(sTotalLabst),
 								Changedon: Changedon,
 
 								Color: "",

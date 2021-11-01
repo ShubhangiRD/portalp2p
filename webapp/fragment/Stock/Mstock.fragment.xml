@@ -44,6 +44,15 @@
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 				</template>
 			</Column>
+			
+			<Column width="13rem">
+				<m:Label text="Total Quantity"/>
+				<template>
+					<m:ObjectNumber number="{oStockDataModel>TLabst}"
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+				</template>
+			</Column>
+			
 			<Column width="13rem" sorted="true">
 				<m:Label text="Critical Threshold"/>
 				<template>
