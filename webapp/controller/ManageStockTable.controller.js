@@ -316,6 +316,10 @@ sap.ui.define([
 								Changedon: Changedon,
 
 								Plant: arr2
+								// 	Crtlv: "",
+								// Cytlv: "",
+								// Cgtlv: "",
+								// Cbtlv: ""
 
 							});
 
@@ -323,10 +327,10 @@ sap.ui.define([
 								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv
 
 							});
 						} else {
@@ -346,10 +350,10 @@ sap.ui.define([
 								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv
 
 							});
 						}
