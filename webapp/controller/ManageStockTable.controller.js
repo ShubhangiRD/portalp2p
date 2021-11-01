@@ -449,7 +449,7 @@ sap.ui.define([
 		// 			});
 		// 		},
 
-		getMaterialstockSet: function() {
+		getMaterialstockSet11: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read('/getMaterialstockSet', {
 				success: function(odata) {
@@ -1078,7 +1078,7 @@ sap.ui.define([
 				}
 			});
 		},
-		getMaterialstockSet1 : function() {
+		getMaterialstockSet : function() {
 		var	oModel = this.getOwnerComponent().getModel("StockModel");
 			 oModel.read('/getMaterialstockSet',{
 			 	success : function(odata){
