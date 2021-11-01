@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt','Plant']}}" enableSelectAll="false"
-		ariaLabelledBy="title">
+		ariaLabelledBy="title"  visible="{VisibleModel>/MaterialTable}">
 		<columns>
 			<Column width="9rem">
 				<m:Label text="Material"/>

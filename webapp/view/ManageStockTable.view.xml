@@ -94,7 +94,7 @@
 	</form:SimpleForm>
 	<VBox class="sapUiSmallMarginTop">
 	
-	<!--<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Tablehirarchy" type="XML"/>-->
+	<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Tablehirarchy" type="XML"/>
 	<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Mstock" type="XML"/>
 </VBox>
 	<!--<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.tablestock" type="XML"/>-->

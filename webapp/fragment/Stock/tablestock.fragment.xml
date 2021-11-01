@@ -4,7 +4,7 @@
 -->
 	<Table id="awaitingTable" class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiSmallMarginTop TableMarginClass" width="1250px"
 	   selectionChange="getPath"
-      	items="{ path: 'oStockDataModel>/'}" visible="{VisibleModel>/MaterialTable}">
+      	items="{ path: 'oStockDataModel>/'}">
 		<headerToolbar>
 			<Toolbar>
 				<Title text="Stock Material Details" level="H2"/>
