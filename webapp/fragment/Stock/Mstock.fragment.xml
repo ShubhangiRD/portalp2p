@@ -2,24 +2,30 @@
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt','Plant']}}" enableSelectAll="false"
 		ariaLabelledBy="title">
 		<columns>
-			<Column width="13rem">
-				<m:Label text="Material"/>
-				<template>
-					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
-				</template>
-			</Column>
-			<!--<Column width="9rem">-->
-			<!--	<m:Label text="Plant"/>-->
-			<!--	<template>-->
-			<!--		<m:Text text="{oStockDataModel>Werks}"/>-->
-			<!--	</template>-->
-			<!--</Column>-->
-			<Column width="9rem">
+					<Column width="13rem">
 				<m:Label text="Company Code"/>
 				<template>
-					<m:Text text="{oStockDataModel>CompanyCode}"/>
+	
+					<m:Text text="{oStockDataModel>CompanyCode}" wrapping="false"/>
 				</template>
 			</Column>
+	
+			
+				<Column width="9rem">
+				<m:Label text="Material"/>
+				<template>
+
+					<m:Text text="{oStockDataModel>Matnr}"/>
+				</template>
+			</Column>
+			
+					<Column width="9rem">
+				<m:Label text="Plant"/>
+				<template>
+					<m:Text text="{oStockDataModel>Werks}"/>
+				</template>
+			</Column> 
+			
 			<Column width="13rem">
 				<m:Label text="Available Quantity"/>
 				<template>

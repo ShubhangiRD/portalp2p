@@ -43,9 +43,7 @@ sap.ui.define([
 	var green;
 	var blue;
 
-		var StockList;
-
-
+	var StockList;
 
 	var sPathSingle, sPathHierarchy;
 	var oController;
@@ -66,7 +64,7 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-				this.getMaterialstockSet();
+			this.getMaterialstockSet11();
 			this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
@@ -93,7 +91,7 @@ sap.ui.define([
 
 			var oStockData = new JSONModel();
 			oView.setModel(oStockData, "oStockDataModel");
-			this.getMaterialstockSet();
+			// this.getMaterialstockSet();
 			this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -147,16 +145,13 @@ sap.ui.define([
 			AddIteamModel.loadData("utils/ItemChoice.json");
 			sap.ui.getCore().setModel(AddIteamModel, "AddIteamModel");
 
-
-              var oSaleModel = new JSONModel();
-            sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
-              this.getSalesOrderDetails();
-		
-
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
 			this.getSalesOrderDetails();
 
+			var oSaleModel = new JSONModel();
+			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
+			this.getSalesOrderDetails();
 
 			this.initializeView();
 
@@ -188,7 +183,7 @@ sap.ui.define([
 			});
 			this.getView().setModel(MaterialModel, "MaterialModel");
 		},
-	
+
 		getMaterialstockSet11: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read('/getMaterialstockSet', {
@@ -249,6 +244,7 @@ sap.ui.define([
 				}
 			});
 		},
+
 		getStockDetailListSiddhi: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -256,8 +252,6 @@ sap.ui.define([
 				success: function(oData) {
 					BusyIndicator.hide();
 
-					var listOfMat = [];
-					var MaterialList = [];
 					var len = oData.results.length;
 					var UniqueMatnr = [];
 
@@ -271,12 +265,9 @@ sap.ui.define([
 						var Changedon = odataset.Changedon;
 						var Crtlv = parseInt(odataset.Crtlv);
 						var Labst = parseInt(odataset.Labst);
-						//	var Labst = LabstQuant * 1000;
+
 						var Matnr = odataset.Matnr;
-						var Pbtlv = odataset.Pbtlv;
-						var Pgtlv = odataset.Pgtlv;
-						var Prtlv = odataset.Prtlv;
-						var Pytlv = odataset.Pytlv;
+
 						var Werks = odataset.Werks;
 						var arr = [];
 						var arr2 = [];
@@ -285,22 +276,14 @@ sap.ui.define([
 							for (var x = 0; x < CompanyLevelset.length; x++) {
 								if (Matnr === CompanyLevelset[x].Matnr) {
 									var sCompanyCode = CompanyLevelset[x].Bukrs;
+									var sStorageLoc = CompanyLevelset[x].Lgort;
 
 								}
 							}
 						}
 
 						if (Matnr !== "" || Matnr !== undefined) {
-							for (var y = 0; y < CompanyLevelset.length; y++) {
-								if (Matnr === CompanyLevelset[y].Matnr) {
-									var sStorageLoc = CompanyLevelset[y].Lgort;
-
-								}
-							}
-						}
-
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var z = 0; z < TotalLabst.length; y++) {
+							for (var z = 0; z < TotalLabst.length; z++) {
 								if (Matnr === TotalLabst[z].Matnr) {
 									var sTotalLabst = TotalLabst[z].Labst;
 
@@ -318,7 +301,6 @@ sap.ui.define([
 								Yellow: Cytlv,
 								Green: Cgtlv,
 								Blue: Cbtlv,
-								Werks: Werks,
 								Labst: sTotalLabst,
 								Changedon: Changedon,
 
@@ -328,8 +310,8 @@ sap.ui.define([
 							sCompanyCode = "";
 							sTotalLabst = "";
 							arr.push({
-								Matnr: "Plant",
-								CompanyCode: Werks,
+
+								Werks: Werks,
 
 								Changedon: Changedon,
 
@@ -338,8 +320,7 @@ sap.ui.define([
 							});
 
 							arr2.push({
-								Matnr: "S.L. ",
-								CompanyCode: sStorageLoc,
+								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
 								Red: Crtlv,
@@ -352,8 +333,8 @@ sap.ui.define([
 
 							var index = ListofSrs.length - 1;
 							ListofSrs[index].MultipleIt.push({
-								Matnr: "Plant",
-								CompanyCode: Werks,
+
+								Werks: Werks,
 
 								Changedon: Changedon,
 
@@ -362,8 +343,7 @@ sap.ui.define([
 							});
 
 							arr2.push({
-								Matnr: "S.L. ",
-								CompanyCode: sStorageLoc,
+								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
 								Red: Crtlv,
@@ -390,24 +370,24 @@ sap.ui.define([
 			});
 		},
 
-			getStockDetailList: function() {
+		getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/STOCK_DATASet", {
 				success: function(oData) {
 					BusyIndicator.hide();
-				var ListofSrs = [];
+					var ListofSrs = [];
 					var listOfMat = [];
 					var MaterialList = [];
 					var len = oData.results.length;
-					var childarray = [] ;
-				var InnerChild = [];
-			var	InnerinnerChild = [];
-				for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-					
+					var childarray = [];
+					var InnerChild = [];
+					var InnerinnerChild = [];
+					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+
 						var odataset = oData.results[iRowIndex];
-							var Werks = odataset.Werks;
-					
+						var Werks = odataset.Werks;
+
 						var Cbtlv = odataset.Cbtlv;
 						var Cgtlv = odataset.Cgtlv;
 						var Cytlv = odataset.Cytlv;
@@ -415,9 +395,8 @@ sap.ui.define([
 						var Crtlv = odataset.Crtlv;
 						var Labst = odataset.Labst;
 
-				
 						var Matnr = odataset.Matnr;
-					
+
 						ListofSrs.push({
 							Cbtlv: Cbtlv,
 							Cgtlv: Cgtlv,
@@ -427,7 +406,7 @@ sap.ui.define([
 							Labst: parseInt(Labst),
 							Matnr: Matnr,
 							Werks: Werks,
-						MultipleIt: childarray
+							MultipleIt: childarray
 						});
 						for (var j = 0; j < StockList.length; j++) {
 							var stock = StockList[j];
@@ -436,64 +415,59 @@ sap.ui.define([
 							var Lgort = stock.Lgort;
 							var Werks = stock.Werks;
 
-							if(oData.results[iRowIndex].Matnr === StockList[j].Matnr ){
+							if (oData.results[iRowIndex].Matnr === StockList[j].Matnr) {
 								var total = [];
-									var r = "";
+								var r = "";
 								total.push(parseInt(stock.Lbkum));
-													
-							var sum = 0;
-							
-							for (var i = 0; i < total.length; i++) {
-							    sum += total[i];
-							}
-							console.log(sum);
-										
-							childarray.push({
-							Bukrs: Bukrs,
-							Labst: Lbkum,
-								Matnr: 'Company Level',
-						//	Lgort: Lgort,
-						//	Werks: Werks,
-							MultipleIt : InnerChild
-					
+
+								var sum = 0;
+
+								for (var i = 0; i < total.length; i++) {
+									sum += total[i];
+								}
+								console.log(sum);
+
+								childarray.push({
+									Bukrs: Bukrs,
+									Labst: Lbkum,
+									Matnr: 'Company Level',
+									//	Lgort: Lgort,
+									//	Werks: Werks,
+									MultipleIt: InnerChild
+
 								});
-								
-								
-									
-							InnerChild.push({
-						//	Bukrs: Bukrs,
-							Labst: Lbkum,
-						//	Lgort: Lgort,
-							Matnr: 'Plant',
-							Werks: Werks,
-							MultipleIt : InnerinnerChild
-					
-								});	
-								
-								
-											
-							InnerinnerChild.push({
-						//	Bukrs: Bukrs,
-							Labst: Lbkum,
-						
-							Matnr: 'SLoc',
-						
-					
-								});	
-								
-							InnerChild = [];	
+
+								InnerChild.push({
+									//	Bukrs: Bukrs,
+									Labst: Lbkum,
+									//	Lgort: Lgort,
+									Matnr: 'Plant',
+									Werks: Werks,
+									MultipleIt: InnerinnerChild
+
+								});
+
+								InnerinnerChild.push({
+									//	Bukrs: Bukrs,
+									Labst: Lbkum,
+
+									Matnr: 'SLoc',
+
+								});
+
+								InnerChild = [];
 								InnerinnerChild = [];
-							//	childarray.push(StockList[j]);
+								//	childarray.push(StockList[j]);
 								console.log(StockList[j]);
 							}
-				}
-				
-						childarray = [];	
-				
-				}
-					console.log(ListofSrs);		
+						}
+
+						childarray = [];
+
+					}
+					console.log(ListofSrs);
 					oView.getModel("oStockDataModel").setData(ListofSrs)
-			
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -514,9 +488,6 @@ sap.ui.define([
 			 	}
 			 });
 		},
-		
-		                                                                                                                                                                                                       
-	
 
 		BuyerSheetChat: function(oEvent) {
 
