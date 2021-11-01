@@ -190,7 +190,7 @@ sap.ui.define([
 				success: function(odata) {
 
 					CompanyLevelset = odata.results;
-					console.log(CompanyLevelset);
+				//	console.log(CompanyLevelset);
 
 					var iItem = odata.results.length;
 					var ListItem = [];
@@ -301,8 +301,7 @@ sap.ui.define([
 								Yellow: Cytlv,
 								Green: Cgtlv,
 								Blue: Cbtlv,
-								Labst:parseInt(sTotalLabst),
-							
+								Labst: parseInt(sTotalLabst),
 								Changedon: Changedon,
 
 								Color: "",
@@ -322,7 +321,7 @@ sap.ui.define([
 
 							arr2.push({
 								Werks: "S.L " + sStorageLoc,
-								Labst: parseInt(Labst),
+								Labst: Labst,
 								Changedon: Changedon,
 								Red: Crtlv,
 								Yellow: Cytlv,
@@ -345,7 +344,7 @@ sap.ui.define([
 
 							arr2.push({
 								Werks: "S.L " + sStorageLoc,
-								Labst: parseInt(Labst),
+								Labst: Labst,
 								Changedon: Changedon,
 								Red: Crtlv,
 								Yellow: Cytlv,
@@ -2934,7 +2933,7 @@ sap.ui.define([
 
 						// 		 	}
 
-						console.log(oData);
+					//	console.log(oData);
 						var iItem = oData.results.length;
 						var aListofVendoritem = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -2983,7 +2982,7 @@ sap.ui.define([
 							}
 
 						}
-						console.log(result);
+						//console.log(result);
 						sap.ui.getCore().getModel("oSaleModel").setData(result);
 
 					},
