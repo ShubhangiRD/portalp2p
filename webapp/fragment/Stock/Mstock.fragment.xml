@@ -47,25 +47,45 @@
 			<Column width="13rem" sorted="true">
 				<m:Label text="Critical Threshold"/>
 				<template>
+<<<<<<< HEAD
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv' }" state="Error"></m:ObjectNumber>
+=======
+					<!--<m:ObjectNumber number="0 - {=${ path : 'oStockDataModel>Crtlv' }}" state="Error"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Error"></m:ObjectNumber>
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Warrning Threshold"/>
 				<template>
+<<<<<<< HEAD
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv' }" state="Warning"></m:ObjectNumber>
+=======
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Crtlv'}-1+2} - {=${path:'oStockDataModel>Cytlv'}}" state="Warning"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Warning"></m:ObjectNumber>
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Green Threshold"/>
 				<template>
+<<<<<<< HEAD
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv' }" state="Success"></m:ObjectNumber>
+=======
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cytlv'}-1+2} - {=${path:'oStockDataModel>Cgtlv'}}" state="Success"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv'}" state="Success"></m:ObjectNumber>
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Excess Threshold"/>
 				<template>
+<<<<<<< HEAD
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cbtlv' }" state="Information"/>
+=======
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv'}" state="Information"/>
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cgtlv'}-1+2} - {=${path:'oStockDataModel>Cbtlv'}}" state="Information"/>-->
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/portalp2p.git
 				</template>
 			</Column>
 			<!--<Column width="13rem">-->
