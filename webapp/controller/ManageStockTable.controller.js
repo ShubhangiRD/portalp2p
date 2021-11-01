@@ -520,7 +520,7 @@ sap.ui.define([
 
 		},
 		onFilterSelectHierarchy: function(oEvent) {
-			var oBinding = this.byId("awaitingTable").getBinding("items"),
+			var oBinding = this.byId("awaitingTable2").getBinding("items"),
 				sText = oEvent.getSource();
 			var sKey = sText.mProperties.text,
 				//	sKey = oEvent.getParameter("text"),
@@ -563,9 +563,9 @@ sap.ui.define([
 				oData: {}
 			});
 			oMatModel.updateBindings(true);
-			var tbl = oView.byId("awaitingTable");
+			var tbl = oView.byId("TreeTableBasic2");
 			tbl.setBusy(true);
-			this.getTableStockDetails();
+			this.getStockDetailListSiddhi();
 			tbl.setBusy(false);
 		},
 		getTableStockDetail1s: function() {

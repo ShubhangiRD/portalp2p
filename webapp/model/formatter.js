@@ -47,7 +47,7 @@ sap.ui.define([
 			var oModel = oBinding1.oModel.oData;
 			var slength = oBinding1.oModel.oData.length;
 			var sColumnlength = slength-(slength-1);
-			console.log(sColumnlength);
+		
 		
 if(quantity !==null && red !==null && yellow !==null && green !==null && blue !==null && Matnr !==null){
 

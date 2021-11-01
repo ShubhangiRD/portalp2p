@@ -1,6 +1,21 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt','Plant']}}" enableSelectAll="false"
-		ariaLabelledBy="title"  visible="{VisibleModel>/MaterialTable}">
+		ariaLabelledBy="title" visible="{VisibleModel>/MaterialTable}">
+		
+		  <extension>
+                    <m:OverflowToolbar style="Clear">
+                        <m:Title id="title" text="Stock Material Details"/>
+                        <m:ToolbarSpacer/>
+                      	<m:Button tooltip ="Notification" type="Attention" text="{count>/count}"  id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
+		<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
+			-->		<m:Button tooltip="{i18n>addItem}" text="MassUpdate"  id="idMassUpdate" press="MassUpdatePo"/>
+			<m:Button tooltip="{i18n>addItem}" text="BuyerSheet"  id="idBuyersheet" press="BuyerSheetChat"/>
+		
+                    </m:OverflowToolbar>
+                </extension>
+		
+	
 		<columns>
 			<Column width="9rem">
 				<m:Label text="Material"/>
@@ -70,21 +85,15 @@
 						wrapping="false"/>
 				</template>
 			</Column>
-			
-	
-					<Column width="13rem">
+			<Column width="13rem">
 				<m:Label text="Action"/>
 				<template>
-				 <m:HBox>
-				
-							<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
-							<m:Button id="idRefill" text="Refill" press="onSavePurchaseOrder" type="Accept" ariaLabelledBy="editButtonLabel"/>
-					       </m:HBox>	
-						
+					<m:HBox>
+						<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
+						<m:Button id="idRefill" text="Refill" press="onSavePurchaseOrder" type="Accept" ariaLabelledBy="editButtonLabel"/>
+					</m:HBox>
 				</template>
 			</Column>
-			
-			
 		</columns>
 	</TreeTable>
 </core:FragmentDefinition>
