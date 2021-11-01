@@ -70,6 +70,21 @@
 						wrapping="false"/>
 				</template>
 			</Column>
+			
+	
+					<Column width="13rem">
+				<m:Label text="Action"/>
+				<template>
+				 <m:HBox>
+				
+							<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
+							<m:Button id="idRefill" text="Refill" press="onSavePurchaseOrder" type="Accept" ariaLabelledBy="editButtonLabel"/>
+					       </m:HBox>	
+						
+				</template>
+			</Column>
+			
+			
 		</columns>
 	</TreeTable>
 </core:FragmentDefinition>
