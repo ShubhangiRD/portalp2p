@@ -297,10 +297,10 @@ sap.ui.define([
 							ListofSrs.push({
 								Matnr: Matnr,
 								CompanyCode: sCompanyCode,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv,
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv,
 								Labst: parseInt(sTotalLabst),
 								Changedon: Changedon,
 
@@ -323,10 +323,10 @@ sap.ui.define([
 								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv
 
 							});
 						} else {
@@ -346,10 +346,10 @@ sap.ui.define([
 								Werks: "S.L " + sStorageLoc,
 								Labst: Labst,
 								Changedon: Changedon,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv
 
 							});
 						}

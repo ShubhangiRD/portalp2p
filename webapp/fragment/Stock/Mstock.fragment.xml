@@ -41,31 +41,31 @@
 				<m:Label text="Available Quantity"/>
 				<template>
 					<m:ObjectNumber number="{oStockDataModel>Labst}"
-						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Red'}, {path: 'oStockDataModel>Yellow'}, {path: 'oStockDataModel>Green'}, {path: 'oStockDataModel>Blue'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Critical Threshold"/>
 				<template>
-					<m:ObjectNumber number="{ path : 'oStockDataModel>Red' }" state="Error"></m:ObjectNumber>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv' }" state="Error"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Warrning Threshold"/>
 				<template>
-					<m:ObjectNumber number="{ path : 'oStockDataModel>Yellow' }" state="Warning"></m:ObjectNumber>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv' }" state="Warning"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Green Threshold"/>
 				<template>
-					<m:ObjectNumber number="{ path : 'oStockDataModel>Green' }" state="Success"></m:ObjectNumber>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv' }" state="Success"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Excess Threshold"/>
 				<template>
-					<m:ObjectNumber number="{ path : 'oStockDataModel>Blue' }" state="Information"/>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cbtlv' }" state="Information"/>
 				</template>
 			</Column>
 			<!--<Column width="13rem">-->
