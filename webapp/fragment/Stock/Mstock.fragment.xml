@@ -47,25 +47,29 @@
 			<Column width="13rem" sorted="true">
 				<m:Label text="Critical Threshold"/>
 				<template>
-					<m:ObjectNumber number="0 - {=${ path : 'oStockDataModel>Crtlv' }}" state="Error"></m:ObjectNumber>
+					<!--<m:ObjectNumber number="0 - {=${ path : 'oStockDataModel>Crtlv' }}" state="Error"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Error"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Warrning Threshold"/>
 				<template>
-					<m:ObjectNumber number="{=${ path : 'oStockDataModel>Crtlv'}-1+2} - {=${path:'oStockDataModel>Cytlv'}}" state="Warning"></m:ObjectNumber>
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Crtlv'}-1+2} - {=${path:'oStockDataModel>Cytlv'}}" state="Warning"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Warning"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Green Threshold"/>
 				<template>
-					<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cytlv'}-1+2} - {=${path:'oStockDataModel>Cgtlv'}}" state="Success"></m:ObjectNumber>
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cytlv'}-1+2} - {=${path:'oStockDataModel>Cgtlv'}}" state="Success"></m:ObjectNumber>-->
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv'}" state="Success"></m:ObjectNumber>
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Excess Threshold"/>
 				<template>
-					<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cgtlv'}-1+2} - {=${path:'oStockDataModel>Cbtlv'}}" state="Information"/>
+					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv'}" state="Information"/>
+					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cgtlv'}-1+2} - {=${path:'oStockDataModel>Cbtlv'}}" state="Information"/>-->
 				</template>
 			</Column>
 			<!--<Column width="13rem">-->
