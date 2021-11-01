@@ -4,7 +4,7 @@ sap.ui.define([
 	"use strict";
 	var oExcess = [];
 	var oExcessHierarchy =[];
-
+		var countt = 0;
 	return {
 
 		onBlueStage: function(blue) {
@@ -46,10 +46,14 @@ sap.ui.define([
 			var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 			var oModel = oBinding1.oModel.oData;
 			var slength = oBinding1.oModel.oData.length;
-			var sColumnlength = slength - 1;
+			var sColumnlength = slength-(slength-1);
+			console.log(sColumnlength);
+		
+if(quantity !==null && red !==null && yellow !==null && green !==null && blue !==null && Matnr !==null){
 
 			if (quantity > green) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + sColumnlength + "/Color", "blue");
+				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
+				countt++;
 				oExcess.push({
 					quantity: quantity,
 					Matnr: Matnr
@@ -64,18 +68,21 @@ sap.ui.define([
 				return "Information";
 
 			} else if (quantity > yellow && quantity < green) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + sColumnlength + "/Color", "green");
+				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "green");
+				countt++;
 				return "Success";
 
 			} else if (quantity > red && quantity <= yellow) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + sColumnlength + "/Color", "yellow");
+				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "yellow");
+				countt++;
 				return "Warning";
 			} else if (quantity < yellow) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + sColumnlength + "/Color", "red");
+				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "red");
+				countt++;
 				return "Error";
 
 			}
-
+}
 		},
 
 		HierarchyColorState: function(quantity, red, yellow, green, blue,Maingrp) {

@@ -495,7 +495,8 @@ sap.ui.define([
 			oRouter.navTo("BuyerSheet");
 		},
 		onFilterSelect: function(oEvent) {
-			var oBinding = this.byId("awaitingTable").getBinding("items"),
+			var oBinding = this.byId("TreeTableBasic2").getBinding("rows"),
+				//	var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 				sText = oEvent.getSource();
 			var sKey = sText.mProperties.text,
 				//	sKey = oEvent.getParameter("text"),
@@ -519,7 +520,7 @@ sap.ui.define([
 
 		},
 		onFilterSelectHierarchy: function(oEvent) {
-			var oBinding = this.byId("awaitingTable2").getBinding("items"),
+			var oBinding = this.byId("awaitingTable").getBinding("items"),
 				sText = oEvent.getSource();
 			var sKey = sText.mProperties.text,
 				//	sKey = oEvent.getParameter("text"),
