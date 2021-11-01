@@ -297,10 +297,10 @@ sap.ui.define([
 							ListofSrs.push({
 								Matnr: Matnr,
 								CompanyCode: sCompanyCode,
-								Red: Crtlv,
-								Yellow: Cytlv,
-								Green: Cgtlv,
-								Blue: Cbtlv,
+								Crtlv: Crtlv,
+								Cytlv: Cytlv,
+								Cgtlv: Cgtlv,
+								Cbtlv: Cbtlv,
 								Labst: parseInt(sTotalLabst),
 								Changedon: Changedon,
 
@@ -955,12 +955,24 @@ sap.ui.define([
 							var Prtlv = odataset.Prtlv;
 							var Pytlv = odataset.Pytlv;
 							var Werks = odataset.Werks;
+							
+									if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < CompanyLevelset.length; x++) {
+								if (Matnr === CompanyLevelset[x].Matnr) {
+									var sCompanyCode = CompanyLevelset[x].Bukrs;
+									// var sStorageLoc = CompanyLevelset[x].Lgort;
 
+								}
+							}
+						}
+                            var CompanyCode = sCompanyCode;
+                            
 							ListofSrs.push({
 								Cbtlv: Cbtlv,
 								Cgtlv: Cgtlv,
 								Cytlv: Cytlv,
 								Changedon: Changedon,
+								CompanyCode:CompanyCode,
 								Crtlv: Crtlv,
 								Labst: parseInt(Labst),
 								Matnr: Matnr,
@@ -986,7 +998,7 @@ sap.ui.define([
 					}
 
 				});
-				evt.getSource().getBinding("items").filter([]);
+				evt.getSource().getBinding("rows").filter([]);
 			}
 		},
 
