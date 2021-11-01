@@ -2,31 +2,34 @@
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
 class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSelectAll="false" ariaLabelledBy="title">
 		<columns>
-			<Column width="13rem">
-				<m:Label text="Material"/>
+			<Column width="17rem">
+				<m:Label text="Material/Company Code/Plant/StogLoc"/>
 				<template>
 					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
 				</template>
 			</Column>
-				<Column width="9rem">
-				<m:Label text="Company Level"/>
-				<template>
-					<m:Text text="{oStockDataModel>Bukrs}"/>
-				</template>
-			</Column>
-			<Column width="9rem">
+			<!--	<Column width="9rem">-->
+			<!--	<m:Label text="Company Level"/>-->
+			<!--	<template>-->
+			<!--		<m:Text text="{oStockDataModel>Bukrs}"/>-->
+			<!--	</template>-->
+			<!--</Column>-->
+			<Column width="6rem">
 				<m:Label text="Plant"/>
 				<template>
 					<m:Text text="{oStockDataModel>Werks}"/>
 				</template>
 			</Column>
-			<Column width="13rem">
+			<Column width="9rem">
 				<m:Label text="Available Quantity"/>
 				<template>
-					<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>
+					<m:ObjectNumber number="{oStockDataModel>Labst}"
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+			
+					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-				<Column width="9rem">
+				<Column width="8rem">
 				<m:Label text="Criticle threshold"/>
 				<template>
 				<m:ObjectNumber number="{oStockDataModel>Crtlv}" state="Error"></m:ObjectNumber>		
@@ -47,7 +50,7 @@ class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSel
 				
 				</template>
 			</Column>
-				<Column width="9rem">
+				<Column width="8rem">
 				<m:Label text="Excess threshold"/>
 				<template>
 						<m:ObjectNumber number='{oStockDataModel>Cbtlv}'

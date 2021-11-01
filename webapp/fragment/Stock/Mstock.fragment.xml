@@ -1,23 +1,21 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt','Plant']}}" enableSelectAll="false"
 		ariaLabelledBy="title" visible="{VisibleModel>/MaterialTable}">
-		
-		  <extension>
-                    <m:OverflowToolbar style="Clear">
-                        <m:Title id="title" text="Stock Material Details"/>
-                        <m:ToolbarSpacer/>
-                      	<m:Button tooltip ="Notification" type="Attention" text="{count>/count}"  id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+		<extension>
+			<m:OverflowToolbar style="Clear">
+				<m:Title id="title" text="Stock Material Details"/>
+				<m:ToolbarSpacer/>
+				<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
 				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
-		<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
-			-->		<m:Button tooltip="{i18n>addItem}" text="MassUpdate"  id="idMassUpdate" press="MassUpdatePo"/>
-			<m:Button tooltip="{i18n>addItem}" text="BuyerSheet"  id="idBuyersheet" press="BuyerSheetChat"/>
-			 <m:Button text="Collapse all" press="onCollapseAll"/>
-		 <m:Button text="Expand level" press="onExpandFirstLevel"/>
-                        <m:Button text="Expand selection" press="onExpandSelection"/>
-                    </m:OverflowToolbar>
-                </extension>
-		
-	
+				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
+			-->
+				<m:Button tooltip="{i18n>addItem}" text="MassUpdate" id="idMassUpdate" press="MassUpdatePo"/>
+				<m:Button tooltip="{i18n>addItem}" text="BuyerSheet" id="idBuyersheet" press="BuyerSheetChat"/>
+				<m:Button text="Collapse all" press="onCollapseAll"/>
+				<m:Button text="Expand level" press="onExpandFirstLevel"/>
+				<m:Button text="Expand selection" press="onExpandSelection"/>
+			</m:OverflowToolbar>
+		</extension>
 		<columns>
 			<Column width="9rem">
 				<m:Label text="Material"/>
@@ -44,7 +42,6 @@
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 				</template>
 			</Column>
-			
 			<Column width="13rem">
 				<m:Label text="Total Quantity"/>
 				<template>
@@ -52,49 +49,36 @@
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 				</template>
 			</Column>
-			
 			<Column width="13rem" sorted="true">
 				<m:Label text="Critical Threshold"/>
 				<template>
-
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv' }" state="Error"></m:ObjectNumber>
-
 					<!--<m:ObjectNumber number="0 - {=${ path : 'oStockDataModel>Crtlv' }}" state="Error"></m:ObjectNumber>-->
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Error"></m:ObjectNumber>
-
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Warrning Threshold"/>
 				<template>
-
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv' }" state="Warning"></m:ObjectNumber>
-
 					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Crtlv'}-1+2} - {=${path:'oStockDataModel>Cytlv'}}" state="Warning"></m:ObjectNumber>-->
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Crtlv'}" state="Warning"></m:ObjectNumber>
-
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Green Threshold"/>
 				<template>
-
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv' }" state="Success"></m:ObjectNumber>
-
 					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cytlv'}-1+2} - {=${path:'oStockDataModel>Cgtlv'}}" state="Success"></m:ObjectNumber>-->
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cytlv'}" state="Success"></m:ObjectNumber>
-
 				</template>
 			</Column>
 			<Column width="13rem" sorted="true">
 				<m:Label text="Excess Threshold"/>
 				<template>
-
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cbtlv' }" state="Information"/>
-
 					<m:ObjectNumber number="{ path : 'oStockDataModel>Cgtlv'}" state="Information"/>
 					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cgtlv'}-1+2} - {=${path:'oStockDataModel>Cbtlv'}}" state="Information"/>-->
-
 				</template>
 			</Column>
 			<!--<Column width="13rem">-->

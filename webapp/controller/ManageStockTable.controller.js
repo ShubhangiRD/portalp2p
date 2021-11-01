@@ -64,7 +64,7 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			this.getMaterialstockSet11();
+			//		this.getMaterialstockSet11();
 			this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
@@ -91,8 +91,9 @@ sap.ui.define([
 
 			var oStockData = new JSONModel();
 			oView.setModel(oStockData, "oStockDataModel");
-			// this.getMaterialstockSet();
-			this.getStockDetailListSiddhi();
+			this.getMaterialstockSet();
+			this.getStockDetailList();
+			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
 			var oExcessHierarchy = new JSONModel();
@@ -190,7 +191,7 @@ sap.ui.define([
 				success: function(odata) {
 
 					CompanyLevelset = odata.results;
-				//	console.log(CompanyLevelset);
+					//	console.log(CompanyLevelset);
 
 					var iItem = odata.results.length;
 					var ListItem = [];
@@ -316,10 +317,10 @@ sap.ui.define([
 								Changedon: Changedon,
 
 								Plant: arr2
-								// 	Crtlv: "",
-								// Cytlv: "",
-								// Cgtlv: "",
-								// Cbtlv: ""
+									// 	Crtlv: "",
+									// Cytlv: "",
+									// Cgtlv: "",
+									// Cbtlv: ""
 
 							});
 
@@ -418,23 +419,19 @@ sap.ui.define([
 							var Lbkum = stock.Lbkum;
 							var Lgort = stock.Lgort;
 							var Werks = stock.Werks;
+						
+							
 
 							if (oData.results[iRowIndex].Matnr === StockList[j].Matnr) {
-								var total = [];
-								var r = "";
-								total.push(parseInt(stock.Lbkum));
-
-								var sum = 0;
-
-								for (var i = 0; i < total.length; i++) {
-									sum += total[i];
-								}
-								console.log(sum);
+							
+							
+							
+							//	console.log(sum);
 
 								childarray.push({
-									Bukrs: Bukrs,
+									//	Bukrs: Bukrs,
 									Labst: Lbkum,
-									Matnr: 'Company Level',
+									Matnr: 'Company Level' + " " + Bukrs,
 									//	Lgort: Lgort,
 									//	Werks: Werks,
 									MultipleIt: InnerChild
@@ -445,8 +442,8 @@ sap.ui.define([
 									//	Bukrs: Bukrs,
 									Labst: Lbkum,
 									//	Lgort: Lgort,
-									Matnr: 'Plant',
-									Werks: Werks,
+									Matnr: 'Plant' + " " + Werks,
+									//	Werks: Werks,
 									MultipleIt: InnerinnerChild
 
 								});
@@ -455,7 +452,7 @@ sap.ui.define([
 									//	Bukrs: Bukrs,
 									Labst: Lbkum,
 
-									Matnr: 'SLoc',
+									Matnr: 'SLoc' + " " + Lgort
 
 								});
 
@@ -480,17 +477,17 @@ sap.ui.define([
 				}
 			});
 		},
-		getMaterialstockSet : function() {
-		var	oModel = this.getOwnerComponent().getModel("StockModel");
-			 oModel.read('/getMaterialstockSet',{
-			 	success : function(odata){
-			 		StockList = odata.results;
-			 		console.log(odata);
-			 	},
-			 	error : function(oerror){
-			 		MessageBox.error(oerror);
-			 	}
-			 });
+		getMaterialstockSet: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read('/getMaterialstockSet', {
+				success: function(odata) {
+					StockList = odata.results;
+					console.log(odata);
+				},
+				error: function(oerror) {
+					MessageBox.error(oerror);
+				}
+			});
 		},
 
 		onExpandFirstLevel: function() {
@@ -502,7 +499,7 @@ sap.ui.define([
 			var oTreeTable = this.byId("TreeTableBasic2");
 			oTreeTable.expand(oTreeTable.getSelectedIndices());
 		},
-			onCollapseAll: function() {
+		onCollapseAll: function() {
 			var oTreeTable = this.byId("TreeTableBasic2");
 			oTreeTable.collapseAll();
 		},
@@ -959,24 +956,24 @@ sap.ui.define([
 							var Prtlv = odataset.Prtlv;
 							var Pytlv = odataset.Pytlv;
 							var Werks = odataset.Werks;
-							
-									if (Matnr !== "" || Matnr !== undefined) {
-							for (var x = 0; x < CompanyLevelset.length; x++) {
-								if (Matnr === CompanyLevelset[x].Matnr) {
-									var sCompanyCode = CompanyLevelset[x].Bukrs;
-									// var sStorageLoc = CompanyLevelset[x].Lgort;
 
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var x = 0; x < CompanyLevelset.length; x++) {
+									if (Matnr === CompanyLevelset[x].Matnr) {
+										var sCompanyCode = CompanyLevelset[x].Bukrs;
+										// var sStorageLoc = CompanyLevelset[x].Lgort;
+
+									}
 								}
 							}
-						}
-                            var CompanyCode = sCompanyCode;
-                            
+							var CompanyCode = sCompanyCode;
+
 							ListofSrs.push({
 								Cbtlv: Cbtlv,
 								Cgtlv: Cgtlv,
 								Cytlv: Cytlv,
 								Changedon: Changedon,
-								CompanyCode:CompanyCode,
+								CompanyCode: CompanyCode,
 								Crtlv: Crtlv,
 								Labst: parseInt(Labst),
 								Matnr: Matnr,
@@ -2963,7 +2960,7 @@ sap.ui.define([
 
 						// 		 	}
 
-					//	console.log(oData);
+						//	console.log(oData);
 						var iItem = oData.results.length;
 						var aListofVendoritem = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
