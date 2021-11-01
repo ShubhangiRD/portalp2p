@@ -489,6 +489,19 @@ sap.ui.define([
 			 });
 		},
 
+		onExpandFirstLevel: function() {
+			var oTreeTable = this.byId("TreeTableBasic2");
+			oTreeTable.expandToLevel(1);
+		},
+
+		onExpandSelection: function() {
+			var oTreeTable = this.byId("TreeTableBasic2");
+			oTreeTable.expand(oTreeTable.getSelectedIndices());
+		},
+			onCollapseAll: function() {
+			var oTreeTable = this.byId("TreeTableBasic2");
+			oTreeTable.collapseAll();
+		},
 		BuyerSheetChat: function(oEvent) {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

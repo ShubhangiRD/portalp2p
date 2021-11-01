@@ -11,7 +11,9 @@
 		<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->		<m:Button tooltip="{i18n>addItem}" text="MassUpdate"  id="idMassUpdate" press="MassUpdatePo"/>
 			<m:Button tooltip="{i18n>addItem}" text="BuyerSheet"  id="idBuyersheet" press="BuyerSheetChat"/>
-		
+			 <m:Button text="Collapse all" press="onCollapseAll"/>
+		 <m:Button text="Expand level" press="onExpandFirstLevel"/>
+                        <m:Button text="Expand selection" press="onExpandSelection"/>
                     </m:OverflowToolbar>
                 </extension>
 		
