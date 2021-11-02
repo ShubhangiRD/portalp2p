@@ -417,12 +417,14 @@ sap.ui.define([
 							var stock = StockList[j];
 							var Bukrs = stock.Bukrs;
 							var Lbkum = stock.Lbkum;
+								var Labst = stock.Labst;
 							var Lgort = stock.Lgort;
 							var Werks = stock.Werks;
+								var Matnr2 = stock.Matnr;
 						
 							
 
-							if (oData.results[iRowIndex].Matnr === StockList[j].Matnr) {
+							if (Matnr === Matnr2) {
 							
 							
 							
@@ -430,7 +432,7 @@ sap.ui.define([
 
 								childarray.push({
 									//	Bukrs: Bukrs,
-									Labst: Lbkum,
+									Labst: Labst,
 									Matnr: 'Company Level' + " " + Bukrs,
 									//	Lgort: Lgort,
 									//	Werks: Werks,
@@ -440,7 +442,7 @@ sap.ui.define([
 
 								InnerChild.push({
 									//	Bukrs: Bukrs,
-									Labst: Lbkum,
+									Labst: Labst,
 									//	Lgort: Lgort,
 									Matnr: 'Plant' + " " + Werks,
 									//	Werks: Werks,
@@ -450,7 +452,7 @@ sap.ui.define([
 
 								InnerinnerChild.push({
 									//	Bukrs: Bukrs,
-									Labst: Lbkum,
+									Labst: Labst,
 
 									Matnr: 'SLoc' + " " + Lgort
 
