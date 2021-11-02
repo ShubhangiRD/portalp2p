@@ -388,6 +388,16 @@ sap.ui.define([
 					var childarray = [];
 					var InnerChild = [];
 					var InnerinnerChild = [];
+					function userExists(Bukrs)  {
+					return childarray.some(function(el) {
+				 return el.Bukrs === Bukrs;
+					}); 
+						}
+						function PlantExists(Werks)  {
+					return InnerChild.some(function(edl) {
+				 return edl.Werks === Werks;
+					}); 
+						}
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
 
 						var odataset = oData.results[iRowIndex];
@@ -413,25 +423,80 @@ sap.ui.define([
 							Werks: Werks,
 							MultipleIt: childarray
 						});
+						
 						for (var j = 0; j < StockList.length; j++) {
 							var stock = StockList[j];
 							var Bukrs = stock.Bukrs;
 							var Lbkum = stock.Lbkum;
 								var Labst = stock.Labst;
 							var Lgort = stock.Lgort;
-							var Werks = stock.Werks;
+							var Werkss = stock.Werks;
 								var Matnr2 = stock.Matnr;
 						
 							
 
 							if (Matnr === Matnr2) {
-							
-							
-							
 							//	console.log(sum);
+							
+			
+									if(userExists(Bukrs)){	
+							// childarray.push({
+							// 		//	Bukrs: Bukrs,
+							// 		Labst: Labst,
+							// 		//Matnr: 'Company Level' + " " + Bukrs,
+							// 		//	Lgort: Lgort,
+							// 		//	Werks: Werks,
+							// 		MultipleIt: InnerChild
 
-								childarray.push({
+							// 	});
+								
+								
+								if(PlantExists(Werkss)){
+									
+								// 	InnerChild.push({
+								// 	//	Bukrs: Bukrs,
+								// 	Labst: Labst,
+								// 	//	Lgort: Lgort,
+								// 	Matnr: 'Plant' + " " + Werks,
+								// 	//	Werks: Werks,
+								// 	MultipleIt: InnerinnerChild
+
+								// });
+
+								InnerinnerChild.push({
 									//	Bukrs: Bukrs,
+									Labst: Labst,
+
+									Matnr: 'SLoc' + " " + Lgort
+
+								});
+								}
+								else
+								{
+											InnerChild.push({
+									//	Bukrs: Bukrs,
+									Labst: Labst,
+									//	Lgort: Lgort,
+									Matnr: 'Plant' + " " + Werks,
+									Werks: Werks,
+									MultipleIt: InnerinnerChild
+
+								});
+
+								InnerinnerChild.push({
+									//	Bukrs: Bukrs,
+									Labst: Labst,
+
+									Matnr: 'SLoc' + " " + Lgort
+
+								});
+								
+}
+								
+								
+								
+						}else{	childarray.push({
+									Bukrs: Bukrs,
 									Labst: Labst,
 									Matnr: 'Company Level' + " " + Bukrs,
 									//	Lgort: Lgort,
@@ -439,13 +504,13 @@ sap.ui.define([
 									MultipleIt: InnerChild
 
 								});
-
-								InnerChild.push({
+								
+										InnerChild.push({
 									//	Bukrs: Bukrs,
 									Labst: Labst,
 									//	Lgort: Lgort,
 									Matnr: 'Plant' + " " + Werks,
-									//	Werks: Werks,
+										Werks: Werks,
 									MultipleIt: InnerinnerChild
 
 								});
@@ -458,13 +523,24 @@ sap.ui.define([
 
 								});
 
-								InnerChild = [];
-								InnerinnerChild = [];
+								
+								
+}
+							
+							
+					
+						
+							
 								//	childarray.push(StockList[j]);
-								console.log(StockList[j]);
+							//	console.log(StockList[j]);
+								
+								
+											
+				
 							}
 						}
-
+	InnerChild = [];
+								InnerinnerChild = [];
 						childarray = [];
 
 					}
