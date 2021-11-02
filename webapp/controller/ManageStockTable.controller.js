@@ -644,10 +644,10 @@ sap.ui.define([
 			var oBinding = this.byId("TreeTableBasic2").getBinding("rows"),
 				//	var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 				sText = oEvent.getSource();
-			var sKey = sText.mProperties.text,
+			var sKey = sText.mProperties.text;
 				//	sKey = oEvent.getParameter("text"),
 
-				aFilters = [],
+			var	aFilters = [],
 				ShowColor;
 
 			if (sKey === "Critical") {
@@ -662,8 +662,8 @@ sap.ui.define([
 				ShowColor = new sap.ui.model.Filter('Color', sap.ui.model.FilterOperator.EQ, "yellow");
 			}
 			aFilters.push(new Filter([ShowColor], false));
-			oBinding.filter(aFilters);
-
+			oBinding.filter(aFilters,null);
+		//	oBinding.filter('Color', null);
 		},
 		onFilterSelectHierarchy: function(oEvent) {
 			var oBinding = this.byId("awaitingTable2").getBinding("items"),
