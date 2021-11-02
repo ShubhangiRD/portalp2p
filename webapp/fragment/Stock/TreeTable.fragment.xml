@@ -54,32 +54,28 @@ visible="{VisibleModel>/MaterialTable}"		class="sapUiSmallMarginTop sapUiSmallMa
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Criticle threshold"/>
 				<template>
-					<m:ObjectNumber number="{oStockDataModel>Crtlv}" state="Error"></m:ObjectNumber>
-				<!--<m:ObjectNumber number="0 - {=${ path : 'oStockDataModel>Crtlv' }}" state="Error"></m:ObjectNumber>-->
+					<m:ObjectNumber number= "{= ${oStockDataModel>Crtlv} === 'crtlv' ? '  ' : '0 - ' + ${oStockDataModel>Crtlv} } "   state="Error"></m:ObjectNumber>
 				</template>
 			</Column>
 	
 			<Column width="9rem" hAlign="Center">
 				<m:Label text="Warning threshold"/>
 				<template>
-					<m:ObjectNumber number='{oStockDataModel>Cytlv}' state="Warning"></m:ObjectNumber>
-							<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Crtlv'}-1+2} - {=${path:'oStockDataModel>Cytlv'}}" state="Warning"></m:ObjectNumber>-->
+					<m:ObjectNumber number= "{= ${oStockDataModel>Cytlv} === 'cytlv' ? '  ' : ${oStockDataModel>Crtlv} - 1+2 +  ' - ' + ${oStockDataModel>Cytlv} } " state="Warning"></m:ObjectNumber>
 				</template>
 			</Column>
 			
 					<Column width="9rem" hAlign="Center">
 				<m:Label text="Success threshold"/>
 				<template>
-					<m:ObjectNumber number='{oStockDataModel>Cgtlv}' state="Success"></m:ObjectNumber>
-					<!--<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cytlv'}-1+2} - {=${path:'oStockDataModel>Cgtlv'}}" state="Success"></m:ObjectNumber>-->
+				<m:ObjectNumber number= "{= ${oStockDataModel>Cgtlv} === 'cgtlv' ? '  ' : ${oStockDataModel>Cytlv} - 1+2 +  ' - ' + ${oStockDataModel>Cgtlv} } " state="Success"></m:ObjectNumber>
 				</template>
 			</Column>
 			
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Excess threshold"/>
 				<template>
-					<!--	<m:ObjectNumber number="{=${ path : 'oStockDataModel>Cgtlv'}-1+2} - {=${path:'oStockDataModel>Cbtlv'}}" state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"/>-->
-					<m:ObjectNumber number='{oStockDataModel>Cbtlv}' state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"></m:ObjectNumber>
+					<m:ObjectNumber number="{= ${oStockDataModel>Cbtlv} === 'cbtlv' ? '  ' : ${oStockDataModel>Cgtlv} - 1+2 +  ' - ' + ${oStockDataModel>Cbtlv} } " state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"/>
 				</template>
 			</Column>
 			<!--<Column width="13rem" sorted="true">-->

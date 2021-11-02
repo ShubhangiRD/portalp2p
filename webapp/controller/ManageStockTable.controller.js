@@ -375,7 +375,7 @@ sap.ui.define([
 			});
 		},
 
-		getStockDetailList: function() {
+	getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/STOCK_DATASet", {
@@ -413,7 +413,7 @@ sap.ui.define([
 						var Labst = odataset.Labst;
 
 						var Matnr = odataset.Matnr;
-					if (Matnr !== "" || Matnr !== undefined) {
+						if (Matnr !== "" || Matnr !== undefined) {
 							for (var z = 0; z < TotalLabst.length; z++) {
 								if (Matnr === TotalLabst[z].Matnr) {
 									var sTotalLabst = TotalLabst[z].Labst;
@@ -421,8 +421,8 @@ sap.ui.define([
 								}
 							}
 						}
-						
-							if (Matnr !== "" || Matnr !== undefined) {
+
+						if (Matnr !== "" || Matnr !== undefined) {
 							for (var x = 0; x < oMaterialList.length; x++) {
 								if (Matnr === oMaterialList[x].Materialno) {
 									var sMatDescription = oMaterialList[x].Description;
@@ -438,13 +438,11 @@ sap.ui.define([
 							Crtlv: Crtlv,
 							Labst: parseInt(sTotalLabst),
 							Matnr: Matnr,
-							Description:sMatDescription,
+							Description: sMatDescription,
 							Werks: Werks,
-								Color: "",
+							Color: "",
 							MultipleIt: childarray
 						});
-						
-					
 
 						for (var j = 0; j < StockList.length; j++) {
 							var stock = StockList[j];
@@ -484,6 +482,10 @@ sap.ui.define([
 										InnerinnerChild.push({
 											//	Bukrs: Bukrs,
 											Labst: Labst,
+												Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
 
 											Matnr: 'SLoc' + " " + Lgort
 
@@ -503,7 +505,10 @@ sap.ui.define([
 											//	Bukrs: Bukrs,
 											Labst: Labst,
 
-											Matnr: 'SLoc' + " " + Lgort
+											Matnr: 'SLoc' + " " + Lgort,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv"
 
 										});
 
@@ -512,8 +517,13 @@ sap.ui.define([
 								} else {
 									childarray.push({
 										Bukrs: Bukrs,
-										Labst:sTotalLabst,
+										Labst: sTotalLabst,
 										Matnr: 'Company Level' + " " + Bukrs,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
+
 										//	Lgort: Lgort,
 										//	Werks: Werks,
 										MultipleIt: InnerChild
@@ -525,6 +535,10 @@ sap.ui.define([
 										// Labst: Labst,
 										//	Lgort: Lgort,
 										Matnr: 'Plant' + " " + Werks,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
 										Werks: Werks,
 										MultipleIt: InnerinnerChild
 
@@ -533,6 +547,10 @@ sap.ui.define([
 									InnerinnerChild.push({
 										//	Bukrs: Bukrs,
 										Labst: Labst,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
 
 										Matnr: 'SLoc' + " " + Lgort
 
@@ -550,10 +568,10 @@ sap.ui.define([
 						childarray = [];
 
 					}
-				
+
 					oView.getModel("oStockDataModel").setData(ListofSrs);
-						console.log(ListofSrs);
-						
+					console.log(ListofSrs);
+
 					Massupload = ListofSrs;
 
 				},
