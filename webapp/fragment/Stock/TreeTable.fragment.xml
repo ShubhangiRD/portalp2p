@@ -29,6 +29,18 @@ class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSel
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
+			
+					<Column width="9rem">
+				<m:Label text="Total Quantity"/>
+				<template>
+					<m:ObjectNumber number="{oStockDataModel>Tlabst}"
+						state="{ parts: [ {path: 'oStockDataModel>Tlabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+			
+					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
+				</template>
+			</Column>
+			
+			
 				<Column width="8rem">
 				<m:Label text="Criticle threshold"/>
 				<template>
