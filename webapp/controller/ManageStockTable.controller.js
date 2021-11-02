@@ -92,7 +92,7 @@ sap.ui.define([
 			var oStockData = new JSONModel();
 			oView.setModel(oStockData, "oStockDataModel");
 			this.getMaterialstockSet();
-			this.getStockDetailList();
+	//		this.getStockDetailList();
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -152,7 +152,7 @@ sap.ui.define([
 
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
-			this.getSalesOrderDetails();
+		//	this.getSalesOrderDetails();
 
 			this.initializeView();
 
@@ -413,10 +413,19 @@ sap.ui.define([
 						var Labst = odataset.Labst;
 
 						var Matnr = odataset.Matnr;
-		if (Matnr !== "" || Matnr !== undefined) {
+					if (Matnr !== "" || Matnr !== undefined) {
 							for (var z = 0; z < TotalLabst.length; z++) {
 								if (Matnr === TotalLabst[z].Matnr) {
 									var sTotalLabst = TotalLabst[z].Labst;
+
+								}
+							}
+						}
+						
+							if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < oMaterialList.length; x++) {
+								if (Matnr === oMaterialList[x].Materialno) {
+									var sMatDescription = oMaterialList[x].Description;
 
 								}
 							}
@@ -427,9 +436,11 @@ sap.ui.define([
 							Cytlv: Cytlv,
 							Changedon: Changedon,
 							Crtlv: Crtlv,
-							Tlabst: parseInt(sTotalLabst),
+							Labst: parseInt(sTotalLabst),
 							Matnr: Matnr,
+							Description:sMatDescription,
 							Werks: Werks,
+								Color: "",
 							MultipleIt: childarray
 						});
 						
@@ -501,7 +512,7 @@ sap.ui.define([
 								} else {
 									childarray.push({
 										Bukrs: Bukrs,
-										Tlabst:sTotalLabst,
+										Labst:sTotalLabst,
 										Matnr: 'Company Level' + " " + Bukrs,
 										//	Lgort: Lgort,
 										//	Werks: Werks,
@@ -539,8 +550,11 @@ sap.ui.define([
 						childarray = [];
 
 					}
-					console.log(ListofSrs);
-					oView.getModel("oStockDataModel").setData(ListofSrs)
+				
+					oView.getModel("oStockDataModel").setData(ListofSrs);
+						console.log(ListofSrs);
+						
+					Massupload = ListofSrs;
 
 				},
 				error: function(oError) {
@@ -697,7 +711,7 @@ sap.ui.define([
 			oMatModel.updateBindings(true);
 			var tbl = oView.byId("TreeTableBasic2");
 			tbl.setBusy(true);
-			this.getStockDetailListSiddhi();
+			this.getStockDetailList();
 			tbl.setBusy(false);
 		},
 		getTableStockDetail1s: function() {
@@ -868,7 +882,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
 					oLookupModel.refresh(true);
-					that.getTableStockDetails();
+					that.getStockDetailList();
 				},
 				error: function(oError) {
 					//	BusyIndicator.hide();
@@ -2749,7 +2763,16 @@ sap.ui.define([
 		},
 
 		MassUpdatePo: function(oEvent) {
-			console.log(Massupload)
+			var Massupload2 = [];
+				var len = Massupload.length;
+						var ls = len - 1;
+						if (Massupload[ls].Color === 'red') {
+
+							Massupload2.push(Massupload[ls]);
+
+						}
+			
+			console.log(Massupload2)
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");

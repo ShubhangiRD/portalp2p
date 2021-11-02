@@ -1,6 +1,21 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSelectAll="false" ariaLabelledBy="title">
+		class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false" ariaLabelledBy="title">
+		<extension>
+			<m:OverflowToolbar style="Clear">
+				<m:Title id="title" text="Stock Material Details"/>
+				<m:ToolbarSpacer/>
+				<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
+				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
+			-->
+				<m:Button tooltip="{i18n>addItem}" text="MassUpdate" id="idMassUpdate" press="MassUpdatePo"/>
+				<m:Button tooltip="{i18n>addItem}" text="BuyerSheet" id="idBuyersheet" press="BuyerSheetChat"/>
+				<m:Button text="Collapse all" press="onCollapseAll"/>
+				<m:Button text="Expand level" press="onExpandFirstLevel"/>
+				<m:Button text="Expand selection" press="onExpandSelection"/>
+			</m:OverflowToolbar>
+		</extension>
 		<columns>
 			<Column width="17rem">
 				<m:Label text="Material/Company Code/Plant/StogLoc"/>
@@ -8,12 +23,12 @@ class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSel
 					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
 				</template>
 			</Column>
-			<!--	<Column width="9rem">-->
-			<!--	<m:Label text="Company Level"/>-->
-			<!--	<template>-->
-			<!--		<m:Text text="{oStockDataModel>Bukrs}"/>-->
-			<!--	</template>-->
-			<!--</Column>-->
+			<Column width="9rem">
+				<m:Label text="Description"/>
+				<template>
+					<m:Text text="{oStockDataModel>Description}" wrapping="false"/>
+				</template>
+			</Column>
 			<Column width="6rem">
 				<m:Label text="Plant"/>
 				<template>
@@ -21,53 +36,43 @@ class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSel
 				</template>
 			</Column>
 			<Column width="9rem">
-				<m:Label text="Available Quantity"/>
+				<m:Label text="Available Qunty"/>
 				<template>
 					<m:ObjectNumber number="{oStockDataModel>Labst}"
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
-			
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-			
-					<Column width="9rem">
-				<m:Label text="Total Quantity"/>
-				<template>
-					<m:ObjectNumber number="{oStockDataModel>Tlabst}"
-						state="{ parts: [ {path: 'oStockDataModel>Tlabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
-			
-					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
-				</template>
-			</Column>
-			
-			
-				<Column width="8rem">
+			<!--		<Column width="9rem">-->
+			<!--	<m:Label text="Total Qunty"/>-->
+			<!--	<template>-->
+			<!--		<m:ObjectNumber number="{oStockDataModel>Tlabst}"-->
+			<!--			state="{ parts: [ {path: 'oStockDataModel>Tlabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>-->
+			<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
+			<!--	</template>-->
+			<!--</Column>-->
+			<Column width="8rem">
 				<m:Label text="Criticle threshold"/>
 				<template>
-				<m:ObjectNumber number="{oStockDataModel>Crtlv}" state="Error"></m:ObjectNumber>		
-						
-				
-				</template>
-			</Column>	<Column width="9rem">
-				<m:Label text="Success threshold"/>
-				<template>
-						<m:ObjectNumber number='{oStockDataModel>Cgtlv}' state="Success"></m:ObjectNumber>
-				
-		
-				</template>
-			</Column>	<Column width="9rem">
-				<m:Label text="Warning threshold" />
-				<template>
-					<m:ObjectNumber number='{oStockDataModel>Cytlv}' state="Warning"></m:ObjectNumber>
-				
+					<m:ObjectNumber number="{oStockDataModel>Crtlv}" state="Error"></m:ObjectNumber>
 				</template>
 			</Column>
-				<Column width="8rem">
+			<Column width="9rem">
+				<m:Label text="Success threshold"/>
+				<template>
+					<m:ObjectNumber number='{oStockDataModel>Cgtlv}' state="Success"></m:ObjectNumber>
+				</template>
+			</Column>
+			<Column width="9rem">
+				<m:Label text="Warning threshold"/>
+				<template>
+					<m:ObjectNumber number='{oStockDataModel>Cytlv}' state="Warning"></m:ObjectNumber>
+				</template>
+			</Column>
+			<Column width="8rem">
 				<m:Label text="Excess threshold"/>
 				<template>
-						<m:ObjectNumber number='{oStockDataModel>Cbtlv}'
-						state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"></m:ObjectNumber>
-				
+					<m:ObjectNumber number='{oStockDataModel>Cbtlv}' state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"></m:ObjectNumber>
 				</template>
 			</Column>
 			<!--<Column width="13rem" sorted="true">-->
@@ -88,6 +93,12 @@ class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"		enableSel
 				<template>
 					<m:Text text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
 						wrapping="false"/>
+				</template>
+			</Column>
+					<Column width="13rem" sorted="true" visible="false">
+				<m:Label text="Color"/>
+				<template>
+					<m:ObjectIdentifier title="{path: 'oStockDataModel>Color'}"/>
 				</template>
 			</Column>
 		</columns>
