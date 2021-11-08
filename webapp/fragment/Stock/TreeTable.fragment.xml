@@ -1,6 +1,7 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-visible="{VisibleModel>/MaterialTable}"		class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false" ariaLabelledBy="title">
+		visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
+		ariaLabelledBy="title">
 		<extension>
 			<m:OverflowToolbar style="Clear">
 				<m:Title id="title" text="Stock Material Details"/>
@@ -54,28 +55,31 @@ visible="{VisibleModel>/MaterialTable}"		class="sapUiSmallMarginTop sapUiSmallMa
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Criticle threshold"/>
 				<template>
-					<m:ObjectNumber number= "{= ${oStockDataModel>Crtlv} === 'crtlv' ? '  ' : '0 - ' + ${oStockDataModel>Crtlv} } "   state="Error"></m:ObjectNumber>
+					<m:ObjectNumber number="{= ${oStockDataModel>Crtlv} === 'crtlv' ? ' ' : '0 - ' + ${oStockDataModel>Crtlv} } " state="Error"></m:ObjectNumber>
 				</template>
 			</Column>
-	
 			<Column width="9rem" hAlign="Center">
 				<m:Label text="Warning threshold"/>
 				<template>
-					<m:ObjectNumber number= "{= ${oStockDataModel>Cytlv} === 'cytlv' ? '  ' : ${oStockDataModel>Crtlv} - 1+2 +  ' - ' + ${oStockDataModel>Cytlv} } " state="Warning"></m:ObjectNumber>
+					<m:ObjectNumber
+						number="{= ${oStockDataModel>Cytlv} === 'cytlv' ? ' ' : ${oStockDataModel>Crtlv} - 1+2 + ' - ' + ${oStockDataModel>Cytlv} } "
+						state="Warning"></m:ObjectNumber>
 				</template>
 			</Column>
-			
-					<Column width="9rem" hAlign="Center">
+			<Column width="9rem" hAlign="Center">
 				<m:Label text="Success threshold"/>
 				<template>
-				<m:ObjectNumber number= "{= ${oStockDataModel>Cgtlv} === 'cgtlv' ? '  ' : ${oStockDataModel>Cytlv} - 1+2 +  ' - ' + ${oStockDataModel>Cgtlv} } " state="Success"></m:ObjectNumber>
+					<m:ObjectNumber
+						number="{= ${oStockDataModel>Cgtlv} === 'cgtlv' ? ' ' : ${oStockDataModel>Cytlv} - 1+2 + ' - ' + ${oStockDataModel>Cgtlv} } "
+						state="Success"></m:ObjectNumber>
 				</template>
 			</Column>
-			
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Excess threshold"/>
 				<template>
-					<m:ObjectNumber number="{= ${oStockDataModel>Cbtlv} === 'cbtlv' ? '  ' : ${oStockDataModel>Cgtlv} - 1+2 +  ' - ' + ${oStockDataModel>Cbtlv} } " state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"/>
+					<m:ObjectNumber
+						number="{= ${oStockDataModel>Cbtlv} === 'cbtlv' ? ' ' : ${oStockDataModel>Cgtlv} - 1+2 + ' - ' + ${oStockDataModel>Cbtlv} } "
+						state="{ parts: [ {path: 'oStockDataModel>Cbtlv'} ], formatter: '.formatter.onBlueStage'}"/>
 				</template>
 			</Column>
 			<!--<Column width="13rem" sorted="true">-->
@@ -98,15 +102,14 @@ visible="{VisibleModel>/MaterialTable}"		class="sapUiSmallMarginTop sapUiSmallMa
 						wrapping="false"/>
 				</template>
 			</Column>
-					<Column width="13rem" sorted="true" visible="false">
+			<Column width="13rem" sorted="true" visible="false">
 				<m:Label text="Color"/>
 				<template>
 					<m:ObjectIdentifier title="{path: 'oStockDataModel>Color'}"/>
 				</template>
 			</Column>
-			
-					<Column width="13rem" hAlign="Center">
-				<m:Label text="Action" />
+			<Column width="13rem" hAlign="Center">
+				<m:Label text="Action"/>
 				<template>
 					<m:HBox>
 						<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
