@@ -430,6 +430,15 @@ sap.ui.define([
 								}
 							}
 						}
+							if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <=result.length-1; x1++) {
+							
+								if (Matnr === result[x1].Matnr) {
+								var sOpenSalesOrder = result[x1].Kwmeng;
+                                
+								}
+							}
+						}
 						ListofSrs.push({
 							Cbtlv: Cbtlv,
 							Cgtlv: Cgtlv,
@@ -441,8 +450,10 @@ sap.ui.define([
 							Description: sMatDescription,
 							Werks: Werks,
 							Color: "",
-							MultipleIt: childarray
+							MultipleIt: childarray,
+							OsalesOrder:sOpenSalesOrder
 						});
+					
 
 						for (var j = 0; j < StockList.length; j++) {
 							var stock = StockList[j];
@@ -482,33 +493,40 @@ sap.ui.define([
 										InnerinnerChild.push({
 											//	Bukrs: Bukrs,
 											Labst: Labst,
+											
 												Crtlv: "crtlv",
 										Cytlv: "cytlv",
 										Cgtlv: "cgtlv",
 										Cbtlv: "cbtlv",
 
-											Matnr: 'SLoc' + " " + Lgort
+											Matnr: 'SLoc' + " " + Lgort,
+											OsalesOrder:"So"
 
 										});
 									} else {
 										InnerChild.push({
 											//	Bukrs: Bukrs,
-											Labst: Labst,
+									
 											//	Lgort: Lgort,
 											Matnr: 'Plant' + " " + Werks,
 											Werks: Werks,
-											MultipleIt: InnerinnerChild
+											MultipleIt: InnerinnerChild,
+											OsalesOrder:"So"
+										
+											
 
 										});
 
 										InnerinnerChild.push({
 											//	Bukrs: Bukrs,
 											Labst: Labst,
+											
 
 											Matnr: 'SLoc' + " " + Lgort,
 											Crtlv: "crtlv",
 											Cytlv: "cytlv",
-											Cgtlv: "cgtlv"
+											Cgtlv: "cgtlv",
+											OsalesOrder:"So"
 
 										});
 
@@ -523,6 +541,7 @@ sap.ui.define([
 										Cytlv: "cytlv",
 										Cgtlv: "cgtlv",
 										Cbtlv: "cbtlv",
+										OsalesOrder:sOpenSalesOrder,
 
 										//	Lgort: Lgort,
 										//	Werks: Werks,
@@ -540,7 +559,8 @@ sap.ui.define([
 										Cgtlv: "cgtlv",
 										Cbtlv: "cbtlv",
 										Werks: Werks,
-										MultipleIt: InnerinnerChild
+										MultipleIt: InnerinnerChild,
+										OsalesOrder:"So"
 
 									});
 
@@ -552,7 +572,8 @@ sap.ui.define([
 										Cgtlv: "cgtlv",
 										Cbtlv: "cbtlv",
 
-										Matnr: 'SLoc' + " " + Lgort
+										Matnr: 'SLoc' + " " + Lgort,
+										OsalesOrder:"So"
 
 									});
 
@@ -566,6 +587,7 @@ sap.ui.define([
 						InnerChild = [];
 						InnerinnerChild = [];
 						childarray = [];
+					
 
 					}
 
