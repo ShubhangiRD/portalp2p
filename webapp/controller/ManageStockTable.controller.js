@@ -548,6 +548,7 @@ sap.ui.define([
 										MultipleIt: InnerChild
 
 									});
+									sOpenSalesOrder="";
 
 									InnerChild.push({
 										//	Bukrs: Bukrs,
