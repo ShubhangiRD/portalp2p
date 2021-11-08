@@ -4,12 +4,13 @@ sap.ui.define([
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast"
 
-], function(Controller, JSONModel,BusyIndicator,MessageToast) {
+], function(Controller, JSONModel, BusyIndicator, MessageToast) {
 
 	"use strict";
 	var oView, result = [];
-		var Massupload = [];
-			var oMaterialList = [];
+	var Massupload = [];
+	var oMaterialList = [], zStockMaterial = [];
+	
 	return Controller.extend("com.vSimpleApp.controller.BuyerSheet", {
 
 		/**
@@ -20,31 +21,32 @@ sap.ui.define([
 		onInit: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			this.getView().setModel(oModel);
-	var oSelectedData = new JSONModel();
+				this.getTableStockDetails();
+			var oSelectedData = new JSONModel();
 			this.getView().setModel(oSelectedData, "oStockDataModel");
 			oView = this.getView();
 			var oSaleModel = new JSONModel();
 			oView.setModel(oSaleModel, "oSaleModel");
 			this.getSalesOrderDetails();
-			this.getTableStockDetails();
+		
 		},
 		getSalesOrderDetails: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/SalesOrdersSet ", {
 				success: function(oData) {
 
-					var iItem = oData.results.length;
+					var iItem = zStockMaterial.length;
 					var aListofVendoritem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 						//		console.log(iRowIndex);
-						var Matnr = oData.results[iRowIndex].Matnr;
+						var Matnr = zStockMaterial[iRowIndex].Matnr;
 						aListofVendoritem.push({
 							Matnr: Matnr
 
 						});
 					}
 					var index = {};
-
+console.log(aListofVendoritem);
 					aListofVendoritem.forEach(function(point) {
 						var key = "" + point.Matnr + " ";
 						if (key in index) {
@@ -94,7 +96,7 @@ sap.ui.define([
 				}
 			});
 		},
-	getTableStockDetails: function() {
+		getTableStockDetails: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			//			var oModels = this.getOwnerComponent().getModel("PurchaseSet");
 
@@ -106,6 +108,8 @@ sap.ui.define([
 					BusyIndicator.hide();
 					console.log(oData);
 					var listOfMat = [];
+					
+					zStockMaterial = oData.results;
 					//	console.log(oMaterialList);
 					//		var MaterialList = [];
 					var itemPO = oData.results.length;
@@ -136,13 +140,13 @@ sap.ui.define([
 								}
 							}
 						}
-						
-								if (Matnr !== "" || Matnr !== undefined) {
-							for (var x1 = 0; x1 <=result.length-1; x1++) {
-							
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <= result.length - 1; x1++) {
+
 								if (Matnr === result[x1].Matnr) {
-								var sOpenSalesOrder = result[x1].Kwmeng;
-                                
+									var sOpenSalesOrder = result[x1].Kwmeng;
+
 								}
 							}
 						}
@@ -169,7 +173,7 @@ sap.ui.define([
 							Unit: "PC",
 							Matnr: Matnr,
 							Description: sMatDescription,
-							OpenSalesOrder:sOpenSalesOrder,
+							OpenSalesOrder: sOpenSalesOrder,
 							Pbtlv: Pbtlv,
 							Pgtlv: Pgtlv,
 							Prtlv: Prtlv,
@@ -182,28 +186,18 @@ sap.ui.define([
 
 						oView.getModel("oStockDataModel").setData(ListofSrs);
 
-//sOpenSalesOrder = "";
-console.log(ListofSrs);
+						//sOpenSalesOrder = "";
+						console.log(ListofSrs);
 
+						var len = ListofSrs.length;
+						var ls = len - 1;
+						if (ListofSrs[ls].Color === 'red') {
 
+							Massupload.push(ListofSrs[ls]);
 
-
-
-
-
-
-
-							var len = ListofSrs.length;
-							var ls = len - 1;
-							if (ListofSrs[ls].Color === 'red') {
-							
-								Massupload.push(ListofSrs[ls]);
-
-							}
+						}
 
 					}
-
-				
 
 				},
 				error: function(oError) {

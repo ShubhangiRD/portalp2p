@@ -39,14 +39,13 @@
 			<Column width="9rem" hAlign="Center">
 				<m:Label text="Available Qunty"/>
 				<template>
-     <m:ObjectNumber number="{= ${oStockDataModel>OsalesOrder} === 'So' ?  ${oStockDataModel>Labst} : ${oStockDataModel>Labst}- ${oStockDataModel>OsalesOrder}}"
-				
+					<m:ObjectNumber
+						number="{= ${oStockDataModel>OsalesOrder} === 'So' ? ${oStockDataModel>Labst} : ${oStockDataModel>Labst}- ${oStockDataModel>OsalesOrder}}"
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-			
-					<Column width="9rem" hAlign="Center">
+			<Column width="9rem" hAlign="Center">
 				<m:Label text="Stock in hand"/>
 				<template>
 					<m:ObjectNumber number="{oStockDataModel>Labst}"
@@ -54,12 +53,10 @@
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-			
-							<Column width="9rem" hAlign="Center">
+			<Column width="9rem" hAlign="Center">
 				<m:Label text="Sales Order"/>
 				<template>
-					<m:ObjectNumber number="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder}  }"
-					/>
+					<m:ObjectNumber number="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
