@@ -594,6 +594,8 @@ sap.ui.define([
 					oView.getModel("oStockDataModel").setData(ListofSrs);
 					console.log(ListofSrs);
 
+
+
 					Massupload = ListofSrs;
 
 				},

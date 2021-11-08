@@ -3,8 +3,9 @@ sap.ui.define([
 ], function(JSONModel) {
 	"use strict";
 	var oExcess = [];
-	var oExcessHierarchy =[];
-		var countt = 0;
+	var oExcessHierarchy = [];
+	var output = [];
+	var countt = 0;
 	return {
 
 		onBlueStage: function(blue) {
@@ -46,46 +47,88 @@ sap.ui.define([
 			var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 			var oModel = oBinding1.oModel.oData;
 			var slength = oBinding1.oModel.oData.length;
-			var sColumnlength = slength-(slength-1);
-		
-		
-if(quantity !==null && red !==null && yellow !==null && green !==null && blue !==null && Matnr !==null){
+			var sColumnlength = slength - (slength - 1);
 
-			if (quantity > green) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
-				countt++;
-				oExcess.push({
-					quantity: quantity,
-					Matnr: Matnr
+			function PlantExists(quantity) {
+				return oExcess.some(function(edl) {
+					return edl.quantity === quantity;
 				});
-
-				this.getView().getModel("oExcessModelData").setData(oExcess);
-				var length = oExcess.length;
-				var count = new JSONModel({
-					count: length
-				});
-				this.getView().setModel(count, "count");
-				return "Information";
-
-			} else if (quantity > yellow && quantity < green) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "green");
-				countt++;
-				return "Success";
-
-			} else if (quantity > red && quantity <= yellow) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "yellow");
-				countt++;
-				return "Warning";
-			} else if (quantity < yellow) {
-				this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "red");
-				countt++;
-				return "Error";
-
 			}
-}
+			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Matnr !== null) {
+
+				if (quantity > green) {
+					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
+					countt++;
+
+					oExcess.push({
+						quantity: quantity,
+						Matnr: Matnr
+					});
+
+					console.log(oExcess)
+					this.getView().getModel("oExcessModelData").setData(oExcess);
+
+
+				
+
+					return "Information";
+
+				} else if (quantity > yellow && quantity < green) {
+					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "green");
+					countt++;
+					return "Success";
+
+				} else if (quantity > red && quantity <= yellow) {
+					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "yellow");
+					countt++;
+					return "Warning";
+				} else if (quantity < yellow) {
+					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "red");
+					countt++;
+					return "Error";
+
+				}
+				
+				
+				
+				
+			
+				
+			}
+			
+			
+				var ostock = this.getView().getModel("oStockDataModel");
+				var odata= ostock.oData.length;
+			var unique = [];
+
+				for(var i=0;i<odata;i++){
+				var color = ostock.oData[i].Color;
+					var Matnrs = ostock.oData[i].Matnr;
+						var Labsts = ostock.oData[i].Labst;
+				if(color === 'blue'){
+				unique.push({
+						quantity: quantity,
+						Matnr: Matnr          
+					
+				});
+				
+				}
+				}
+					console.log(unique);
+	var length = unique.length;
+				
+					var count = new JSONModel({
+						count: ""
+					});
+					this.getView().setModel(count, "count");
+					//		this.getView().getProperty('/count' , length);
+					this.getView().getModel("count").setProperty("/count", length);
+				
+				console.log(ostock);
+			
 		},
 
-		HierarchyColorState: function(quantity, red, yellow, green, blue,Maingrp) {
+		HierarchyColorState: function(quantity, red, yellow, green, blue, Maingrp) {
 			quantity = quantity;
 			red = red;
 			yellow = yellow;
@@ -99,8 +142,8 @@ if(quantity !==null && red !==null && yellow !==null && green !==null && blue !=
 
 			if (quantity > green) {
 				this.getView().getModel("HierarchyData").setProperty("/" + sColumnlength + "/Color", "blue");
-				
-					oExcessHierarchy.push({
+
+				oExcessHierarchy.push({
 					quantity: quantity,
 					Maingrp: Maingrp
 				});
