@@ -446,6 +446,7 @@ sap.ui.define([
 							Changedon: Changedon,
 							Crtlv: Crtlv,
 							Labst: parseInt(sTotalLabst),
+							ALabst:parseInt(sTotalLabst),
 							Matnr: Matnr,
 							Description: sMatDescription,
 							Werks: Werks,
@@ -535,6 +536,8 @@ sap.ui.define([
 								} else {
 									childarray.push({
 										Bukrs: Bukrs,
+										BLabst:"AL",
+										ALabst:" ",
 										Labst: sTotalLabst,
 										Matnr: 'Company Level' + " " + Bukrs,
 										Crtlv: "crtlv",
