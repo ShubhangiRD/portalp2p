@@ -268,6 +268,11 @@
 				"name": "BuyerSheet",
 				"target": ["BuyerSheet"]
 			},
+				{
+				"pattern": "StockTransfer",
+				"name": "StockTransfer",
+				"target": ["StockTransfer"]
+			},
 			{
 				"pattern": "ShowTiles",
 				"name": "ShowTiles",
@@ -473,6 +478,9 @@
 				},
 				"BuyerSheet": {
 					"viewName": "BuyerSheet"
+				},
+					"StockTransfer": {
+					"viewName": "StockTransfer"
 				},
 				"TileDashboard": {
 					"viewName": "TileDashboard"

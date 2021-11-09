@@ -102,6 +102,11 @@ sap.ui.define([
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
+			
+			
+			
+	var StockTransferModel = new sap.ui.model.json.JSONModel([]);
+			this.setModel(StockTransferModel, "StockTransferModel");
 
 			var oGRData = {
 				GRPost: new GRDisplayHeader()
