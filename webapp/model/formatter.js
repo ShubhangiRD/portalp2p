@@ -60,13 +60,13 @@ sap.ui.define([
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
 					countt++;
 
-					// oExcess.push({
-					// 	quantity: quantity,
-					// 	Matnr: Matnr
-					// });
+					oExcess.push({
+						quantity: quantity,
+						Matnr: Matnr
+					});
 
-					// console.log(oExcess)
-					// this.getView().getModel("oExcessModelData").setData(oExcess);
+				//	console.log(oExcess)
+					this.getView().getModel("oExcessModelData").setData(oExcess);
 
 
 				
