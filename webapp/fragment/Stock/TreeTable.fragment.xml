@@ -6,7 +6,8 @@
 			<m:OverflowToolbar style="Clear">
 				<m:Title id="title" text="Stock Material Details"/>
 				<m:ToolbarSpacer/>
-				<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+				<m:Button tooltip="Notification" type="Attention" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+								<!--<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>-->
 				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
 				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->

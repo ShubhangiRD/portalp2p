@@ -158,7 +158,9 @@ sap.ui.define([
 
 			var oCompanyLevel = new JSONModel();
 			sap.ui.getCore().setModel(oCompanyLevel, "oCompanyLevel");
-
+             
+             var counter = new JSONModel();
+             	this.getView().setModel(oCompanyLevel, "oCounter");
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -2961,9 +2963,31 @@ sap.ui.define([
 
 		},
 		onNotify: function(oEvent) {
-			var oModel = oView.getModel("oExcessModelData");
-			console.log(oModel.oData);
-			var length = oModel.oData.length;
+			// var oModel = oView.getModel("oExcessModelData");
+			var array =[];
+			var count = 0;
+			var oModel = oView.getModel("oStockDataModel");
+			var Data = oModel.oData;
+		console.log(Data);
+			for (var i=0;i<Data.length;i++){
+		
+				if(Data[i].ALabst > parseInt(Data[i].Cgtlv)){
+			  count = count + 1;
+			  
+				array.push({
+					Matnr:Data[i].Matnr,
+					quantity:Data[i].Alabst, 
+					counter:count,
+					markupDescription:true
+				});
+				oView.getModel("oExcessModelData").setData(array);
+				// oView.getModel("oCounter").setData({
+				// 	count:count
+				// });
+				// console.log(oCounter);
+				}
+			}
+		  console.log(array);
 
 			var oMessageTemplate = new MessageItem({
 				type: 'Warning',
@@ -2984,7 +3008,7 @@ sap.ui.define([
 			  }];*/
 			var oModel2 = new JSONModel(),
 				that = this;
-			oModel2.setData(oModel.oData);
+			oModel2.setData(array);
 			this.oMessageView = new MessageView({
 				showDetailsPageHeader: false,
 				itemSelect: function() {
