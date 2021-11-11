@@ -27,6 +27,9 @@ sap.ui.define([
 
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
+			
+			var oStockModel = 	this.getOwnerComponent().getModel("StockTransferModel");
+			console.log(oStockModel);
 
 		},
 		onStockCancel: function(event) {

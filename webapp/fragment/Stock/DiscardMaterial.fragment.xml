@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" class="sapUiSizeCompact" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Dialog title="Discard Material" showHeader="true" id="idExcessDiscardDialog" afterClose="onAfterClose" class="sapUiSizeCompact"
+		contentWidth="500px" contentHeight="200px">
+		<beginButton>
+			<Button text="Save" type="Emphasized" press="onSaveDiscard"/>
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" press="onCancelDiscard"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -6,6 +6,8 @@
 			<m:OverflowToolbar style="Clear">
 				<m:Title id="title" text="Stock Material Details"/>
 				<m:ToolbarSpacer/>
+				
+					<m:Button text="Excess Material"  id="idExcessButton" press="onExcessMaterial"/>
 				<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
 				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
 				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
@@ -55,12 +57,13 @@
 				</template>
 			</Column>
 			<Column width="8rem" hAlign="Center">
-				<m:Label text="Sales Order"/>
+				<m:Label text=" Open Sales Order"/>
 				<template>
 					<m:Text text="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
+			
 			<!--		<Column width="9rem">-->
 			<!--	<m:Label text="Total Qunty"/>-->
 			<!--	<template>-->
@@ -112,6 +115,15 @@
 			<!--		<m:Text text="{oStockDataModel>PreviousThread}" wrapping="false"/>-->
 			<!--	</template>-->
 			<!--</Column>-->
+				<Column width="8rem" hAlign="Center">
+				<m:Label text=" Open PO Date"/>
+				<template>
+						<m:Text text="{ path: 'oStockDataModel>OpenPODate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						wrapping="false"/>
+				
+					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
+				</template>
+			</Column>
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Date"/>
 				<template>

@@ -36,8 +36,8 @@ sap.ui.define([
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
 	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool) {
 	"use strict";
-	var oView, oComponent, sPathThreshold;
-	var groups = [];
+	var oView, oComponent, sPathThreshold , PoDocumentNumber = [];
+	var groups ,StockTransfer = [];
 	var Massupload = [];
 	var yellow;
 	var green;
@@ -61,9 +61,16 @@ sap.ui.define([
 			oController = this;
 			oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("StockModel");
+			
+			
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
+			
+			var oLookup = this.getOwnerComponent().getModel("Lookup");
+		 PoDocumentNumber = oLookup.oData.PoDocumentNumber;
+			console.log(PoDocumentNumber);
+			
 			//		this.getMaterialstockSet11();
 			this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
@@ -89,8 +96,7 @@ sap.ui.define([
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
 
-			var oStockData = new JSONModel();
-			oView.setModel(oStockData, "oStockDataModel");
+		
 			this.getMaterialstockSet();
 	//		this.getStockDetailList();
 			//	this.getStockDetailListSiddhi();
@@ -411,7 +417,7 @@ sap.ui.define([
 						var Changedon = odataset.Changedon;
 						var Crtlv = odataset.Crtlv;
 						var Labst = odataset.Labst;
-
+//var openpo = PoDocumentNumber[iRowIndex].Bedat;
 						var Matnr = odataset.Matnr;
 						if (Matnr !== "" || Matnr !== undefined) {
 							for (var z = 0; z < TotalLabst.length; z++) {
@@ -439,6 +445,7 @@ sap.ui.define([
 								}
 							}
 						}
+						
 						ListofSrs.push({
 							Cbtlv: Cbtlv,
 							Cgtlv: Cgtlv,
@@ -453,6 +460,7 @@ sap.ui.define([
 							Color: "",
 							MultipleIt: childarray,
 							OsalesOrder:sOpenSalesOrder
+						//	OpenPODate : openpo
 						});
 					
 
@@ -660,7 +668,7 @@ sap.ui.define([
 						}
 
 					}
-					console.log(TotalLabst);
+				//	console.log(TotalLabst);
 				},
 				error: function(oerror) {
 					MessageBox.error(oerror);
@@ -849,7 +857,7 @@ sap.ui.define([
 
 						oView.getModel("oStockDataModel").setData(ListofSrs);
 						sOpenSalesOrder = "";
-						console.log(ListofSrs);
+					//	console.log(ListofSrs);
 
 						var len = ListofSrs.length;
 						var ls = len - 1;
@@ -2960,11 +2968,37 @@ sap.ui.define([
 			}
 
 		},
-		onNotify: function(oEvent) {
-			var oModel = oView.getModel("oExcessModelData");
-			console.log(oModel.oData);
-			var length = oModel.oData.length;
-
+	onNotify: function(oEvent) {
+			// var oModel = oView.getModel("oExcessModelData");
+			var array =[];
+			var count = 0;
+			var oModel = oView.getModel("oStockDataModel");
+			var Data = oModel.oData;
+		console.log(Data);
+			for (var i=0;i<Data.length;i++){
+		
+				if(Data[i].ALabst > parseInt(Data[i].Cgtlv)){
+			  count = count + 1;
+			 
+				array.push({
+					Matnr:Data[i].Matnr,
+					Description : Data[i].Description,
+					Werks:Data[i].Werks,
+					quantity:Data[i].Alabst,
+					Labst:Data[i].Labst,
+					counter:count,
+					Changedon:Data[i].Changedon,
+					markupDescription:true
+				});
+				oView.getModel("oExcessModelData").setData(array);
+			this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+				// oView.getModel("oCounter").setData({
+				// 	count:count
+				// });
+				// console.log(oCounter);
+				}
+			}
+		  console.log(array);
 			var oMessageTemplate = new MessageItem({
 				type: 'Warning',
 				title: '{Matnr}' + " " + "material is in excess quantity",
@@ -2984,7 +3018,7 @@ sap.ui.define([
 			  }];*/
 			var oModel2 = new JSONModel(),
 				that = this;
-			oModel2.setData(oModel.oData);
+			oModel2.setData(array);
 			this.oMessageView = new MessageView({
 				showDetailsPageHeader: false,
 				itemSelect: function() {
@@ -3031,10 +3065,8 @@ sap.ui.define([
 				content: [this.oMessageView],
 				footer: oPopoverFooter
 			});
-
 			this.oMessageView.navigateBack();
 			this._oPopover.openBy(oEvent.getSource());
-
 		},
 
 		onNotifyHierarchy: function(oEvent) {
@@ -3207,7 +3239,38 @@ sap.ui.define([
 						MessageToast.show(errorMsg);
 					}
 				});
+			},
+			
+		onStockSelectionItem: function() {
+		
+			var oTreetable = this.byId("TreeTableBasic2");
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+
+			//	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			for (var i = 0; i < aSelectedIndex.length; i++) {
+
+				var odata = aSelectedIndex[i];
+				var stock = oTreeModel.getProperty('/' +odata);
+				StockTransfer.push(stock);
+					
+			var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+											oRouter.navTo('StockTransfer');
 			}
+		},
+		onExcessMaterial : function(oEvent){
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("ExcessData");	
+		
+			
+			// 	this.pressDialogExcess = oView.byId("idExcessDialog");
+			// if (!this.pressDialogExcess) {
+			// 	this.pressDialogExcess = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterial", this);
+			// 	this.pressDialogExcess.open();
+			// }
+		}
+
 			//comapny stock level service
 
 	});

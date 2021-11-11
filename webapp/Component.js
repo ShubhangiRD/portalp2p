@@ -13,15 +13,15 @@ sap.ui.define([
 	"com/vSimpleApp/model/VendorP2P",
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast",
-		"com/vSimpleApp/model/StockContract"
+	"com/vSimpleApp/model/StockContract"
 
 ], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, GRDisplayHeader,
 	PurchaseHeader, VendorP2P,
-	BusyIndicator, MessageToast,StockContract
+	BusyIndicator, MessageToast, StockContract
 ) {
 	"use strict";
 	var oComponent;
-	var oMaterialList , ListofVendor = [],
+	var oMaterialList, ListofVendor = [],
 		ListofPurchaseOrders = [];
 	return UIComponent.extend("com.vSimpleApp.Component", {
 
@@ -86,10 +86,10 @@ sap.ui.define([
 				PoDocumentNumber: [],
 				PlanningGroups: [],
 				OpenPOList: [],
-				RegionList : [],
-				MainGroup : [],
-				GroupList : [],
-				SubGroupList:[]
+				RegionList: [],
+				MainGroup: [],
+				GroupList: [],
+				SubGroupList: []
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");
@@ -102,11 +102,14 @@ sap.ui.define([
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
-			
-			
-			
-	var StockTransferModel = new sap.ui.model.json.JSONModel([]);
+
+			var StockTransferModel = new sap.ui.model.json.JSONModel([]);
 			this.setModel(StockTransferModel, "StockTransferModel");
+			var oStockData = new sap.ui.model.json.JSONModel([]);
+			this.setModel(oStockData, "oStockDataModel");
+
+			var oExcessData = new sap.ui.model.json.JSONModel([]);
+			this.setModel(oExcessData, "oExcessDataModel");
 
 			var oGRData = {
 				GRPost: new GRDisplayHeader()
@@ -209,11 +212,11 @@ sap.ui.define([
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
 					var item = oData.results.length;
-ListofVendor = oData.results;
-			
+					ListofVendor = oData.results;
+
 					//BusyIndicator.hide();
 					var oLookupModel = oComponent.getModel("Lookup");
-					oLookupModel.setProperty("/DisplyaVendorList",  ListofVendor);
+					oLookupModel.setProperty("/DisplyaVendorList", ListofVendor);
 					oLookupModel.refresh(true);
 					//that.getMaterialList();
 				},
@@ -223,8 +226,8 @@ ListofVendor = oData.results;
 				}
 			});
 		},
-				getMaterialList: function() {
-		
+		getMaterialList: function() {
+
 			var oModel = oComponent.getModel("VHeader");
 			//	BusyIndicator.show(true);
 			oModel.read("/MaterialmasterSet", {
@@ -255,7 +258,6 @@ ListofVendor = oData.results;
 					console.log(oData);
 					BusyIndicator.hide();
 					var itemPO = oData.results.length;
-				
 
 					ListofPurchaseOrders = [];
 

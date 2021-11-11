@@ -1,0 +1,78 @@
+<mvc:View xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" displayBlock="true" xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core"
+	controllerName="com.vSimpleApp.controller.ExcessData">
+	<Page title="Title" showHeader="false">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+				<layoutData>
+					<FlexItemData growFactor="1"/>
+				</layoutData>
+			</Button>
+			<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+				<layoutData>
+					<FlexItemData growFactor="1"/>
+				</layoutData>
+			</Image>
+			<FlexBox direction="Column" alignItems="Start">
+				<items></items>
+			</FlexBox>
+			<ToolbarSpacer/>
+			<FlexBox class="logoContent" direction="Column" alignItems="Start">
+				<items></items>
+			</FlexBox>
+			<ToolbarSpacer/>
+			<Button icon="sap-icon://comment" type="Transparent">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Button>
+			<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+				<layoutData>
+					<FlexItemData growFactor="1"/>
+				</layoutData>
+			</Switch>
+		</tnt:ToolHeader>
+		<content>
+			<Table id="excesstable" mode="MultiSelect" class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiSmallMarginTop" width="1250px"
+				selectionChange="onExcessSelectionItem" items="{ path: 'oExcessDataModel>/'}">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Excess Material List" level="H2"/>
+						<ToolbarSpacer/>
+						<Button tooltip="{i18n>addItem}" text="Discount" press="onDiscountMaterial"/>
+						<Button tooltip="{i18n>addItem}" text="Discard" press="onDescardMaterial"/>
+						<Button tooltip="{i18n>addItem}" text="Download" press="onDownloadExcess"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+						<Text text="Material"/>
+					</Column>
+					<Column minScreenWidth="Desktop" width="9rem" hAlign="Center" demandPopin="true">
+						<Text text="Material Disptn"/>
+					</Column>
+					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+						<Text text="Plant "/>
+					</Column>
+					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+						<Text text="Available Qnty"/>
+					</Column>
+					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+						<Text text="Changed On"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="SelectRows">
+						<cells>
+							<ObjectIdentifier title="{oExcessDataModel>Matnr}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Description}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Werks}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Labst}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Changedon}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

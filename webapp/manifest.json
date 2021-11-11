@@ -307,7 +307,14 @@
 				"pattern": "VendorRebate",
 				"name": "VendorRebate",
 				"target": ["VendorRebate"]
-			}, {
+			},
+			
+			{
+				"pattern": "ExcessData",
+				"name": "ExcessData",
+				"target": ["ExcessData"]
+			},
+			{
 				"pattern": "Home",
 				"name": "Home",
 				"target": ["Home"]
@@ -463,6 +470,9 @@
 				},
 				"LoginPage": {
 					"viewName": "LoginPage"
+				},
+					"ExcessData": {
+					"viewName": "ExcessData"
 				},
 				"ShowTiles": {
 					"viewName": "ShowTiles",

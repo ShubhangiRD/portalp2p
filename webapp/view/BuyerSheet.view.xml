@@ -1,32 +1,22 @@
 <mvc:View controllerName="com.vSimpleApp.controller.BuyerSheet" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" height="100%">
+	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data" height="100%">
 	<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">
+		<form:SimpleForm id="idBuyer" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+		labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"
+			columnsL="2" columnsM="1" class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+			<form:content>
+				<Label text="From"/>
+				<DatePicker id="__input_validFrom" value="{path: 'ZValidFrom', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"
+					change="handleValidFromChange"/>
+						<Label text="To"/>
+				<DatePicker id="__input_validTo" value="{path: 'ZValidTo', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"
+					change="handleValidToChange"/>
+				<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
+			</form:content>
+		</form:SimpleForm>
 		<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">
-			<layout:FixFlex id='chartFixFlex' minFlexSize="500">
-				<!--Below is the setting panel -->
-				<layout:flexContent>
-					<viz:Popover id="idPopOver"></viz:Popover>
-					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
-						vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{oSaleModel>/}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>
-									<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
-						<viz:feeds>
-							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Demand"/>
-							<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Material"/>
-						</viz:feeds>
-					</viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
-			<layout:FixFlex id='chartFixFlex2' minFlexSize="500">
+					<layout:FixFlex id='chartFixFlex2' minFlexSize="500">
 				<!--Below is the setting panel -->
 				<layout:fixContent></layout:fixContent>
 				<layout:flexContent>
@@ -54,6 +44,59 @@
 					</viz:VizFrame>
 				</layout:flexContent>
 			</layout:FixFlex>
+			<layout:FixFlex id='chartFixFlex' minFlexSize="500">
+				<!--Below is the setting panel -->
+				<layout:flexContent>
+					<viz:Popover id="idPopOver"></viz:Popover>
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+						vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{oSaleModel>/}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>
+									<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Demand"/>
+							<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Material"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</layout:flexContent>
+			</layout:FixFlex>
+	
 		</layout:Grid>
 	</layout:Grid>
+	<!--<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">-->
+	<!--	<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">-->
+	<!--		<layout:FixFlex id='chartFixFlexf' minFlexSize="500">-->
+			
+	<!--			<layout:flexContent>-->
+	<!--				<viz:Popover id="idPopOverf"></viz:Popover>-->
+	<!--				<viz:VizFrame id="idVizFramef" uiConfig="{applicationSet:'fiori'}"-->
+	<!--					vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>-->
+	<!--					<viz:dataset>-->
+	<!--						<viz.data:FlattenedDataset data="{oSaleModel>/}">-->
+	<!--							<viz.data:dimensions>-->
+	<!--								<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>-->
+	<!--							</viz.data:dimensions>-->
+	<!--							<viz.data:measures>-->
+	<!--								<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>-->
+	<!--								<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>-->
+	<!--							</viz.data:measures>-->
+	<!--						</viz.data:FlattenedDataset>-->
+	<!--					</viz:dataset>-->
+	<!--					<viz:feeds>-->
+	<!--						<viz.feeds:FeedItem id='valueAxisFeedf' uid="valueAxis" type="Measure" values="Demand"/>-->
+	<!--						<viz.feeds:FeedItem id='categoryAxisFeedf' uid="categoryAxis" type="Dimension" values="Material"/>-->
+	<!--					</viz:feeds>-->
+	<!--				</viz:VizFrame>-->
+	<!--			</layout:flexContent>-->
+	<!--		</layout:FixFlex>-->
+	<!--	</layout:Grid>-->
+	<!--</layout:Grid>-->
 </mvc:View>
