@@ -53,6 +53,7 @@ sap.ui.define([
 	var result = [];
 	var CompanyLevelset = [];
 	var TotalLabst = [];
+	var PoQuantity= [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -164,7 +165,11 @@ sap.ui.define([
 
 			var oCompanyLevel = new JSONModel();
 			sap.ui.getCore().setModel(oCompanyLevel, "oCompanyLevel");
-
+            
+             this.getPodetailsset();
+             
+             var oPoData = new JSONModel();
+            oView.setModel(oPoData,"oPoData");
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -445,6 +450,16 @@ sap.ui.define([
 								}
 							}
 						}
+									if (Matnr !== "" || Matnr !== undefined) {
+							for (var x2 = 0; x2 <PoQuantity.length; x2++) {
+							
+								if (Matnr === PoQuantity[x2].Matnr) {
+								var sOpenPoQuantity = PoQuantity[x2].Menge;
+								var sOpenPoDate = PoQuantity[x2].Prdat;
+                                
+								}
+							}
+						}
 						
 						ListofSrs.push({
 							Cbtlv: Cbtlv,
@@ -459,10 +474,11 @@ sap.ui.define([
 							Werks: Werks,
 							Color: "",
 							MultipleIt: childarray,
-							OsalesOrder:sOpenSalesOrder
-						//	OpenPODate : openpo
+							OsalesOrder:sOpenSalesOrder,
+							OpenPODate:sOpenPoDate,
+							OpenPOQty:sOpenPoQuantity
 						});
-					
+					console.log(sOpenPoDate);
 
 						for (var j = 0; j < StockList.length; j++) {
 							var stock = StockList[j];
@@ -556,10 +572,14 @@ sap.ui.define([
 
 										//	Lgort: Lgort,
 										//	Werks: Werks,
-										MultipleIt: InnerChild
+										MultipleIt: InnerChild,
+										OpenPODate:sOpenPoDate,
+							            OpenPOQty:sOpenPoQuantity
 
 									});
 									sOpenSalesOrder="";
+								    sOpenPoDate="";
+						            sOpenPoQuantity="";
 
 									InnerChild.push({
 										//	Bukrs: Bukrs,
@@ -3269,9 +3289,33 @@ sap.ui.define([
 			// 	this.pressDialogExcess = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterial", this);
 			// 	this.pressDialogExcess.open();
 			// }
-		}
+		},
 
 			//comapny stock level service
+   getPodetailsset: function(evt){
+   	  var oModel = this.getOwnerComponent().getModel("StockModel");
+   	  oModel.read("/podetails_forzstockSet",{
+   	  	success: function(oData) {
+					var data = oData.results;
+
+					PoQuantity = data;
+					console.log(PoQuantity);
+
+
+				},
+			
+				error: function(oError) {
+				
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+   	  	
+   	  	
+   	  });
+   	  	
+   	  
+   }
+   
 
 	});
 });

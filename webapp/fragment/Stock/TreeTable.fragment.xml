@@ -115,6 +115,17 @@
 			<!--		<m:Text text="{oStockDataModel>PreviousThread}" wrapping="false"/>-->
 			<!--	</template>-->
 			<!--</Column>-->
+			
+						<Column width="8rem" hAlign="Center">
+				<m:Label text=" Open Po Quantity"/>
+				<template>
+						<m:Text text="{ path: 'oStockDataModel>OpenPOQty'}"
+						wrapping="false"/>
+				
+					<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>
+				</template>
+			</Column>
+			
 				<Column width="8rem" hAlign="Center">
 				<m:Label text=" Open PO Date"/>
 				<template>
