@@ -1,22 +1,108 @@
 <mvc:View controllerName="com.vSimpleApp.controller.BuyerSheet" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
-	xmlns:viz.data="sap.viz.ui5.data" height="100%">
+	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact"
+	xmlns:viz.data="sap.viz.ui5.data" height="100%" xmlns:core="sap.ui.core">
+	<layout:FixFlex id='chartFixFlexline' minFlexSize="250">
+	
+		<layout:fixContent>
+			<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
+				<content>
+					<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+						class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+						<form:content>
+							<core:Title text=" "/>
+							<Label text="Material" required="true"/>
+							<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+								value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+								</suggestionItems>
+							</Input>
+							
+							<core:Title text=" "/>
+							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
+						class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+						<form:content>
+								
+								
+							
+							<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
+							<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
+							<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
+							<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
+							<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
+							<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+			</Panel>
+		</layout:fixContent>
+		<layout:flexContent>
+			<!--<viz:Popover id="idPopOverline"></viz:Popover>-->
+   <!--         <viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}"-->
+   <!--             height='100%' width="100%" vizType='line'>-->
+   <!--             <viz:dataset>-->
+   <!--                 <viz.data:FlattenedDataset data="{oMonthlydataModel>/}">-->
+   <!--                     <viz.data:dimensions>-->
+   <!--                         <viz.data:DimensionDefinition name="Date"-->
+   <!--                             value="{ path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" />-->
+   <!--                     </viz.data:dimensions>-->
+   <!--                     <viz.data:measures>-->
+   <!--                         <viz.data:MeasureDefinition name="Revenue"-->
+   <!--                             value="{Kwmeng}" />-->
+   <!--                         <viz.data:MeasureDefinition name="Cost"-->
+   <!--                             value="{Kwmeng}" />-->
+   <!--                     </viz.data:measures>-->
+   <!--                 </viz.data:FlattenedDataset>-->
+   <!--             </viz:dataset>-->
+
+   <!--             <viz:feeds>-->
+   <!--                 <viz.feeds:FeedItem id='valueAxisFeedline' uid="valueAxis" type="Measure"-->
+   <!--                     values="Revenue" />-->
+   <!--                 <viz.feeds:FeedItem id='categoryAxisFeedline' uid="categoryAxis" type="Dimension"-->
+   <!--                     values="Date" />-->
+   <!--             </viz:feeds>-->
+   <!--         </viz:VizFrame>-->
+			
+			<viz:Popover id="idPopOverline"></viz:Popover>
+			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='timeseries_line'>
+				<viz:dataset>
+					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
+						<viz.data:dimensions>
+							<viz.data:DimensionDefinition name="Date" value="{Erdat}" dataType="date"/>
+						</viz.data:dimensions>
+						<viz.data:measures>
+							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
+						</viz.data:measures>
+					</viz.data:FlattenedDataset>
+				</viz:dataset>
+				<viz:feeds>
+					<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>
+					<viz.feeds:FeedItem uid="timeAxis" type="Dimension" values="Date"/>
+				</viz:feeds>
+			</viz:VizFrame>
+		</layout:flexContent>
+	</layout:FixFlex>
 	<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">
-		<form:SimpleForm id="idBuyer" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
-		labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"
-			columnsL="2" columnsM="1" class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
-			<form:content>
-				<Label text="From"/>
-				<DatePicker id="__input_validFrom" value="{path: 'ZValidFrom', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"
-					change="handleValidFromChange"/>
-						<Label text="To"/>
-				<DatePicker id="__input_validTo" value="{path: 'ZValidTo', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"
-					change="handleValidToChange"/>
-				<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
-			</form:content>
-		</form:SimpleForm>
+		<!--<form:SimpleForm id="idBuyer" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"-->
+		<!--labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"-->
+		<!--	columnsL="2" columnsM="1" class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">-->
+		<!--	<form:content>-->
+		<!--		<Label text="From"/>-->
+		<!--		<DatePicker id="__input_validFrom" value="{path: 'ZValidFrom', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"-->
+		<!--			change="handleValidFromChange"/>-->
+		<!--				<Label text="To"/>-->
+		<!--		<DatePicker id="__input_validTo" value="{path: 'ZValidTo', type : 'sap.ui.model.type.Date'}" fieldGroupIds="fieldGroup1"-->
+		<!--			change="handleValidToChange"/>-->
+		<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
+		<!--	</form:content>-->
+		<!--</form:SimpleForm>-->
 		<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">
-					<layout:FixFlex id='chartFixFlex2' minFlexSize="500">
+			<layout:FixFlex id='chartFixFlex2' minFlexSize="500">
 				<!--Below is the setting panel -->
 				<layout:fixContent></layout:fixContent>
 				<layout:flexContent>
@@ -68,35 +154,7 @@
 					</viz:VizFrame>
 				</layout:flexContent>
 			</layout:FixFlex>
-	
 		</layout:Grid>
 	</layout:Grid>
-	<!--<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">-->
-	<!--	<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">-->
-	<!--		<layout:FixFlex id='chartFixFlexf' minFlexSize="500">-->
-			
-	<!--			<layout:flexContent>-->
-	<!--				<viz:Popover id="idPopOverf"></viz:Popover>-->
-	<!--				<viz:VizFrame id="idVizFramef" uiConfig="{applicationSet:'fiori'}"-->
-	<!--					vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>-->
-	<!--					<viz:dataset>-->
-	<!--						<viz.data:FlattenedDataset data="{oSaleModel>/}">-->
-	<!--							<viz.data:dimensions>-->
-	<!--								<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>-->
-	<!--							</viz.data:dimensions>-->
-	<!--							<viz.data:measures>-->
-	<!--								<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>-->
-	<!--								<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>-->
-	<!--							</viz.data:measures>-->
-	<!--						</viz.data:FlattenedDataset>-->
-	<!--					</viz:dataset>-->
-	<!--					<viz:feeds>-->
-	<!--						<viz.feeds:FeedItem id='valueAxisFeedf' uid="valueAxis" type="Measure" values="Demand"/>-->
-	<!--						<viz.feeds:FeedItem id='categoryAxisFeedf' uid="categoryAxis" type="Dimension" values="Material"/>-->
-	<!--					</viz:feeds>-->
-	<!--				</viz:VizFrame>-->
-	<!--			</layout:flexContent>-->
-	<!--		</layout:FixFlex>-->
-	<!--	</layout:Grid>-->
-	<!--</layout:Grid>-->
+
 </mvc:View>
