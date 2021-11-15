@@ -21,6 +21,9 @@
 							
 							<core:Title text=" "/>
 							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
+								<core:Title text=" "/>
+								<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>
+							
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
@@ -28,8 +31,7 @@
 						class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
 						<form:content>
 								
-								
-							
+						
 							<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
 							<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
 							<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
@@ -69,7 +71,7 @@
    <!--         </viz:VizFrame>-->
 			
 			<viz:Popover id="idPopOverline"></viz:Popover>
-			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='timeseries_line'>
+			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Stock vs Sales', visible : true}}"  height='100%' width="100%" vizType='timeseries_line'>
 				<viz:dataset>
 					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
 						<viz.data:dimensions>

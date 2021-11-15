@@ -6,15 +6,31 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/Filter",
-	"sap/m/library"
+	"sap/m/library",
+	"sap/ui/core/util/Export",
+	"sap/ui/core/util/ExportTypeCSV",
+	"sap/m/MessageBox",
+	"sap/ui/model/Sorter",
+	"sap/ui/table/library",
+	"sap/ui/thirdparty/jquery",
+	"sap/ui/table/RowAction",
+	"sap/ui/table/RowActionItem",
+	"sap/ui/table/RowSettings",
+	"sap/ui/core/Fragment",
+	"sap/ui/export/library",
+	"sap/ui/export/Spreadsheet"
 
-], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library) {
+], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library,Export, ExportTypeCSV, MessageBox, Sorter,
+ jquery, RowAction,
+	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
 
 	"use strict";
 	var oView, result = [];
 	var Massupload = [];
 	var oMaterialList = [],
 		zStockMaterial = [];
+			var SortOrder = library.SortOrder;
+	var EdmType = exportLibrary.EdmType;
 
 	return Controller.extend("com.vSimpleApp.controller.BuyerSheet", {
 
@@ -288,7 +304,7 @@ sap.ui.define([
 						oView.getModel("oStockDataModel").setData(ListofSrs);
 
 						//sOpenSalesOrder = "";
-						console.log(ListofSrs);
+					//	console.log(ListofSrs);
 
 						var len = ListofSrs.length;
 						var ls = len - 1;
@@ -435,7 +451,92 @@ sap.ui.define([
 			}
 			evt.getSource().getBinding("items").filter([]);
 
+		},
+			onDownloadExcess1: function() {
+				var oMod = 	oView.getModel("oMonthlydataModel");
+				
+			// 			var aCols, aProducts, oSettings, oSheet;
+
+			// aCols = this.createColumnConfig();
+			// aProducts = oView.getModel("oMonthlydataModel").getProperty('/');
+
+			// oSettings = {
+			// 	workbook: { columns: aCols },
+			// 	dataSource: aProducts
+			// };
+
+			// oSheet = new Spreadsheet(oSettings);
+			// oSheet.build()
+			// 	.then( function() {
+			// 		MessageToast.show('Spreadsheet export has finished');
+			// 	})
+			// 	.finally(oSheet.destroy);
+				
+				var odata = oMod.oData;
+			var aCols, oRowBinding, oSettings, oSheet, oTable;
+			// if (!this._oTable) {
+			// 	this._oTable = this.byId('excesstable');
+			// }
+			// oTable = this._oTable;
+			// oRowBinding = oTable.getBinding('items');
+			aCols = this.createColumnConfig();
+			oSettings = {
+				workbook: {
+					columns: aCols,
+					hierarchyLevel: 'Level'
+				},
+				dataSource: odata,
+				fileName: 'Table export Data.xlsx',
+				worker: false
+			};
+			oSheet = new Spreadsheet(oSettings);
+			oSheet.build().finally(function() {
+				oSheet.destroy();
+			});
+		},
+   onDownloadExcess: function() {
+    //  var binding = this.byId("table").getBinding("items");
+    var	 aProducts = oView.getModel("oMonthlydataModel").getProperty('/');
+var	aCols = this.createColumnConfig();
+			new Spreadsheet({
+				workbook: {
+          columns: aCols
+          
+        },
+				dataSource: aProducts,
+    	 fileName: "myExportedDataFromPlainJSON.xlsx",
+			}).build();
+    },
+		createColumnConfig: function() {
+			var aCols = [];
+			aCols.push({
+				label: 'Sales Order',
+				property: 'Vbeln'
+			
+
+			});
+			aCols.push({
+				label: 'Material Number',
+				property: 'Matnr'
+		
+
+			});
+			aCols.push({
+				label: 'Date',
+			
+				property: 'Erdat'
+			
+			});
+			aCols.push({
+				label: 'Quantity',
+				property: 'Kwmeng'
+			
+			});
+		
+
+			return aCols;
 		}
+
 
 		// onGetSalesForMonthly: function() {
 		// 		var oModel = this.getOwnerComponent().getModel("StockModel");
