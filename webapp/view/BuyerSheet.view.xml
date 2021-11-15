@@ -22,7 +22,7 @@
 							<core:Title text=" "/>
 							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
 								<core:Title text=" "/>
-								<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>
+								<Button id="iddownload" text="Download" width="30%" press="onExportsiddhi"/>
 							
 						</form:content>
 					</form:SimpleForm>

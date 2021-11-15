@@ -504,7 +504,7 @@ var	aCols = this.createColumnConfig();
           
         },
 				dataSource: aProducts,
-    	 fileName: "myExportedDataFromPlainJSON.xlsx",
+    	 fileName: "myExportedDataFromPlainJSON.xlsx"
 			}).build();
     },
 		createColumnConfig: function() {
@@ -534,6 +534,54 @@ var	aCols = this.createColumnConfig();
 		
 
 			return aCols;
+		}
+		
+		,
+		
+			createColumnConfigsiddhi: function() {
+			return [
+				{
+					label: 'Sales Order',
+					property: 'Vbeln',
+					type: EdmType.String,
+					scale: 0
+				},
+				{
+					label: 'Material Number',
+			  	    property: 'Matnr',
+					width: '25'
+				},
+				{
+					label: 'Date',
+			
+				property: 'Erdat',
+					width: '25'
+				},
+				{
+						label: 'Quantity',
+				    property: 'Kwmeng'
+			
+				}
+			];
+		},
+
+		onExportsiddhi: function() {
+			var aCols, aProducts, oSettings, oSheet;
+
+			aCols = this.createColumnConfig();
+			aProducts = this.getView().getModel("oMonthlydataModel").getProperty('/');
+
+			oSettings = {
+				workbook: { columns: aCols },
+				dataSource: aProducts
+			};
+
+			oSheet = new sap.ui.export.Spreadsheet(oSettings);
+			oSheet.build()
+				.then( function() {
+					MessageToast.show('Spreadsheet export has finished');
+				})
+				.finally(oSheet.destroy);
 		}
 
 
