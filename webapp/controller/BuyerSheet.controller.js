@@ -519,7 +519,6 @@ var	aCols = this.createColumnConfig();
 				label: 'Material Number',
 				property: 'Matnr'
 		
-
 			});
 			aCols.push({
 				label: 'Date',
