@@ -99,7 +99,9 @@ sap.ui.define([
 
 		
 			this.getMaterialstockSet();
-	//		this.getStockDetailList();
+			this.getPodetailsset();
+			this.getSalesOrderDetails();
+			this.getStockDetailList();
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -155,7 +157,7 @@ sap.ui.define([
 
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
-			this.getSalesOrderDetails();
+			// this.getSalesOrderDetails();
 
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
@@ -166,7 +168,8 @@ sap.ui.define([
 			var oCompanyLevel = new JSONModel();
 			sap.ui.getCore().setModel(oCompanyLevel, "oCompanyLevel");
             
-             this.getPodetailsset();
+           
+           
              
              var oPoData = new JSONModel();
             oView.setModel(oPoData,"oPoData");
@@ -3291,7 +3294,7 @@ sap.ui.define([
 			// }
 		},
 
-			//comapny stock level service
+		
    getPodetailsset: function(evt){
    	  var oModel = this.getOwnerComponent().getModel("StockModel");
    	  oModel.read("/podetails_forzstockSet",{
