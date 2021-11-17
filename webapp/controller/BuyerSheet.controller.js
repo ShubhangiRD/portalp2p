@@ -20,8 +20,9 @@ sap.ui.define([
 	"sap/ui/export/library",
 	"sap/ui/export/Spreadsheet"
 
-], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library,Export, ExportTypeCSV, MessageBox, Sorter,
- jquery, RowAction,
+], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library, Export, ExportTypeCSV, MessageBox,
+	Sorter,
+	jquery, RowAction,
 	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
 
 	"use strict";
@@ -29,7 +30,7 @@ sap.ui.define([
 	var Massupload = [];
 	var oMaterialList = [],
 		zStockMaterial = [];
-			var SortOrder = library.SortOrder;
+	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
 
 	return Controller.extend("com.vSimpleApp.controller.BuyerSheet", {
@@ -51,7 +52,14 @@ sap.ui.define([
 
 			var oData = new JSONModel();
 			oView.setModel(oData, "oDataModel");
-
+			
+			
+				var onRejectedData = new JSONModel();
+			oView.setModel(onRejectedData, "onRejectedData");
+			
+			
+			var oDeliveryPattern = new JSONModel();
+			oView.setModel(oDeliveryPattern, "oDeliveryPattern");
 			var oMonthlyData = new JSONModel();
 			oView.setModel(oMonthlyData, "oMonthlydataModel");
 			var oCheckedModel = new sap.ui.model.json.JSONModel({
@@ -63,7 +71,7 @@ sap.ui.define([
 
 			});
 			oView.setModel(oCheckedModel, "oCheckModel");
-				this.getSalesOrderDetails();
+			this.getSalesOrderDetails();
 			this.OnGetfiltersale();
 
 		},
@@ -304,7 +312,7 @@ sap.ui.define([
 						oView.getModel("oStockDataModel").setData(ListofSrs);
 
 						//sOpenSalesOrder = "";
-					//	console.log(ListofSrs);
+						//	console.log(ListofSrs);
 
 						var len = ListofSrs.length;
 						var ls = len - 1;
@@ -354,7 +362,7 @@ sap.ui.define([
 			var mat = "000000000050065555";
 			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, EndDate);
 			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
-			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, mat);
+			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
 			oModel.read("/StockvsSales2Set?$filter=(Erdat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 + "'and Matnr eq '" +
 				oFilter2 + "')", {
 					filters: [oFilter1, oFilter2, oFilter3],
@@ -452,176 +460,140 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter([]);
 
 		},
-			onDownloadExcess1: function() {
-				var oMod = 	oView.getModel("oMonthlydataModel");
-				
-			// 			var aCols, aProducts, oSettings, oSheet;
 
-			// aCols = this.createColumnConfig();
-			// aProducts = oView.getModel("oMonthlydataModel").getProperty('/');
-
-			// oSettings = {
-			// 	workbook: { columns: aCols },
-			// 	dataSource: aProducts
-			// };
-
-			// oSheet = new Spreadsheet(oSettings);
-			// oSheet.build()
-			// 	.then( function() {
-			// 		MessageToast.show('Spreadsheet export has finished');
-			// 	})
-			// 	.finally(oSheet.destroy);
-				
-				var odata = oMod.oData;
-			var aCols, oRowBinding, oSettings, oSheet, oTable;
-			// if (!this._oTable) {
-			// 	this._oTable = this.byId('excesstable');
-			// }
-			// oTable = this._oTable;
-			// oRowBinding = oTable.getBinding('items');
-			aCols = this.createColumnConfig();
-			oSettings = {
-				workbook: {
-					columns: aCols,
-					hierarchyLevel: 'Level'
-				},
-				dataSource: odata,
-				fileName: 'Table export Data.xlsx',
-				worker: false
-			};
-			oSheet = new Spreadsheet(oSettings);
-			oSheet.build().finally(function() {
-				oSheet.destroy();
-			});
-		},
-   onDownloadExcess: function() {
-    //  var binding = this.byId("table").getBinding("items");
-    var	 aProducts = oView.getModel("oMonthlydataModel").getProperty('/');
-var	aCols = this.createColumnConfig();
-			new Spreadsheet({
-				workbook: {
-          columns: aCols
-          
-        },
-				dataSource: aProducts,
-    	 fileName: "myExportedDataFromPlainJSON.xlsx"
-			}).build();
-    },
 		createColumnConfig: function() {
 			var aCols = [];
 			aCols.push({
 				label: 'Sales Order',
 				property: 'Vbeln'
-			
 
 			});
 			aCols.push({
 				label: 'Material Number',
 				property: 'Matnr'
-		
+
 			});
 			aCols.push({
 				label: 'Date',
-			
+
 				property: 'Erdat'
-			
+
 			});
 			aCols.push({
 				label: 'Quantity',
 				property: 'Kwmeng'
-			
+
 			});
-		
 
 			return aCols;
 		}
-		
-		,
-		
-			createColumnConfigsiddhi: function() {
-			return [
-				{
-					label: 'Sales Order',
-					property: 'Vbeln',
-					type: EdmType.String,
-					scale: 0
-				},
-				{
-					label: 'Material Number',
-			  	    property: 'Matnr',
-					width: '25'
-				},
-				{
-					label: 'Date',
-			
-				property: 'Erdat',
-					width: '25'
-				},
-				{
-						label: 'Quantity',
-				    property: 'Kwmeng'
-			
-				}
-			];
-		},
 
-		onExportsiddhi: function() {
+		,
+
+		onDownloadExcess: function() {
 			var aCols, aProducts, oSettings, oSheet;
 
 			aCols = this.createColumnConfig();
 			aProducts = this.getView().getModel("oMonthlydataModel").getProperty('/');
 
 			oSettings = {
-				workbook: { columns: aCols },
+				workbook: {
+					columns: aCols
+				},
 				dataSource: aProducts
 			};
 
 			oSheet = new sap.ui.export.Spreadsheet(oSettings);
 			oSheet.build()
-				.then( function() {
+				.then(function() {
 					MessageToast.show('Spreadsheet export has finished');
 				})
 				.finally(oSheet.destroy);
-		}
+		},
 
+		OnDeliveryPattern: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oDataModel = oView.getModel("oDataModel");
 
-		// onGetSalesForMonthly: function() {
-		// 		var oModel = this.getOwnerComponent().getModel("StockModel");
+			var Matnr = oDataModel.oData.DeliveryMaterial;
+		//	var Matnr  = "50065579";
+			console.log(oDataModel);
 
-		// 		 function datatime(dDate) {
-		// 				//	2021-10-04T08:54:57
-		// 				var m = new Date(dDate);
-		// 				var dateString = m.getUTCFullYear() + "-" + (m.getUTCMonth() + 1) + "-" + m.getUTCDate() + "T" + m.getUTCHours() + ":" + m.getUTCMinutes() +
-		// 					":" + m.getUTCSeconds();
+			var zero = "";
 
-		// 				return dateString;
+			if ($.isNumeric((Matnr)) === true) {
+				var len = Matnr.length;
+				if (len !== undefined) {
+					var z = 18 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
+					}
+				}
 
-		// 			} 
+				Matnr = zero + Matnr;
+			}
 
-		// 			var CurrentD = new Date("January 14, 2012");
-		// 		var currentDate = CurrentD.toLocaleDateString()
-		// 		console.log(currentDate);
-		// 		CurrentD.setMonth(CurrentD.getMonth() - 3);
-		// 		var Last3Month = CurrentD.toLocaleDateString()
-		// 		console.log(Last3Month);
-		// 		//2021-03-17T12:04:39
-		// 		// var url =	"?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
+				//getAnalyticaldataSet?$filter=(Matnr eq ')
+				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+				oModel.read("/deliveryPatternSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
+				filters: [oFilter3],
 
-		// 		var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, sItemTitle);
-		// 		var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, sItemTitle);
-		// 		var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, sItemTitle);
-		// 		oModel.read("/StockvsSales2Set?$filter=(Erdat eq '" + sItemTitle + "' and Erdat2 eq '" + sItemTitle + "'and Matnr eq '" +
-		// 			sItemTitle + "')", {
-		// 				filters: [oFilter1, oFilter3, oFilter3],
+				success: function(oData) {
+					//	console.log(succ);
+					oView.getModel("oDeliveryPattern").setData(oData.results);
 
-		// 				success: function(oData) {
-		// 					console.log(oData);
-		// 				},
-		// 				errors: function(oError) {
+				},
+				error: function(err) {
+					console.log(err);
+				}
 
-		// 				}
-		// 			});
-		// 	}
+			});
+			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
+			//	BusyIndicator.show(true);
+
+		},
+			OnRejectedMaterial: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oDataModel = oView.getModel("oDataModel");
+
+			var Matnr = oDataModel.oData.Material;
+			console.log(oDataModel);
+
+			var zero = "";
+
+			if ($.isNumeric((Matnr)) === true) {
+				var len = Matnr.length;
+				if (len !== undefined) {
+					var z = 18 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
+					}
+				}
+
+				Matnr = zero + Matnr;
+			}
+			var mat = "CPB60200";
+				//getAnalyticaldataSet?$filter=(Matnr eq ')
+				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, mat);
+				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+				oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
+				filters: [oFilter3],
+
+				success: function(oData) {
+					//	console.log(succ);
+					oView.getModel("onRejectedData").setData(oData.results);
+
+				},
+				error: function(err) {
+					console.log(err);
+				}
+
+			});
+			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
+			//	BusyIndicator.show(true);
+
+		},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

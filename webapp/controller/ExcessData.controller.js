@@ -95,8 +95,11 @@ sap.ui.define([
 			}
 		},
 		onSaveDiscount: function() {
-			this.pressDialogExcessDiscount.close();
-			this.pressDialogExcessDiscount.destroy();
+		var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");
+
+			
+			//this.pressDialogExcessDiscount.close();
+		//	this.pressDialogExcessDiscount.destroy();
 		},
 		onCancelDiscount: function() {
 			this.pressDialogExcessDiscount.close();

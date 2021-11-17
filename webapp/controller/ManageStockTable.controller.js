@@ -1377,6 +1377,15 @@ sap.ui.define([
 			var sPath = sPathThreshold;
 			var oInput = sap.ui.getCore().byId("idNewValue");
 			var sValue = oInput.getValue();
+			
+			var pattern = /[^\d]/;
+			if (pattern.test(sValue)) {
+				oInput.setValueState("Error");
+				oInput.setValueStateText("Enter Numeric Value");
+			} else{
+			
+			
+			
 			var sSelectTdLevel = sap.ui.getCore().byId('SelectTdlevel').getSelectedKey();
 
 			if (sSelectTdLevel === "Red") {
@@ -1482,6 +1491,7 @@ sap.ui.define([
 			/*	this.pressDialogOpn.close();
 			this.pressDialogOpn.destroy();
 */
+}
 		},
 		datatime: function(dDate) {
 			var s_doc_datePost = dDate;

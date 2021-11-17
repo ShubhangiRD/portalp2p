@@ -1,0 +1,82 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified" xmlns:m="sap.m"
+	height="100%" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<m:ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true">
+		<Table id="rejectdtable" selectionMode="None" rows="{onRejectedData>/}" visibleRowCount="7" enableCellFilter="{ui>/cellFilterOn}"
+			filter="filterPrice" ariaLabelledBy="title">
+			<extension>
+				<m:OverflowToolbar >
+				<!--	<m:Title id="title" text="Return Data for Material"/>-->
+				<!--	<m:ToolbarSpacer/>-->
+				<!--	<m:Select id="select" items="{modes>/items}" selectedKey="Navigation" change="onBehaviourModeChange">-->
+				<!--		<core:Item key="{modes>key}" text="{modes>text}"/>-->
+				<!--	</m:Select>-->
+				
+				<!--	<m:Button icon="sap-icon://download" press="onExport"/>-->
+				
+				<!--	<m:Button icon="sap-icon://decline" tooltip="Clear all filters" press="clearAllFiltersPOtable"/>-->
+				<!--	<m:ToolbarSeparator/>-->
+				<!--	<m:SearchField placeholder="Filter" value="{ui>/globalFilter}" search="onSearchEbeln" width="15rem"/>-->
+				</m:OverflowToolbar>
+			</extension>
+			<columns>
+				
+				<Column width="11rem" hAlign="Center" filterProperty="Ebeln" defaultFilterOperator="StartsWith">
+					<m:Label text="Purchase Order"/>
+					<template >
+						<m:Text text="{onRejectedData>Ebeln}" custom:Ebeln="{onRejectedData>Ebeln}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" sortProperty="Lifnr" filterProperty="Lifnr">
+					<m:Label text="Vendor Number "/>
+					<template>
+						<m:Text text="{onRejectedData>Lifnr}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" >
+					<m:Label text="Purchase Grp"/>
+					<template>
+						<m:Text text="{onRejectedData>Ekgrp}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column id="idPurchaseOrg" width="9rem" hAlign="Center" filterProperty="Ekorg">
+					<m:Label text="Purchase Org"/>
+					<template>
+						<m:Text text="{onRejectedData>Ekorg}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column id="iddate" width="9rem" hAlign="Center" filterProperty="Bedat">
+					<m:Label text="Created On"/>
+					<template>
+						<m:Text text="{path: 'onRejectedData>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" >
+					<m:Label text="Material no"/>
+					<template>
+						<m:Text text="{onRejectedData>Matnr}"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" >
+					<m:Label text="Quantity"/>
+					<template>
+						<m:Text text="{onRejectedData>Menge}"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" >
+					<m:Label text="Plant"/>
+					<template>
+						<m:Text text="{onRejectedData>Werks}"/>
+					</template>
+				</Column>
+			
+			
+			
+			</columns>
+			<footer>
+				<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+			</footer>
+		</Table>
+	</m:ScrollContainer>
+</core:FragmentDefinition>
+
+						
