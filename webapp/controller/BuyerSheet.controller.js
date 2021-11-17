@@ -536,12 +536,32 @@ sap.ui.define([
 				//getAnalyticaldataSet?$filter=(Matnr eq ')
 				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
 				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+				
 				oModel.read("/deliveryPatternSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
 				filters: [oFilter3],
 
 				success: function(oData) {
 					//	console.log(succ);
 					oView.getModel("oDeliveryPattern").setData(oData.results);
+					
+				var oFilter4 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+				oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter4 + "' )", {
+				filters: [oFilter3],
+
+				success: function(oData) {
+					//	console.log(succ);
+					
+					oView.getModel("onRejectedData").setData(oData.results);
+
+				},
+				error: function(err) {
+					console.log(err);
+				}
+
+			});
+					
+					
 
 				},
 				error: function(err) {
@@ -575,7 +595,7 @@ sap.ui.define([
 			}
 			var mat = "CPB60200";
 				//getAnalyticaldataSet?$filter=(Matnr eq ')
-				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, mat);
+				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
 				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
 				oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
 				filters: [oFilter3],

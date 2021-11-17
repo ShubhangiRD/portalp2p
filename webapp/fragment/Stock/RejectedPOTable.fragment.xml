@@ -5,6 +5,7 @@
 			filter="filterPrice" ariaLabelledBy="title">
 			<extension>
 				<m:OverflowToolbar >
+					<m:Title id="title3" text="Return Data for Material"/>
 				<!--	<m:Title id="title" text="Return Data for Material"/>-->
 				<!--	<m:ToolbarSpacer/>-->
 				<!--	<m:Select id="select" items="{modes>/items}" selectedKey="Navigation" change="onBehaviourModeChange">-->
@@ -38,13 +39,13 @@
 						<m:Text text="{onRejectedData>Ekgrp}" wrapping="false"/>
 					</template>
 				</Column>
-				<Column id="idPurchaseOrg" width="9rem" hAlign="Center" filterProperty="Ekorg">
+				<Column id="idPurchaseOrg2" width="9rem" hAlign="Center" filterProperty="Ekorg">
 					<m:Label text="Purchase Org"/>
 					<template>
 						<m:Text text="{onRejectedData>Ekorg}" wrapping="false"/>
 					</template>
 				</Column>
-				<Column id="iddate" width="9rem" hAlign="Center" filterProperty="Bedat">
+				<Column id="iddate2" width="9rem" hAlign="Center" filterProperty="Bedat">
 					<m:Label text="Created On"/>
 					<template>
 						<m:Text text="{path: 'onRejectedData>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" wrapping="false"/>
@@ -73,10 +74,8 @@
 			
 			</columns>
 			<footer>
-				<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+				<m:OverflowToolbar id="irnfobar"></m:OverflowToolbar>
 			</footer>
 		</Table>
 	</m:ScrollContainer>
 </core:FragmentDefinition>
-
-						
