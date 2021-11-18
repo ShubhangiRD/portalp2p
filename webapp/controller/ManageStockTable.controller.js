@@ -101,7 +101,7 @@ sap.ui.define([
 			this.getMaterialstockSet();
 			this.getPodetailsset();
 			this.getSalesOrderDetails();
-			this.getStockDetailList();
+		//	this.getStockDetailList();
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -3290,7 +3290,12 @@ sap.ui.define([
 			var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
 					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 											oRouter.navTo('StockTransfer');
+											
+										
 			}
+				oTreetable.SelectedNode = null;
+				oTreetable.destroyNoData();
+			oTreetable.selected = false; 
 		},
 		onExcessMaterial : function(oEvent){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

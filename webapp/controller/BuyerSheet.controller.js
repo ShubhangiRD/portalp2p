@@ -614,16 +614,6 @@ sap.ui.define([
 
 		},
 		
-		onBackStock : function(){
-				var StockTransferModel = this.getView().getModel("StockTransferModel");
-			StockTransferModel.setData({
-				oData: {}
-			});
-
-			StockTransferModel.refresh(true);
-		
-			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-		}
 		
 		
 

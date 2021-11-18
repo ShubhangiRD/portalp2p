@@ -32,6 +32,18 @@ sap.ui.define([
 			console.log(oStockModel);
 
 		},
+		
+		onBackStock : function(){
+				var StockTransferModel = this.getView().getModel("StockTransferModel");
+			StockTransferModel.setData({
+				oData: {}
+			});
+
+			StockTransferModel.refresh(true);
+		
+			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				window.location.reload();
+		},
 		onStockCancel: function(event) {
 			//cancel the all selected values and data
 
