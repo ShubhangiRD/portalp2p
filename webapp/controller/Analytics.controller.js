@@ -29,7 +29,12 @@ sap.ui.define([
 
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-
+			var oData = new JSONModel();
+			oView.setModel(oData, "oVendorModel");
+				var oAdvanceAnalytics = new JSONModel();
+			oView.setModel(oAdvanceAnalytics, "oAdvanceAnalytics");
+			
+			
 			},
 			
 		handleVendorValueHelpBox: function(oEvent) {
@@ -91,9 +96,70 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter([]);
 
 		},
-		onChartTypeChanged: function(){
-			MessageBox.show("Changed type");
+		
+			onChartTypeChanged: function(oEvent) {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oDataModel = oView.getModel("oVendorModel");
+			var oselect = 	oEvent.oSource.mProperties.selectedKey;
+
+			var Vendor = oDataModel.oData.Vendor;
+		//	var Matnr  = "50065579";
+			console.log(oDataModel);
+
+			var zero = "";
+
+			if ($.isNumeric((Vendor)) === true) {
+				var len = Vendor.length;
+				if (len !== undefined) {
+					var z = 18 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
+					}
+				}
+
+				Vendor = zero + Vendor;
+			}
+			
+			
+			if(oselect === "Delivery Pattern" ){
+					this.getVendordetail(Vendor);
+			}else if(oselect === "Monitoring Quality"){
+					this.getVendordetail(Vendor);
+			}else if(oselect === "Rejection"){
+					this.getVendordetail(Vendor);
+			}else if(oselect === "Retun"){
+					this.getVendordetail(Vendor);
+			}
+			
+			
+			
+
+		
+			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
+			//	BusyIndicator.show(true);
+
+		},
+		getVendordetail : function(Vendor){
+					var oFilter3 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, Vendor);
+		
+				var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+				oModel.read("/advanceAnalytics_vendorSet?$filter=(Lifnr eq'" + oFilter3 + "' )", {
+				filters: [oFilter3],
+
+				success: function(oData) {
+					//	console.log(succ);
+					oView.getModel("oAdvanceAnalytics").setData(oData.results);
+					
+
+				},
+				error: function(err) {
+					console.log(err);
+				}
+
+			});
 		}
+		
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

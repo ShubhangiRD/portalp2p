@@ -22,7 +22,7 @@
 						
 							<core:Title text=" "/>
 							<Label text="Pattern" design="Bold" class='settingsLabel'></Label>
-							<Select id='chartTypeSelect' class='settingsSelect' selectedKey='{/chartType/defaultSelected}' maxWidth="200px" change='onChartTypeChanged'>
+							<Select id='chartTypeSelect' class='settingsSelect'   maxWidth="200px" change='onChartTypeChanged'>
 								<items>
 									<core:Item text="Delivery Pattern" key="Delivery Pattern"/>
 									<core:Item text="Monitoring Quality" key="Monitoring Quality"/>
