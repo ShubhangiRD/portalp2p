@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" 	xmlns:l="sap.ui.layout" class="sapUiSizeCompact" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns="sap.m">
-	<Dialog title="Discard Material" showHeader="true" id="idExcessDiscardDialog" afterClose="onAfterClose" class="sapUiSizeCompact"
-		contentWidth="500px" contentHeight="200px">
+	<Dialog title="Discard Material" showHeader="true" id="idExcessDiscardDialog" afterClose="onAfterClose" class="sapUiSizeCompact fragmentHeading"
+		contentWidth="400px" contentHeight="150px">
 			<VBox class="sapUiSmallMargin">
 		<f:Form id="FormChange354"
-			editable="true">
+			editable="true" >
 	
 			<f:layout>
 				<f:ResponsiveGridLayout
@@ -24,9 +24,9 @@
 			<f:formContainers>
 				<f:FormContainer>
 					<f:formElements>
-						<f:FormElement label="Discard">
+						<f:FormElement label="Discard" >
 							<f:fields>
-								<Input  id="idDiscar"/>
+								<Input  id="idDiscar" description="%" />
 							</f:fields>
 						</f:FormElement>
 					

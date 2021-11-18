@@ -1,5 +1,4 @@
-<mvc:View controllerName="com.vSimpleApp.controller.Analytics"
-xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
+<mvc:View controllerName="com.vSimpleApp.controller.Analytics" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact"
 	xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:viz.data="sap.viz.ui5.data" height="100%" xmlns:core="sap.ui.core">
 	<layout:FixFlex id='chartFixFlexline' minFlexSize="250">
@@ -10,18 +9,31 @@ xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
 						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
 						class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
 						<form:content>
+						
 							<core:Title text=" "/>
-							<Label text="Material" required="true"/>
-							<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
-								value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
-								<suggestionItems>
-									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
-								</suggestionItems>
-							</Input>
+							<Label text="Vendor" design="Bold" ></Label>
+								<Input id="Lifnra" value="{oVendorModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
+							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
+							<suggestionItems>
+								<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+							</suggestionItems>
+						</Input>
+						
 							<core:Title text=" "/>
-							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
-							<core:Title text=" "/>
-							<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>
+							<Label text="Pattern" design="Bold" class='settingsLabel'></Label>
+							<Select id='chartTypeSelect' class='settingsSelect' selectedKey='{/chartType/defaultSelected}' maxWidth="200px" change='onChartTypeChanged'>
+								<items>
+									<core:Item text="Delivery Pattern" key="Delivery Pattern"/>
+									<core:Item text="Monitoring Quality" key="Monitoring Quality"/>
+									<core:Item text="Rejection" key="Rejection"/>
+									<core:Item text="Retun" key="Retun"/>
+								</items>
+							</Select>
+							<!--<core:Title text=" "/>-->
+							<!--<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>-->
+							<!--<core:Title text=" "/>-->
+							<!--<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>-->
 						</form:content>
 					</form:SimpleForm>
 					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
@@ -46,7 +58,8 @@ xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
 				<viz:dataset>
 					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
 						<viz.data:dimensions>
-							<viz.data:DimensionDefinition name="Date" value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
+							<viz.data:DimensionDefinition name="Date"
+								value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
 						</viz.data:dimensions>
 						<viz.data:measures>
 							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
@@ -64,4 +77,7 @@ xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
 			</viz:VizFrame>
 		</layout:flexContent>
 	</layout:FixFlex>
+	<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop">
+		<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.DeliverySale" type="XML"/>
+	</VBox>
 </mvc:View>

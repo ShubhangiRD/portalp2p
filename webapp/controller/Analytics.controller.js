@@ -1,8 +1,20 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
-	"use strict";
+	"sap/ui/core/mvc/Controller",
+		"sap/ui/model/Filter",
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/core/Fragment",
 
+	"sap/m/MessageToast",
+
+	"sap/ui/core/routing/History",
+	"sap/ui/core/BusyIndicator"
+], function(Controller,Filter, JSONModel, MessageBox, FilterOperator, Fragment, MessageToast,
+	History,
+	BusyIndicator) {
+	"use strict";
+	var oView, oComponent;
 	return Controller.extend("com.vSimpleApp.controller.Analytics", {
 
 		/**
@@ -10,9 +22,78 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf com.vSimpleApp.view.Analytics
 		 */
-		//	onInit: function() {
-		//
-		//	},
+			onInit: function() {
+			oView = this.getView();
+			oComponent = this.getOwnerComponent();
+			var oModel = this.getOwnerComponent().getModel("VHeader");
+
+			//set the model on view to be used by the UI controls
+			this.getView().setModel(oModel);
+
+			},
+			
+		handleVendorValueHelpBox: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdVendor = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogDisplayV) {
+				this._valueHelpDialogDisplayV = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.fragment.Display",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogDisplayV);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+			// create a filter for the binding
+			this._valueHelpDialogDisplayV.getBinding("items").filter(new Filter([new Filter(
+				"Name1",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Lifnr",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogDisplayV.open(sInputValue);
+			this.getVendorList();
+		},
+
+		_handleValueVendorHelpSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Name1",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Lifnr",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleValueVendorHelpClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			var oModel = oView.getModel("Lookup");
+			var oModelV = this.getOwnerComponent().getModel("VHeader");
+
+			if (oSelectedItem) {
+				var sProductInput = this.byId(this.inputIdVendor),
+					sDescription = oSelectedItem.getInfo();
+
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sDescription);
+
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+
+		},
+		onChartTypeChanged: function(){
+			MessageBox.show("Changed type");
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

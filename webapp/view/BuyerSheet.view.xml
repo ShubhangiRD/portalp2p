@@ -96,7 +96,9 @@
 							<!--/>-->
 						</f:header>
 						<f:content>
+							<VBox class ="sapUiSmallMarginBegin sapUiSmallMarginEnd ">
 							<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.DeliverySale" type="XML"/>
+							</VBox>
 						</f:content>
 					</f:Card>
 					<viz:Popover id="idPopOverline5"></viz:Popover>
