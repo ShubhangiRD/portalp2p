@@ -39,7 +39,7 @@
 			<!--	</template>-->
 			<!--</Column>-->
 			<Column width="8rem" hAlign="Center">
-				<m:Label text="Available Qunty"/>
+				<m:Label text="Available Qty"/>
 				<template>
 					<m:ObjectNumber
 						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
@@ -58,7 +58,7 @@
 			</Column>
 			
 			<Column width="8rem" hAlign="Center">
-				<m:Label text=" Open Sales Order"/>
+				<m:Label text=" Open SO"/>
 				<template>
 					<m:Text text="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
@@ -122,7 +122,7 @@
 			
 			
 						<Column width="8rem" hAlign="Center">
-				<m:Label text=" Open Po Quantity"/>
+				<m:Label text=" Open PO Qty"/>
 				<template>
 						<m:Text text="{ path: 'oStockDataModel>OpenPOQty'}"
 						wrapping="false"/>
@@ -142,7 +142,7 @@
 			
 			
 				<Column width="8rem" hAlign="Center">
-				<m:Label text="Goods receipt date"/>
+				<m:Label text="GR Date"/>
 				<template>
 						<m:Text text="{ path: 'oStockDataModel>OpenPODate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
 						wrapping="false"/>
