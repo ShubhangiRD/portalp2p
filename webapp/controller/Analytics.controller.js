@@ -9,12 +9,18 @@ sap.ui.define([
 	"sap/m/MessageToast",
 
 	"sap/ui/core/routing/History",
-	"sap/ui/core/BusyIndicator"
+	"sap/ui/core/BusyIndicator",
+		"sap/ui/export/Spreadsheet",
+	"sap/ui/export/library",
+		"sap/ui/table/library"
 ], function(Controller,Filter, JSONModel, MessageBox, FilterOperator, Fragment, MessageToast,
 	History,
-	BusyIndicator) {
+	BusyIndicator, Spreadsheet, exportLibrary,library) {
 	"use strict";
+	
 	var oView, oComponent;
+		var SortOrder = library.SortOrder;
+	var EdmType = exportLibrary.EdmType;
 	return Controller.extend("com.vSimpleApp.controller.Analytics", {
 
 		/**
@@ -158,7 +164,77 @@ sap.ui.define([
 				}
 
 			});
-		}
+		},
+			onExport: function() {
+			var aCols, oRowBinding, oSettings, oSheet, oTable;
+			if (!this._oTable) {
+				this._oTable = this.byId('deliverypattern');
+			}
+			oTable = this._oTable;
+			oRowBinding = oTable.getBinding('rows');
+			aCols = this.createColumnConfig();
+			oSettings = {
+				workbook: {
+					columns: aCols,
+					hierarchyLevel: 'Level'
+				},
+				dataSource: oRowBinding,
+				fileName: 'Table export Data.xlsx',
+				worker: false
+			};
+			oSheet = new Spreadsheet(oSettings);
+			oSheet.build().finally(function() {
+				oSheet.destroy();
+			});
+		},
+
+		createColumnConfig: function() {
+			var aCols = [];
+			aCols.push({
+				label: 'Company Code',
+				property: 'Bukrs',
+				type: EdmType.String
+
+			});
+			aCols.push({
+				label: 'Purchase Order',
+				property: 'Ebeln',
+				type: EdmType.String
+
+			});
+			aCols.push({
+				label: 'Vendor Details',
+				type: EdmType.String,
+				property: 'Lifnr',
+				scale: 0
+			});
+			aCols.push({
+				label: 'Purchase Organization',
+				property: 'Ekgrp',
+				type: EdmType.String
+			});
+			aCols.push({
+				label: 'Order Date',
+				property: 'Bedat',
+				type: EdmType.Date
+			});
+			aCols.push({
+				label: 'Delivary Date',
+				property: 'Prdat',
+				type: EdmType.String
+			});
+			aCols.push({
+				label: 'Item Delivey Date',
+				property: 'Eindt',
+				type: EdmType.String
+			});aCols.push({
+				label: 'Delivered Quantity',
+				property: 'Glmng',
+				type: EdmType.String
+			});
+
+			return aCols;
+		},
 		
 
 		/**
