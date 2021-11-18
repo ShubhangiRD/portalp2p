@@ -1147,71 +1147,325 @@ sap.ui.define([
 				oModel.read("/STOCK_DATASet?$filter=(Matnr eq '" + sMaterialno + "'and Werks eq '" + sPlant + "')", {
 					filters: [oFilter, oFilterV],
 
+					// success: function(oData) {
+					// 	BusyIndicator.hide();
+					// 	//get the price from passing filtered vendor and material no
+
+					// 	oMatModel.refresh();
+					// 	/*oMatModel.setData({
+					// 				oData: {}
+					// 			});
+					// 	oMatModel.updateBindings(true);*/
+					// 	var len = oData.results.length;
+
+					// 	var ListofSrs = [];
+					// 	for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+					// 		var odataset = oData.results[iRowIndex];
+
+					// 		var Cbtlv = odataset.Cbtlv;
+					// 		var Cytlv = odataset.Cytlv;
+					// 		var Cgtlv = odataset.Cgtlv;
+					// 		var Changedon = odataset.Changedon;
+					// 		var Crtlv = odataset.Crtlv;
+					// 		var Labst = odataset.Labst;
+
+					// 		var Matnr = odataset.Matnr;
+					// 		var Pbtlv = odataset.Pbtlv;
+					// 		var Pgtlv = odataset.Pgtlv;
+					// 		var Prtlv = odataset.Prtlv;
+					// 		var Pytlv = odataset.Pytlv;
+					// 		var Werks = odataset.Werks;
+
+					// 		if (Matnr !== "" || Matnr !== undefined) {
+					// 			for (var x = 0; x < CompanyLevelset.length; x++) {
+					// 				if (Matnr === CompanyLevelset[x].Matnr) {
+					// 					var sCompanyCode = CompanyLevelset[x].Bukrs;
+					// 					// var sStorageLoc = CompanyLevelset[x].Lgort;
+
+					// 				}
+					// 			}
+					// 		}
+					// 		var CompanyCode = sCompanyCode;
+
+					// 		ListofSrs.push({
+					// 			Cbtlv: Cbtlv,
+					// 			Cgtlv: Cgtlv,
+					// 			Cytlv: Cytlv,
+					// 			Changedon: Changedon,
+					// 			CompanyCode: CompanyCode,
+					// 			Crtlv: Crtlv,
+					// 			Labst: parseInt(Labst),
+					// 			Matnr: Matnr,
+					// 			Pbtlv: Pbtlv,
+					// 			Pgtlv: Pgtlv,
+					// 			Prtlv: Prtlv,
+					// 			Pytlv: Pytlv,
+					// 			Werks: Werks
+
+					// 		});
+
+					// 	}
+					// 	console.log(ListofSrs);
+
+					// 	oView.getModel("oStockDataModel").setData(ListofSrs);
+
+					// 	sap.ui.getCore().getModel("oHierarchyModel").setData(ListofSrs);
+
+					// },
+					
 					success: function(oData) {
-						BusyIndicator.hide();
-						//get the price from passing filtered vendor and material no
+					BusyIndicator.hide();
+					var ListofSrs = [];
+					var listOfMat = [];
+					var MaterialList = [];
+					var len2 = oData.results.length;
+					var childarray = [];
+					var InnerChild = [];
+					var InnerinnerChild = [];
+					var UniqueMatnr = [];
 
-						oMatModel.refresh();
-						/*oMatModel.setData({
-									oData: {}
-								});
-						oMatModel.updateBindings(true);*/
-						var len = oData.results.length;
+					function userExists(Bukrs) {
+						return childarray.some(function(el) {
+							return el.Bukrs === Bukrs;
+						});
+					}
 
-						var ListofSrs = [];
-						for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-							var odataset = oData.results[iRowIndex];
+					function PlantExists(Werks) {
+						return InnerChild.some(function(edl) {
+							return edl.Werks === Werks;
+						});
+					}
+					for (var iRowIndex = 0; iRowIndex < len2; iRowIndex++) {
 
-							var Cbtlv = odataset.Cbtlv;
-							var Cytlv = odataset.Cytlv;
-							var Cgtlv = odataset.Cgtlv;
-							var Changedon = odataset.Changedon;
-							var Crtlv = odataset.Crtlv;
-							var Labst = odataset.Labst;
+						var odataset = oData.results[iRowIndex];
+						var Werks = odataset.Werks;
 
-							var Matnr = odataset.Matnr;
-							var Pbtlv = odataset.Pbtlv;
-							var Pgtlv = odataset.Pgtlv;
-							var Prtlv = odataset.Prtlv;
-							var Pytlv = odataset.Pytlv;
-							var Werks = odataset.Werks;
+						var Cbtlv = odataset.Cbtlv;
+						var Cgtlv = odataset.Cgtlv;
+						var Cytlv = odataset.Cytlv;
+						var Changedon = odataset.Changedon;
+						var Crtlv = odataset.Crtlv;
+						var Labst = odataset.Labst;
+//var openpo = PoDocumentNumber[iRowIndex].Bedat;
+						var Matnr = odataset.Matnr;
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var z1 = 0; z1 < TotalLabst.length; z1++) {
+								if (Matnr === TotalLabst[z1].Matnr) {
+									var sTotalLabst = TotalLabst[z1].Labst;
 
-							if (Matnr !== "" || Matnr !== undefined) {
-								for (var x = 0; x < CompanyLevelset.length; x++) {
-									if (Matnr === CompanyLevelset[x].Matnr) {
-										var sCompanyCode = CompanyLevelset[x].Bukrs;
-										// var sStorageLoc = CompanyLevelset[x].Lgort;
-
-									}
 								}
 							}
-							var CompanyCode = sCompanyCode;
-
-							ListofSrs.push({
-								Cbtlv: Cbtlv,
-								Cgtlv: Cgtlv,
-								Cytlv: Cytlv,
-								Changedon: Changedon,
-								CompanyCode: CompanyCode,
-								Crtlv: Crtlv,
-								Labst: parseInt(Labst),
-								Matnr: Matnr,
-								Pbtlv: Pbtlv,
-								Pgtlv: Pgtlv,
-								Prtlv: Prtlv,
-								Pytlv: Pytlv,
-								Werks: Werks
-
-							});
-
 						}
-						console.log(ListofSrs);
 
-						oView.getModel("oStockDataModel").setData(ListofSrs);
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x = 0; x < oMaterialList.length; x++) {
+								if (Matnr === oMaterialList[x].Materialno) {
+									var sMatDescription = oMaterialList[x].Description;
 
-						sap.ui.getCore().getModel("oHierarchyModel").setData(ListofSrs);
+								}
+							}
+						}
+							if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <=result.length-1; x1++) {
+							
+								if (Matnr === result[x1].Matnr) {
+								var sOpenSalesOrder = result[x1].Kwmeng;
+                                
+								}
+							}
+						}
+									if (Matnr !== "" || Matnr !== undefined) {
+							for (var x2 = 0; x2 <PoQuantity.length; x2++) {
+							
+								if (Matnr === PoQuantity[x2].Matnr) {
+								var sOpenPoQuantity = PoQuantity[x2].Menge;
+								var sOpenPoDate = PoQuantity[x2].Prdat;
+								var sDocDate = PoQuantity[x2].Bedat;
+                                
+								}
+							}
+						}
+						if (!UniqueMatnr.includes(Matnr)) {
+							UniqueMatnr.push(Matnr);
+						ListofSrs.push({
+							Cbtlv: Cbtlv,
+							Cgtlv: Cgtlv,
+							Cytlv: Cytlv,
+							Changedon: Changedon,
+							Crtlv: Crtlv,
+							Labst: parseInt(sTotalLabst),
+							ALabst:parseInt(sTotalLabst),
+							Matnr: Matnr,
+							Description: sMatDescription,
+							Werks: Werks,
+							Color: "",
+							MultipleIt: childarray,
+							OsalesOrder:sOpenSalesOrder,
+							OpenPODate:sOpenPoDate,
+							OpenPOQty:sOpenPoQuantity,
+							DocDate:sDocDate
+						});
+					console.log(sOpenPoDate);
 
-					},
+						for (var j = 0; j < StockList.length; j++) {
+							var stock = StockList[j];
+							var Bukrs = stock.Bukrs;
+							var Lbkum = stock.Lbkum;
+							var Labst = stock.Labst;
+							var Lgort = stock.Lgort;
+							var Werkss = stock.Werks;
+							var Matnr2 = stock.Matnr;
+
+							if (Matnr === Matnr2) {
+								//	console.log(sum);
+
+								if (userExists(Bukrs)) {
+									// childarray.push({
+									// 		//	Bukrs: Bukrs,
+									// 		Labst: Labst,
+									// 		//Matnr: 'Company Level' + " " + Bukrs,
+									// 		//	Lgort: Lgort,
+									// 		//	Werks: Werks,
+									// 		MultipleIt: InnerChild
+
+									// 	});
+
+									if (PlantExists(Werkss)) {
+
+										// 	InnerChild.push({
+										// 	//	Bukrs: Bukrs,
+										// 	Labst: Labst,
+										// 	//	Lgort: Lgort,
+										// 	Matnr: 'Plant' + " " + Werks,
+										// 	//	Werks: Werks,
+										// 	MultipleIt: InnerinnerChild
+
+										// });
+
+										InnerinnerChild.push({
+											//	Bukrs: Bukrs,
+											Labst: Labst,
+											
+												Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
+
+											Matnr: 'SLoc' + " " + Lgort,
+											OsalesOrder:"So"
+
+										});
+									} else {
+										InnerChild.push({
+											//	Bukrs: Bukrs,
+									
+											//	Lgort: Lgort,
+											Matnr: 'Plant' + " " + Werks,
+											Werks: Werks,
+											MultipleIt: InnerinnerChild,
+											 	OpenPOQty:sOpenPoQuantity,
+											OsalesOrder:"So"
+										
+											
+
+										});
+
+										InnerinnerChild.push({
+											//	Bukrs: Bukrs,
+											Labst: Labst,
+											
+
+											Matnr: 'SLoc' + " " + Lgort,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											OsalesOrder:"So"
+
+										});
+
+									}
+
+								} else {
+									childarray.push({
+										Bukrs: Bukrs,
+										BLabst:"AL",
+										ALabst:" ",
+										Labst: sTotalLabst,
+										Matnr: 'Company Level' + " " + Bukrs,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
+										OsalesOrder:sOpenSalesOrder,
+
+										//	Lgort: Lgort,
+										//	Werks: Werks,
+										MultipleIt: InnerChild,
+										OpenPODate:sOpenPoDate,
+							            // OpenPOQty:sOpenPoQuantity,
+							            DocDate:sDocDate
+
+									});
+									sOpenSalesOrder="";
+								    sOpenPoDate="";
+						            
+						            sDocDate="";
+
+									InnerChild.push({
+										//	Bukrs: Bukrs,
+										// Labst: Labst,
+										//	Lgort: Lgort,
+										Matnr: 'Plant' + " " + Werks,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
+										Werks: Werks,
+										MultipleIt: InnerinnerChild,
+									        OpenPOQty:sOpenPoQuantity,
+										OsalesOrder:"So"
+
+									});
+									sOpenPoQuantity="";
+
+									InnerinnerChild.push({
+										//	Bukrs: Bukrs,
+										Labst: Labst,
+										Crtlv: "crtlv",
+										Cytlv: "cytlv",
+										Cgtlv: "cgtlv",
+										Cbtlv: "cbtlv",
+
+										Matnr: 'SLoc' + " " + Lgort,
+										OsalesOrder:"So"
+
+									});
+
+								}
+
+								//	childarray.push(StockList[j]);
+								//	console.log(StockList[j]);
+
+							}
+						}
+						InnerChild = [];
+						InnerinnerChild = [];
+						childarray = [];
+					
+
+					}
+					}
+
+					oView.getModel("oStockDataModel").setData(ListofSrs);
+					console.log(ListofSrs);
+
+
+
+					Massupload = ListofSrs;
+
+				},
+					
+					
 					error: function(oError) {
 						BusyIndicator.hide();
 						MessageBox.error("No price found for given material number and plant combination. Add the price manually.");
