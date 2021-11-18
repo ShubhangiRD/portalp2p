@@ -44,7 +44,7 @@
 			<Button text="Green" type="Accept" id="idGreenb" class="GreenClassButton" press="onFilterSelect"/>
 			<Button text="Excess" id="idBlueb" class="BlueClassButton" press="onFilterSelect"/>
 			
-		<Button text="StockTransfer" id="StockTrnfer"  press="onStockSelectionItem"/>
+		<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem"/>
 		
 		</form:content>
 	</form:SimpleForm>
