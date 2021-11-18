@@ -41,12 +41,12 @@
 		</layout:fixContent>
 		<layout:flexContent>
 			<viz:Popover id="idPopOverline"></viz:Popover>
-			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Stock vs Sales', visible : true}}"
-				height='100%' width="100%" vizType='timeseries_line'>
+			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Sales', visible : true}}"
+				height='100%' width="100%" vizType='column'>
 				<viz:dataset>
 					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
 						<viz.data:dimensions>
-							<viz.data:DimensionDefinition name="Date" value="{Erdat}" dataType="date"/>
+							<viz.data:DimensionDefinition name="Date" value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
 						</viz.data:dimensions>
 						<viz.data:measures>
 							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
@@ -54,9 +54,13 @@
 					</viz.data:FlattenedDataset>
 				</viz:dataset>
 				<viz:feeds>
-					<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>
-					<viz.feeds:FeedItem uid="timeAxis" type="Dimension" values="Date"/>
+					<viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Quantity"/>
+					<viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Date"/>
 				</viz:feeds>
+				<!--<viz:feeds>-->
+				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>-->
+				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Dimension" values="Date"/>-->
+				<!--</viz:feeds>-->
 			</viz:VizFrame>
 		</layout:flexContent>
 	</layout:FixFlex>
@@ -110,52 +114,48 @@
 						</viz:dataset>
 						<viz:feeds>
 							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>
-							<viz.feeds:FeedItem uid="timeAxis" type="Dimension" values="Date"/>
+							<viz.feeds:FeedItem uid="valueAxis" type="Dimension" values="Date"/>
 						</viz:feeds>
 					</viz:VizFrame>
 				</layout:fixContent>
 			</layout:FixFlex>
-					<form:SimpleForm id="SimpleFor5" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
-						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
-						class="sapUiSmallMarginBegin sapUiSmallMarginEnd" singleContainerFullSize="false">
-						<form:content>
-							<core:Title text=" "/>
-							<Label text="Material" required="true"/>
-							<Input id="Material25" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
-								value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-								suggestionItemSelected="onSuggest">
-								<suggestionItems>
-									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
-								</suggestionItems>
-							</Input>
-							<Button id="idfilter25" text="Filter" width="30%" press="OnRejectedMaterial"/>
-							<Button id="iddownload52" icon="sap-icon://download" width="30%" press="onDownloadExcess"/>
-						</form:content>
-					</form:SimpleForm>
-			
-			
+			<form:SimpleForm id="SimpleFor5" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+				class="sapUiSmallMarginBegin sapUiSmallMarginEnd" singleContainerFullSize="false">
+				<form:content>
+					<core:Title text=" "/>
+					<Label text="Material" required="true"/>
+					<Input id="Material25" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+						value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+						</suggestionItems>
+					</Input>
+					<Button id="idfilter25" text="Filter" width="30%" press="OnRejectedMaterial"/>
+					<Button id="iddownload52" icon="sap-icon://download" width="30%" press="onDownloadExcess"/>
+				</form:content>
+			</form:SimpleForm>
 			<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginEnd tileLayout ">
-								<f:layoutData>
-									<f:GridContainerItemLayoutData columns="10"/>
-								</f:layoutData>
-								<f:header>
-									<!--	<card:Header-->
-									<!--title="Rejected Data for Material"-->
-									<!--/>-->
-								</f:header>
-								<f:content>
-									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.RejectedPOTable" type="XML"/>
-								</f:content>
-							</f:Card>
+				<f:layoutData>
+					<f:GridContainerItemLayoutData columns="10"/>
+				</f:layoutData>
+				<f:header>
+					<!--	<card:Header-->
+					<!--title="Rejected Data for Material"-->
+					<!--/>-->
+				</f:header>
+				<f:content>
+					<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.RejectedPOTable" type="XML"/>
+				</f:content>
+			</f:Card>
 			<!--<f:Card class="sapUiTinyMarginBegin sapUiLargeMarginTop sapUiTinyMarginEnd tileLayout">-->
 			<!--	<f:layoutData>-->
 			<!--		<f:GridContainerItemLayoutData rows="3" columns="3"/>-->
 			<!--	</f:layoutData>-->
 			<!--	<f:content >-->
 			<!--		<layout:FixFlex id='chartFixFlex65' minFlexSize="350">-->
-						<!--Below is the setting panel -->
+			<!--Below is the setting panel -->
 			<!--			<layout:flexContent>-->
-							
 			<!--			</layout:flexContent>-->
 			<!--		</layout:FixFlex>-->
 			<!--	</f:content>-->

@@ -1,0 +1,67 @@
+<mvc:View controllerName="com.vSimpleApp.controller.Analytics"
+xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact"
+	xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:viz.data="sap.viz.ui5.data" height="100%" xmlns:core="sap.ui.core">
+	<layout:FixFlex id='chartFixFlexline' minFlexSize="250">
+		<layout:fixContent>
+			<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
+				<content>
+					<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+						class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+						<form:content>
+							<core:Title text=" "/>
+							<Label text="Material" required="true"/>
+							<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+								value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+								</suggestionItems>
+							</Input>
+							<core:Title text=" "/>
+							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
+							<core:Title text=" "/>
+							<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>
+						</form:content>
+					</form:SimpleForm>
+					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
+						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+						class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+						<form:content>
+							<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
+							<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
+							<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
+							<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
+							<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
+							<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
+						</form:content>
+					</form:SimpleForm>
+				</content>
+			</Panel>
+		</layout:fixContent>
+		<layout:flexContent>
+			<viz:Popover id="idPopOverline"></viz:Popover>
+			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Sales', visible : true}}"
+				height='100%' width="100%" vizType='column'>
+				<viz:dataset>
+					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
+						<viz.data:dimensions>
+							<viz.data:DimensionDefinition name="Date" value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
+						</viz.data:dimensions>
+						<viz.data:measures>
+							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
+						</viz.data:measures>
+					</viz.data:FlattenedDataset>
+				</viz:dataset>
+				<viz:feeds>
+					<viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Quantity"/>
+					<viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Date"/>
+				</viz:feeds>
+				<!--<viz:feeds>-->
+				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>-->
+				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Dimension" values="Date"/>-->
+				<!--</viz:feeds>-->
+			</viz:VizFrame>
+		</layout:flexContent>
+	</layout:FixFlex>
+</mvc:View>

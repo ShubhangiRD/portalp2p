@@ -264,6 +264,11 @@
 			},
 			
 				{
+				"pattern": "Analytics",
+				"name": "Analytics",
+				"target": ["Analytics"]
+			},
+				{
 				"pattern": "BuyerSheet",
 				"name": "BuyerSheet",
 				"target": ["BuyerSheet"]
@@ -488,6 +493,9 @@
 				},
 				"BuyerSheet": {
 					"viewName": "BuyerSheet"
+				},
+				"Analytics": {
+					"viewName": "Analytics"
 				},
 					"StockTransfer": {
 					"viewName": "StockTransfer"

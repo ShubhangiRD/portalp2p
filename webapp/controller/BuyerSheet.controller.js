@@ -2,7 +2,6 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/BusyIndicator",
-
 	"sap/m/MessageToast",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/Filter",
@@ -614,6 +613,19 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
+		
+		onBackStock : function(){
+				var StockTransferModel = this.getView().getModel("StockTransferModel");
+			StockTransferModel.setData({
+				oData: {}
+			});
+
+			StockTransferModel.refresh(true);
+		
+			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+		}
+		
+		
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
