@@ -101,7 +101,7 @@ sap.ui.define([
 			this.getMaterialstockSet();
 			this.getPodetailsset();
 			this.getSalesOrderDetails();
-		//	this.getStockDetailList();
+			this.getStockDetailList();
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -459,6 +459,7 @@ sap.ui.define([
 								if (Matnr === PoQuantity[x2].Matnr) {
 								var sOpenPoQuantity = PoQuantity[x2].Menge;
 								var sOpenPoDate = PoQuantity[x2].Prdat;
+								var sDocDate = PoQuantity[x2].Bedat;
                                 
 								}
 							}
@@ -479,7 +480,8 @@ sap.ui.define([
 							MultipleIt: childarray,
 							OsalesOrder:sOpenSalesOrder,
 							OpenPODate:sOpenPoDate,
-							OpenPOQty:sOpenPoQuantity
+							OpenPOQty:sOpenPoQuantity,
+							DocDate:sDocDate
 						});
 					console.log(sOpenPoDate);
 
@@ -539,6 +541,7 @@ sap.ui.define([
 											Matnr: 'Plant' + " " + Werks,
 											Werks: Werks,
 											MultipleIt: InnerinnerChild,
+											 	OpenPOQty:sOpenPoQuantity,
 											OsalesOrder:"So"
 										
 											
@@ -577,12 +580,14 @@ sap.ui.define([
 										//	Werks: Werks,
 										MultipleIt: InnerChild,
 										OpenPODate:sOpenPoDate,
-							            OpenPOQty:sOpenPoQuantity
+							            // OpenPOQty:sOpenPoQuantity,
+							            DocDate:sDocDate
 
 									});
 									sOpenSalesOrder="";
 								    sOpenPoDate="";
-						            sOpenPoQuantity="";
+						            
+						            sDocDate="";
 
 									InnerChild.push({
 										//	Bukrs: Bukrs,
@@ -595,9 +600,11 @@ sap.ui.define([
 										Cbtlv: "cbtlv",
 										Werks: Werks,
 										MultipleIt: InnerinnerChild,
+									        OpenPOQty:sOpenPoQuantity,
 										OsalesOrder:"So"
 
 									});
+									sOpenPoQuantity="";
 
 									InnerinnerChild.push({
 										//	Bukrs: Bukrs,
@@ -959,7 +966,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
 					oLookupModel.refresh(true);
-					that.getStockDetailList();
+					// that.getStockDetailList();
 				},
 				error: function(oError) {
 					//	BusyIndicator.hide();
@@ -3180,6 +3187,7 @@ sap.ui.define([
 		},
 		//sales order service
 		getSalesOrderDetails: function() {
+		
 				var oModel = this.getOwnerComponent().getModel("StockModel");
 				oModel.read("/SalesOrdersSet ", {
 					success: function(oData) {
@@ -3263,6 +3271,7 @@ sap.ui.define([
 						}
 						//console.log(result);
 						sap.ui.getCore().getModel("oSaleModel").setData(result);
+						
 
 					},
 

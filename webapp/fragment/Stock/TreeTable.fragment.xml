@@ -56,6 +56,7 @@
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
+			
 			<Column width="8rem" hAlign="Center">
 				<m:Label text=" Open Sales Order"/>
 				<template>
@@ -116,6 +117,10 @@
 			<!--	</template>-->
 			<!--</Column>-->
 			
+			
+			
+			
+			
 						<Column width="8rem" hAlign="Center">
 				<m:Label text=" Open Po Quantity"/>
 				<template>
@@ -125,9 +130,19 @@
 				
 				</template>
 			</Column>
+						<Column width="8rem" hAlign="Center">
+				<m:Label text=" Open PO Date"/>
+				<template>
+						<m:Text text="{ path: 'oStockDataModel>DocDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						wrapping="false"/>
+				
+					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
+				</template>
+			</Column>
+			
 			
 				<Column width="8rem" hAlign="Center">
-				<m:Label text=" Open PO Date"/>
+				<m:Label text="Goods receipt date"/>
 				<template>
 						<m:Text text="{ path: 'oStockDataModel>OpenPODate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
 						wrapping="false"/>
