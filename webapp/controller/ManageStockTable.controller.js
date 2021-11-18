@@ -402,6 +402,7 @@ sap.ui.define([
 					var childarray = [];
 					var InnerChild = [];
 					var InnerinnerChild = [];
+					var UniqueMatnr = [];
 
 					function userExists(Bukrs) {
 						return childarray.some(function(el) {
@@ -464,7 +465,8 @@ sap.ui.define([
 								}
 							}
 						}
-						
+						if (!UniqueMatnr.includes(Matnr)) {
+							UniqueMatnr.push(Matnr);
 						ListofSrs.push({
 							Cbtlv: Cbtlv,
 							Cgtlv: Cgtlv,
@@ -631,6 +633,7 @@ sap.ui.define([
 						childarray = [];
 					
 
+					}
 					}
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
