@@ -97,16 +97,19 @@ sap.ui.define([
 
 				var lastDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth() + 1, 0);
 
-				var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
-					":" + firstDay.getUTCMinutes() +
-					":" + firstDay.getUTCSeconds();
-				console.log(last1mon);
-				var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
-					":" + lastDay.getUTCMinutes() +
-					":" + lastDay.getUTCSeconds();
-				console.log(endo1mon);
+	var last1mon = firstDay.toISOString().slice(0, 19);
+	var endo1mon = lastDay.toISOString().slice(0, 19);
+				// var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
+				// 	":" + firstDay.getUTCMinutes() +
+				// 	":" + firstDay.getUTCSeconds();
+				// console.log(last1mon);
+				// var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
+				// 	":" + lastDay.getUTCMinutes() +
+				// 	":" + lastDay.getUTCSeconds();
+				// console.log(endo1mon);
 
 				oView.getModel("oDataModel").setProperty("/FirstDate", last1mon);
+				
 				oView.getModel("oDataModel").setProperty("/EndDate", endo1mon);
 
 			} else if (oselecttab === "Previous 1 Month") {
@@ -467,6 +470,8 @@ sap.ui.define([
 			var EndDate = oDataModel.oData.EndDate;
 			var Matnr = oDataModel.oData.Material;
 			var oVendor = oDataModel.oData.Vendor;
+				var PurchaseOrg = oDataModel.oData.PurchaseOrg;
+			
 			var s1= "2020-03-17T12:04:39" ;
 			var s2 =  "2021-03-17T12:04:39";
 					
@@ -485,8 +490,8 @@ sap.ui.define([
 
 				Matnr = zero + Matnr;
 			}
-			 var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, s1);
-			 var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, s2);
+			 var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, EndDate);
+			 var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
 			 var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
 		//	var oVendor = "DE-V0001";
 			if (oVendor !== "" || oVendor !== undefined) {
@@ -511,6 +516,8 @@ sap.ui.define([
 
 			
 				var oFilter4 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, oVendor);
+					var oFilter5 = new sap.ui.model.Filter('Ekorg', sap.ui.model.FilterOperator.EQ, PurchaseOrg);
+			
 				oModel.read("/getBuyer_cheatsheetSet", {
 					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
 
