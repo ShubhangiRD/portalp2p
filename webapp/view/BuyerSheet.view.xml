@@ -6,24 +6,83 @@
 		<layout:fixContent>
 			<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
 				<content>
-					<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
-						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
-						class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
-						<form:content>
-							<core:Title text=" "/>
-							<Label text="Material" required="true"/>
+					<!--<forSimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"-->
+					<!--	adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"-->
+					<!--	class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">-->
+					<!--	<forcontent>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Label text="Material"  design="Bold" required="true"/>-->
+					<!--		<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"-->
+					<!--			value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"-->
+					<!--			suggestionItemSelected="onSuggest">-->
+					<!--			<suggestionItems>-->
+					<!--				<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>-->
+					<!--			</suggestionItems>-->
+					<!--		</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Label text="Vendor" design="Bold" ></Label>-->
+					<!--			<Input id="Lifnra" value="{oDataModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"-->
+					<!--		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"-->
+					<!--		suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">-->
+					<!--		<suggestionItems>-->
+					<!--			<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>-->
+					<!--		</suggestionItems>-->
+					<!--	</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--			<Label text="Purchase Org" design="Bold"/>-->
+					<!--	<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}"   showSuggestion="true"-->
+					<!--		showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" -->
+					<!--		suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">-->
+					<!--		<suggestionItems>-->
+					<!--			<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>-->
+					<!--		</suggestionItems>-->
+					<!--	</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Button id="idfilter" text="Filter" width="30%" press="ongetMaterialandVendor"/>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>-->
+					<!--	</forcontent>-->
+					<!--</forSimpleForm>-->
+					<FlexBox wrap="Wrap" fitContainer="true">
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Lifnra">
+							<Label text="Vendor:" design="Bold"></Label>
+							<Input id="Lifnra" value="{oDataModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+								showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
+								suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+								</suggestionItems>
+							</Input>
+							<layout:HorizontalLayout class="sapUiSmallMarginEnd"></layout:HorizontalLayout >
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">
+							<Label text="Material:" design="Bold" required="true"/>
 							<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
 								value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
 								</suggestionItems>
 							</Input>
-							<core:Title text=" "/>
-							<Button id="idfilter" text="Filter" width="30%" press="OnGetfiltersale"/>
-							<core:Title text=" "/>
-							<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>
-						</form:content>
-					</form:SimpleForm>
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc">
+							<Label text="Purchase Org:" design="Bold"/>
+							<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
+								suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
+								<suggestionItems>
+									<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
+								</suggestionItems>
+							</Input>
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">
+							<Label text=" "/>
+							<Button id="idfilter" text="Filter" press="ongetMaterialandVendor"/>
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">
+							<Label text=" "/>
+							<Button id="iddownload" text="Download" press="onDownloadExcess"/>
+						</layout:VerticalLayout>
+						<!-- <FlexBox wrap="wrap" fitContainer="true"> -->
+					</FlexBox>
 					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
 						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
 						class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
@@ -46,10 +105,11 @@
 				<viz:dataset>
 					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
 						<viz.data:dimensions>
-							<viz.data:DimensionDefinition name="Date" value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
+							<viz.data:DimensionDefinition name="Date"
+								value="{path: 'oMonthlydataModel>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
 						</viz.data:dimensions>
 						<viz.data:measures>
-							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
+							<viz.data:MeasureDefinition name="Quantity" value="{Menge}"/>
 						</viz.data:measures>
 					</viz.data:FlattenedDataset>
 				</viz:dataset>
@@ -67,12 +127,12 @@
 	<!--<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">-->
 	<!--	<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">-->
 	<!--		<layout:FixFlex id='chartFixFlex3' minFlexSize="500">-->
-				<!--Below is the setting panel -->
+	<!--Below is the setting panel -->
 	<!--			<layout:fixContent>-->
-	<!--				<form:SimpleForm id="SimpleFor2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"-->
+	<!--				<forSimpleForm id="SimpleFor2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"-->
 	<!--					labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"-->
 	<!--					class="sapUiSmallMarginBegin sapUiSmallMarginEnd" singleContainerFullSize="false">-->
-	<!--					<form:content>-->
+	<!--					<forcontent>-->
 	<!--						<core:Title text=" "/>-->
 	<!--						<Label text="Material" required="true"/>-->
 	<!--						<Input id="Material2" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"-->
@@ -84,16 +144,16 @@
 	<!--						</Input>-->
 	<!--						<Button id="idfilter2" text="Filter" width="30%" press="OnDeliveryPattern"/>-->
 	<!--						<Button id="iddownload2" icon="sap-icon://download" width="30%" press="onDownloadExcess"/>-->
-	<!--					</form:content>-->
-	<!--				</form:SimpleForm>-->
+	<!--					</forcontent>-->
+	<!--				</forSimpleForm>-->
 	<!--				<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout">-->
 	<!--					<f:layoutData>-->
 	<!--						<f:GridContainerItemLayoutData columns="10"/>-->
 	<!--					</f:layoutData>-->
 	<!--					<f:header>-->
-							<!--	<card:Header-->
-							<!--title="Rejected Data for Material"-->
-							<!--/>-->
+	<!--	<card:Header-->
+	<!--title="Rejected Data for Material"-->
+	<!--/>-->
 	<!--					</f:header>-->
 	<!--					<f:content>-->
 	<!--						<VBox class ="sapUiSmallMarginBegin sapUiSmallMarginEnd ">-->
@@ -121,10 +181,10 @@
 	<!--				</viz:VizFrame>-->
 	<!--			</layout:fixContent>-->
 	<!--		</layout:FixFlex>-->
-	<!--		<form:SimpleForm id="SimpleFor5" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"-->
+	<!--		<forSimpleForm id="SimpleFor5" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"-->
 	<!--			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"-->
 	<!--			class="sapUiSmallMarginBegin sapUiSmallMarginEnd" singleContainerFullSize="false">-->
-	<!--			<form:content>-->
+	<!--			<forcontent>-->
 	<!--				<core:Title text=" "/>-->
 	<!--				<Label text="Material" required="true"/>-->
 	<!--				<Input id="Material25" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"-->
@@ -135,33 +195,33 @@
 	<!--				</Input>-->
 	<!--				<Button id="idfilter25" text="Filter" width="30%" press="OnRejectedMaterial"/>-->
 	<!--				<Button id="iddownload52" icon="sap-icon://download" width="30%" press="onDownloadExcess"/>-->
-	<!--			</form:content>-->
-	<!--		</form:SimpleForm>-->
+	<!--			</forcontent>-->
+	<!--		</forSimpleForm>-->
 	<!--		<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginEnd tileLayout ">-->
 	<!--			<f:layoutData>-->
 	<!--				<f:GridContainerItemLayoutData columns="10"/>-->
 	<!--			</f:layoutData>-->
 	<!--			<f:header>-->
-					<!--	<card:Header-->
-					<!--title="Rejected Data for Material"-->
-					<!--/>-->
+	<!--	<card:Header-->
+	<!--title="Rejected Data for Material"-->
+	<!--/>-->
 	<!--			</f:header>-->
 	<!--			<f:content>-->
 	<!--				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.RejectedPOTable" type="XML"/>-->
 	<!--			</f:content>-->
 	<!--		</f:Card>-->
-			<!--<f:Card class="sapUiTinyMarginBegin sapUiLargeMarginTop sapUiTinyMarginEnd tileLayout">-->
-			<!--	<f:layoutData>-->
-			<!--		<f:GridContainerItemLayoutData rows="3" columns="3"/>-->
-			<!--	</f:layoutData>-->
-			<!--	<f:content >-->
-			<!--		<layout:FixFlex id='chartFixFlex65' minFlexSize="350">-->
-			<!--Below is the setting panel -->
-			<!--			<layout:flexContent>-->
-			<!--			</layout:flexContent>-->
-			<!--		</layout:FixFlex>-->
-			<!--	</f:content>-->
-			<!--</f:Card>-->
+	<!--<f:Card class="sapUiTinyMarginBegin sapUiLargeMarginTop sapUiTinyMarginEnd tileLayout">-->
+	<!--	<f:layoutData>-->
+	<!--		<f:GridContainerItemLayoutData rows="3" columns="3"/>-->
+	<!--	</f:layoutData>-->
+	<!--	<f:content >-->
+	<!--		<layout:FixFlex id='chartFixFlex65' minFlexSize="350">-->
+	<!--Below is the setting panel -->
+	<!--			<layout:flexContent>-->
+	<!--			</layout:flexContent>-->
+	<!--		</layout:FixFlex>-->
+	<!--	</f:content>-->
+	<!--</f:Card>-->
 	<!--	</layout:Grid>-->
 	<!--</layout:Grid>-->
 	<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">

@@ -12,15 +12,17 @@ sap.ui.define([
 	"sap/ui/core/BusyIndicator",
 		"sap/ui/export/Spreadsheet",
 	"sap/ui/export/library",
-		"sap/ui/table/library"
+		"sap/ui/table/library",
+		'sap/suite/ui/commons/ChartContainerContent'
 ], function(Controller,Filter, JSONModel, MessageBox, FilterOperator, Fragment, MessageToast,
 	History,
-	BusyIndicator, Spreadsheet, exportLibrary,library) {
+	BusyIndicator, Spreadsheet, exportLibrary,library,ChartContainerContent) {
 	"use strict";
 	
 	var oView, oComponent;
 		var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
+		var ListofVendor = [];
 	return Controller.extend("com.vSimpleApp.controller.Analytics", {
 
 		/**
@@ -41,7 +43,111 @@ sap.ui.define([
 			oView.setModel(oAdvanceAnalytics, "oAdvanceAnalytics");
 			
 			
+					var oLeadtime = new JSONModel();
+			oView.setModel(oLeadtime, "oLeadtime");
+				var oCheckedModel = new sap.ui.model.json.JSONModel({
+				H48: false,
+				Current: true,
+				Previous1Month: false,
+				Last3: false,
+				Last6: false
+
+			});
+			oView.setModel(oCheckedModel, "oCheckModel");
+		//	oView.byId("idVizFrameMonitoring").setVisible(false);
+			
+				var oDataset = new sap.ui.model.json.JSONModel({
+			Measure1:"Return",
+				Measure2:"Reject"
+			
+
+			});
+			oView.setModel(oDataset, "DataSets");
+			
+						var oVisible = new sap.ui.model.json.JSONModel({
+			Delivery:true,
+			Monitoring :true
+			
+			});
+			oView.setModel(oVisible, "oVisibleModel");
+			
+
 			},
+				OnSelectMonths: function(oEvent) {
+			var ocheckModel = oView.getModel("oCheckModel");
+			var checkBoxSelected = oEvent.getParameter("selected");
+
+			var oselecttab = oEvent.oSource.mProperties.text;
+			console.log(oselecttab)
+			var CurrentD = new Date();
+
+			if (oselecttab === "48 Hours") {
+
+			} else if (oselecttab === "Current Month") {
+
+				var firstDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth(), 1);
+
+				var lastDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth() + 1, 0);
+
+				var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
+					":" + firstDay.getUTCMinutes() +
+					":" + firstDay.getUTCSeconds();
+				console.log(last1mon);
+				var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
+					":" + lastDay.getUTCMinutes() +
+					":" + lastDay.getUTCSeconds();
+				console.log(endo1mon);
+
+				oView.getModel("oVendorModel").setProperty("/FirstDate", last1mon);
+				oView.getModel("oVendorModel").setProperty("/EndDate", endo1mon);
+
+			} else if (oselecttab === "Previous 1 Month") {
+				// var prevMonthEnd = new Date();
+				// CurrentD.setDate(0);
+				// var beginLastMonth = new Date(CurrentD);
+				// beginLastMonth.setDate(1);
+				// var Prevmonthstart = this.datatime(beginLastMonth);
+
+				// var lastmonth = this.datatime(prevMonthEnd);
+				var Prevmonthstart = new Date().toISOString();
+				CurrentD.setMonth(CurrentD.getMonth() - 1);
+				var lastmonth = 	CurrentD.toISOString().slice(0, 19);
+				oView.getModel("oVendorModel").setProperty("/FirstDate", Prevmonthstart);
+				oView.getModel("oVendorModel").setProperty("/EndDate", lastmonth);
+
+			} else if (oselecttab === "Last 3 Months") {
+				// var dateString1 = this.datatime(CurrentD);
+
+				// CurrentD.setMonth(CurrentD.getMonth() - 3);
+
+				// var Last3Month = this.datatime(CurrentD);
+
+				var dateString1 = new Date().toISOString().slice(0, 19);
+				CurrentD.setMonth(CurrentD.getMonth() - 3);
+				
+				//var Last3Month = CurrentD.toISOString();
+					var Last3Month =	CurrentD.toISOString().slice(0, 19);
+				oView.getModel("oVendorModel").setProperty("/FirstDate", dateString1);
+				oView.getModel("oVendorModel").setProperty("/EndDate", Last3Month);
+
+			} else if (oselecttab === "Last 6 Months") {
+				// var dateString2 = this.datatime(CurrentD);
+
+				// CurrentD.setMonth(CurrentD.getMonth() - 6);
+
+				// var Last6Month = this.datatime(CurrentD);
+
+				var dateString2 = new Date().toISOString().slice(0, 19);
+				CurrentD.setMonth(CurrentD.getMonth() - 6);
+			//	var Last3Month = CurrentD.toISOString();
+				//	var Last3Month2 = 	CurrentD.format("isoDateTime");
+			var Last3Month2 =	CurrentD.toISOString().slice(0, 19);
+				oView.getModel("oVendorModel").setProperty("/FirstDate", dateString2);
+				oView.getModel("oVendorModel").setProperty("/EndDate", Last3Month2);
+
+			}
+
+		},
 			
 		handleVendorValueHelpBox: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -70,7 +176,7 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogDisplayV.open(sInputValue);
-			this.getVendorList();
+			
 		},
 
 		_handleValueVendorHelpSearch: function(evt) {
@@ -106,9 +212,12 @@ sap.ui.define([
 			onChartTypeChanged: function(oEvent) {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oVendorModel");
+				var oVisibleModel = oView.getModel("oVisibleModel");
 			var oselect = 	oEvent.oSource.mProperties.selectedKey;
 
 			var Vendor = oDataModel.oData.Vendor;
+				var FirstDate = oDataModel.oData.FirstDate;
+					var EndDate = oDataModel.oData.EndDate;
 		//	var Matnr  = "50065579";
 			console.log(oDataModel);
 
@@ -117,7 +226,7 @@ sap.ui.define([
 			if ($.isNumeric((Vendor)) === true) {
 				var len = Vendor.length;
 				if (len !== undefined) {
-					var z = 18 - len;
+					var z = 10 - len;
 					for (var i = 0; i < z; i++) {
 						zero += "0";
 					}
@@ -128,16 +237,20 @@ sap.ui.define([
 			
 			
 			if(oselect === "Delivery Pattern" ){
-					this.getVendordetail(Vendor);
+				oVisibleModel.setProperty("/Monitoring",false);
+			
+					this.getVendordetail(Vendor,FirstDate,EndDate);
+					
 			}else if(oselect === "Monitoring Quality"){
-					this.getVendordetail(Vendor);
-			}else if(oselect === "Rejection"){
-					this.getVendordetail(Vendor);
-			}else if(oselect === "Retun"){
-					this.getVendordetail(Vendor);
+					oVisibleModel.setProperty("/Delivery",false);
+				
+					this.getReturndata(Vendor,FirstDate,EndDate);
 			}
+		
 			
-			
+				var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			ListofVendor = 	oLookupModel.oData.DisplyaVendorList;
+				console.log(oLookupModel);
 			
 
 		
@@ -145,22 +258,204 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
-		getVendordetail : function(Vendor){
-					var oFilter3 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, Vendor);
-		
+		getVendordetail : function(Vendor,FirstDate,EndDate){
+					var filter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, Vendor);
+			var	sname;
 				var oModel = this.getOwnerComponent().getModel("StockModel");
 		
-				oModel.read("/advanceAnalytics_vendorSet?$filter=(Lifnr eq'" + oFilter3 + "' )", {
-				filters: [oFilter3],
+				// oModel.read("/advanceAnalytics_vendorSet?$filter=(Lifnr eq'" + Vendor + "' )", {
+				// filters: [filter],
+			
+var s1= "2019-03-17T12:04:39" ;
+var s2 =  "2021-03-17T12:04:39";
+			var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, EndDate);
+			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
+		
+		var LeadModel = oView.getModel("oLeadtime");	
+			
+			oModel.read("/getdatafromdate_AnalyticsSet", {
 
+				filters: [oFilter1, oFilter2, filter],
 				success: function(oData) {
-					//	console.log(succ);
+					var odata = oData.results;
+					LeadModel.setData(odata);
+					var itemlen = odata.length;
+						for (var itex = 0; itex < itemlen; itex++) {
+					var createddate = odata[itex].Prdat;
+						var deliverycompleteddate = odata[itex].Eindt;
+						var date1 = new Date(createddate);
+				var date2 = new Date(deliverycompleteddate);
+				var diffTime = Math.abs(date2 - date1);
+				var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+			//	console.log(diffTime + " milliseconds");
+			//	console.log(diffDays + " days");
+				
+				if(diffDays <2){
+					oView.getModel("oLeadtime").setProperty("/" + itex + "/OnTime", diffDays);
+				}else{
+						oView.getModel("oLeadtime").setProperty("/" + itex + "/Late", diffDays);
+				}
+								
+						}
+				
+						console.log(LeadModel);
 					oView.getModel("oAdvanceAnalytics").setData(oData.results);
+					var oModelAd = oView.getModel("oAdvanceAnalytics");
+			
 					
+					var item = oModelAd.oData.length;
+				
+						
+			if (Vendor !== "" || Vendor !== undefined) {
+								for (var x = 0; x < ListofVendor.length; x++) {
+									if (Vendor === ListofVendor[x].Lifnr) {
+										var sVendorname = ListofVendor[x].Name1;
+										sname = sVendorname;
+									}
+								}
+							}
+					
+			for (var vlen = 0; vlen < item; vlen++) {
+						//var opro = oModelAd.setProperty("/VendorName",sname);
+			
+			oView.getModel("oAdvanceAnalytics").setProperty("/" + vlen + "/VendorName", sname);
+			
+			
+			}
+			
+			
+			
+			
+			
+			
 
 				},
 				error: function(err) {
 					console.log(err);
+				}
+
+			});
+		},
+			getVendordetail2 : function(Vendor){
+					var filter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, Vendor);
+			var	sname;
+				var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+				oModel.read("/advanceAnalytics_vendorSet?$filter=(Lifnr eq'" + Vendor + "' )", {
+				filters: [filter],
+
+				success: function(oData) {
+					var item = oData.results.length;
+					var oReturn = [] ;
+					var dataset = oData.results;
+						for (var vlen = 0; vlen < item; vlen++) {
+					
+				var deliverydate = dataset[vlen].Eindt;
+				
+			
+			}
+			
+			
+					
+					
+					
+					
+					oView.getModel("oAdvanceAnalytics").setData(oData.results);
+					var oModelAd = oView.getModel("oAdvanceAnalytics");
+			
+					
+					var item = oModelAd.oData.length;
+				
+						
+			if (Vendor !== "" || Vendor !== undefined) {
+								for (var x = 0; x < ListofVendor.length; x++) {
+									if (Vendor === ListofVendor[x].Lifnr) {
+										var sVendorname = ListofVendor[x].Name1;
+										sname = sVendorname;
+									}
+								}
+							}
+					
+			for (var vlen = 0; vlen < item; vlen++) {
+						//var opro = oModelAd.setProperty("/VendorName",sname);
+			
+			oView.getModel("oAdvanceAnalytics").setProperty("/" + vlen + "/VendorName", sname);
+		
+			
+			}
+			
+			
+			
+
+				},
+				error: function(err) {
+					console.log(err);
+				}
+
+			});
+		},
+			getReturndata : function(Vendor){
+					var filter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, Vendor);
+			var	sname;
+				var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+				oModel.read("/advanceAnalytics_vendorSet?$filter=(Lifnr eq'" + Vendor + "' )", {
+				filters: [filter],
+
+				success: function(oData) {
+					var item = oData.results.length;
+					var oReturn = [] ;
+					var dataset = oData.results;
+						for (var vlen = 0; vlen < item; vlen++) {
+					
+				var deliverydate = dataset[vlen].Eindt;
+					var returnqnt = dataset[vlen].Retpo;
+					
+					if(returnqnt === 'X'){
+						
+						oReturn.push(dataset[vlen]);
+				
+					}
+				//	console.log(oReturn);
+			
+			}
+			
+			
+					
+					
+					
+					
+					oView.getModel("oAdvanceAnalytics").setData(oReturn);
+					var oModelAd = oView.getModel("oAdvanceAnalytics");
+			
+					
+					var item = oModelAd.oData.length;
+				
+						
+			if (Vendor !== "" || Vendor !== undefined) {
+								for (var x = 0; x < ListofVendor.length; x++) {
+									if (Vendor === ListofVendor[x].Lifnr) {
+										var sVendorname = ListofVendor[x].Name1;
+										sname = sVendorname;
+									}
+								}
+							}
+					
+			for (var vlen = 0; vlen < item; vlen++) {
+						//var opro = oModelAd.setProperty("/VendorName",sname);
+			
+			oView.getModel("oAdvanceAnalytics").setProperty("/" + vlen + "/VendorName", sname);
+				oView.getModel("oAdvanceAnalytics").setProperty("/" + vlen + "/Retpo", "Return PO");
+	
+			
+			}
+			
+			
+			
+
+				},
+				error: function(err) {
+				//	console.log(err);
 				}
 
 			});
@@ -190,22 +485,54 @@ sap.ui.define([
 
 		createColumnConfig: function() {
 			var aCols = [];
-			aCols.push({
-				label: 'Company Code',
-				property: 'Bukrs',
-				type: EdmType.String
-
-			});
+		
 			aCols.push({
 				label: 'Purchase Order',
 				property: 'Ebeln',
 				type: EdmType.String
 
 			});
+				aCols.push({
+				label: 'Material No',
+				property: 'Matnr',
+				type: EdmType.String
+
+			});
+				aCols.push({
+				label: 'Material Discription',
+				property: 'Txz01',
+				type: EdmType.String
+
+			});
+				aCols.push({
+				label: 'Quantity',
+				type: EdmType.String,
+				property: 'Menge',
+				scale: 0
+			});	aCols.push({
+				label: 'Plant',
+				type: EdmType.String,
+				property: 'Werks',
+				scale: 0
+			});
+				aCols.push({
+				label: 'Goods Delivered Quantity',
+				type: EdmType.String,
+				property: 'Wemng',
+				scale: 0
+			});	
+			
+			
 			aCols.push({
-				label: 'Vendor Details',
+				label: 'Vendor No',
 				type: EdmType.String,
 				property: 'Lifnr',
+				scale: 0
+			});
+				aCols.push({
+				label: 'Vendor Name',
+				type: EdmType.String,
+				property: 'VendorName',
 				scale: 0
 			});
 			aCols.push({
@@ -234,7 +561,7 @@ sap.ui.define([
 			});
 
 			return aCols;
-		},
+		}
 		
 
 		/**

@@ -24,10 +24,11 @@
 							<Label text="Pattern" design="Bold" class='settingsLabel'></Label>
 							<Select id='chartTypeSelect' class='settingsSelect'   maxWidth="200px" change='onChartTypeChanged'>
 								<items>
+										<core:Item text=" " key=" "/>
 									<core:Item text="Delivery Pattern" key="Delivery Pattern"/>
 									<core:Item text="Monitoring Quality" key="Monitoring Quality"/>
-									<core:Item text="Rejection" key="Rejection"/>
-									<core:Item text="Retun" key="Retun"/>
+									<!--<core:Item text="Rejection" key="Rejection"/>-->
+									<!--<core:Item text="Retun" key="Retun"/>-->
 								</items>
 							</Select>
 							<!--<core:Title text=" "/>-->
@@ -51,30 +52,71 @@
 				</content>
 			</Panel>
 		</layout:fixContent>
-		<layout:flexContent>
-			<viz:Popover id="idPopOverline"></viz:Popover>
-			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Sales', visible : true}}"
-				height='100%' width="100%" vizType='column'>
-				<viz:dataset>
-					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
-						<viz.data:dimensions>
-							<viz.data:DimensionDefinition name="Date"
-								value="{path: 'oMonthlydataModel>Erdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
-						</viz.data:dimensions>
-						<viz.data:measures>
-							<viz.data:MeasureDefinition name="Quantity" value="{Kwmeng}"/>
-						</viz.data:measures>
-					</viz.data:FlattenedDataset>
-				</viz:dataset>
-				<viz:feeds>
-					<viz.feeds:FeedItem id='valueAxisFeed3' uid="valueAxis" type="Measure" values="Quantity"/>
-					<viz.feeds:FeedItem id='categoryAxisFeed3' uid="categoryAxis" type="Dimension" values="Date"/>
-				</viz:feeds>
-				<!--<viz:feeds>-->
-				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>-->
-				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Dimension" values="Date"/>-->
-				<!--</viz:feeds>-->
-			</viz:VizFrame>
+		<layout:flexContent  >
+			
+			 <viz:Popover id="idPopOver"></viz:Popover>
+            <viz:VizFrame id="idVizFrameDelivery" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}"
+           height='100%' width="100%" vizType='stacked_column'>
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{oLeadtime>/}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Date"
+                              value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="OnTime"
+                                value="{OnTime}" />
+                            <viz.data:MeasureDefinition name="Late"
+                                value="{Late}" />
+                            <viz.data:MeasureDefinition name="Cost3"
+                                value="{Cost3}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+                <viz:feeds>
+                    <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                        values="Late,OnTime" />
+                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                        values="Date" />
+                </viz:feeds>
+            </viz:VizFrame>
+			
+			
+		
+		</layout:flexContent>
+			<layout:flexContent    >
+			
+			 <!--<viz:Popover id="idPopOver2"></viz:Popover>-->
+    <!--        <viz:VizFrame id="idVizFrameMonitoring" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Sales', visible : true}}"-->
+    <!--        height='100%' width="100%" vizType='stacked_column'>-->
+    <!--            <viz:dataset>-->
+    <!--                <viz.data:FlattenedDataset data="{oAdvanceAnalytics>/}">-->
+    <!--                    <viz.data:dimensions>-->
+    <!--                        <viz.data:DimensionDefinition name="Date"-->
+    <!--                          value="{path: 'oAdvanceAnalytics>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />-->
+    <!--                    </viz.data:dimensions>-->
+    <!--                    <viz.data:measures>-->
+    <!--                        <viz.data:MeasureDefinition name="Return"-->
+    <!--                            value="{Menge}" />-->
+    <!--                        <viz.data:MeasureDefinition name="Reject"-->
+    <!--                            value="{Wemng}" />-->
+    <!--                        <viz.data:MeasureDefinition name="Cost3"-->
+    <!--                            value="{Cost3}" />-->
+    <!--                    </viz.data:measures>-->
+    <!--                </viz.data:FlattenedDataset>-->
+    <!--            </viz:dataset>-->
+
+    <!--            <viz:feeds>-->
+    <!--                <viz.feeds:FeedItem uid="valueAxis" type="Measure"-->
+    <!--                    values="Reject,Return" />-->
+    <!--                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"-->
+    <!--                    values="Date" />-->
+    <!--            </viz:feeds>-->
+    <!--        </viz:VizFrame>-->
+			
+			
+		
 		</layout:flexContent>
 	</layout:FixFlex>
 	<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop">
