@@ -150,13 +150,13 @@
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-			<Column width="8rem" hAlign="Center">
-				<m:Label text="Date"/>
-				<template>
-					<m:Text text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
-						wrapping="false"/>
-				</template>
-			</Column>
+			<!--<Column width="8rem" hAlign="Center">-->
+			<!--	<m:Label text="Date"/>-->
+			<!--	<template>-->
+			<!--		<m:Text text="{ path: 'oStockDataModel>Changedon', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"-->
+			<!--			wrapping="false"/>-->
+			<!--	</template>-->
+			<!--</Column>-->
 			<Column width="13rem" sorted="true" visible="false">
 				<m:Label text="Color"/>
 				<template>

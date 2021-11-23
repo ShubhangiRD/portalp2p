@@ -28,12 +28,7 @@
 				</m:OverflowToolbar>
 			</extension>
 			<columns>
-				<Column width="11rem" hAlign="Center" filterProperty="Ebeln" defaultFilterOperator="StartsWith">
-					<m:Label text="Purchase Order"/>
-					<template >
-						<m:Text text="{oAdvanceAnalytics>Ebeln}" custom:Ebeln="{oAdvanceAnalytics>Ebeln}" wrapping="false"/>
-					</template>
-				</Column>
+			
 				<Column width="9rem" hAlign="Center">
 					<m:Label text="Material no"/>
 					<template>
@@ -50,6 +45,12 @@
 					<m:Label text="Vendor Number "/>
 					<template>
 						<m:Text text="{oAdvanceAnalytics>Lifnr}" wrapping="false"/>
+					</template>
+				</Column>
+					<Column width="9rem" hAlign="Center" sortProperty="Lifnr" filterProperty="Lifnr">
+					<m:Label text="Vendor Name "/>
+					<template>
+						<m:Text text="{oAdvanceAnalytics>VendorName}" wrapping="false"/>
 					</template>
 				</Column>
 				<Column width="9rem" hAlign="Center">
@@ -84,7 +85,7 @@
 					</template>
 				</Column>
 				<Column width="9rem" hAlign="Center">
-					<m:Label text="Delivary Date"/>
+					<m:Label text="Expected Delivary Date"/>
 					<template>
 						<m:Text text="{path: 'oAdvanceAnalytics>Prdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
 					</template>
@@ -93,6 +94,12 @@
 					<m:Label text="Item Delivey Date"/>
 					<template>
 						<m:Text text="{path: 'oAdvanceAnalytics>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center">
+					<m:Label text="Quantity of Goods Received"/>
+					<template>
+						<m:Text text="{oAdvanceAnalytics>Wemng}"/>
 					</template>
 				</Column>
 				<Column width="9rem" hAlign="Center">

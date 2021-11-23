@@ -51,12 +51,10 @@ sap.ui.define([
 
 			var oData = new JSONModel();
 			oView.setModel(oData, "oDataModel");
-			
-			
-				var onRejectedData = new JSONModel();
+
+			var onRejectedData = new JSONModel();
 			oView.setModel(onRejectedData, "onRejectedData");
-			
-			
+
 			var oDeliveryPattern = new JSONModel();
 			oView.setModel(oDeliveryPattern, "oDeliveryPattern");
 			var oMonthlyData = new JSONModel();
@@ -71,7 +69,7 @@ sap.ui.define([
 			});
 			oView.setModel(oCheckedModel, "oCheckModel");
 			this.getSalesOrderDetails();
-			this.OnGetfiltersale();
+			//	this.OnGetfiltersale();
 
 		},
 		datatime: function(dDate) {
@@ -99,16 +97,19 @@ sap.ui.define([
 
 				var lastDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth() + 1, 0);
 
-				var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
-					":" + firstDay.getUTCMinutes() +
-					":" + firstDay.getUTCSeconds();
-				console.log(last1mon);
-				var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
-					":" + lastDay.getUTCMinutes() +
-					":" + lastDay.getUTCSeconds();
-				console.log(endo1mon);
+	var last1mon = firstDay.toISOString().slice(0, 19);
+	var endo1mon = lastDay.toISOString().slice(0, 19);
+				// var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
+				// 	":" + firstDay.getUTCMinutes() +
+				// 	":" + firstDay.getUTCSeconds();
+				// console.log(last1mon);
+				// var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
+				// 	":" + lastDay.getUTCMinutes() +
+				// 	":" + lastDay.getUTCSeconds();
+				// console.log(endo1mon);
 
 				oView.getModel("oDataModel").setProperty("/FirstDate", last1mon);
+				
 				oView.getModel("oDataModel").setProperty("/EndDate", endo1mon);
 
 			} else if (oselecttab === "Previous 1 Month") {
@@ -119,9 +120,9 @@ sap.ui.define([
 				// var Prevmonthstart = this.datatime(beginLastMonth);
 
 				// var lastmonth = this.datatime(prevMonthEnd);
-				var Prevmonthstart = new Date().toISOString();
+				var Prevmonthstart = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 1);
-				var lastmonth = CurrentD.toISOString();
+				var lastmonth = 	CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", Prevmonthstart);
 				oView.getModel("oDataModel").setProperty("/EndDate", lastmonth);
 
@@ -132,9 +133,11 @@ sap.ui.define([
 
 				// var Last3Month = this.datatime(CurrentD);
 
-				var dateString1 = new Date().toISOString();
+				var dateString1 = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 3);
-				var Last3Month = CurrentD.toISOString();
+				
+				//var Last3Month = CurrentD.toISOString();
+					var Last3Month =	CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString1);
 				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month);
 
@@ -145,15 +148,95 @@ sap.ui.define([
 
 				// var Last6Month = this.datatime(CurrentD);
 
-				var dateString2 = new Date().toISOString();
+				var dateString2 = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 6);
-				var Last3Month = CurrentD.toISOString();
+			//	var Last3Month = CurrentD.toISOString();
+				//	var Last3Month2 = 	CurrentD.format("isoDateTime");
+			var Last3Month2 =	CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString2);
-				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month);
+				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month2);
 
 			}
 
 		},
+			/*Po Search*/
+		getPurchaseOrgList: function() {
+			var that = this;
+			//get all data from odata model
+			var oModel = this.getOwnerComponent().getModel("VHeader");
+
+			//get entity set
+			BusyIndicator.show(true);
+			oModel.read("/get_purchaseorg_f4helpSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
+					oLookupModel.setProperty("/PurchaseOrganization", oData.results);
+					oLookupModel.refresh(true);
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
+				}
+			});
+		},
+		handlePurchaseOrgVendor: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdPOD = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogporg) {
+				this._valueHelpDialogporg = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.PurchaseOrg",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogporg);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogporg.getBinding("items").filter(new Filter([new Filter(
+				"Ekorg",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Ekotx",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogporg.open(sInputValue);
+			this.getPurchaseOrgList();
+		},
+		_handlePOrganiVendorSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Ekorg",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Ekotx",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handlePOrganiVendorClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputIdPOD),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+
+		/*PO Search end*/
 		getSalesOrderDetails: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/SalesOrdersSet ", {
@@ -380,7 +463,134 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
+		ongetMaterialandVendor: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oDataModel = oView.getModel("oDataModel");
+			var FirstDate = oDataModel.oData.FirstDate;
+			var EndDate = oDataModel.oData.EndDate;
+			var Matnr = oDataModel.oData.Material;
+			var oVendor = oDataModel.oData.Vendor;
+				var PurchaseOrg = oDataModel.oData.PurchaseOrg;
+			
+			var s1= "2020-03-17T12:04:39" ;
+			var s2 =  "2021-03-17T12:04:39";
+					
+			
+			
+			var zero = "";
 
+			if ($.isNumeric((Matnr)) === true) {
+				var len = Matnr.length;
+				if (len !== undefined) {
+					var z = 18 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
+					}
+				}
+
+				Matnr = zero + Matnr;
+			}
+			 var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, EndDate);
+			 var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
+			 var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+		//	var oVendor = "DE-V0001";
+			if (oVendor !== "" || oVendor !== undefined) {
+				//	var oVendor = "DE-V0001";
+				var zero2 = "";
+
+				if ($.isNumeric((oVendor)) === true) {
+					var len2 = oVendor.length;
+					if (len2 !== undefined) {
+						var zr = 10 - len2;
+						for (var ri = 0; ri < zr; ri++) {
+							zero2 += "0";
+						}
+					}
+
+					oVendor = zero2 + oVendor;
+				}
+
+				// getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'2019-03-04T8:38:23' and Erdat2 eq datetime'2021-11-19T8:38:23' and Matnr eq '000000000050065555' and Lifnr eq 'DE-V0001')
+				// 
+			
+
+			
+				var oFilter4 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, oVendor);
+					var oFilter5 = new sap.ui.model.Filter('Ekorg', sap.ui.model.FilterOperator.EQ, PurchaseOrg);
+			
+				oModel.read("/getBuyer_cheatsheetSet", {
+					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
+
+						success: function(oData) {
+								console.log(oData);
+						oView.getModel("oMonthlydataModel").setData(oData.results);
+
+						},
+						error: function(err) {
+							MessageBox.error(err);
+						}
+
+					});
+
+			} else {
+
+			
+
+				oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 +
+					"'and Matnr eq '" + oFilter2 + "')", {
+					//	filters: [oFilter1, oFilter2, oFilter3],
+
+						success: function(oData) {
+							//	console.log(succ);
+							oView.getModel("oMonthlydataModel").setData(oData.results);
+
+						},
+						error: function(err) {
+
+						}
+
+					});
+			}
+
+		},
+		ongetMaterialandVendor3: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oDataModel = oView.getModel("oDataModel");
+				var FirstDate = oDataModel.oData.FirstDate;
+				var EndDate = oDataModel.oData.EndDate;
+			var Matnr = oDataModel.oData.Material;
+
+			var d1 = "2020-03-04T8:38:23";
+			var d2 = "2021-11-19T8:38:23";
+		//	var EndDate = "2020-05-22T05:38:08";
+			//var FirstDate = "2021-11-22T05:38:08";
+
+			var mat = "000000000050065555";
+			var oVendor = "V400031543";
+			var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, "2019-03-04T8:38:23");
+			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, "2021-11-19T8:38:23");
+			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, mat);
+			var oFilter4 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, oVendor);
+			
+			
+			oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + d1 + "' and Erdat2 eq datetime'" + d2 +
+				"'and Matnr eq '" +
+				mat + "'and Lifnr'" + oVendor + "')", {
+					//	oModel.read("/getBuyer_cheatsheetSet",{
+					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
+
+					success: function(oData) {
+						//	console.log(succ);
+						oView.getModel("oMonthlydataModel").setData(oData.results);
+
+					},
+					error: function(err) {
+						MessageBox.error(err);
+					}
+
+				});
+
+		},
 		getMaterialList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
@@ -463,8 +673,8 @@ sap.ui.define([
 		createColumnConfig: function() {
 			var aCols = [];
 			aCols.push({
-				label: 'Sales Order',
-				property: 'Vbeln'
+				label: 'Purchase Order',
+				property: 'Ebeln'
 
 			});
 			aCols.push({
@@ -473,14 +683,63 @@ sap.ui.define([
 
 			});
 			aCols.push({
-				label: 'Date',
-
-				property: 'Erdat'
+				label: 'Material Description',
+				property: 'Txz01'
 
 			});
 			aCols.push({
-				label: 'Quantity',
-				property: 'Kwmeng'
+				label: 'Vendor Details',
+				property: 'Lifnr'
+
+			});
+			aCols.push({
+				label: 'Company Code',
+				property: 'Bukrs'
+
+			});
+			aCols.push({
+				label: 'Plant',
+				property: 'Werks'
+
+			});
+			aCols.push({
+				label: 'Storage Location',
+				property: 'Lgort'
+
+			});
+			aCols.push({
+				label: 'Created on',
+
+				property: 'Aedat'
+
+			});
+			aCols.push({
+				label: 'PO Date',
+
+				property: 'Bedat'
+
+			});
+			aCols.push({
+				label: 'GR Delivered Date',
+
+				property: 'Eindt'
+
+			});
+			aCols.push({
+				label: 'Total Quantity',
+
+				property: 'Menge'
+
+			});
+			aCols.push({
+				label: 'Delivered Quantity',
+
+				property: 'Glmng'
+
+			});
+			aCols.push({
+				label: 'Net Price',
+				property: 'Netpr'
 
 			});
 
@@ -515,7 +774,7 @@ sap.ui.define([
 			var oDataModel = oView.getModel("oDataModel");
 
 			var Matnr = oDataModel.oData.DeliveryMaterial;
-		//	var Matnr  = "50065579";
+			//	var Matnr  = "50065579";
 			console.log(oDataModel);
 
 			var zero = "";
@@ -532,35 +791,33 @@ sap.ui.define([
 				Matnr = zero + Matnr;
 			}
 
-				//getAnalyticaldataSet?$filter=(Matnr eq ')
-				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-				
-				oModel.read("/deliveryPatternSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
+			//getAnalyticaldataSet?$filter=(Matnr eq ')
+			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+			///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+
+			oModel.read("/deliveryPatternSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
 				filters: [oFilter3],
 
 				success: function(oData) {
 					//	console.log(succ);
 					oView.getModel("oDeliveryPattern").setData(oData.results);
-					
-				var oFilter4 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-				oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter4 + "' )", {
-				filters: [oFilter3],
 
-				success: function(oData) {
-					//	console.log(succ);
-					
-					oView.getModel("onRejectedData").setData(oData.results);
+					var oFilter4 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+					///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+					oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter4 + "' )", {
+						filters: [oFilter3],
 
-				},
-				error: function(err) {
-					console.log(err);
-				}
+						success: function(oData) {
+							//	console.log(succ);
 
-			});
-					
-					
+							oView.getModel("onRejectedData").setData(oData.results);
+
+						},
+						error: function(err) {
+							console.log(err);
+						}
+
+					});
 
 				},
 				error: function(err) {
@@ -572,7 +829,7 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
-			OnRejectedMaterial: function() {
+		OnRejectedMaterial: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oDataModel");
 
@@ -593,10 +850,10 @@ sap.ui.define([
 				Matnr = zero + Matnr;
 			}
 			var mat = "CPB60200";
-				//getAnalyticaldataSet?$filter=(Matnr eq ')
-				var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-				///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-				oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
+			//getAnalyticaldataSet?$filter=(Matnr eq ')
+			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
+			///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
+			oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
 				filters: [oFilter3],
 
 				success: function(oData) {
@@ -613,9 +870,65 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
-		
-		
-		
+
+		handleVendorValueHelpBox: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdVendor = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogDisplayV) {
+				this._valueHelpDialogDisplayV = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.fragment.Display",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogDisplayV);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+			// create a filter for the binding
+			this._valueHelpDialogDisplayV.getBinding("items").filter(new Filter([new Filter(
+				"Name1",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Lifnr",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogDisplayV.open(sInputValue);
+			this.getVendorList();
+		},
+
+		_handleValueVendorHelpSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Name1",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Lifnr",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleValueVendorHelpClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			var oModel = oView.getModel("Lookup");
+			var oModelV = this.getOwnerComponent().getModel("VHeader");
+
+			if (oSelectedItem) {
+				var sProductInput = this.byId(this.inputIdVendor),
+					sDescription = oSelectedItem.getInfo();
+
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sDescription);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+
+		},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
