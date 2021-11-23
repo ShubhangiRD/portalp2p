@@ -70,7 +70,93 @@ sap.ui.define([
 			oView.setModel(oCheckedModel, "oCheckModel");
 			this.getSalesOrderDetails();
 			//	this.OnGetfiltersale();
+ 
+   	var oVizFrame = this.getView().byId("idVizFrameline");
+			oVizFrame.setModel(oMonthlyData, "oMonthlydataModel");
+			oVizFrame.setVizType("column");
 
+			var vizProperties = {
+				interaction: {
+					zoom: {
+						enablement: "disabled"
+					},
+					selectability: {
+						mode: "EXCLUSIVE"
+					}
+				},
+				valueAxis: {
+					title: {
+						visible: false
+					},
+					visible: true,
+					axisLine: {
+						visible: false
+					},
+					label: {
+						linesOfWrap: 2,
+						visible: false,
+						style: {
+							fontSize: "10px"
+						}
+					}
+				},
+				categoryAxis: {
+					title: {
+						visible: false
+					},
+					label: {
+						linesOfWrap: 2,
+						rotation: "fixed",
+						angle: 0,
+						style: {
+							fontSize: "12px"
+						}
+					},
+					axisTick: {
+						shortTickVisible: false
+					}
+				},
+				title: {
+					text: "Buyercheatsheet",
+					visible: true
+				},
+				legend: {
+					visible: false
+				},
+				plotArea: {
+					colorPalette: ["#007181"],
+					gridline: {
+						visible: false
+					},
+					dataLabel: {
+						visible: true,
+						style: {
+							fontWeight: 'bold'
+						},
+						hideWhenOverlap: false
+					},
+					seriesStyle: {
+						"rules": [{
+							"dataContext": {
+								"Budget": '*'
+							},
+							"properties": {
+								"dataPoint": {
+									"pattern": "noFill"
+								}
+							}
+						}]
+					},
+					dataPointStyleMode: "update"
+					
+				}
+			};
+
+			oVizFrame.setVizProperties(vizProperties);
+			oVizFrame.setModel(oMonthlyData, "oMonthlydataModel");
+			var oPopover = new sap.viz.ui5.controls.Popover({});
+			oPopover.connect(oVizFrame.getVizUid());
+     
 		},
 		datatime: function(dDate) {
 			//	2021-10-04T08:54:57
