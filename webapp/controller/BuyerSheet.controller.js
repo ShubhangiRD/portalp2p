@@ -28,7 +28,9 @@ sap.ui.define([
 	var oView, result = [];
 	var Massupload = [];
 	var oMaterialList = [],
-		zStockMaterial = [];
+		zStockMaterial = [],
+		SalesOrder = [] ;
+		
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
 
@@ -327,7 +329,8 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/SalesOrdersSet ", {
 				success: function(oData) {
-
+				console.log(oData);
+				SalesOrder = oData.results;
 					var iItem = zStockMaterial.length;
 					var aListofVendoritem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -549,12 +552,14 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 
 		},
+	
 		ongetMaterialandVendor: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oDataModel");
 			var FirstDate = oDataModel.oData.FirstDate;
 			var EndDate = oDataModel.oData.EndDate;
 			var Matnr = oDataModel.oData.Material;
+				var Material = oDataModel.oData.Material;
 			var oVendor = oDataModel.oData.Vendor;
 				var PurchaseOrg = oDataModel.oData.PurchaseOrg;
 			
@@ -609,6 +614,32 @@ sap.ui.define([
 
 						success: function(oData) {
 								console.log(oData);
+								var item = oData.results.length;
+								var odata = oData.results;
+								var oBuyerCheetsheet = [];
+							
+									if (Material !== "" || Material !== undefined) {
+									for (var x = 0; x < SalesOrder.length; x++) {
+										if (Material === SalesOrder[x].Matnr) {
+										var Vbeln = SalesOrder[x].Vbeln;
+										var Posnr = SalesOrder[x].Posnr;
+											var Prodh = SalesOrder[x].Prodh;
+										var SalesOrderQuant = SalesOrder[x].Lsmeng;
+							
+							}
+						}
+					}	
+					
+					for(var itex = 0; itex < item; itex++){
+							odata[itex].Vbeln = Vbeln;
+								odata[itex].Posnr = Posnr;
+								odata[itex].Prodh = Prodh;
+								odata[itex].SalesOrderQuant = SalesOrderQuant;
+								}
+								
+								
+								console.log(oData.results);
+								
 						oView.getModel("oMonthlydataModel").setData(oData.results);
 
 						},
@@ -763,6 +794,16 @@ sap.ui.define([
 				property: 'Ebeln'
 
 			});
+				aCols.push({
+				label: 'Sales Order',
+				property: 'Vbeln'
+
+			});
+			
+			
+			
+			
+			
 			aCols.push({
 				label: 'Material Number',
 				property: 'Matnr'
@@ -820,12 +861,27 @@ sap.ui.define([
 			aCols.push({
 				label: 'Delivered Quantity',
 
-				property: 'Glmng'
+				property: 'Wemng'
 
 			});
 			aCols.push({
 				label: 'Net Price',
 				property: 'Netpr'
+
+			});
+				aCols.push({
+				label: 'Product Hierarchy',
+				property: 'Prodh'
+
+			});
+				aCols.push({
+				label: 'Sales Order Quantity',
+				property: 'SalesOrderQuant'
+
+			});
+				aCols.push({
+				label: 'Sales Document Item',
+				property: 'Posnr'
 
 			});
 

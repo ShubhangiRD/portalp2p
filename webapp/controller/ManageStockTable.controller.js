@@ -722,6 +722,12 @@ sap.ui.define([
 			var oTreeTable = this.byId("TreeTableBasic2");
 			oTreeTable.collapseAll();
 		},
+		
+		onAnalytics: function(oEvent) {
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Analytics");
+		},
 		BuyerSheetChat: function(oEvent) {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
