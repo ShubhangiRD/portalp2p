@@ -158,6 +158,28 @@ sap.ui.define([
 			oVizFrame.setModel(oMonthlyData, "oMonthlydataModel");
 			var oPopover = new sap.viz.ui5.controls.Popover({});
 			oPopover.connect(oVizFrame.getVizUid());
+			
+			var oCheckBox = new JSONModel({
+				Material: false,
+				Vendor: false,
+				Purchaseorg: false,
+				MaterialGroup: false,
+				ProductHierarchy : false,
+				CreatedBy: false
+			});
+		oView.setModel(oCheckBox,"oCheckBox");
+		
+				var oVisibleModel = new JSONModel({
+		        isVisibleMat: false,
+		        isVisibleVen: false,
+		        isVisibleMatGrp: false,
+		        isVisiblePurOrg: false,
+		        isVisibleCBy: false,
+		        isVisibleProdH: false
+	
+			});
+
+			this.getView().setModel(oVisibleModel, "VisibleModel");
      
 		},
 		datatime: function(dDate) {
@@ -562,6 +584,9 @@ sap.ui.define([
 				var Material = oDataModel.oData.Material;
 			var oVendor = oDataModel.oData.Vendor;
 				var PurchaseOrg = oDataModel.oData.PurchaseOrg;
+				var MatGrp = oDataModel.oData.MaterialGrp;
+				var CreatedBy = oDataModel.oData.CreatedBy;
+				var ProdHierarchy = oDataModel.oData.ProdH;
 			
 			var s1= "2020-03-17T12:04:39" ;
 			var s2 =  "2021-03-17T12:04:39";
@@ -607,10 +632,13 @@ sap.ui.define([
 
 			
 				var oFilter4 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, oVendor);
-					var oFilter5 = new sap.ui.model.Filter('Ekorg', sap.ui.model.FilterOperator.EQ, PurchaseOrg);
+				var oFilter5 = new sap.ui.model.Filter('Ekorg', sap.ui.model.FilterOperator.EQ, PurchaseOrg);
+				var oFilter6 = new sap.ui.model.Filter('Matkl', sap.ui.model.FilterOperator.EQ, MatGrp);
+				var oFilter7 = new sap.ui.model.Filter('Ernam', sap.ui.model.FilterOperator.EQ, CreatedBy);
+				var oFilter8 = new sap.ui.model.Filter('Prodh', sap.ui.model.FilterOperator.EQ, ProdHierarchy);
 			
 				oModel.read("/getBuyer_cheatsheetSet", {
-					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
+					filters: [oFilter1, oFilter2, oFilter3, oFilter4,oFilter5,oFilter6,oFilter7],
 
 						success: function(oData) {
 								console.log(oData);
@@ -1097,6 +1125,350 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
+		/* material group start */
+		getMatGrpList:function(){
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+			oModel.read("/get_Matgrpf4listSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+				
+					oLookupModel.setProperty("/MaterialGrp", oData.results);
+					oLookupModel.refresh(true);
+					console.log(oData);
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
+				}
+	
+			});
+		},
+		
+		handleMatGrp:function(oEvent){
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdMatGrp = oEvent.getSource().getId();
+		
+			if (!this._valueHelpMatGrp) {
+				this._valueHelpMatGrp = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.MaterialGrpf4",
+					this
+				);
+				this.getView().addDependent(this._valueHelpMatGrp);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpMatGrp.getBinding("items").filter(new Filter([new Filter(
+				"Matkl",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Matkl",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpMatGrp.open(sInputValue);
+			this.getMatGrpList();
+		},
+		
+		_handleMatGrpSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Matkl",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Matkl",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handleMatGrpClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputIdMatGrp),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+/*material group end*/
+
+/*Created by */
+
+	getCreatedByList:function(){
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+			oModel.read("/get_CreatedByf4listSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+				
+					oLookupModel.setProperty("/CreatedBy", oData.results);
+					oLookupModel.refresh(true);
+					console.log(oData);
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
+				}
+	
+			});
+		},
+		
+		handleCreatedBy:function(oEvent){
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdCby = oEvent.getSource().getId();
+		
+			if (!this._valueCBY) {
+				this._valueCBY = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.CreatedBy",
+					this
+				);
+				this.getView().addDependent(this._valueCBY);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueCBY.getBinding("items").filter(new Filter([new Filter(
+				"Ernam",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Ernam",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueCBY.open(sInputValue);
+			this.getCreatedByList();
+		},
+		
+		_handleCreatedBySearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Ernam",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Ernam",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handleCreatedByClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputIdCby),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+/*material group end*/
+/*product hierarchy*/
+
+	getProductHierarchyList:function(){
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+		
+			oModel.read("/get_ProductHierarachyf4listSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+				
+					oLookupModel.setProperty("/ProductHierarchy", oData.results);
+					oLookupModel.refresh(true);
+					console.log(oData);
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
+				}
+	
+			});
+		},
+		
+		handleProductHierarchy:function(oEvent){
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputIdPH = oEvent.getSource().getId();
+		
+			if (!this._valueProductHierarchy) {
+				this._valueProductHierarchy = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.ProductHierarchy",
+					this
+				);
+				this.getView().addDependent(this._valueProductHierarchy);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueProductHierarchy.getBinding("items").filter(new Filter([new Filter(
+				"Prodh",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueProductHierarchy.open(sInputValue);
+			this.getProductHierarchyList();
+		},
+		
+		_handleProductHierarchySearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Prodh",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handleProductHierarchyClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputIdPH),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+		// 	var oCheckBox = new JSONModel({
+		// 		Material: false,
+		// 		Vendor: false,
+		// 		Purchaseorg: false,
+		// 		MaterialGroup: false,
+		// 		ProductHierarchy : false,
+		// 		CreatedBy: false
+		// 	});
+		// oView.setModel(oCheckBox,"oCheckBox");
+		
+		// 		var oVisibleModel = new JSONModel({
+		//         isVisibleMat: false,
+		//         isVisibleVen: false,
+		//         isVisibleMatGrp: false,
+		//         isVisiblePurOrg: false,
+		//         isVisibleCBy: false,
+		//         isVisibleProdH: false
+	
+		// 	});
+			onShowInput: function(oEvent) {
+			var VisModel = oView.getModel("VisibleModel");
+			var ocheckModel = oView.getModel("oCheckBox");
+			
+			var oselecttab = oEvent.oSource.mProperties.text;
+             var selected = oEvent.getParameter("selected");
+			if (oselecttab === "Material") {
+				
+                 if(selected){
+                 		VisModel.setProperty("/isVisibleMat", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisibleMat", false);
+                 	
+                 }
+	
+
+		}else if (oselecttab === "Vendor"){
+			
+			      if(selected){
+                 		VisModel.setProperty("/isVisibleVen", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisibleVen", false);
+                 	
+                 }
+		}
+		
+			else if (oselecttab === "Purchase org"){
+			    if(selected){
+                 		VisModel.setProperty("/isVisiblePurOrg", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisiblePurOrg", false);
+                 	
+                 }
+		}
+				else if (oselecttab === "Material Group"){
+				    if(selected){
+                 		VisModel.setProperty("/isVisibleMatGrp", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisibleMatGrp", false);
+                 	
+                 }
+		}
+					else if (oselecttab === "Created by"){
+			      if(selected){
+                 		VisModel.setProperty("/isVisibleCBy", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisibleCBy", false);
+                 	
+                 }
+		}
+						else if (oselecttab === "Product hierarchy"){
+		
+				      if(selected){
+                 		VisModel.setProperty("/isVisibleProdH", true);
+                 		
+                 }else{
+                 		VisModel.setProperty("/isVisibleProdH", false);
+                 	
+                 }
+		}
+		
+		
+		
+		
+		
+		
+		
+			}
+
+
+
+		
+
+
+
+
+
+
+
+
+
+/*product hierarchy end*/
+
+
 
 	});
 

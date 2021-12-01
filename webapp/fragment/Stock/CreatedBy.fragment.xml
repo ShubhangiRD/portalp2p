@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Created By"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/CreatedBy}"
+		search="_handleCreatedBySearch"
+		confirm="_handleCreatedByClose"
+		cancel="_handleCreatedByClose">
+		<StandardListItem
+			title="{Lookup>Ernam}"
+			 />
+	</SelectDialog>
+</core:FragmentDefinition>

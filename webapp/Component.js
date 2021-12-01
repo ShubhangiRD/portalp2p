@@ -89,7 +89,10 @@ sap.ui.define([
 				RegionList: [],
 				MainGroup: [],
 				GroupList: [],
-				SubGroupList: []
+				SubGroupList: [],
+				CreatedBy : [],
+				MaterialGrp :[],
+				ProductHierarchy:[]
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");
