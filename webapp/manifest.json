@@ -262,7 +262,11 @@
 				"name": "LoginPage",
 				"target": "LoginPage"
 			},
-			
+				{
+				"pattern": "SalesCreation",
+				"name": "SalesCreation",
+				"target": ["SalesCreation"]
+			},
 				{
 				"pattern": "Analytics",
 				"name": "Analytics",
@@ -475,6 +479,9 @@
 				},
 				"LoginPage": {
 					"viewName": "LoginPage"
+				},
+					"SalesCreation": {
+					"viewName": "SalesCreation"
 				},
 					"ExcessData": {
 					"viewName": "ExcessData"

@@ -23,7 +23,7 @@ sap.ui.define([
 	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
 	"use strict";
 	var oView, oComponent, oController, sPathThreshold, PoDocumentNumber = [];
-	var Excess = [];
+	var Excess, Excessdata  = [];
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
 	return Controller.extend("com.vSimpleApp.controller.ExcessData", {
@@ -37,8 +37,10 @@ sap.ui.define([
 			oController = this;
 			oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+	oController = this;
+			oView = this.getView();
 			oComponent = this.getOwnerComponent();
+	
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			this.getExcess();
@@ -177,6 +179,31 @@ sap.ui.define([
 
 			return aCols;
 		},
+		
+				onProcessOrder: function() {
+		
+			var oTreetable = this.byId("excesstable");
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+
+			//	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			for (var i = 0; i < aSelectedIndex.length; i++) {
+
+				var odata = aSelectedIndex[i];
+				var stock = oTreeModel.getProperty('/' +odata);
+				Excessdata.push(stock);
+					
+			var ExcessMaterial =	this.getOwnerComponent().getModel("StockTransferModel").setData(Excessdata);
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+											oRouter.navTo('SalesCreation');
+											
+										
+			}
+				oTreetable.SelectedNode = null;
+				oTreetable.destroyNoData();
+			oTreetable.selected = false; 
+		}
+		
 
 		//	onBeforeRendering: function() {
 		//

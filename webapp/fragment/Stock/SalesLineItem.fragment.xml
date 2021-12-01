@@ -1,0 +1,346 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="TableBoxClass sapUiSmallMargin">
+		<t:Table id="idTableitem" rows="{ path: 'StockTransferModel>/'}" editable="true" visibleRowCount="4" selectionMode="MultiToggle">
+			<t:extension>
+				<OverflowToolbar>
+					<Title text="Items"/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</t:extension>
+			<t:columns>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Line"/>
+					<t:template>
+						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{StockTransferModel>PoItem}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="12rem">
+					<Label text="Material"/>
+					<t:template>
+						<Input id="Material" value="{StockTransferModel>Matnr}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="12rem">
+					<Label text="Material"/>
+					<t:template>
+						<Input id="idDescription" value="{StockTransferModel>Description}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Quantity"/>
+					<t:template>
+						<Input id="PoPrQnt" value="{StockTransferModel>Quantity}" editable="{EditModel>/isEditable}" textAlign="End"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="EUn"/>
+					<t:template>
+						<Input id="EntryUom" value="{StockTransferModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="ISO Code"/>
+					<t:template>
+						<Input id="EntryUomIso" value="{StockTransferModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Storage Location"/>
+					<t:template>
+						<Input id="StgeLoc" value="{StockTransferModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
+							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
+							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
+							<suggestionItems>
+								<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
+							</suggestionItems>
+						</Input>
+					</t:template>
+				</t:Column>
+					<t:Column hAlign="Center" width="12rem">
+					<Label text="Customer Material Description"/>
+					<t:template>
+						<Input id="idcustmat" value="{StockTransferModel>Description}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Plant"/>
+					<t:template>
+						<Input id="Plant" value="{StockTransferModel>Werks}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Unit of Quantity"/>
+					<t:template>
+						<Input id="PoPrQnt1" value="{StockTransferModel>PoUnit}" editable="{EditModel>/isEditable}" class="measure1"/>
+					</t:template>
+				</t:Column>
+						<t:Column width="9rem" hAlign="Center">
+					<Label text="First Date"/>
+					<t:template>
+						<Input id="idfirstdate" value="{StockTransferModel>Werks}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Purchase Order"/>
+					<t:template>
+						<Input id="PoNumber" value="{StockTransferModel>PoNumber}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Item "/>
+					<t:template>
+						<Input id="PoItem" value="{StockTransferModel>PoItem}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Cost Center"/>
+					<t:template>
+						<Input id="Costcenter1" value="{StockTransferModel>Costcenter}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Partner"/>
+					<t:template>
+						<Input id="PartAcct" value="{StockTransferModel>PartAcct}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Profit Center"/>
+					<t:template>
+						<Input id="ProfitCtr1" value="{StockTransferModel>ProfitCtr}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Network"/>
+					<t:template>
+						<Input id="Network" value="{StockTransferModel>Network}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Batch"/>
+					<t:template>
+						<Input id="Batch" value="{StockTransferModel>Batch}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Valuation Type"/>
+					<t:template>
+						<Input id="ValType" value="{StockTransferModel>ValType}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Movement Type"/>
+					<t:template>
+						<Input id="MoveType" value="{StockTransferModel>MoveType}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Direction"/>
+					<t:template>
+						<Input id="idDirection" showValueHelp="true" showSuggestion="true"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Stock Type"/>
+					<t:template>
+						<Input id="StckType" value="{StockTransferModel>StckType}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Special Stock"/>
+					<t:template>
+						<Input id="SpecStock" value="{StockTransferModel>SpecStock}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Customer"/>
+					<t:template>
+						<Input id="Customer" value="{StockTransferModel>Customer}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Sales Order"/>
+					<t:template>
+						<Input id="SalesOrd" value="{StockTransferModel>SalesOrd}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Sales Order Item"/>
+					<t:template>
+						<Input id="SOrdItem" value="{StockTransferModel>SOrdItem}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Deliv. Compl."/>
+					<t:template>
+						<Input id="NoMoreGr" value="{StockTransferModel>NoMoreGr}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="WBS Element"/>
+					<t:template>
+						<Input id="WbsElem" value="{StockTransferModel>WbsElem}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+			
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="OPUn"/>
+					<t:template>
+						<Input id="OrderprUn" value="{StockTransferModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Item"/>
+					<t:template>
+						<Input id="ItemText" value="{StockTransferModel>ItemText}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Material Document "/>
+					<t:template>
+						<Input id="MatDoc1" value="{StockTransferModel>MatDoc1}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Material Document Item"/>
+					<t:template>
+						<Input id="MatdocItm" value="{StockTransferModel>MatdocItm}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Ref Doc"/>
+					<t:template>
+						<Input id="RefDoc" value="{StockTransferModel>RefDoc}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Currency"/>
+					<t:template>
+						<Input id="Currency" value="{StockTransferModel>Currency}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="CurrencyIso"/>
+					<t:template>
+						<Input id="CurrencyIso" value="{StockTransferModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Reservation Number"/>
+					<t:template>
+						<Input id="ReservNo" value="{StockTransferModel>ReservNo}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="RealEstet Key"/>
+					<t:template>
+						<Input id="RlEstKey" value="{StockTransferModel>RlEstKey}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Value Sales Order"/>
+					<t:template>
+						<Input id="ValSOrdItem" value="{StockTransferModel>ValSOrdItem}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Document Year"/>
+					<t:template>
+						<Input id="DocYear1" value="{StockTransferModel>DocYear1}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Document Item"/>
+					<t:template>
+						<Input id="EarmarkedItem" value="{StockTransferModel>EarmarkedItem}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Earmarked Funds"/>
+					<t:template>
+						<Input id="EarmarkedNumber" value="{StockTransferModel>EarmarkedNumber}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Budget Period"/>
+					<t:template>
+						<Input id="BudgetPeriod" value="{StockTransferModel>BudgetPeriod}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Movement ind."/>
+					<t:template>
+						<Input id="MvtInd" value="{StockTransferModel>MvtInd}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="ISO code."/>
+					<t:template>
+						<Input id="OrderprUnIso" value="{StockTransferModel>OrderprUnIso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Acctg Indicator"/>
+					<t:template>
+						<Input id="CalcMotive" value="{StockTransferModel>CalcMotive}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Business Proc."/>
+					<t:template>
+						<Input type="Text" id="CoBusproc1" value="{StockTransferModel>CoBusproc}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Level"/>
+					<t:template>
+						<Input id="LineDepth" value="{StockTransferModel>LineDepth}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Functional Area"/>
+					<t:template>
+						<Input id="FuncAreaLong1" value="{StockTransferModel>FuncAreaLong}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Parent Id"/>
+					<t:template>
+						<Input id="ParentId" value="{StockTransferModel>ParentId}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Stock Segment"/>
+					<t:template>
+						<Input id="StkSegment" value="{StockTransferModel>StkSegment}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Auto. created"/>
+					<t:template>
+						<Input id="XAutoCre" value="{StockTransferModel>XAutoCre}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Funds Center"/>
+					<t:template>
+						<Input id="FundsCtr" value="{StockTransferModel>FundsCtr}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Ref Doc Year"/>
+					<t:template>
+						<Input id="RefDocYr" value="{StockTransferModel>RefDocYr}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="RfDocIt"/>
+					<t:template>
+						<Input id="RefDocIt" value="{StockTransferModel>RefDocIt}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table>
+	</VBox>
+</core:FragmentDefinition>

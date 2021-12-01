@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<form:SimpleForm id="stocktransferform" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text="From"/>
+				<Label text="Request Deliv Date" required="true"/>
+					<DatePicker id="idreqdeliv" placeholder="Enter Date" class="sapUiSmallMarginBottom"/>
+			
+				<Label text="Delivery Block"/>
+				<Select id="idDelivblk" forceSelection="false" selectedKey="{/SelectedProduct}"
+					items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+					<core:Item key="{ProductId}" text="{Name}"/>
+				</Select>
+				<Label text="Billing Block"/>
+				<Select id="idbillingblk" forceSelection="false" selectedKey="{/SelectedProduct}"
+					items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+					<core:Item key="{ProductId}" text="{Name}"/>
+				</Select>
+				<Label text="Payment Term"/>
+				<Input id="idpemtrn" width="50%"></Input>
+				<Label text="Inco Version"/>
+				<Input id="idvern" width="50%"></Input>
+				<Label text="Incoterms"/>
+				<Input id="idincoterms" width="50%"></Input>
+				<Label text="Inco. Location1"/>
+				<Input id="idincolocatn"></Input>
+				<core:Title text="Dest"/>
+				<Label text="Delivery Plant" required="true"/>
+				<Input id="idDelivPlant" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
+				width="50%"	value="{StockTransferModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Total Weight"/>
+				<Input value="{Street}"/>
+				<Input value="{HouseNumber}">
+					<layoutData>
+						<l:GridData span="XL1 L2 M2 S4"/>
+					</layoutData>
+				</Input>
+				<Label text="Volumne"/>
+				<Input value="{Street}"/>
+				<Input value="{HouseNumber}">
+					<layoutData>
+						<l:GridData span="XL1 L2 M2 S4"/>
+					</layoutData>
+				</Input>
+				<Label text="Date" labelFor="DP1"/>
+				<DatePicker id="DP1" placeholder="Enter Date"  width="50%" class="sapUiSmallMarginBottom"/>
+			</form:content>
+		</form:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>
