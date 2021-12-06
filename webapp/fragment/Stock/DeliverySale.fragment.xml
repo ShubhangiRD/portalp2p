@@ -10,16 +10,7 @@
 					<m:Select id="select" items="{modes>/items}" selectedKey="Navigation" change="onBehaviourModeChange">
 						<core:Item key="{modes>key}" text="{modes>text}"/>
 					</m:Select>
-					<!--	<m:ToggleButton
-							icon="sap-icon://complete"
-							tooltip="Show available products only"
-							press="toggleAvailabilityFilter"
-							pressed="{ui>/availabilityFilterOn}"/>
-						<m:ToggleButton
-							icon="sap-icon://grid"
-							tooltip="Enable / Disable Cell Filter Functionality"
-							pressed="{ui>/cellFilterOn}"/>-->
-					<!--	//onDataExport-->
+				
 					<m:Button icon="sap-icon://download" press="onExport"/>
 					<!--<m:Button icon="sap-icon://full-screen" press="TableFullScreen"/>-->
 					<m:Button icon="sap-icon://decline" tooltip="Clear all filters" press="clearAllFiltersPOtable"/>

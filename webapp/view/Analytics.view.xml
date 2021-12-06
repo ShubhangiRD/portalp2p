@@ -1,93 +1,152 @@
-<mvc:View controllerName="com.vSimpleApp.controller.Analytics" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact"
-	xmlns:f="sap.f" xmlns:card="sap.f.cards" xmlns:viz.data="sap.viz.ui5.data" height="100%" xmlns:core="sap.ui.core">
-	<layout:FixFlex id='chartFixFlexline' minFlexSize="250">
-		<layout:fixContent>
-			<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
-				<content>
-					<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
-						adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
-						class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
-						<form:content>
-						
-							<core:Title text=" "/>
-							<Label text="Vendor" design="Bold" ></Label>
-								<Input id="Lifnra" value="{oVendorModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
-							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
-							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
-							<suggestionItems>
-								<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
-							</suggestionItems>
-						</Input>
-						
-							<core:Title text=" "/>
-							<Label text="Pattern" design="Bold" class='settingsLabel'></Label>
-							<Select id='chartTypeSelect' class='settingsSelect'   maxWidth="200px" change='onChartTypeChanged'>
-								<items>
-										<core:Item text=" " key=" "/>
-									<core:Item text="Delivery Pattern" key="Delivery Pattern"/>
-									<core:Item text="Monitoring Quality" key="Monitoring Quality"/>
-									<!--<core:Item text="Rejection" key="Rejection"/>-->
-									<!--<core:Item text="Retun" key="Retun"/>-->
-								</items>
-							</Select>
-						
-						</form:content>
-					</form:SimpleForm>
-					<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
-						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
-						class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
-						<form:content>
-							<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
-							<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
-							<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
-							<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
-							<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
-							<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
-						</form:content>
-					</form:SimpleForm>
-				</content>
-			</Panel>
-			
-				<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">
-		<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">
-			<layout:FixFlex id='chartFixFlex24' minFlexSize="600">
-				<!--Below is the setting panel -->
-				<layout:fixContent></layout:fixContent>
-				<layout:flexContent>
-			 <viz:Popover id="idPopOver4"></viz:Popover>
-            <viz:VizFrame id="idVizFrameDelivery4" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}"
-           height='100%' width="100%" vizType='stacked_column'>
-                <viz:dataset>
-                    <viz.data:FlattenedDataset data="{oLeadtime>/}">
-                        <viz.data:dimensions>
-                            <viz.data:DimensionDefinition name="Date"
-                              value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />
-                        </viz.data:dimensions>
-                        <viz.data:measures>
-                            <viz.data:MeasureDefinition name="OnTime"
-                                value="{OnTime}" />
-                            <viz.data:MeasureDefinition name="Risk"
-                                value="{Late}" />
-                            <viz.data:MeasureDefinition name="Late"
-                                value="{Delinquent}" />
-                        </viz.data:measures>
-                    </viz.data:FlattenedDataset>
-                </viz:dataset>
-
-                <viz:feeds>
-                    <viz.feeds:FeedItem uid="valueAxis" type="Measure"
-                        values="Late,OnTime,Risk" />
-                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
-                        values="Date" />
-                </viz:feeds>
-            </viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
-			<layout:FixFlex id='chartFixFlex4' minFlexSize="500">
-				<!--Below is the setting panel -->
-				<layout:flexContent>
-					<viz:Popover id="idPopOverTime2"></viz:Popover>
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap"
+	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:card="sap.f.cards" class="sapUiSizeCompact" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data" xmlns:viz="sap.viz.ui5.controls" controllerName="com.vSimpleApp.controller.Analytics"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:w="sap.ui.integration.widgets" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form">
+	<tnt:ToolHeader>
+		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Button>
+		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Image>
+		<FlexBox direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<FlexBox class="logoContent" direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://comment" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Switch>
+	</tnt:ToolHeader>
+	<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
+		<content>
+			<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+				class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+				<form:content>
+					<core:Title text=" "/>
+					<Label text="Vendor" design="Bold"></Label>
+					<Input id="Lifnra" value="{oVendorModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+						showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
+						suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+						</suggestionItems>
+					</Input>
+					<core:Title text=" "/>
+					<Label text="Pattern" design="Bold" class='settingsLabel'></Label>
+					<Select id='chartTypeSelect' class='settingsSelect' maxWidth="200px" change='onChartTypeChanged'>
+						<items>
+							<core:Item text=" " key=" "/>
+							<core:Item text="Delivery Pattern" key="Delivery Pattern"/>
+							<core:Item text="Monitoring Quality" key="Monitoring Quality"/>
+						</items>
+					</Select>
+				</form:content>
+			</form:SimpleForm>
+			<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
+				<form:content>
+					<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
+					<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
+					<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
+					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
+					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
+					<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
+				</form:content>
+			</form:SimpleForm>
+		</content>
+	</Panel>
+	<f:GridContainer id="grid124" borderReached=".onBorderReached">
+		<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout">
+			<f:layoutData>
+				<f:GridContainerItemLayoutData rows="5" columns="7"/>
+			</f:layoutData>
+			<f:content >
+				<l:FixFlex id='chartTopVendors43' class="dashboardDonutChart" minFlexSize="300">
+					<l:flexContent>
+						<viz:Popover id="idPopOver4"></viz:Popover>
+						<viz:VizFrame id="idVizFrameDelivery4" uiConfig="{applicationSet:'fiori'}"
+							vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}" vizType='stacked_column'>
+							<viz:dataset>
+								<viz.data:FlattenedDataset data="{oLeadtime>/}">
+									<viz.data:dimensions>
+										<viz.data:DimensionDefinition name="Date"
+											value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
+									</viz.data:dimensions>
+									<viz.data:measures>
+										<viz.data:MeasureDefinition name="OnTime" value="{OnTime}"/>
+										<viz.data:MeasureDefinition name="Risk" value="{Late}"/>
+										<viz.data:MeasureDefinition name="Late" value="{Delinquent}"/>
+									</viz.data:measures>
+								</viz.data:FlattenedDataset>
+							</viz:dataset>
+							<viz:feeds>
+								<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Late,OnTime,Risk"/>
+								<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Date"/>
+							</viz:feeds>
+						</viz:VizFrame>
+					</l:flexContent>
+				</l:FixFlex>
+			</f:content>
+		</f:Card>
+		<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout ">
+			<f:layoutData>
+				<f:GridContainerItemLayoutData rows="5" columns="6"/>
+			</f:layoutData>
+			<f:header></f:header>
+			<f:content >
+				<l:FixFlex id='chartTopProducts' minFlexSize="400">
+					<l:flexContent>
+						<viz:Popover id="idPopOver2"></viz:Popover>
+						<viz:VizFrame id="idVizFrameMonitoring" uiConfig="{applicationSet:'fiori'}"
+							vizProperties="{ title: {text : 'Monitoring Quality', visible : true}}" vizType='stacked_column' width="550px" height="500px">
+							<viz:dataset>
+								<viz.data:FlattenedDataset data="{oMonitoringData>/}">
+									<viz.data:dimensions>
+										<viz.data:DimensionDefinition name="Date"
+											value="{path: 'oMonitoringData>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date"/>
+									</viz.data:dimensions>
+									<viz.data:measures>
+										<viz.data:MeasureDefinition name="Return" value="{Menge}"/>
+										<viz.data:MeasureDefinition name="Reject" value="{Wemng}"/>
+										<viz.data:MeasureDefinition name="Cost3" value="{Cost3}"/>
+									</viz.data:measures>
+								</viz.data:FlattenedDataset>
+							</viz:dataset>
+							<viz:feeds>
+								<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Reject,Return"/>
+								<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Date"/>
+							</viz:feeds>
+						</viz:VizFrame>
+					</l:flexContent>
+				</l:FixFlex>
+			</f:content>
+		</f:Card>
+		<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout">
+			<f:layoutData>
+				<f:GridContainerItemLayoutData rows="4" columns="3"/>
+			</f:layoutData>
+			<f:content >
+				<l:FixFlex id='chartTopVendors' class="dashboardDonutChart" minFlexSize="290">
+					<l:flexContent>
+						<viz:Popover id="idPopOverTime2"></viz:Popover>
 						<viz:VizFrame id="vfTopVendors2" vizProperties="{ title: {text : 'Delivery Analysis onTime', visible : true}}"
 							uiConfig="{applicationSet:'fiori'}" vizType='donut' width="270px" height="270px">
 							<viz:dataset>
@@ -105,184 +164,70 @@
 								<viz.feeds:FeedItem uid="color" type="Dimension" values="Vendor"/>
 							</viz:feeds>
 						</viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
-		</layout:Grid>
-	</layout:Grid>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</layout:fixContent>
-		<layout:flexContent  >
-			
-			 <!--<viz:Popover id="idPopOver"></viz:Popover>-->
-    <!--        <viz:VizFrame id="idVizFrameDelivery" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}"-->
-    <!--       height='100%' width="100%" vizType='stacked_column'>-->
-    <!--            <viz:dataset>-->
-    <!--                <viz.data:FlattenedDataset data="{oLeadtime>/}">-->
-    <!--                    <viz.data:dimensions>-->
-    <!--                        <viz.data:DimensionDefinition name="Date"-->
-    <!--                          value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />-->
-    <!--                    </viz.data:dimensions>-->
-    <!--                    <viz.data:measures>-->
-    <!--                        <viz.data:MeasureDefinition name="OnTime"-->
-    <!--                            value="{OnTime}" />-->
-    <!--                        <viz.data:MeasureDefinition name="Late"-->
-    <!--                            value="{Late}" />-->
-    <!--                        <viz.data:MeasureDefinition name="Cost3"-->
-    <!--                            value="{Cost3}" />-->
-    <!--                    </viz.data:measures>-->
-    <!--                </viz.data:FlattenedDataset>-->
-    <!--            </viz:dataset>-->
-
-    <!--            <viz:feeds>-->
-    <!--                <viz.feeds:FeedItem uid="valueAxis" type="Measure"-->
-    <!--                    values="Late,OnTime" />-->
-    <!--                <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"-->
-    <!--                    values="Date" />-->
-    <!--            </viz:feeds>-->
-    <!--        </viz:VizFrame>-->
-			
-			
-		
-		</layout:flexContent>
-			<layout:flexContent    >
-			
-			 <viz:Popover id="idPopOver2"></viz:Popover>
-            <viz:VizFrame id="idVizFrameMonitoring" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Monitoring Quality', visible : true}}"
-         minFlexSize="800"   height='100%' width="100%" vizType='stacked_column'>
-                <viz:dataset>
-                    <viz.data:FlattenedDataset data="{oMonitoringData>/}">
-                        <viz.data:dimensions>
-                            <viz.data:DimensionDefinition name="Date"
-                              value="{path: 'oMonitoringData>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />
-                        </viz.data:dimensions>
-                        <viz.data:measures>
-                            <viz.data:MeasureDefinition name="Return"
-                                value="{Menge}" />
-                            <viz.data:MeasureDefinition name="Reject"
-                                value="{Wemng}" />
-                            <viz.data:MeasureDefinition name="Cost3"
-                                value="{Cost3}" />
-                        </viz.data:measures>
-                    </viz.data:FlattenedDataset>
-                </viz:dataset>
-
-                <viz:feeds>
-                    <viz.feeds:FeedItem uid="valueAxis" type="Measure"
-                        values="Reject,Return" />
-                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
-                        values="Date" />
-                </viz:feeds>
-            </viz:VizFrame>
-			
-			
-		
-		</layout:flexContent>
-	</layout:FixFlex>
-	
-		
-		<!--<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout">-->
-		<!--	<f:layoutData>-->
-		<!--		<f:GridContainerItemLayoutData rows="3" columns="3"/>-->
-		<!--	</f:layoutData>-->
-		<!--	<f:content >-->
-		<!--		<layout:FixFlex id='chartTopVendors' class="dashboardDonutChart" minFlexSize="290">-->
-		<!--			<layout:flexContent>-->
-		<!--				<viz:Popover id="idPopOverTime"></viz:Popover>-->
-		<!--				<viz:VizFrame id="vfTopVendors" vizProperties="{ title: {text : 'Delivery Analysis onTime', visible : true}}"-->
-		<!--					uiConfig="{applicationSet:'fiori'}" vizType='donut' width="270px" height="270px">-->
-		<!--					<viz:dataset>-->
-		<!--						<viz.data:FlattenedDataset data="{oPieModel>/}">-->
-		<!--							<viz.data:dimensions>-->
-		<!--								<viz.data:DimensionDefinition name="Vendor" value="{Vendor}"/>-->
-		<!--							</viz.data:dimensions>-->
-		<!--							<viz.data:measures>-->
-		<!--								<viz.data:MeasureDefinition name="Revenue" value="{LateData}"/>-->
-		<!--							</viz.data:measures>-->
-		<!--						</viz.data:FlattenedDataset>-->
-		<!--					</viz:dataset>-->
-		<!--					<viz:feeds>-->
-		<!--						<viz.feeds:FeedItem uid="size" type="Measure" values="Revenue"/>-->
-		<!--						<viz.feeds:FeedItem uid="color" type="Dimension" values="Vendor"/>-->
-		<!--					</viz:feeds>-->
-		<!--				</viz:VizFrame>-->
-		<!--			</layout:flexContent>-->
-		<!--		</layout:FixFlex>-->
-		<!--	</f:content>-->
-		<!--</f:Card>-->
-	<!--	<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">-->
-	<!--	<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">-->
-	<!--		<layout:FixFlex id='chartFixFlex24' minFlexSize="500">-->
-				<!--Below is the setting panel -->
-	<!--			<layout:fixContent></layout:fixContent>-->
-	<!--			<layout:flexContent>-->
-	<!--		 <viz:Popover id="idPopOver4"></viz:Popover>-->
- <!--           <viz:VizFrame id="idVizFrameDelivery4" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}"-->
- <!--          height='100%' width="100%" vizType='stacked_column'>-->
- <!--               <viz:dataset>-->
- <!--                   <viz.data:FlattenedDataset data="{oLeadtime>/}">-->
- <!--                       <viz.data:dimensions>-->
- <!--                           <viz.data:DimensionDefinition name="Date"-->
- <!--                             value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />-->
- <!--                       </viz.data:dimensions>-->
- <!--                       <viz.data:measures>-->
- <!--                           <viz.data:MeasureDefinition name="OnTime"-->
- <!--                               value="{OnTime}" />-->
- <!--                           <viz.data:MeasureDefinition name="Late"-->
- <!--                               value="{Late}" />-->
- <!--                           <viz.data:MeasureDefinition name="Cost3"-->
- <!--                               value="{Cost3}" />-->
- <!--                       </viz.data:measures>-->
- <!--                   </viz.data:FlattenedDataset>-->
- <!--               </viz:dataset>-->
-
- <!--               <viz:feeds>-->
- <!--                   <viz.feeds:FeedItem uid="valueAxis" type="Measure"-->
- <!--                       values="Late,OnTime" />-->
- <!--                   <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"-->
- <!--                       values="Date" />-->
- <!--               </viz:feeds>-->
- <!--           </viz:VizFrame>-->
-	<!--			</layout:flexContent>-->
-	<!--		</layout:FixFlex>-->
-	<!--		<layout:FixFlex id='chartFixFlex4' minFlexSize="500">-->
-				<!--Below is the setting panel -->
-	<!--			<layout:flexContent>-->
-	<!--				<viz:Popover id="idPopOverTime2"></viz:Popover>-->
-	<!--					<viz:VizFrame id="vfTopVendors2" vizProperties="{ title: {text : 'Delivery Analysis onTime', visible : true}}"-->
-	<!--						uiConfig="{applicationSet:'fiori'}" vizType='donut' width="270px" height="270px">-->
-	<!--						<viz:dataset>-->
-	<!--							<viz.data:FlattenedDataset data="{oPieModel>/}">-->
-	<!--								<viz.data:dimensions>-->
-	<!--									<viz.data:DimensionDefinition name="Vendor" value="{Vendor}"/>-->
-	<!--								</viz.data:dimensions>-->
-	<!--								<viz.data:measures>-->
-	<!--									<viz.data:MeasureDefinition name="Revenue" value="{LateData}"/>-->
-	<!--								</viz.data:measures>-->
-	<!--							</viz.data:FlattenedDataset>-->
-	<!--						</viz:dataset>-->
-	<!--						<viz:feeds>-->
-	<!--							<viz.feeds:FeedItem uid="size" type="Measure" values="Revenue"/>-->
-	<!--							<viz.feeds:FeedItem uid="color" type="Dimension" values="Vendor"/>-->
-	<!--						</viz:feeds>-->
-	<!--					</viz:VizFrame>-->
-	<!--			</layout:flexContent>-->
-	<!--		</layout:FixFlex>-->
-	<!--	</layout:Grid>-->
-	<!--</layout:Grid>-->
-
-
-
-	<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop">
-		<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.DeliverySale" type="XML"/>
-	</VBox>
+					</l:flexContent>
+				</l:FixFlex>
+			</f:content>
+		</f:Card>
+		<f:Card class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd tileLayout">
+			<f:layoutData>
+				<f:GridContainerItemLayoutData rows="4" columns="10"/>
+			</f:layoutData>
+			<f:header></f:header>
+			<f:content>
+				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.DeliverySale" type="XML"/>
+			</f:content>
+		</f:Card>
+	</f:GridContainer>
+	<!--<viz:Popover id="idPopOver5"></viz:Popover>-->
+	<!--          <viz:VizFrame id="idVizFrameDelivery5" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Delivery Pattern', visible : true}}"-->
+	<!--         height='100%' width="100%" vizType='stacked_column'>-->
+	<!--              <viz:dataset>-->
+	<!--                  <viz.data:FlattenedDataset data="{oLeadtime>/}">-->
+	<!--                      <viz.data:dimensions>-->
+	<!--                          <viz.data:DimensionDefinition name="Date"-->
+	<!--                            value="{path: 'oLeadtime>Eindt', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />-->
+	<!--                      </viz.data:dimensions>-->
+	<!--                      <viz.data:measures>-->
+	<!--                          <viz.data:MeasureDefinition name="OnTime"-->
+	<!--                              value="{OnTime}" />-->
+	<!--                          <viz.data:MeasureDefinition name="Risk"-->
+	<!--                              value="{Late}" />-->
+	<!--                          <viz.data:MeasureDefinition name="Late"-->
+	<!--                              value="{Delinquent}" />-->
+	<!--                      </viz.data:measures>-->
+	<!--                  </viz.data:FlattenedDataset>-->
+	<!--              </viz:dataset>-->
+	<!--              <viz:feeds>-->
+	<!--                  <viz.feeds:FeedItem uid="valueAxis" type="Measure"-->
+	<!--                      values="Late,OnTime,Risk" />-->
+	<!--                  <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"-->
+	<!--                      values="Date" />-->
+	<!--              </viz:feeds>-->
+	<!--          </viz:VizFrame>-->
+	<!--<viz:Popover id="idPopOver44"></viz:Popover>-->
+	<!--          <viz:VizFrame id="idVizFrameMonitoring2" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Monitoring Quality', visible : true}}"-->
+	<!--       minFlexSize="800"   height='100%' width="100%" vizType='stacked_column'>-->
+	<!--              <viz:dataset>-->
+	<!--                  <viz.data:FlattenedDataset data="{oMonitoringData>/}">-->
+	<!--                      <viz.data:dimensions>-->
+	<!--                          <viz.data:DimensionDefinition name="Date"-->
+	<!--                            value="{path: 'oMonitoringData>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" dataType="date" />-->
+	<!--                      </viz.data:dimensions>-->
+	<!--                      <viz.data:measures>-->
+	<!--                          <viz.data:MeasureDefinition name="Return"-->
+	<!--                              value="{Menge}" />-->
+	<!--                          <viz.data:MeasureDefinition name="Reject"-->
+	<!--                              value="{Wemng}" />-->
+	<!--                          <viz.data:MeasureDefinition name="Cost3"-->
+	<!--                              value="{Cost3}" />-->
+	<!--                      </viz.data:measures>-->
+	<!--                  </viz.data:FlattenedDataset>-->
+	<!--              </viz:dataset>-->
+	<!--              <viz:feeds>-->
+	<!--                  <viz.feeds:FeedItem uid="valueAxis" type="Measure"-->
+	<!--                      values="Reject,Return" />-->
+	<!--                  <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"-->
+	<!--                      values="Date" />-->
+	<!--              </viz:feeds>-->
+	<!--          </viz:VizFrame>-->
 </mvc:View>
