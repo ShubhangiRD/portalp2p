@@ -65,9 +65,9 @@
 	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckModel>/Material}" select="onShowTable"/>
 	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Hierarchy" selected="{oCheckModel>/Hierarchy}" select="onShowTable"/>
 	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material-Group" selected="{oCheckModel>/MaterialGroup}"
-		select="onShowTableFilterColumn"/>
+		select="onShowTable"/>
 	<Button class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Filter" id="idFilterHier1" visible="false" press="onProductState"
-		select="onShowTableFilterColumn"/>
+	/>
 
 	<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
 		adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"

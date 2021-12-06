@@ -638,7 +638,7 @@ sap.ui.define([
 				var oFilter8 = new sap.ui.model.Filter('Prodh', sap.ui.model.FilterOperator.EQ, ProdHierarchy);
 			
 				oModel.read("/getBuyer_cheatsheetSet", {
-					filters: [oFilter1, oFilter2, oFilter3, oFilter4,oFilter5,oFilter6,oFilter7],
+					filters: [oFilter1, oFilter2, oFilter3, oFilter4,oFilter5,oFilter6,oFilter7,oFilter8],
 
 						success: function(oData) {
 								console.log(oData);
@@ -1453,6 +1453,9 @@ sap.ui.define([
 		
 		
 			}
+	
+			
+		
 
 
 
@@ -1466,7 +1469,6 @@ sap.ui.define([
 
 
 
-/*product hierarchy end*/
 
 
 

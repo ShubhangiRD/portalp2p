@@ -1,81 +1,36 @@
 <mvc:View controllerName="com.vSimpleApp.controller.BuyerSheet" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:form="sap.ui.layout.form" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact"
-	xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:card="sap.f.cards" xmlns:viz.data="sap.viz.ui5.data" height="100%"
+	xmlns:f="sap.ui.layout.form" xmlns:ff="sap.f" xmlns:l="sap.ui.layout" xmlns:card="sap.f.cards" xmlns:viz.data="sap.viz.ui5.data" height="100%"
 	xmlns:core="sap.ui.core">
 	<!--<Button text="Analytics" id="idanalytics" />-->
-	<layout:FixFlex id='chartFixFlexline' minFlexSize="60">
-		<layout:fixContent>
+	<!--<layout:FixFlex id='chartFixFlexline' minFlexSize="250">-->
+	<!--	<layout:fixContent>-->
 			
-			<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">
-				<content>
-					<!--<forSimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"-->
-					<!--	adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"-->
-					<!--	class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">-->
-					<!--	<forcontent>-->
-					<!--		<core:Title text=" "/>-->
-					<!--		<Label text="Material"  design="Bold" required="true"/>-->
-					<!--		<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"-->
-					<!--			value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"-->
-					<!--			suggestionItemSelected="onSuggest">-->
-					<!--			<suggestionItems>-->
-					<!--				<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>-->
-					<!--			</suggestionItems>-->
-					<!--		</Input>-->
-					<!--		<core:Title text=" "/>-->
-					<!--		<Label text="Vendor" design="Bold" ></Label>-->
-					<!--			<Input id="Lifnra" value="{oDataModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"-->
-					<!--		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"-->
-					<!--		suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">-->
-					<!--		<suggestionItems>-->
-					<!--			<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>-->
-					<!--		</suggestionItems>-->
-					<!--	</Input>-->
-					<!--		<core:Title text=" "/>-->
-					<!--			<Label text="Purchase Org" design="Bold"/>-->
-					<!--	<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}"   showSuggestion="true"-->
-					<!--		showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" -->
-					<!--		suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">-->
-					<!--		<suggestionItems>-->
-					<!--			<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>-->
-					<!--		</suggestionItems>-->
-					<!--	</Input>-->
-					<!--		<core:Title text=" "/>-->
-					<!--		<Button id="idfilter" text="Filter" width="30%" press="ongetMaterialandVendor"/>-->
-					<!--		<core:Title text=" "/>-->
-					<!--		<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>-->
-					<!--	</forcontent>-->
-					<!--</forSimpleForm>-->
-					<!--<FlexBox wrap="Wrap" fitContainer="true">-->
-					<!--	<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">-->
-					<!--		<Label text=" "/>-->
-					<!--		<Button id="idfilter" text="Filter" press="ongetMaterialandVendor"/>-->
-					<!--	</layout:VerticalLayout>-->
-					<!--	<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">-->
-					<!--		<Label text=" "/>-->
-					<!--		<Button id="iddownload" text="Download" press="onDownloadExcess"/>-->
-					<!--	</layout:VerticalLayout>-->
-					<!--	 <FlexBox wrap="wrap" fitContainer="true"> -->
-					<!--</FlexBox>-->
-					
-						
-			<FlexBox
-				height="10px"
-				alignItems="Start"
-				justifyContent="End">
-				<Button id="idfilter" text="Filter" press="ongetMaterialandVendor" class="sapUiSmallMarginBeginEnd"/>
-				<Button id="iddownload" text="Download" press="onDownloadExcess" />
-			</FlexBox>
+	<!--		<Panel id='settingsPanelline' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">-->
 
+
+	<ff:DynamicPage>
+			<ff:title>
+				<ff:DynamicPageTitle>
+					<ff:heading>
+						<Title text="BuyerCheatsheet"/>
+					</ff:heading>
+						<ff:expandedContent>
+						<Label text="Select Fields"/>
+					</ff:expandedContent>
+			<ff:actions>
+			<Button id="idfilter" text="Filter" press="ongetMaterialandVendor" class="sapUiTinyMarginBeginEnd"/>
+				<Button id="iddownload" text="Download" press="onDownloadExcess"  class="sapUiTinyMarginBeginEnd" />
+					</ff:actions>
 					
-					
-					
-					
-					
-					
-					
-					<form:SimpleForm id="idButtonForm3" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
-						labelSpanS="12" title="Select Fields" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
-						columnsL="1" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd sapUiMediumMarginBottom "
+			</ff:DynamicPageTitle>
+						</ff:title>
+					<ff:header>	
+						<ff:DynamicPageHeader>
+		
+						<form:SimpleForm id="idButtonForm3" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
+						labelSpanS="12" title="" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
+						columnsL="1" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginEnd"
 						singleContainerFullSize="false">
 						<form:content>
 									<core:Title text="" />
@@ -178,6 +133,71 @@
 						</form:content>
 						
 					</form:SimpleForm>
+						</ff:DynamicPageHeader>
+						</ff:header>
+
+
+				<ff:content>
+					<!--<forSimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"-->
+					<!--	adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"-->
+					<!--	class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">-->
+					<!--	<forcontent>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Label text="Material"  design="Bold" required="true"/>-->
+					<!--		<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"-->
+					<!--			value="{oDataModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"-->
+					<!--			suggestionItemSelected="onSuggest">-->
+					<!--			<suggestionItems>-->
+					<!--				<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>-->
+					<!--			</suggestionItems>-->
+					<!--		</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Label text="Vendor" design="Bold" ></Label>-->
+					<!--			<Input id="Lifnra" value="{oDataModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"-->
+					<!--		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"-->
+					<!--		suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">-->
+					<!--		<suggestionItems>-->
+					<!--			<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>-->
+					<!--		</suggestionItems>-->
+					<!--	</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--			<Label text="Purchase Org" design="Bold"/>-->
+					<!--	<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}"   showSuggestion="true"-->
+					<!--		showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" -->
+					<!--		suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">-->
+					<!--		<suggestionItems>-->
+					<!--			<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>-->
+					<!--		</suggestionItems>-->
+					<!--	</Input>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Button id="idfilter" text="Filter" width="30%" press="ongetMaterialandVendor"/>-->
+					<!--		<core:Title text=" "/>-->
+					<!--		<Button id="iddownload" text="Download" width="30%" press="onDownloadExcess"/>-->
+					<!--	</forcontent>-->
+					<!--</forSimpleForm>-->
+					<!--<FlexBox wrap="Wrap" fitContainer="true">-->
+					<!--	<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">-->
+					<!--		<Label text=" "/>-->
+					<!--		<Button id="idfilter" text="Filter" press="ongetMaterialandVendor"/>-->
+					<!--	</layout:VerticalLayout>-->
+					<!--	<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">-->
+					<!--		<Label text=" "/>-->
+					<!--		<Button id="iddownload" text="Download" press="onDownloadExcess"/>-->
+					<!--	</layout:VerticalLayout>-->
+					<!--	 <FlexBox wrap="wrap" fitContainer="true"> -->
+					<!--</FlexBox>-->
+					
+						
+	
+
+					
+					
+					
+					
+					
+					
+					
+				
 					<!--<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"-->
 					<!--	labelSpanS="12" title="Select Time Zone" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"-->
 					<!--	class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd sapUiMediumMarginBottom" singleContainerFullSize="false">-->
@@ -200,9 +220,9 @@
 					<!--	<Label text=" "/>-->
 					<!--	<Button id="iddownload" text="Download" press="onDownloadExcess"/>-->
 					<!--</layout:VerticalLayout>-->
-				</content>
-			</Panel>
-		</layout:fixContent>
+		
+		<!--	</Panel>-->
+		<!--</layout:fixContent>-->
 		
 		
 		
@@ -214,10 +234,10 @@
 		
 		
 		
-		<layout:flexContent>
+		<!--<layout:flexContent>-->
 			<viz:Popover id="idPopOverline"></viz:Popover>
 			<viz:VizFrame id="idVizFrameline" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Sales', visible : true}}"
-				height='100%' width="80%" vizType='column'>
+				height='100%' width="100%" vizType='column'>
 				<viz:dataset>
 					<viz.data:FlattenedDataset data="{oMonthlydataModel>/}">
 						<viz.data:dimensions>
@@ -238,62 +258,67 @@
 				<!--	<viz.feeds:FeedItem uid="valueAxis" type="Dimension" values="Date"/>-->
 				<!--</viz:feeds>-->
 			</viz:VizFrame>
-		</layout:flexContent>
-	</layout:FixFlex>
-	<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">
-		<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">
-			<layout:FixFlex id='chartFixFlex2' minFlexSize="500">
+
+					</ff:content>
+				</ff:DynamicPage>
+				
+	<!--	</layout:flexContent>-->
+	<!--</layout:FixFlex>-->
+	<!--//2 charts-->
+	<!--<layout:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL12 L12 M12 S12">-->
+	<!--	<layout:Grid containerQuery="true" vSpacing="1rem" hSpacing="0" defaultSpan="XL6 L6 M6 S6">-->
+	<!--		<layout:FixFlex id='chartFixFlex2' minFlexSize="500">-->
 				<!--Below is the setting panel -->
-				<layout:fixContent></layout:fixContent>
-				<layout:flexContent>
-					<viz:Popover id="idPopOver1"></viz:Popover>
-					<viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Stock vs Sales', visible : true}}"
-						height='100%' width="80%" vizType='combination'>
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{oStockDataModel>/}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Material" value="{Matnr}"/>
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Revenue" value="{OpenSalesOrder}"/>
-									<viz.data:MeasureDefinition name="Stock in Hand" value="{Labst}"/>
-									<viz.data:MeasureDefinition name="Cost2" value="{OpenSalesOrder}"/>
-									<viz.data:MeasureDefinition name="Cost1" value="{OpenSalesOrder}"/>
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
-						<viz:feeds>
-							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Revenue"/>
-							<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Stock in Hand"/>
-							<viz.feeds:FeedItem id="feedCategoryAxis1" uid="categoryAxis" type="Dimension" values="Material"/>
-						</viz:feeds>
-					</viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
-			<layout:FixFlex id='chartFixFlex' minFlexSize="500">
+	<!--			<layout:fixContent></layout:fixContent>-->
+	<!--			<layout:flexContent>-->
+	<!--				<viz:Popover id="idPopOver1"></viz:Popover>-->
+	<!--				<viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: {text : 'Stock vs Sales', visible : true}}"-->
+	<!--					height='100%' width="100%" vizType='combination'>-->
+	<!--					<viz:dataset>-->
+	<!--						<viz.data:FlattenedDataset data="{oStockDataModel>/}">-->
+	<!--							<viz.data:dimensions>-->
+	<!--								<viz.data:DimensionDefinition name="Material" value="{Matnr}"/>-->
+	<!--							</viz.data:dimensions>-->
+	<!--							<viz.data:measures>-->
+	<!--								<viz.data:MeasureDefinition name="Revenue" value="{OpenSalesOrder}"/>-->
+	<!--								<viz.data:MeasureDefinition name="Stock in Hand" value="{Labst}"/>-->
+	<!--								<viz.data:MeasureDefinition name="Cost2" value="{OpenSalesOrder}"/>-->
+	<!--								<viz.data:MeasureDefinition name="Cost1" value="{OpenSalesOrder}"/>-->
+	<!--							</viz.data:measures>-->
+	<!--						</viz.data:FlattenedDataset>-->
+	<!--					</viz:dataset>-->
+	<!--					<viz:feeds>-->
+	<!--						<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Revenue"/>-->
+	<!--						<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Stock in Hand"/>-->
+	<!--						<viz.feeds:FeedItem id="feedCategoryAxis1" uid="categoryAxis" type="Dimension" values="Material"/>-->
+	<!--					</viz:feeds>-->
+	<!--				</viz:VizFrame>-->
+	<!--			</layout:flexContent>-->
+	<!--		</layout:FixFlex>-->
+	<!--		<layout:FixFlex id='chartFixFlex' minFlexSize="500">-->
 				<!--Below is the setting panel -->
-				<layout:flexContent>
-					<viz:Popover id="idPopOver"></viz:Popover>
-					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
-						vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{oSaleModel>/}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>
-									<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
-						<viz:feeds>
-							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Demand"/>
-							<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Material"/>
-						</viz:feeds>
-					</viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
-		</layout:Grid>
-	</layout:Grid>
+	<!--			<layout:flexContent>-->
+	<!--				<viz:Popover id="idPopOver"></viz:Popover>-->
+	<!--				<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"-->
+	<!--					vizProperties="{ title: {text : 'ForeCast Sales for Demand', visible : true}}" height='100%' width="100%" vizType='line'>-->
+	<!--					<viz:dataset>-->
+	<!--						<viz.data:FlattenedDataset data="{oSaleModel>/}">-->
+	<!--							<viz.data:dimensions>-->
+	<!--								<viz.data:DimensionDefinition name="Material" value="{oSaleModel>Matnr}"/>-->
+	<!--							</viz.data:dimensions>-->
+	<!--							<viz.data:measures>-->
+	<!--								<viz.data:MeasureDefinition name="Demand" value="{oSaleModel>Kwmeng}"/>-->
+	<!--								<viz.data:MeasureDefinition name="Cost" value="{oSaleModel>Matnr}"/>-->
+	<!--							</viz.data:measures>-->
+	<!--						</viz.data:FlattenedDataset>-->
+	<!--					</viz:dataset>-->
+	<!--					<viz:feeds>-->
+	<!--						<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Demand"/>-->
+	<!--						<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Material"/>-->
+	<!--					</viz:feeds>-->
+	<!--				</viz:VizFrame>-->
+	<!--			</layout:flexContent>-->
+	<!--		</layout:FixFlex>-->
+	<!--	</layout:Grid>-->
+	<!--</layout:Grid>-->
 </mvc:View>

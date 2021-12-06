@@ -47,6 +47,14 @@
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
+				<Column width="8rem" hAlign="Center">
+				<m:Label text="RunRate(13 Weeks)"/>
+				<template>
+					<m:Text text="{oStockDataModel>RunRate}"/>
+				</template>
+			</Column>
+			
+			
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Stock in hand"/>
 				<template>

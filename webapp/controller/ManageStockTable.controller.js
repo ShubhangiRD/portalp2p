@@ -54,6 +54,7 @@ sap.ui.define([
 	var CompanyLevelset = [];
 	var TotalLabst = [];
 	var PoQuantity= [];
+	var Totalsaleset= [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -101,7 +102,9 @@ sap.ui.define([
 			this.getMaterialstockSet();
 			this.getPodetailsset();
 			this.getSalesOrderDetails();
+			this.getRunRate();
 			this.getStockDetailList();
+			
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -465,6 +468,20 @@ sap.ui.define([
 								}
 							}
 						}
+						
+								if (Matnr !== "" || Matnr !== undefined) {
+							for (var j = 0; j <Totalsaleset.length; j++) {
+							
+								if (Matnr === Totalsaleset[j].Matnr) {
+								var sRunRate = Totalsaleset[j].Kwmeng;
+							
+                                
+								}
+							}
+						}
+						
+						
+						
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
 						ListofSrs.push({
@@ -483,7 +500,8 @@ sap.ui.define([
 							OsalesOrder:sOpenSalesOrder,
 							OpenPODate:sOpenPoDate,
 							OpenPOQty:sOpenPoQuantity,
-							DocDate:sDocDate
+							DocDate:sDocDate,
+							RunRate:sRunRate
 						});
 					console.log(sOpenPoDate);
 
@@ -544,7 +562,9 @@ sap.ui.define([
 											Werks: Werks,
 											MultipleIt: InnerinnerChild,
 											 	OpenPOQty:sOpenPoQuantity,
-											OsalesOrder:"So"
+											OsalesOrder:"So",
+											RunRate:sRunRate
+											
 										
 											
 
@@ -603,10 +623,12 @@ sap.ui.define([
 										Werks: Werks,
 										MultipleIt: InnerinnerChild,
 									        OpenPOQty:sOpenPoQuantity,
-										OsalesOrder:"So"
+										OsalesOrder:"So",
+											RunRate:sRunRate
 
 									});
 									sOpenPoQuantity="";
+								    sRunRate="";
 
 									InnerinnerChild.push({
 										//	Bukrs: Bukrs,
@@ -3483,7 +3505,6 @@ sap.ui.define([
 
 						// 		 	}
 
-						//	console.log(oData);
 						var iItem = oData.results.length;
 						var aListofVendoritem = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -3517,7 +3538,7 @@ sap.ui.define([
 						//		console.log(result);
 						var sResultlengrh = result.length;
 
-						// console.log(result);
+						console.log(result);
 
 						var data = oData.results;
 
@@ -3604,7 +3625,69 @@ sap.ui.define([
    	  });
    	  	
    	  
-   }
+   },
+   	getRunRate:function(){
+					var oModel = this.getOwnerComponent().getModel("StockModel");
+		oModel.read("/runrateSet", {
+				success: function(oData) {
+			
+					
+					var iItem = oData.results.length;
+					var saleset = [];
+					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+					
+						var Matnr = oData.results[iRowIndex].Matnr;
+						saleset.push({
+							Matnr: Matnr
+
+						});
+					}
+					var index = {};
+
+					saleset.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+						if (key in index) {
+							index[key].count++;
+						} else {
+							var newEntry = {
+								Matnr: point.Matnr,
+								Kwmeng: "",
+								count: 1
+							};
+							index[key] = newEntry;
+							Totalsaleset.push(newEntry);
+						}
+					});
+					//	console.log(result);
+					Totalsaleset.sort(function(a, b) {
+						return b.count - a.count;
+					});
+					//		console.log(result);
+					// var TotalsalesetLength = Totalsaleset.length;
+
+                	var data = oData.results;
+
+					for (var x = 0; x < Totalsaleset.length; x++) {
+						var orderCount = 0;
+						for (var j = 0; j < data.length; j++) {
+							if (Totalsaleset[x].Matnr === data[j].Matnr) {
+								orderCount = orderCount + parseInt(data[j].Kwmeng)
+								Totalsaleset[x].Kwmeng = orderCount.toString();
+							}
+
+						}
+
+					}
+					console.log(Totalsaleset);
+
+				},
+				error: function(oError) {
+				
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+		});
+			}
    
 
 	});
