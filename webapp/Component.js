@@ -92,7 +92,8 @@ sap.ui.define([
 				SubGroupList: [],
 				CreatedBy : [],
 				MaterialGrp :[],
-				ProductHierarchy:[]
+				ProductHierarchy:[],
+				CustomerDetails:[]
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");
@@ -105,7 +106,10 @@ sap.ui.define([
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
-
+			
+		
+	var SOModel = new JSONModel([]);
+			this.setModel(SOModel,"SOModel");
 			var StockTransferModel = new sap.ui.model.json.JSONModel([]);
 			this.setModel(StockTransferModel, "StockTransferModel");
 			var oStockData = new sap.ui.model.json.JSONModel([]);
