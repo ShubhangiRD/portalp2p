@@ -37,14 +37,18 @@
 									<core:Title text="" />
 							<HBox>
 							<VBox class="sapUiLargeMarginEnd">
-								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Vendor" selected="{oCheckBox>/Vendor}" select="onShowInput"/>
-								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckBox>/Material}" select="onShowInput"/>
-								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Purchase org" selected="{oCheckBox>/Purchaseorg}" select="onShowInput"/>
+								<!--<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Vendor" selected="{oCheckBox>/Vendor}" select="onShowInput"/>-->
+								<!--<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckBox>/Material}" select="onShowInput"/>-->
+								<!--<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Purchase org" selected="{oCheckBox>/Purchaseorg}" select="onShowInput"/>-->
 				
-								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Created by" selected="{oCheckBox>/CreatedBy}" select="onShowInput"/>
-								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Product hierarchy" selected="{oCheckBox>/ProductHierarchy}"
+								<!--<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Created by" selected="{oCheckBox>/CreatedBy}" select="onShowInput"/>-->
+								<!--<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Product hierarchy" selected="{oCheckBox>/ProductHierarchy}"-->
+								<!--	select="onShowInput"/>-->
+								<!--				<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material Group" selected="{oCheckBox>/MaterialGroup}" select="onShowInput"/>-->
+								
+									<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Basic Filter" selected="{oCheckBox>/Basic}"
 									select="onShowInput"/>
-												<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material Group" selected="{oCheckBox>/MaterialGroup}" select="onShowInput"/>
+												<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Advance Filter" selected="{oCheckBox>/Advance}" select="onShowInput"/>
 							</VBox>
 						
 							<VBox>

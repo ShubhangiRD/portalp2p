@@ -1313,6 +1313,16 @@ sap.ui.define([
 								}
 							}
 						}
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var j = 0; j <Totalsaleset.length; j++) {
+							
+								if (Matnr === Totalsaleset[j].Matnr) {
+								var sRunRate = Totalsaleset[j].Kwmeng;
+							
+                                
+								}
+							}
+						}
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
 						ListofSrs.push({
@@ -1331,7 +1341,8 @@ sap.ui.define([
 							OsalesOrder:sOpenSalesOrder,
 							OpenPODate:sOpenPoDate,
 							OpenPOQty:sOpenPoQuantity,
-							DocDate:sDocDate
+							DocDate:sDocDate,
+							RunRate:sRunRate
 						});
 					console.log(sOpenPoDate);
 
@@ -1392,7 +1403,8 @@ sap.ui.define([
 											Werks: Werks,
 											MultipleIt: InnerinnerChild,
 											 	OpenPOQty:sOpenPoQuantity,
-											OsalesOrder:"So"
+											OsalesOrder:"So",
+											RunRate:sRunRate
 										
 											
 
@@ -1451,10 +1463,12 @@ sap.ui.define([
 										Werks: Werks,
 										MultipleIt: InnerinnerChild,
 									        OpenPOQty:sOpenPoQuantity,
-										OsalesOrder:"So"
+										OsalesOrder:"So",
+										RunRate:sRunRate
 
 									});
 									sOpenPoQuantity="";
+										sRunRate="";
 
 									InnerinnerChild.push({
 										//	Bukrs: Bukrs,

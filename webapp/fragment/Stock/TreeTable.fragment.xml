@@ -47,7 +47,7 @@
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-				<Column width="8rem" hAlign="Center">
+				<Column width="9rem" hAlign="Center">
 				<m:Label text="RunRate(13 Weeks)"/>
 				<template>
 					<m:Text text="{oStockDataModel>RunRate}"/>
