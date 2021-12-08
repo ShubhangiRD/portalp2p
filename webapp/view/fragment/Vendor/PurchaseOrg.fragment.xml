@@ -1,11 +1,9 @@
-
-
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Purchase Organization List"
-		class="sapUiPopupWithPadding"
+		class="sapUiPopupWithPadding sapUiSizeCompact fragmentHeading"
 		items="{Lookup>/PurchaseOrganization}"
 		search="_handlePOrganiVendorSearch"
 		confirm="_handlePOrganiVendorClose"

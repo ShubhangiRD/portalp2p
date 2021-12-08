@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Product Hierarchy"
-		class="sapUiPopupWithPadding"
+		class="sapUiPopupWithPadding sapUiSizeCompact fragmentHeading"
 		items="{Lookup>/ProductHierarchy}"
 		search="_handleProductHierarchySearch"
 		confirm="_handleProductHierarchyClose"

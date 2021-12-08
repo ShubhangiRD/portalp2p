@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Created By"
-		class="sapUiPopupWithPadding"
+	class="sapUiPopupWithPadding sapUiSizeCompact fragmentHeading"
 		items="{Lookup>/CreatedBy}"
 		search="_handleCreatedBySearch"
 		confirm="_handleCreatedByClose"

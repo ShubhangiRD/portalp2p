@@ -558,12 +558,11 @@ sap.ui.define([
 			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, EndDate);
 			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
 			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-			oModel.read("/StockvsSales2Set?$filter=(Erdat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 + "'and Matnr eq '" +
-				oFilter2 + "')", {
+			oModel.read("/StockvsSales2Set", {
 					filters: [oFilter1, oFilter2, oFilter3],
 
 					success: function(oData) {
-						//	console.log(succ);
+							console.log(oData);
 						oView.getModel("oMonthlydataModel").setData(oData.results);
 
 					},
@@ -615,7 +614,7 @@ sap.ui.define([
 			var oFilter7 = new sap.ui.model.Filter('Ernam', sap.ui.model.FilterOperator.EQ, CreatedBy);
 			var oFilter8 = new sap.ui.model.Filter('Prodh', sap.ui.model.FilterOperator.EQ, ProdHierarchy);
 
-			if (PurchaseOrg !== undefined) {
+			if (PurchaseOrg === undefined) {
 				//	var oVendor = "DE-V0001";
 				// if (oVendor !== "" || oVendor !== undefined) {
 				// 	//	var oVendor = "DE-V0001";
@@ -635,8 +634,49 @@ sap.ui.define([
 
 				// getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'2019-03-04T8:38:23' and Erdat2 eq datetime'2021-11-19T8:38:23' and Matnr eq '000000000050065555' and Lifnr eq 'DE-V0001')
 				// 
+                 	oModel.read("/getBuyer_cheatsheetSet", {
+					// oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 +
+					// 	"'and Matnr eq '" + oFilter3 + "'and Lifnr eq'"+ oFilter4 +"')", {
+					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
 
-				oModel.read("/getBuyer_cheatsheetSet", {
+					success: function(oData) {
+						var item = oData.results.length;
+						var odata = oData.results;
+
+						//	console.log(succ);
+						// oView.getModel("oMonthlydataModel").setData(oData.results);
+
+						if (Material !== "" || Material !== undefined) {
+							for (var x = 0; x < SalesOrder.length; x++) {
+								if (Material === SalesOrder[x].Matnr) {
+									var Vbeln = SalesOrder[x].Vbeln;
+									var Posnr = SalesOrder[x].Posnr;
+									var Prodh = SalesOrder[x].Prodh;
+									var SalesOrderQuant = SalesOrder[x].Lsmeng;
+
+								}
+							}
+						}
+
+						for (var itex = 0; itex < item; itex++) {
+							odata[itex].Vbeln = Vbeln;
+							odata[itex].Posnr = Posnr;
+							odata[itex].Prodh = Prodh;
+							odata[itex].SalesOrderQuant = SalesOrderQuant;
+
+						}
+								oView.getModel("oMonthlydataModel").setData(oData.results);
+
+					},
+					error: function(err) {
+
+					}
+
+				});
+				
+
+			} else {
+oModel.read("/getBuyer_cheatsheetSet", {
 					filters: [oFilter1, oFilter2, oFilter3, oFilter4, oFilter5, oFilter6, oFilter7, oFilter8],
 					// oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime2021-11-19T8:38:23 and Erdat2 eq datetime2021-11-22T8:38:23 and Matnr eq 000000000050065555 and Lifnr eq V400031543 and Ekorg eq 0001 and Matkl eq FIOMRP1 and Ernam eq BKALYANI and Prodh eq 001700010000000110)",{
 
@@ -675,47 +715,7 @@ sap.ui.define([
 					}
 
 				});
-
-			} else {
-
-				oModel.read("/getBuyer_cheatsheetSet", {
-					// oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 +
-					// 	"'and Matnr eq '" + oFilter3 + "'and Lifnr eq'"+ oFilter4 +"')", {
-					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
-
-					success: function(oData) {
-						var item = oData.results.length;
-						var odata = oData.results;
-
-						//	console.log(succ);
-						// oView.getModel("oMonthlydataModel").setData(oData.results);
-
-						if (Material !== "" || Material !== undefined) {
-							for (var x = 0; x < SalesOrder.length; x++) {
-								if (Material === SalesOrder[x].Matnr) {
-									var Vbeln = SalesOrder[x].Vbeln;
-									var Posnr = SalesOrder[x].Posnr;
-									var Prodh = SalesOrder[x].Prodh;
-									var SalesOrderQuant = SalesOrder[x].Lsmeng;
-
-								}
-							}
-						}
-
-						for (var itex = 0; itex < item; itex++) {
-							odata[itex].Vbeln = Vbeln;
-							odata[itex].Posnr = Posnr;
-							odata[itex].Prodh = Prodh;
-							odata[itex].SalesOrderQuant = SalesOrderQuant;
-
-						}
-
-					},
-					error: function(err) {
-
-					}
-
-				});
+			
 			}
 
 		},
@@ -890,6 +890,14 @@ sap.ui.define([
 				property: 'Bedat'
 
 			});
+			
+					aCols.push({
+				label: 'Purchase Org',
+
+				property: 'Ekorg'
+
+			});
+			
 			aCols.push({
 				label: 'GR Delivered Date',
 
@@ -926,6 +934,17 @@ sap.ui.define([
 			aCols.push({
 				label: 'Sales Document Item',
 				property: 'Posnr'
+
+			});
+					aCols.push({
+				label: 'Created By',
+				property: 'Ernam'
+
+			});
+			
+				aCols.push({
+				label: 'Material Group',
+				property: 'Matkl'
 
 			});
 
@@ -1377,25 +1396,7 @@ sap.ui.define([
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
-		// 	var oCheckBox = new JSONModel({
-		// 		Material: false,
-		// 		Vendor: false,
-		// 		Purchaseorg: false,
-		// 		MaterialGroup: false,
-		// 		ProductHierarchy : false,
-		// 		CreatedBy: false
-		// 	});
-		// oView.setModel(oCheckBox,"oCheckBox");
 
-		// 		var oVisibleModel = new JSONModel({
-		//         isVisibleMat: false,
-		//         isVisibleVen: false,
-		//         isVisibleMatGrp: false,
-		//         isVisiblePurOrg: false,
-		//         isVisibleCBy: false,
-		//         isVisibleProdH: false
-
-		// 	});
 		onShowInput: function(oEvent) {
 			var VisModel = oView.getModel("VisibleModel");
 			var ocheckModel = oView.getModel("oCheckBox");
@@ -1478,17 +1479,7 @@ sap.ui.define([
 
 			}
 			
-			// if (!selected) {
 
-			// 	VisModel.setProperty("/isVisiblePurOrg", false);
-			// 	VisModel.setProperty("/isVisibleMatGrp", false);
-			// 	VisModel.setProperty("/isVisibleCBy", false);
-			// 	VisModel.setProperty("/isVisibleProdH", false);
-			// 		VisModel.setProperty("/isVisibleMat", false);
-			// 	VisModel.setProperty("/isVisibleVen", false);
-
-
-			// }
 
 		}
 

@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Material Group"
-		class="sapUiPopupWithPadding"
+	class="sapUiPopupWithPadding sapUiSizeCompact fragmentHeading"
 		items="{Lookup>/MaterialGrp}"
 		search="_handleMatGrpSearch"
 		confirm="_handleMatGrpClose"

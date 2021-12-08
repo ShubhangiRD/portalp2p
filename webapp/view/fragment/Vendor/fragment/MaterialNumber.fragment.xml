@@ -3,7 +3,8 @@
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Material List"
-		class="sapUiPopupWithPadding"
+	
+		class="sapUiPopupWithPadding sapUiSizeCompact fragmentHeading"
 		items="{Lookup>/MaterialList}"
 		search="_handlePOMaterialSearch"
 		confirm="_handlePOMaterialClose"
