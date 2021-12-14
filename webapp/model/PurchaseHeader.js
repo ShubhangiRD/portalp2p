@@ -86,8 +86,7 @@ sap.ui.define([
 			this.PoCondSet = (oData && oData.PoCondSet) ? oData.PoCondSet : [];
 			this.PoScheduleSet = (oData && oData.PoScheduleSet) ? oData.PoScheduleSet : [];
 			this.ParterDetails = (oData && oData) ? oData : [];
-			
-			
+
 			this.Matnr = (oData && oData.Matnr) ? oData.Matnr : "";
 			this.Werks = (oData && oData.Werks) ? oData.Werks : "";
 			this.Description = (oData && oData.Description) ? oData.Description : "";
@@ -130,12 +129,12 @@ sap.ui.define([
 				Langu: "E",
 				LanguIso: "EN",
 				Pmnttrms: this.Pmnttrms,
-			/*	Dscnt1To: this.Dscnt1To,
-				Dscnt2To: this.Dscnt2To,
-				Dscnt3To: this.Dscnt3To,
-				DsctPct1: this.DsctPct1,
-				DsctPct2: this.DsctPct2,*/
-					Dscnt1To: "0",
+				/*	Dscnt1To: this.Dscnt1To,
+					Dscnt2To: this.Dscnt2To,
+					Dscnt3To: this.Dscnt3To,
+					DsctPct1: this.DsctPct1,
+					DsctPct2: this.DsctPct2,*/
+				Dscnt1To: "0",
 				Dscnt2To: "0",
 				Dscnt3To: "0",
 				DsctPct1: "0.000",
@@ -399,7 +398,7 @@ sap.ui.define([
 				DelivCompl: "",
 				Distrib: "",
 				DownpayType: "",
-				Ematerial: 	this.Matnr ,
+				Ematerial: this.Matnr,
 				EmaterialExternal: "",
 				EmaterialGuid: "",
 				EmaterialVersion: "",
@@ -439,7 +438,7 @@ sap.ui.define([
 				LongItemNumber: "",
 				ManualTcReason: "",
 				MatOrigin: "",
-				Material:	this.Matnr ,
+				Material: this.Matnr,
 				MaterialExternal: "",
 				MaterialGuid: "",
 				MaterialVersion: "",
@@ -486,7 +485,7 @@ sap.ui.define([
 				ShipBlocked: "",
 				Shipping: "",
 				Shiptype: "",
-				ShortText: this.Description ,
+				ShortText: this.Description,
 				SiCat: "",
 				SpeCrmFkrel: "",
 				SrcStockType: "",
@@ -512,7 +511,6 @@ sap.ui.define([
 				Weightunit: "KG",
 				WeightunitIso: "KGM",
 
-					
 			};
 		},
 
@@ -603,6 +601,100 @@ sap.ui.define([
 				PoScheduleSet: PoScheduleSet,
 				PoCondSet: PoCondSet,
 				PoitemSet: PoitemSet
+
+			};
+
+		},
+
+		getStockTransferPayload: function() {
+
+			var PoitemSet = [];
+
+			this.PoitemSet.forEach(function(item) {
+				var sPo = new RebateConditionItemPO(item);
+				PoitemSet.push(sPo.getRequestItems());
+				//	PoitemSet.push(item);
+
+			});
+
+			return {
+				Purchaseorder: "",
+				PoNumber: "",
+				CompCode: this.CompCode,
+				DocType: this.DocType,
+				DeleteInd: "",
+				Status: "9",
+				CreatDate: this.CreatDate,
+				CreatedBy: this.CreatedBy,
+				ItemIntvl: this.ItemIntvl,
+				Vendor: "",
+				Langu: "E",
+				LanguIso: "EN",
+				Pmnttrms: "NT30",
+
+				Dscnt1To: "30",
+				Dscnt2To: "0",
+				Dscnt3To: "0",
+				DsctPct1: "0.000",
+				DsctPct2: "0.000",
+				PurchOrg: this.PurchOrg,
+				PurGroup: this.PurGroup,
+				Currency: "EUR",
+				CurrencyIso: "EUR",
+
+				ExRateFx: "",
+				DocDate: this.DocDate,
+				//	VperStart: this.VperStart,
+			//	VperEnd: null,
+			//	Warranty: null,
+				Quotation: "",
+			//	QuotDate: null,
+				Ref1: "",
+				SalesPers: "",
+				Telephone: "",
+				SupplVend: "",
+				Customer: "",
+				Agreement: "",
+				GrMessage: "",
+				SupplPlnt: this.SupplPlnt,
+				Incoterms1: "",
+				Incoterms2: "",
+				CollectNo: "",
+				DiffInv: "",
+				OurRef: "",
+				Logsystem: "",
+				Subitemint: this.Subitemint,
+				PoRelInd: "",
+				RelStatus: "",
+				VatCntry: "DE",
+				VatCntryIso: "DE",
+				ReasonCancel: "00",
+				ReasonCode: "",
+				RetentionType: "",
+				RetentionPercentage: "0.00",
+				DownpayType: "",
+				//	DownpayAmount: this.DownpayAmount,
+				//	DownpayPercent: this.DownpayPercent,
+				//	DownpayDuedate: this.DownpayDuedate,
+
+				Memory: "",
+				Memorytype: this.Memorytype,
+				Shiptype: this.Shiptype,
+				Handoverloc: this.Handoverloc,
+				Shipcond: this.Shipcond,
+				Testrun: "",
+
+				PoitemSet: {
+					PoItem: "00010",
+					DeleteInd: "",
+					ShortText: "Dell Monitor 13",
+					Material: "50065561",
+					Ematerial: "50065561",
+					Plant: "0002", //imp / necessary for STO (receiving plant)
+					StgeLoc: "0001",
+					Quantity: "10",
+					ItemCat: "U"
+				}
 
 			};
 

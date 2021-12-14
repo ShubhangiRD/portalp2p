@@ -100,7 +100,7 @@ sap.ui.define([
 			this.setModel(oLookupModel, "Lookup");
 
 			var oPurchaseData = {
-				StockContract: new StockContract(),
+			//	StockContract: new StockContract(),
 				//	ContractList: new POrdersList()
 				TempContract: new PurchaseHeader()
 

@@ -3624,7 +3624,8 @@ var ChildarrIndex = [];
 										
 			}
 		console.log(StockTransfer);
-	var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
+var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
+	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet", StockTransfer);
 					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 											oRouter.navTo('StockTransfer');
 											

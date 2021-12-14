@@ -58,6 +58,88 @@ sap.ui.define([
 			oRouter.navTo("ManageStockTable");
 
 		},
+		
+		
+		/*Document type*/
+			getdocumenttypeSet : function(){
+					var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			BusyIndicator.show(true);
+			oModel.read("/getdocumenttypeSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					sCustomer = oData.results;
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+				oLookupModel.setProperty("/documentType", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+		
+	handleDoctypevalue: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			sap.ui.getCore().inputIddoct = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpdoctype) {
+				this._valueHelpdoctype = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.DoctType",
+					this
+				);
+				this.getView().addDependent(this._valueHelpdoctype);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpdoctype.getBinding("items").filter(new Filter([new Filter(
+				"Auart",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Auart",
+				FilterOperator.Contains, sInputValue
+			)]));
+this.getdocumenttypeSet();
+			// open value help dialog filtered by the input value
+			this._valueHelpdoctype.open(sInputValue);
+		}, 
+		_handleDoctypeSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Auart",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Auart",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handleDoctypeClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIddoct),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+					var div = oSelectedItem.getDescription();
+					
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+	
+	
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+/*Document type end*/		
+		
 		/*Material Number Search start*/
 		getMaterialList: function() {
 			var that = this;
@@ -343,6 +425,86 @@ sap.ui.define([
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
+	
+			onSavePurchaseOrder: function(evt) {
+					MessageToast.show("Save PO");
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
+			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
+			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
+
+			//method for creating the prod
+			BusyIndicator.show(true);
+			//delete oRequestPayload.Vendor;
+			var vln = oRequestPayload.PoitemSet.length;
+			for (var vlen = 0; vlen < vln; vlen++) {
+				delete oRequestPayload.PoitemSet[vlen].Vendor;
+			}
+			oModel.create("/PoDisplaySet", oRequestPayload, {
+				success: this._onCreateEntrySuccess.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+
+			oPurchaseModel.refresh(true);
+
+		},
+		_onCreateEntrySuccess: function(oObject, oResponse) {
+			BusyIndicator.hide();
+			var successObj = oResponse.data.Purchaseorder;
+
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var oTempContract = oPurchaseModel.getProperty("/TempContract");
+			oTempContract.setData();
+			var s = oPurchaseModel.oData.TempContract.destroy;
+			var aaa = oPurchaseModel.oData.TempContract.setData([]);
+			//	s.refresh(true);
+
+			oView.byId("VendorName").setValue(" ");
+
+			var idq = "__xmlview1--nDescription-__clone1";
+			$("#" + idq + "-inner").val(" ");
+
+			var idqq = "__xmlview1--uom1-__clone3";
+			$("#" + idqq + "-inner").val(" ");
+
+			var idqa = "__xmlview1--Price-__clone5";
+			$("#" + idqa + "-inner").val(" ");
+
+			oPurchaseModel.refresh(true);
+			this.getView().getModel("VHeader").refresh();
+
+			sap.m.MessageBox.show("Standard PO created under the number  #" + successObj + " ", {
+				icon: sap.m.MessageBox.Icon.INFORMATION,
+
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
+				onClose: function(oAction) {
+					if (oAction === "OK") {
+
+						BusyIndicator.hide();
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+						oRouter.navTo('PoHeaderList');
+					}
+				}.bind(this)
+			});
+
+		},
+		_onCreateEntryError: function(oError) {
+			BusyIndicator.hide();
+			var x = JSON.parse(oError.responseText);
+			var err = x.error.message.value;
+
+			jQuery.sap.require("sap.m.MessageBox");
+
+			sap.m.MessageBox.error(
+				"Error creating entry: " + err + " "
+			);
+
+		},
+		onCancelPRess : function(evt){
+			
+		}
 		/*plant search end*/
 
 		/**

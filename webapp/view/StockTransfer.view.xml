@@ -1,18 +1,17 @@
 <mvc:View controllerName="com.vSimpleApp.controller.StockTransfer" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m"
 	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
-	
-		<m:Page showNavButton="true" navButtonPress="onBackStock">
+	<m:Page showNavButton="true" navButtonPress="onBackStock">
 		<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" preserveHeaderStateOnScroll="true">
 			<headerTitle>
 				<ObjectPageDynamicHeaderTitle>
 					<expandedHeading>
-						<m:Title text="Purchase Details" wrapping="true"/>
+						<m:Title text="PO Creation" wrapping="true"/>
 					</expandedHeading>
 					<snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center">
 							<m:Avatar src="sap-icon://picture" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Purchase Details" wrapping="true"/>
+							<m:Title text="PO Creation" wrapping="true"/>
 						</m:FlexBox>
 					</snappedHeading>
 					<actions>
@@ -22,63 +21,87 @@
 				</ObjectPageDynamicHeaderTitle>
 			</headerTitle>
 			<headerContent>
-				<m:FlexBox wrap="Wrap" fitContainer="true">
-					<!--	<m:Avatar src="sap-icon://picture" displaySize="L" class="sapUiTinyMarginEnd"/>
-		-->
-					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Vendor : " required="true"/>
-						<m:Input id="Vendor" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true" showValueHelp="true"
-							value="{PurchaseModel>/TempContract/Vendor}" valueHelpRequest="handleVendorValuehelp"
-							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="suggestionVebor">
+				<form:SimpleForm id="FormHeaderContent1" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+					<form:content>
+						<m:Label text="Supplying Plant"/>
+						<!--<m:Input id="idPD" textFormatMode="KeyValue" placeholder="Purchase Document" showSuggestion="true" showValueHelp="true" valueHelpOnly="true"-->
+						<!--	width="100%" valueHelpRequest="handlePursOrderValueHelp" suggestionItems="{ path: 'Lookup>/PoDocumentNumber'}"-->
+						<!--	suggestionItemSelected="suggestionItemSelectedPOrder" liveChange="numValidate">-->
+						<!--	<m:suggestionItems>-->
+						<!--		<core:ListItem key="{Lookup>Ebeln}" text="{Lookup>Lifnr}" additionalText="{Lookup>Ebeln}"/>-->
+						<!--	</m:suggestionItems>-->
+						<!--</m:Input>-->
+						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true" width="70%"
+						value="{PurchaseModel>/TempContract/Plant}"	showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
+							suggestionItemSelected="onSuggest" liveChange="Validate">
 							<m:suggestionItems>
-								<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
+								<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 							</m:suggestionItems>
 						</m:Input>
-						<m:Label text="Purchase Org :" required="true"/>
-						<m:Input id="PurchOrg" textFormatMode="KeyValue" placeholder=" Purchase Org .." showSuggestion="true"
-							value="{PurchaseModel>/TempContract/PurchOrg}" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
-							suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
-							<m:suggestionItems>
-								<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
-							</m:suggestionItems>
-						</m:Input>
-						<l:HorizontalLayout class="sapUiSmallMarginEnd"></l:HorizontalLayout >
-					</l:VerticalLayout>
-					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text=" Vendor Name"/>
-						<m:Input type="Text" id="VendorName" editable="false"></m:Input>
-						<m:Label text="Purchase Group:"/>
-						<m:Input id="PurGroup" textFormatMode="KeyValue" placeholder="Purchase Group ..." showSuggestion="true"
-							value="{PurchaseModel>/TempContract/PurGroup}" editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
-							suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggest">
-							<m:suggestionItems>
-								<core:ListItem key="{Lookup>Ekgrp}" text="{Lookup>Eknam}" additionalText="{Lookup>Ekgrp}"/>
-							</m:suggestionItems>
-						</m:Input>
-					</l:VerticalLayout>
-					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Company Code:" required="true"/>
-						<m:Input id="CompCode" textFormatMode="KeyValue" placeholder="Company Code ..." showSuggestion="true"
-							value="{PurchaseModel>/TempContract/CompCode}" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
-							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
-							<m:suggestionItems>
-								<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>
-							</m:suggestionItems>
-						</m:Input>
-						<m:VBox>
-							<m:Label text="Currency:" required="true"/>
-							<m:Input type="Text" id="Currency" value="{PurchaseModel>/TempContract/Currency}" editable="true"></m:Input>
-						</m:VBox>
-					</l:VerticalLayout>
-					<!-- <m:FlexBox wrap="wrap" fitContainer="true"> -->
-				</m:FlexBox>
+					</form:content>
+				</form:SimpleForm>
+				<form:SimpleForm id="FormHeaderContent2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="12"
+					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+					<form:content>
+						<!--<m:Label text="Vendor "/>-->
+						<!--<m:Text id="idVendorr" text="{PurchaseModel>/TempContract/Vendor}: {AllDataModel>/VendorName} "/>-->
+						<!--<m:Label text="Purchasing Document "/>-->
+						<!--<m:Text text="{PurchaseModel>/TempContract/PoNumber}"/>-->
+					
+					</form:content>
+				</form:SimpleForm>
 			</headerContent>
+		
 			<sections>
 				<!--Tabs-->
 				<ObjectPageSection titleUppercase="false" id="orgD" title="Org Data">
 					<subSections>
 						<ObjectPageSubSection titleUppercase="false">
-							<blocks></blocks>
+							<blocks>
+								<form:SimpleForm id="FormLumpSum" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+									labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
+									<form:content>
+										<core:Title text=""/>
+										<m:Label text="Purchase Org " required="true"/>
+										<m:Input id="PurchOrg" textFormatMode="KeyValue" placeholder=" Purchase Org .." showSuggestion="true"
+											value="{PurchaseModel>/TempContract/PurchOrg}" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
+											suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
+											<m:suggestionItems>
+												<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
+											</m:suggestionItems>
+										</m:Input>
+										<m:Label text="Purchase Group"/>
+										<m:Input id="PurGroup" textFormatMode="KeyValue" placeholder="Purchase Group ..." showSuggestion="true"
+											value="{PurchaseModel>/TempContract/PurGroup}" editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
+											suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggest">
+											<m:suggestionItems>
+												<core:ListItem key="{Lookup>Ekgrp}" text="{Lookup>Eknam}" additionalText="{Lookup>Ekgrp}"/>
+											</m:suggestionItems>
+										</m:Input>
+										<m:Label text="Company Code" required="true"/>
+										<m:Input id="CompCode" textFormatMode="KeyValue" placeholder="Company Code ..." showSuggestion="true"
+											value="{PurchaseModel>/TempContract/CompCode}" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
+											suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
+											<m:suggestionItems>
+												<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>
+											</m:suggestionItems>
+										</m:Input>
+										
+										
+											<m:Label text="Document Type" required="true"/>
+										<m:Input id="iddoctype" textFormatMode="KeyValue" placeholder="Document Type..." showSuggestion="true"
+											value="{PurchaseModel>/TempContract/DocumentType}" showValueHelp="true" valueHelpRequest="handleDoctypevalue"
+											suggestionItems="{ path: 'Lookup>/documentType' }" suggestionItemSelected="onSuggest">
+											<m:suggestionItems>
+												<core:ListItem key="{Lookup>Auart}" text="{Lookup>Auart}" additionalText="{Lookup>Auart}"/>
+											</m:suggestionItems>
+										</m:Input>
+										
+										
+									</form:content>
+								</form:SimpleForm>
+							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
 				</ObjectPageSection>
@@ -86,17 +109,16 @@
 					<subSections>
 						<ObjectPageSubSection titleUppercase="false">
 							<blocks>
-								<t:Table id="idTableitem" class="sapUiMediumMarginTop" rows="{PurchaseModel>/TempContract/PoitemSet}" visibleRowCount="5"
+								<t:Table id="idTableitem" rows="{PurchaseModel>/TempContract/PoitemSet}" visibleRowCount="5"
 									selectionMode="MultiToggle">
 									<t:extension>
 										<m:OverflowToolbar >
 											<m:Title id="title" text="PO Items"/>
 											<m:ToolbarSpacer/>
-												<m:Button icon="sap-icon://display" text="Retrieve Data" type="Transparent" tooltip="Retrieve Data" press="onAddConditions"/>
-										
-											<m:Button icon="sap-icon://add" type="Transparent" tooltip="Add Row" press="onAddNewConditionItem"/>
-											<m:Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
-												tooltip="Delete Row" press="onDeleteConditionItem"/>
+											<!--<m:Button icon="sap-icon://display" text="Retrieve Data" type="Transparent" tooltip="Retrieve Data" press="onAddConditions"/>-->
+											<!--<m:Button icon="sap-icon://add" type="Transparent" tooltip="Add Row" press="onAddNewConditionItem"/>-->
+											<!--<m:Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"-->
+											<!--	tooltip="Delete Row" press="onDeleteConditionItem"/>-->
 										</m:OverflowToolbar>
 									</t:extension>
 									<t:columns>
@@ -153,10 +175,9 @@
 											<t:template>
 												<!--    <m:Input id="NetPrice" editable="{EditModel>/isEditable}" value="{PurchaseModel>NetPrice}" class="price1"/>
                -->
-											<m:Input id="NetPrice" editable="{EditModel>/isEditable}" class="price1"
+												<m:Input id="NetPrice" editable="{EditModel>/isEditable}" class="price1"
 													value="{ path: 'PurchaseModel>NetPrice', type: 'sap.ui.model.type.Float', formatOptions: { maxIntegerDigits: 18, maxFractionDigits: 2, minFractionDigits: 2, parseAsString: true } }"/>
-								
-										</t:template>
+											</t:template>
 										</t:Column>
 										<t:Column width="9rem" hAlign="Center">
 											<m:Label text="Status"/>
@@ -443,67 +464,65 @@
 						</ObjectPageSubSection>
 					</subSections>
 				</ObjectPageSection>
-				<ObjectPageSection titleUppercase="false" title="Item Details">
-					<subSections>
-						<ObjectPageSubSection titleUppercase="false">
-							<blocks>
-								<m:Select id="matlist" width="70%" change="onSelectMaterial" class="sapUiTinyMarginTop"
-									items="{ path: 'PurchaseModel>/TempContract/PoitemSet'}">
-									<m:items>
-										<core:Item text="{PurchaseModel>Material}" key="{PurchaseModel>Material} "/>
-									</m:items>
-								</m:Select>
-							</blocks>
-						</ObjectPageSubSection>
-						<ObjectPageSubSection titleUppercase="false">
-							<blocks>
-								<m:IconTabBar id="idIconTabPO">
-									<m:items>
-										<m:IconTabFilter text="Material Data">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.MaterialData" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Quantities">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Quantities" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Delivery Schedule">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.DeliverySchedule" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Delivery">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Delivery" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Invoice">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Invoice" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Conditions">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Conditions" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Delivery Address">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.DeliveryAddress" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Confirmation">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Confirmation" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Condition Control">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.ConditionControl" type="XML"/>
-										</m:IconTabFilter>
-										<m:IconTabFilter text="Retails">
-											<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Retails" type="XML"/>
-										</m:IconTabFilter>
-									</m:items>
-								</m:IconTabBar>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
+				<!--<ObjectPageSection titleUppercase="false" title="Item Details">-->
+				<!--	<subSections>-->
+				<!--		<ObjectPageSubSection titleUppercase="false">-->
+				<!--			<blocks>-->
+				<!--				<m:Select id="matlist" width="70%" change="onSelectMaterial" class="sapUiTinyMarginTop"-->
+				<!--					items="{ path: 'PurchaseModel>/TempContract/PoitemSet'}">-->
+				<!--					<m:items>-->
+				<!--						<core:Item text="{PurchaseModel>Material}" key="{PurchaseModel>Material} "/>-->
+				<!--					</m:items>-->
+				<!--				</m:Select>-->
+				<!--			</blocks>-->
+				<!--		</ObjectPageSubSection>-->
+				<!--		<ObjectPageSubSection titleUppercase="false">-->
+				<!--			<blocks>-->
+				<!--				<m:IconTabBar id="idIconTabPO">-->
+				<!--					<m:items>-->
+				<!--						<m:IconTabFilter text="Material Data">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.MaterialData" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Quantities">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Quantities" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Delivery Schedule">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.DeliverySchedule" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Delivery">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Delivery" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Invoice">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Invoice" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Conditions">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Conditions" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Delivery Address">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.DeliveryAddress" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Confirmation">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Confirmation" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Condition Control">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.ConditionControl" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--						<m:IconTabFilter text="Retails">-->
+				<!--							<core:Fragment fragmentName="com.vSimpleApp.view.PurchaseOrderFragment.Retails" type="XML"/>-->
+				<!--						</m:IconTabFilter>-->
+				<!--					</m:items>-->
+				<!--				</m:IconTabBar>-->
+				<!--			</blocks>-->
+				<!--		</ObjectPageSubSection>-->
+				<!--	</subSections>-->
+				<!--</ObjectPageSection>-->
 			</sections>
 		</ObjectPageLayout>
 	</m:Page>
-	
 	<!--<m:Page showNavButton="true" navButtonPress="onBackStock">-->
 	<!--	<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"-->
 	<!--		preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">-->
 	<!--		<headerTitle>-->
-			
 	<!--			<ObjectPageDynamicHeaderTitle >-->
 	<!--				<expandedHeading>-->
 	<!--					<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>-->
@@ -521,10 +540,8 @@
 	<!--					</m:FlexBox>-->
 	<!--				</snappedHeading>-->
 	<!--				<expandedContent>-->
-				
 	<!--				</expandedContent>-->
 	<!--				<snappedContent>-->
-					
 	<!--				</snappedContent>-->
 	<!--				<actions>-->
 	<!--					<ObjectPageHeaderActionButton text="Cancel" type="Transparent" hideText="false" press="onStockCancel"/>-->

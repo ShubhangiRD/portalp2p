@@ -875,6 +875,19 @@ sap.ui.define([
 
 			};
 		},
+		getSOPOItem : function(){
+			return{
+	PoItem : "00010",
+      DeleteInd : "",
+      ShortText : "Dell Monitor 13",
+      Material : "50065561",
+      Ematerial : "50065561",
+      Plant : "0002", //imp / necessary for STO (receiving plant)
+      StgeLoc : "0001",
+      Quantity : "10",
+      ItemCat : "U"
+			};
+		},
 		getInstance: function() {
 			if (!instance) {
 				// create new instance of ODataUtility Object
