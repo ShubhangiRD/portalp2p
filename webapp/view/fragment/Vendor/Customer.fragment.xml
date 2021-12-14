@@ -1,6 +1,7 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
-	xmlns:core="sap.ui.core">
+	xmlns:core="sap.ui.core" 
+		xmlns:l="sap.ui.layout">
 	<SelectDialog
 		title="Customer List"
 		class="sapUiPopupWithPadding"
@@ -10,6 +11,30 @@
 		cancel="_handleCustomerClose">
 		<StandardListItem
 			title="{Lookup>Kunnr}"
-			info="{Lookup>Name1}" />
+			info="{Lookup>Name1}" 
+			/>
 	</SelectDialog>
+	
+	<!--<SelectDialog-->
+	<!--	description="{Lookup>Vtweg}"-->
+	<!--	growing="true"-->
+	<!--	growingThreshold="10"-->
+	<!--	growingDirection="Upwards"-->
+	<!--	busyIndicatorDelay="200"-->
+	<!--	enableBusyIndicator="true"-->
+	<!--	growingTriggerText="Previous Products"-->
+	<!--	noDataText="No products available"-->
+	<!--	items="{-->
+	<!--		path: 'Lookup>/shipdetails',-->
+	<!--		sorter: {-->
+	<!--			path: 'Kunnr',-->
+	<!--			descending: false,-->
+	<!--			group: '.groupFunction'-->
+	<!--		}-->
+	<!--	}">-->
+	<!--	<StandardListItem-->
+	<!--		title="{Lookup>Kunnr}"-->
+	<!--		description="{Lookup>Vtweg}"-->
+	<!--		info="{Lookup>Vkorg}" />-->
+	<!--</SelectDialog>-->
 </core:FragmentDefinition>

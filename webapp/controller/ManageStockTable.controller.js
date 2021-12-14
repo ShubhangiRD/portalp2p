@@ -42,7 +42,8 @@ sap.ui.define([
 	var yellow;
 	var green;
 	var blue;
-
+var ChildarrIndex = [];
+	var itemindex = [];
 	var StockList;
 
 	var sPathSingle, sPathHierarchy;
@@ -3582,28 +3583,95 @@ sap.ui.define([
 			},
 			
 		onStockSelectionItem: function() {
-		
+		console.log(itemindex);
 			var oTreetable = this.byId("TreeTableBasic2");
 			var aSelectedIndex = oTreetable.getSelectedIndices();
 			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
 
-			//	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
-			for (var i = 0; i < aSelectedIndex.length; i++) {
 
-				var odata = aSelectedIndex[i];
-				var stock = oTreeModel.getProperty('/' +odata);
-				StockTransfer.push(stock);
+						var Plant;
+				function userExists(Plant) {
+						return childarray.some(function(el) {
+							return el.Plant === Plant;
+						});
+					}
+		
+		
+					for (var i = 0; i < ChildarrIndex.length; i++) {
+
+				var indexRow = ChildarrIndex[i];
+				var indexchild = indexRow.split("/")[2];
+				if(indexchild === "MultipleIt" ){
 					
-			var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
+				}else{
+					MessageBox.error("Please Select Plant");
+				}
+				
+				
+				var oParentPath = indexRow.split('').splice(1).join("");
+				var oChildPath = itemindex[1].split('/').splice(3).join("");
+				
+				var splant = oTreeModel.oData[oParentPath].MultipleIt[oChildPath].MultipleIt[oChildPath].Werks;
+				var stock = oTreeModel.getProperty('/' +oParentPath);
+				StockTransfer.push(stock);
+						// if (userExists(Plant)) {
+							
+						// }else{
+							
+						// }
+						
+		
+										
+			}
+		console.log(StockTransfer);
+	var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
 					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 											oRouter.navTo('StockTransfer');
 											
+		
+			// for (var i = 0; i < aSelectedIndex.length; i++) {
+
+			// 	var odata = aSelectedIndex[i];
+			// 	var stock = oTreeModel.getProperty('/' +odata);
+			// 	StockTransfer.push(stock);
+					
+			// var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
+			// 		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			// 								oRouter.navTo('StockTransfer');
+											
 										
-			}
+			// }
 				oTreetable.SelectedNode = null;
 				oTreetable.destroyNoData();
 			oTreetable.selected = false; 
 		},
+		onPressItem : function(event){
+		
+		
+			var oTreetable = this.byId("TreeTableBasic2");
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+		
+			var spath = event.getParameters().rowContext.sPath;
+				itemindex.push(spath);
+			
+		},
+		OnTreecellclick : function(event){
+			 console.log(event);
+		},
+		onRowSelectionChange : function(event){
+			var indexParent = [] ;
+		
+	
+			var oTreetable = this.byId("TreeTableBasic2");
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+				var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+					var spath = event.getParameters().rowContext.sPath;
+				ChildarrIndex.push(spath);
+			
+		},
+		
+		
+		
 		onExcessMaterial : function(oEvent){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ExcessData");	

@@ -261,7 +261,7 @@ sap.ui.define([
 
 				}
 			}
-			console.log(unique);
+		//	console.log(unique);
 			var length = unique.length;
 
 			var count = new JSONModel({
@@ -271,7 +271,7 @@ sap.ui.define([
 			//		this.getView().getProperty('/count' , length);
 			this.getView().getModel("count").setProperty("/count", length);
 
-			console.log(ostock);
+	//		console.log(ostock);
 
 		},
 		HierarchyColorState: function(quantity, red, yellow, green, blue, Maingrp) {

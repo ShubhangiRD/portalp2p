@@ -1,7 +1,8 @@
-<!--<mvc:View controllerName="com.vSimpleApp.controller.SalesCreation" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
+<core:FragmentDefinition  xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m"
 	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
-	<m:Page showNavButton="true" navButtonPress="onBackNav">
+		<m:Dialog id="histroyDialog" class="sapUiSizeCompact"  title="SO Creation" showHeader="false" contentHeight="1300px" contentWidth="1300px" >
+		<m:Page showNavButton="true" navButtonPress="onBackNav">	
 		<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
 			preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
 			<headerTitle>
@@ -38,9 +39,9 @@
 									<form:content>
 										<core:Title text=" "/>
 										<m:Label text="Doc Type"/>
-										<m:Input type="Text" id="iddoctype" width="50%" editable="{EditModel>/isEditable}" value="{SOModel>/DocType}"></m:Input>
+										<m:Input type="Text" id="iddocType" width="50%" editable="{EditModel>/isEditable}" value="{oSalesModel>/DocType}"></m:Input>
 										<m:Label text="Standard Order"/>
-										<m:Input id="idStdorder" value="{SOModel>/DocType}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="70%"
+										<m:Input id="idStdorder"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="70%"
 											showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
 											suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
 											<m:suggestionItems>
@@ -49,32 +50,35 @@
 										</m:Input>
 										<m:Label text="Sold-To-Party"/>
 										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="70%"
-										value="{SOModel>/SoldToParty}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+										value="{oSalesModel>/SoldToParty}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Name1}"/>
 											</m:suggestionItems>
 										</m:Input>
-				
+										
+					
+										
+										
 										<m:Label text="Ship-To-Party"/>
 										<m:Input id="idshiptopt"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="70%"
-									value="{SOModel>/ShipToParty}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+									value="{oSalesModel>/SoldToParty}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Kunnr}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Cust Reference"/>
-										<m:Input type="Text" id="idcustref" editable="{EditModel>/isEditable}" value="{SOModel>/CustRef}"/>
+										<m:Input type="Text" id="idcustref" editable="{EditModel>/isEditable}" value="{oSalesModel>/CustRef}"/>
 										<core:Title text=" "/>
 										<m:Label text="Net Value"/>
-										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{SOModel>/NetValue}"></m:Input>
+										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{oSalesModel>/NetValue}"></m:Input>
 										<m:Label text="Cust.Ref.Date"/>
 										<m:DatePicker id="DP2" placeholder="Enter Date" class="sapUiSmallMarginBottom"/>
 										
 											<m:Label text="Sales Org"  required="true" />
 										<m:Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="70%"
-										value="{SOModel>/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
+										value="{oSalesModel>/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
 											suggestionItems="{ path: 'Lookup>/shipdetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtweg}" additionalText="{Lookup>Vtweg}"/>
@@ -107,5 +111,14 @@
 				</ObjectPageSection>
 			</sections>
 		</ObjectPageLayout>
-	</m:Page>
-</mvc:View>-->
+
+			</m:Page>
+			
+				</m:Dialog>
+			
+			
+		<!--	contentHeight="1300px" contentWidth="1300px"-->
+	<!--<m:Page showNavButton="true" navButtonPress="onBackNav">-->
+		<!--</m:Page>-->
+
+</core:FragmentDefinition>

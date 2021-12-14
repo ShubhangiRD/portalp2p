@@ -93,7 +93,8 @@ sap.ui.define([
 				CreatedBy : [],
 				MaterialGrp :[],
 				ProductHierarchy:[],
-				CustomerDetails:[]
+				CustomerDetails:[],
+				shipdetails : []
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");

@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+		xmlns:l="sap.ui.layout">
+	<SelectDialog
+		title="SalesOrg List"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/shipdetails}"
+		search="_handleSalesOrgSearch"
+		confirm="_handleSalesOrgClose"
+		cancel="_handleSalesOrgClose">
+		<StandardListItem
+			title="{Lookup>Vkorg}"
+			info="{Lookup>Vtweg}" 
+			description="{Lookup>Spart}"
+			/>
+	</SelectDialog>
+	
+
+</core:FragmentDefinition>
