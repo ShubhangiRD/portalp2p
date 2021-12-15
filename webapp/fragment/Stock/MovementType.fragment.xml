@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Movement Type"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/SplStock}"
+		search="_handleMvtTypeSearch"
+		confirm="_handleMvtTypeSearch"
+		cancel="_handleMvtTypeClose">
+		<StandardListItem
+			title="{Lookup>Bwart}"
+			info="{Lookup>Btext}"
+			description="{Lookup>Sobkz}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

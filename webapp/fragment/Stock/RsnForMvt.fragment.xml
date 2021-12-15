@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Reason for Movement"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/ReasonForMvt}"
+		search="_handleRFSSearch"
+		confirm="_handleRFSSearch"
+		cancel="_handleAddRFMClose">
+		<StandardListItem
+			title="{Lookup>Grund}"
+			info="{Lookup>Bwart}"
+			description="{Lookup>Grtxt}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

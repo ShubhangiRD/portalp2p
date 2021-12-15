@@ -59,9 +59,10 @@
 								<f:content>
 									<core:Title text=""/>
 									<m:Label text="Movement Type"/>
-									<m:Input id="idMovementType" maxLength="3" width="70%" placeholder="Movement Type" showSuggestion="true" showValueHelp="true" value="">
+									<m:Input id="idMovementType" maxLength="3" width="70%" placeholder="Movement Type" showSuggestion="true" showValueHelp="true" value=""
+									valueHelpRequest="handleValueMvtType"  suggestionItems="{ path: 'Lookup>/SplStock' }" suggestionItemSelected="onSuggest">
 										<m:suggestionItems>
-											<core:ListItem key="" text="" additionalText=""/>
+											<core:ListItem key="" text="{Lookup>Bwart}" additionalText="{Lookup>Btext}"/>
 										</m:suggestionItems>
 									</m:Input>
 									<m:Label text="Plant"/>
@@ -76,24 +77,33 @@
 											<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 										</m:suggestionItems>
 									</m:Input>
-									<m:Label text="Storage Location"/>
+								<m:Label text="Storage Location"/>
 									<m:Input id="idInpStorageLocation" maxLength="4" width="70%" placeholder="Enter Storage Location" showSuggestion="true" showValueHelp="true"
-										value="">
+										value="" valueHelpRequest="handleStorageLocationValue"  suggestionItems="{ path: 'Lookup>/StorageLocationList' }" suggestionItemSelected="onSuggest">
 										<m:suggestionItems>
 											<core:ListItem key="" text="" additionalText=""/>
 										</m:suggestionItems>
 									</m:Input>
+					<!--						<Input id="StgeLoc" value="" editable="" textFormatMode="KeyValue"
+							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
+							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
+							<suggestionItems>
+								<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
+							</suggestionItems>
+						</Input>-->
 									<core:Title text=""/>
 									<m:Label text="Special Stock"/>
-									<m:Input id="idInpSpecialStock" maxLength="1" width="30%" placeholder="" showSuggestion="true" showValueHelp="true" value="">
+									<m:Input id="idInpSpecialStock" maxLength="1" width="30%" placeholder="" showSuggestion="true" showValueHelp="true" value=""
+									valueHelpRequest="handleValueSplStock"  suggestionItems="{ path: 'Lookup>/SplStock' }" suggestionItemSelected="onSuggest">
 										<m:suggestionItems>
-											<core:ListItem key="" text="" additionalText=""/>
+											<core:ListItem key="{Lookup>Lgobe}" text="{Lookup>Lgort}"/>
 										</m:suggestionItems>
 									</m:Input>
 									<m:Label text="Reason for Movement"/>
-									<m:Input id="idInpMovmentRsn" maxLength="4" width="70%" placeholder="" showSuggestion="true" showValueHelp="true" value="">
+									<m:Input id="idInpMovmentRsn" maxLength="4" width="70%" placeholder="" showSuggestion="true" showValueHelp="true" value=""
+									valueHelpRequest="handleValueHelpReasonForMvmt"  suggestionItems="{ path: 'Lookup>/ReasonForMvt' }" suggestionItemSelected="onSuggest">
 										<m:suggestionItems>
-											<core:ListItem key="" text="" additionalText=""/>
+											<core:ListItem key="{Lookup>Bwart}" text="{Lookup>Grtxt}" additionalText="{Lookup>Grund}"/>
 										</m:suggestionItems>
 									</m:Input>
 									<m:Label text=""/>
