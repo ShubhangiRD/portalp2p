@@ -33,7 +33,7 @@
 						<!--	</m:suggestionItems>-->
 						<!--</m:Input>-->
 						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true" width="70%"
-						value="{PurchaseModel>/TempContract/Plant}"	showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
+						value="{PurchaseModel>/TempContract/SupplPlnt}"	showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
 							suggestionItemSelected="onSuggest" liveChange="Validate">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
@@ -126,7 +126,7 @@
 											<m:Label text="Material Number"/>
 											<t:template>
 												<m:Input id="Material" class="mtid" textFormatMode="KeyValue" placeholder=" Material No" showSuggestion="true" showValueHelp="true"
-													value="{PurchaseModel>Material}" valueHelpRequest="handlePOMaterialHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+													value="{PurchaseModel>Matnr}" valueHelpRequest="handlePOMaterialHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 													suggestionItemSelected="onSuggest">
 													<m:suggestionItems>
 														<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
@@ -138,7 +138,7 @@
 											<m:Label text="Material Description"/>
 											<t:template>
 												<m:Input class="desc1" id="ShortText" textFormatMode="KeyValue" placeholder=" Material Description" showSuggestion="true"
-													value="{PurchaseModel>ShortText}" showValueHelp="true" valueHelpRequest="handleMaterialDisVendor"
+													value="{PurchaseModel>Description}" showValueHelp="true" valueHelpRequest="handleMaterialDisVendor"
 													suggestionItems="{ path: 'Lookup>/MaterialDiscription' }" suggestionItemSelected="onSuggest">
 													<m:suggestionItems>
 														<core:ListItem key="{Lookup>Description}" text="{Lookup>Materialno}" additionalText="{Lookup>Description}"/>
@@ -167,6 +167,19 @@
 													<m:suggestionItems>
 														<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 													</m:suggestionItems>
+												</m:Input>
+											</t:template>
+										</t:Column>
+												<t:Column width="9rem" hAlign="Center">
+											<m:Label text="Store Location"/>
+											<t:template>
+												<m:Input id="StgeLoc" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
+											suggestionItems="{ path: 'Lookup>/StorageLocationList' }"	value="{PurchaseModel>StgeLoc}">
+													
+														<m:suggestionItems>
+														<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
+													</m:suggestionItems>
+													
 												</m:Input>
 											</t:template>
 										</t:Column>
@@ -233,12 +246,7 @@
 												<m:Input id="idPer"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
-											<m:Label text="Store Location"/>
-											<t:template>
-												<m:Input id="StgeLoc" textFormatMode="KeyValue" value="{PurchaseModel>StgeLoc}"></m:Input>
-											</t:template>
-										</t:Column>
+								
 										<t:Column width="9rem" hAlign="Center">
 											<m:Label text="Batch "/>
 											<t:template>

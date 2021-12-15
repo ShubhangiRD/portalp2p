@@ -193,44 +193,7 @@ var Excess = [] ;
 			return aCols;
 		},
 		
-				onProcessOrder1: function() {
-		console.log(Excess);
-			// var oTreetable = this.byId("excesstable");
-			// var aSelectedIndex = oTreetable.getSelectedIndices();
-			// var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
-
-			// //	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
-			// for (var i = 0; i < aSelectedIndex.length; i++) {
-
-			// 	var odata = aSelectedIndex[i];
-			// 	var stock = oTreeModel.getProperty('/' +odata);
-			// 	Excessdata.push(stock);
-					
-			// var ExcessMaterial =	this.getOwnerComponent().getModel("StockTransferModel").setData(Excessdata);
-			// 		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			// 								oRouter.navTo('SalesCreation');
-											
-										
-			// }
-			// 	oTreetable.SelectedNode = null;
-			// 	oTreetable.destroyNoData();
-			// oTreetable.selected = false; 
-			//  var ExcessMaterial =	this.getOwnerComponent().getModel("SOModel");
-			//  var ItemData = ExcessMaterial.setProperty("/SOItem",Excess);
-			//  console.log(ItemData);
-			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			//  								oRouter.navTo('SalesCreation');
-			 								
-			 								
-			 								
-			 								
-			 								
-			 								
-			 								
-			 								
-			 								
-			 								
-		},
+		
 		
 			getCustomer: function() {
 			var that = this;

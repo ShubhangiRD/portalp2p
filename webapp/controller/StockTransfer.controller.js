@@ -10,7 +10,7 @@ sap.ui.define([
 	"sap/m/MessageToast"
 ], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast) {
 	"use strict";
-	var oView, oComponent;
+	var oView,sPlant, oComponent;
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -68,7 +68,7 @@ sap.ui.define([
 			oModel.read("/getdocumenttypeSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
-					sCustomer = oData.results;
+			
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 				oLookupModel.setProperty("/documentType", oData.results);
 					oLookupModel.refresh(true);
@@ -83,13 +83,16 @@ sap.ui.define([
 		},
 		
 	handleDoctypevalue: function(oEvent) {
-			var sInputValue = oEvent.getSource().getValue();
+		
+			
+					var sInputValue = oEvent.getSource().getValue();
 
-			sap.ui.getCore().inputIddoct = oEvent.getSource().getId();
+			this.inputIddoct = oEvent.getSource().getId();
+			
 			// create value help dialog
 			if (!this._valueHelpdoctype) {
 				this._valueHelpdoctype = sap.ui.xmlfragment(
-					"com.vSimpleApp.view.fragment.Vendor.DoctType",
+					"com.vSimpleApp.view.fragment.Vendor.DocType",
 					this
 				);
 				this.getView().addDependent(this._valueHelpdoctype);
@@ -125,7 +128,7 @@ this.getdocumenttypeSet();
 		_handleDoctypeClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIddoct),
+				var productInput = this.byId(this.inputIddoct),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
 					var div = oSelectedItem.getDescription();
@@ -307,7 +310,7 @@ this.getdocumenttypeSet();
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
 			var StockModel = oView.getModel("StockTransferModel");
-			var sPlant = StockModel.oData.PlantFrom;
+		//	var sPlant = StockModel.oData.PlantFrom;
 
 			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
 			BusyIndicator.show(true);
@@ -439,8 +442,16 @@ this.getdocumenttypeSet();
 			BusyIndicator.show(true);
 			//delete oRequestPayload.Vendor;
 			var vln = oRequestPayload.PoitemSet.length;
+				
+					function LeadingZeros(num, size) {
+				var s = num + "0" + "";
+				while (s.length < size) s = "0" + s;
+				return s;
+			}
 			for (var vlen = 0; vlen < vln; vlen++) {
-				delete oRequestPayload.PoitemSet[vlen].Vendor;
+			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+		
+		 oRequestPayload.PoitemSet[vlen].PoItem = LeadingZeros(vlen + 1, 5);
 			}
 			oModel.create("/PoDisplaySet", oRequestPayload, {
 				success: this._onCreateEntrySuccess.bind(this),
@@ -452,7 +463,7 @@ this.getdocumenttypeSet();
 		},
 		_onCreateEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
-			var successObj = oResponse.data.Purchaseorder;
+			var successObj = oObject.PoNumber;
 
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
@@ -461,7 +472,7 @@ this.getdocumenttypeSet();
 			var aaa = oPurchaseModel.oData.TempContract.setData([]);
 			//	s.refresh(true);
 
-			oView.byId("VendorName").setValue(" ");
+		
 
 			var idq = "__xmlview1--nDescription-__clone1";
 			$("#" + idq + "-inner").val(" ");
@@ -473,9 +484,9 @@ this.getdocumenttypeSet();
 			$("#" + idqa + "-inner").val(" ");
 
 			oPurchaseModel.refresh(true);
-			this.getView().getModel("VHeader").refresh();
+			this.getView().getModel("PurchaseSet").refresh();
 
-			sap.m.MessageBox.show("Standard PO created under the number  #" + successObj + " ", {
+			sap.m.MessageBox.show("S.T.O created under the number" + successObj + " ", {
 				icon: sap.m.MessageBox.Icon.INFORMATION,
 
 				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
@@ -484,7 +495,8 @@ this.getdocumenttypeSet();
 
 						BusyIndicator.hide();
 						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('PoHeaderList');
+						oRouter.navTo('ManageStockTable');
+							window.location.reload();
 					}
 				}.bind(this)
 			});

@@ -88,8 +88,11 @@ sap.ui.define([
 			this.ParterDetails = (oData && oData) ? oData : [];
 
 			this.Matnr = (oData && oData.Matnr) ? oData.Matnr : "";
-			this.Werks = (oData && oData.Werks) ? oData.Werks : "";
+			this.Plant = (oData && oData.Plant) ? oData.Plant : "";
+		//	this.SupplPlnt = (oData && oData.SupplPlnt) ? oData.SupplPlnt : "" ;
 			this.Description = (oData && oData.Description) ? oData.Description : "";
+			this.Quantity = (oData && oData.Quantity) ? oData.Quantity : "";
+			this.StgeLoc = (oData && oData.StgeLoc) ? oData.StgeLoc : "";
 		},
 		getRequestPayloadPO: function() {
 
@@ -609,19 +612,20 @@ sap.ui.define([
 		getStockTransferPayload: function() {
 
 			var PoitemSet = [];
-
-			this.PoitemSet.forEach(function(item) {
+			
+					this.PoitemSet.forEach(function(item) {
 				var sPo = new RebateConditionItemPO(item);
-				PoitemSet.push(sPo.getRequestItems());
+				PoitemSet.push(sPo.getStockPOItem());
 				//	PoitemSet.push(item);
 
 			});
+
 
 			return {
 				Purchaseorder: "",
 				PoNumber: "",
 				CompCode: this.CompCode,
-				DocType: this.DocType,
+				DocType: "UB",
 				DeleteInd: "",
 				Status: "9",
 				CreatDate: this.CreatDate,
@@ -683,18 +687,8 @@ sap.ui.define([
 				Handoverloc: this.Handoverloc,
 				Shipcond: this.Shipcond,
 				Testrun: "",
-
-				PoitemSet: {
-					PoItem: "00010",
-					DeleteInd: "",
-					ShortText: "Dell Monitor 13",
-					Material: "50065561",
-					Ematerial: "50065561",
-					Plant: "0002", //imp / necessary for STO (receiving plant)
-					StgeLoc: "0001",
-					Quantity: "10",
-					ItemCat: "U"
-				}
+PoitemSet : PoitemSet
+		
 
 			};
 

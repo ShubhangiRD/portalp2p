@@ -4,7 +4,7 @@
 		xmlns:l="sap.ui.layout">
 	<SelectDialog
 		title="Customer List"
-		class="sapUiPopupWithPadding"
+		class="sapUiPopupWithPadding fragmentHeading"
 		items="{Lookup>/CustomerDetails}"
 		search="_handleCustomerSearch"
 		confirm="_handleCustomerClose"

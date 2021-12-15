@@ -198,6 +198,7 @@ sap.ui.define([
 			this.Bukrs = (oData && oData.Bukrs) ? oData.Bukrs : "";
 			this.EKGRP = (oData && oData.EKGRP) ? oData.EKGRP : "";
 			this.Ekorg = (oData && oData.Ekorg) ? oData.Ekorg : "";
+				this.Description = (oData && oData.Description) ? oData.Description : "";
 
 		},
 
@@ -875,7 +876,7 @@ sap.ui.define([
 
 			};
 		},
-		getSOPOItem : function(){
+		getSOPOItem2   : function(){
 			return{
 	PoItem : "00010",
       DeleteInd : "",
@@ -888,6 +889,19 @@ sap.ui.define([
       ItemCat : "U"
 			};
 		},
+		getStockPOItem : function(){
+	return {
+					PoItem: " ",
+					DeleteInd: "",
+					ShortText: this.Description,
+					Material: this.Matnr,
+					Ematerial: this.Matnr,
+					Plant: this.Plant, //imp / necessary for STO (receiving plant)
+					StgeLoc: this.StgeLoc,
+					Quantity: this.Quantity,
+					ItemCat: "U"
+				};
+} ,
 		getInstance: function() {
 			if (!instance) {
 				// create new instance of ODataUtility Object

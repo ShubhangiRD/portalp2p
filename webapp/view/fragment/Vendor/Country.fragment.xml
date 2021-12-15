@@ -1,11 +1,9 @@
-
-
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title=" Country List"
-		class="sapUiPopupWithPadding"
+		class="sapUiPopupWithPadding fragmentHeading"
 		items="{Lookup>/CountryCodeRegion}"
 		search="_handlecountryVendorSearch"
 		confirm="_handlecountryVendorClose"

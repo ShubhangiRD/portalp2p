@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+		xmlns:l="sap.ui.layout">
+	<SelectDialog
+		title="DocumentType List"
+		class="sapUiPopupWithPadding fragmentHeading"
+		items="{Lookup>/documentType}"
+		search="_handleDoctypeSearch"
+		confirm="_handleDoctypeClose"
+		cancel="_handleDoctypeClose">
+		<StandardListItem
+			title="{Lookup>Auart}"
+			info="{Lookup>Auart}" 
+			description="{Lookup>Auart}"
+			/>
+	</SelectDialog>
+	
+
+</core:FragmentDefinition>

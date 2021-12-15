@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<SelectDialog
 		title="Region"
-		class="sapUiPopupWithPadding"
+		class="sapUiPopupWithPadding fragmentHeading"
 		items="{Lookup>/RegionList}"
 		search="_handleValueHelpSearchCust"
 		confirm="_handleValueHelpCloseCust"
