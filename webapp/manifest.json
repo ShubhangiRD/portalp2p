@@ -472,6 +472,11 @@
 				"pattern": "Sample",
 				"name": "Sample",
 				"target": ["Sample"]
+			},
+			{
+				"pattern": "TransferPosting",
+				"name": "TransferPosting",
+				"target":[ "TransferPosting"]
 			}],
 			"targets": {
 				"Sample": {
@@ -655,6 +660,12 @@
 					"viewType": "XML",
 					"viewName": "ManageStockTable",
 					"controlId": "idApp"
+				},
+				"TransferPosting":{
+				"viewType": "XML",
+					"viewName": "TransferPosting",
+						"transition": "slide"
+				
 				}
 			}
 		}

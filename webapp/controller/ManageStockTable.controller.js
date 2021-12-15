@@ -31,21 +31,21 @@ sap.ui.define([
 	'sap/m/Popover',
 	'sap/m/Bar',
 	'sap/ui/core/IconPool'
-//siddhi
+	//siddhi
 ], function(Controller, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator, JSONModel, library, Input, Fragment,
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
 	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool) {
 	"use strict";
-	var oView, oComponent, sPathThreshold , PoDocumentNumber = [];
-	var groups ,StockTransfer = [];
+	var oView, oComponent, sPathThreshold, PoDocumentNumber = [];
+	var groups, StockTransfer = [];
 	var Massupload = [];
 	var yellow;
 	var green;
 	var blue;
-var ChildarrIndex = [];
+	var ChildarrIndex = [];
 	var itemindex = [];
 	var StockList;
-
+	var spathh;
 	var sPathSingle, sPathHierarchy;
 	var oController;
 	var oMaterialList = [];
@@ -54,8 +54,8 @@ var ChildarrIndex = [];
 	var result = [];
 	var CompanyLevelset = [];
 	var TotalLabst = [];
-	var PoQuantity= [];
-	var Totalsaleset= [];
+	var PoQuantity = [];
+	var Totalsaleset = [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -64,16 +64,15 @@ var ChildarrIndex = [];
 			oController = this;
 			oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-			
-			
+
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			
+
 			var oLookup = this.getOwnerComponent().getModel("Lookup");
-		 PoDocumentNumber = oLookup.oData.PoDocumentNumber;
+			PoDocumentNumber = oLookup.oData.PoDocumentNumber;
 			console.log(PoDocumentNumber);
-			
+
 			//		this.getMaterialstockSet11();
 			this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
@@ -99,13 +98,12 @@ var ChildarrIndex = [];
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
 
-		
 			this.getMaterialstockSet();
 			this.getPodetailsset();
 			this.getSalesOrderDetails();
 			this.getRunRate();
 			this.getStockDetailList();
-			
+
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
 			oView.setModel(oExcessModelData, "oExcessModelData");
@@ -165,18 +163,15 @@ var ChildarrIndex = [];
 
 			var oSaleModel = new JSONModel();
 			sap.ui.getCore().setModel(oSaleModel, "oSaleModel");
-		//	this.getSalesOrderDetails();
+			//	this.getSalesOrderDetails();
 
 			this.initializeView();
 
 			var oCompanyLevel = new JSONModel();
 			sap.ui.getCore().setModel(oCompanyLevel, "oCompanyLevel");
-            
-           
-           
-             
-             var oPoData = new JSONModel();
-            oView.setModel(oPoData,"oPoData");
+
+			var oPoData = new JSONModel();
+			oView.setModel(oPoData, "oPoData");
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -393,7 +388,7 @@ var ChildarrIndex = [];
 			});
 		},
 
-	getStockDetailList: function() {
+		getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/STOCK_DATASet", {
@@ -430,7 +425,7 @@ var ChildarrIndex = [];
 						var Changedon = odataset.Changedon;
 						var Crtlv = odataset.Crtlv;
 						var Labst = odataset.Labst;
-//var openpo = PoDocumentNumber[iRowIndex].Bedat;
+						//var openpo = PoDocumentNumber[iRowIndex].Bedat;
 						var Matnr = odataset.Matnr;
 						if (Matnr !== "" || Matnr !== undefined) {
 							for (var z = 0; z < TotalLabst.length; z++) {
@@ -449,220 +444,210 @@ var ChildarrIndex = [];
 								}
 							}
 						}
-							if (Matnr !== "" || Matnr !== undefined) {
-							for (var x1 = 0; x1 <=result.length-1; x1++) {
-							
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <= result.length - 1; x1++) {
+
 								if (Matnr === result[x1].Matnr) {
-								var sOpenSalesOrder = result[x1].Kwmeng;
-                                
+									var sOpenSalesOrder = result[x1].Kwmeng;
+
 								}
 							}
 						}
-									if (Matnr !== "" || Matnr !== undefined) {
-							for (var x2 = 0; x2 <PoQuantity.length; x2++) {
-							
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x2 = 0; x2 < PoQuantity.length; x2++) {
+
 								if (Matnr === PoQuantity[x2].Matnr) {
-								var sOpenPoQuantity = PoQuantity[x2].Menge;
-								var sOpenPoDate = PoQuantity[x2].Prdat;
-								var sDocDate = PoQuantity[x2].Bedat;
-                                
+									var sOpenPoQuantity = PoQuantity[x2].Menge;
+									var sOpenPoDate = PoQuantity[x2].Prdat;
+									var sDocDate = PoQuantity[x2].Bedat;
+
 								}
 							}
 						}
-						
-								if (Matnr !== "" || Matnr !== undefined) {
-							for (var j = 0; j <Totalsaleset.length; j++) {
-							
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var j = 0; j < Totalsaleset.length; j++) {
+
 								if (Matnr === Totalsaleset[j].Matnr) {
-								var sRunRate = Totalsaleset[j].Kwmeng;
-							
-                                
+									var sRunRate = Totalsaleset[j].Kwmeng;
+
 								}
 							}
 						}
-						
-						
-						
+
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
-						ListofSrs.push({
-							Cbtlv: Cbtlv,
-							Cgtlv: Cgtlv,
-							Cytlv: Cytlv,
-							Changedon: Changedon,
-							Crtlv: Crtlv,
-							Labst: parseInt(sTotalLabst),
-							ALabst:parseInt(sTotalLabst),
-							Matnr: Matnr,
-							Description: sMatDescription,
-							Werks: Werks,
-							Color: "",
-							MultipleIt: childarray,
-							OsalesOrder:sOpenSalesOrder,
-							OpenPODate:sOpenPoDate,
-							OpenPOQty:sOpenPoQuantity,
-							DocDate:sDocDate,
-							RunRate:sRunRate
-						});
-					console.log(sOpenPoDate);
+							ListofSrs.push({
+								Cbtlv: Cbtlv,
+								Cgtlv: Cgtlv,
+								Cytlv: Cytlv,
+								Changedon: Changedon,
+								Crtlv: Crtlv,
+								Labst: parseInt(sTotalLabst),
+								ALabst: parseInt(sTotalLabst),
+								Matnr: Matnr,
+								Description: sMatDescription,
+								Werks: Werks,
+								Color: "",
+								MultipleIt: childarray,
+								OsalesOrder: sOpenSalesOrder,
+								OpenPODate: sOpenPoDate,
+								OpenPOQty: sOpenPoQuantity,
+								DocDate: sDocDate,
+								RunRate: sRunRate
+							});
+							console.log(sOpenPoDate);
 
-						for (var j = 0; j < StockList.length; j++) {
-							var stock = StockList[j];
-							var Bukrs = stock.Bukrs;
-							var Lbkum = stock.Lbkum;
-							var Labst = stock.Labst;
-							var Lgort = stock.Lgort;
-							var Werkss = stock.Werks;
-							var Matnr2 = stock.Matnr;
+							for (var j = 0; j < StockList.length; j++) {
+								var stock = StockList[j];
+								var Bukrs = stock.Bukrs;
+								var Lbkum = stock.Lbkum;
+								var Labst = stock.Labst;
+								var Lgort = stock.Lgort;
+								var Werkss = stock.Werks;
+								var Matnr2 = stock.Matnr;
 
-							if (Matnr === Matnr2) {
-								//	console.log(sum);
+								if (Matnr === Matnr2) {
+									//	console.log(sum);
 
-								if (userExists(Bukrs)) {
-									// childarray.push({
-									// 		//	Bukrs: Bukrs,
-									// 		Labst: Labst,
-									// 		//Matnr: 'Company Level' + " " + Bukrs,
-									// 		//	Lgort: Lgort,
-									// 		//	Werks: Werks,
-									// 		MultipleIt: InnerChild
+									if (userExists(Bukrs)) {
+										// childarray.push({
+										// 		//	Bukrs: Bukrs,
+										// 		Labst: Labst,
+										// 		//Matnr: 'Company Level' + " " + Bukrs,
+										// 		//	Lgort: Lgort,
+										// 		//	Werks: Werks,
+										// 		MultipleIt: InnerChild
 
-									// 	});
+										// 	});
 
-									if (PlantExists(Werkss)) {
+										if (PlantExists(Werkss)) {
 
-										// 	InnerChild.push({
-										// 	//	Bukrs: Bukrs,
-										// 	Labst: Labst,
-										// 	//	Lgort: Lgort,
-										// 	Matnr: 'Plant' + " " + Werks,
-										// 	//	Werks: Werks,
-										// 	MultipleIt: InnerinnerChild
+											// 	InnerChild.push({
+											// 	//	Bukrs: Bukrs,
+											// 	Labst: Labst,
+											// 	//	Lgort: Lgort,
+											// 	Matnr: 'Plant' + " " + Werks,
+											// 	//	Werks: Werks,
+											// 	MultipleIt: InnerinnerChild
 
-										// });
+											// });
 
-										InnerinnerChild.push({
-											//	Bukrs: Bukrs,
-											Labst: Labst,
-											
+											InnerinnerChild.push({
+												//	Bukrs: Bukrs,
+												Labst: Labst,
+
 												Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
 
-											Matnr: 'SLoc' + " " + Lgort,
-											OsalesOrder:"So"
+												Matnr: 'SLoc' + " " + Lgort,
+												OsalesOrder: "So"
 
-										});
+											});
+										} else {
+											InnerChild.push({
+												//	Bukrs: Bukrs,
+
+												//	Lgort: Lgort,
+												Matnr: 'Plant' + " " + Werks,
+												Werks: Werks,
+												MultipleIt: InnerinnerChild,
+												OpenPOQty: sOpenPoQuantity,
+												OsalesOrder: "So",
+												RunRate: sRunRate
+
+											});
+
+											InnerinnerChild.push({
+												//	Bukrs: Bukrs,
+												Labst: Labst,
+
+												Matnr: 'SLoc' + " " + Lgort,
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												OsalesOrder: "So"
+
+											});
+
+										}
+
 									} else {
-										InnerChild.push({
-											//	Bukrs: Bukrs,
-									
-											//	Lgort: Lgort,
-											Matnr: 'Plant' + " " + Werks,
-											Werks: Werks,
-											MultipleIt: InnerinnerChild,
-											 	OpenPOQty:sOpenPoQuantity,
-											OsalesOrder:"So",
-											RunRate:sRunRate
-											
-										
-											
-
-										});
-
-										InnerinnerChild.push({
-											//	Bukrs: Bukrs,
-											Labst: Labst,
-											
-
-											Matnr: 'SLoc' + " " + Lgort,
+										childarray.push({
+											Bukrs: Bukrs,
+											BLabst: "AL",
+											ALabst: " ",
+											Labst: sTotalLabst,
+											Matnr: 'Company Level' + " " + Bukrs,
 											Crtlv: "crtlv",
 											Cytlv: "cytlv",
 											Cgtlv: "cgtlv",
-											OsalesOrder:"So"
+											Cbtlv: "cbtlv",
+											OsalesOrder: sOpenSalesOrder,
+
+											//	Lgort: Lgort,
+											//	Werks: Werks,
+											MultipleIt: InnerChild,
+											OpenPODate: sOpenPoDate,
+											// OpenPOQty:sOpenPoQuantity,
+											DocDate: sDocDate
+
+										});
+										sOpenSalesOrder = "";
+										sOpenPoDate = "";
+
+										sDocDate = "";
+
+										InnerChild.push({
+											//	Bukrs: Bukrs,
+											// Labst: Labst,
+											//	Lgort: Lgort,
+											Matnr: 'Plant' + " " + Werks,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
+											Werks: Werks,
+											MultipleIt: InnerinnerChild,
+											OpenPOQty: sOpenPoQuantity,
+											OsalesOrder: "So",
+											RunRate: sRunRate
+
+										});
+										sOpenPoQuantity = "";
+										sRunRate = "";
+
+										InnerinnerChild.push({
+											//	Bukrs: Bukrs,
+											Labst: Labst,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
+
+											Matnr: 'SLoc' + " " + Lgort,
+											OsalesOrder: "So"
 
 										});
 
 									}
 
-								} else {
-									childarray.push({
-										Bukrs: Bukrs,
-										BLabst:"AL",
-										ALabst:" ",
-										Labst: sTotalLabst,
-										Matnr: 'Company Level' + " " + Bukrs,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-										OsalesOrder:sOpenSalesOrder,
-
-										//	Lgort: Lgort,
-										//	Werks: Werks,
-										MultipleIt: InnerChild,
-										OpenPODate:sOpenPoDate,
-							            // OpenPOQty:sOpenPoQuantity,
-							            DocDate:sDocDate
-
-									});
-									sOpenSalesOrder="";
-								    sOpenPoDate="";
-						            
-						            sDocDate="";
-
-									InnerChild.push({
-										//	Bukrs: Bukrs,
-										// Labst: Labst,
-										//	Lgort: Lgort,
-										Matnr: 'Plant' + " " + Werks,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-										Werks: Werks,
-										MultipleIt: InnerinnerChild,
-									        OpenPOQty:sOpenPoQuantity,
-										OsalesOrder:"So",
-											RunRate:sRunRate
-
-									});
-									sOpenPoQuantity="";
-								    sRunRate="";
-
-									InnerinnerChild.push({
-										//	Bukrs: Bukrs,
-										Labst: Labst,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-
-										Matnr: 'SLoc' + " " + Lgort,
-										OsalesOrder:"So"
-
-									});
+									//	childarray.push(StockList[j]);
+									//	console.log(StockList[j]);
 
 								}
-
-								//	childarray.push(StockList[j]);
-								//	console.log(StockList[j]);
-
 							}
-						}
-						InnerChild = [];
-						InnerinnerChild = [];
-						childarray = [];
-					
+							InnerChild = [];
+							InnerinnerChild = [];
+							childarray = [];
 
-					}
+						}
 					}
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
 					console.log(ListofSrs);
-
-
 
 					Massupload = ListofSrs;
 
@@ -724,7 +709,7 @@ var ChildarrIndex = [];
 						}
 
 					}
-				//	console.log(TotalLabst);
+					//	console.log(TotalLabst);
 				},
 				error: function(oerror) {
 					MessageBox.error(oerror);
@@ -745,7 +730,7 @@ var ChildarrIndex = [];
 			var oTreeTable = this.byId("TreeTableBasic2");
 			oTreeTable.collapseAll();
 		},
-		
+
 		onAnalytics: function(oEvent) {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -761,9 +746,9 @@ var ChildarrIndex = [];
 				//	var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 				sText = oEvent.getSource();
 			var sKey = sText.mProperties.text;
-				//	sKey = oEvent.getParameter("text"),
+			//	sKey = oEvent.getParameter("text"),
 
-			var	aFilters = [],
+			var aFilters = [],
 				ShowColor;
 
 			if (sKey === "Critical") {
@@ -778,8 +763,8 @@ var ChildarrIndex = [];
 				ShowColor = new sap.ui.model.Filter('Color', sap.ui.model.FilterOperator.EQ, "yellow");
 			}
 			aFilters.push(new Filter([ShowColor], false));
-			oBinding.filter(aFilters,null);
-		//	oBinding.filter('Color', null);
+			oBinding.filter(aFilters, null);
+			//	oBinding.filter('Color', null);
 		},
 		onFilterSelectHierarchy: function(oEvent) {
 			var oBinding = this.byId("awaitingTable2").getBinding("items"),
@@ -919,7 +904,7 @@ var ChildarrIndex = [];
 
 						oView.getModel("oStockDataModel").setData(ListofSrs);
 						sOpenSalesOrder = "";
-					//	console.log(ListofSrs);
+						//	console.log(ListofSrs);
 
 						var len = ListofSrs.length;
 						var ls = len - 1;
@@ -1241,274 +1226,266 @@ var ChildarrIndex = [];
 					// 	sap.ui.getCore().getModel("oHierarchyModel").setData(ListofSrs);
 
 					// },
-					
+
 					success: function(oData) {
-					BusyIndicator.hide();
-					var ListofSrs = [];
-					var listOfMat = [];
-					var MaterialList = [];
-					var len2 = oData.results.length;
-					var childarray = [];
-					var InnerChild = [];
-					var InnerinnerChild = [];
-					var UniqueMatnr = [];
+						BusyIndicator.hide();
+						var ListofSrs = [];
+						var listOfMat = [];
+						var MaterialList = [];
+						var len2 = oData.results.length;
+						var childarray = [];
+						var InnerChild = [];
+						var InnerinnerChild = [];
+						var UniqueMatnr = [];
 
-					function userExists(Bukrs) {
-						return childarray.some(function(el) {
-							return el.Bukrs === Bukrs;
-						});
-					}
-
-					function PlantExists(Werks) {
-						return InnerChild.some(function(edl) {
-							return edl.Werks === Werks;
-						});
-					}
-					for (var iRowIndex = 0; iRowIndex < len2; iRowIndex++) {
-
-						var odataset = oData.results[iRowIndex];
-						var Werks = odataset.Werks;
-
-						var Cbtlv = odataset.Cbtlv;
-						var Cgtlv = odataset.Cgtlv;
-						var Cytlv = odataset.Cytlv;
-						var Changedon = odataset.Changedon;
-						var Crtlv = odataset.Crtlv;
-						var Labst = odataset.Labst;
-//var openpo = PoDocumentNumber[iRowIndex].Bedat;
-						var Matnr = odataset.Matnr;
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var z1 = 0; z1 < TotalLabst.length; z1++) {
-								if (Matnr === TotalLabst[z1].Matnr) {
-									var sTotalLabst = TotalLabst[z1].Labst;
-
-								}
-							}
+						function userExists(Bukrs) {
+							return childarray.some(function(el) {
+								return el.Bukrs === Bukrs;
+							});
 						}
 
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var x = 0; x < oMaterialList.length; x++) {
-								if (Matnr === oMaterialList[x].Materialno) {
-									var sMatDescription = oMaterialList[x].Description;
-
-								}
-							}
+						function PlantExists(Werks) {
+							return InnerChild.some(function(edl) {
+								return edl.Werks === Werks;
+							});
 						}
+						for (var iRowIndex = 0; iRowIndex < len2; iRowIndex++) {
+
+							var odataset = oData.results[iRowIndex];
+							var Werks = odataset.Werks;
+
+							var Cbtlv = odataset.Cbtlv;
+							var Cgtlv = odataset.Cgtlv;
+							var Cytlv = odataset.Cytlv;
+							var Changedon = odataset.Changedon;
+							var Crtlv = odataset.Crtlv;
+							var Labst = odataset.Labst;
+							//var openpo = PoDocumentNumber[iRowIndex].Bedat;
+							var Matnr = odataset.Matnr;
 							if (Matnr !== "" || Matnr !== undefined) {
-							for (var x1 = 0; x1 <=result.length-1; x1++) {
-							
-								if (Matnr === result[x1].Matnr) {
-								var sOpenSalesOrder = result[x1].Kwmeng;
-                                
-								}
-							}
-						}
-									if (Matnr !== "" || Matnr !== undefined) {
-							for (var x2 = 0; x2 <PoQuantity.length; x2++) {
-							
-								if (Matnr === PoQuantity[x2].Matnr) {
-								var sOpenPoQuantity = PoQuantity[x2].Menge;
-								var sOpenPoDate = PoQuantity[x2].Prdat;
-								var sDocDate = PoQuantity[x2].Bedat;
-                                
-								}
-							}
-						}
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var j = 0; j <Totalsaleset.length; j++) {
-							
-								if (Matnr === Totalsaleset[j].Matnr) {
-								var sRunRate = Totalsaleset[j].Kwmeng;
-							
-                                
-								}
-							}
-						}
-						if (!UniqueMatnr.includes(Matnr)) {
-							UniqueMatnr.push(Matnr);
-						ListofSrs.push({
-							Cbtlv: Cbtlv,
-							Cgtlv: Cgtlv,
-							Cytlv: Cytlv,
-							Changedon: Changedon,
-							Crtlv: Crtlv,
-							Labst: parseInt(sTotalLabst),
-							ALabst:parseInt(sTotalLabst),
-							Matnr: Matnr,
-							Description: sMatDescription,
-							Werks: Werks,
-							Color: "",
-							MultipleIt: childarray,
-							OsalesOrder:sOpenSalesOrder,
-							OpenPODate:sOpenPoDate,
-							OpenPOQty:sOpenPoQuantity,
-							DocDate:sDocDate,
-							RunRate:sRunRate
-						});
-					console.log(sOpenPoDate);
-
-						for (var j = 0; j < StockList.length; j++) {
-							var stock = StockList[j];
-							var Bukrs = stock.Bukrs;
-							var Lbkum = stock.Lbkum;
-							var Labst = stock.Labst;
-							var Lgort = stock.Lgort;
-							var Werkss = stock.Werks;
-							var Matnr2 = stock.Matnr;
-
-							if (Matnr === Matnr2) {
-								//	console.log(sum);
-
-								if (userExists(Bukrs)) {
-									// childarray.push({
-									// 		//	Bukrs: Bukrs,
-									// 		Labst: Labst,
-									// 		//Matnr: 'Company Level' + " " + Bukrs,
-									// 		//	Lgort: Lgort,
-									// 		//	Werks: Werks,
-									// 		MultipleIt: InnerChild
-
-									// 	});
-
-									if (PlantExists(Werkss)) {
-
-										// 	InnerChild.push({
-										// 	//	Bukrs: Bukrs,
-										// 	Labst: Labst,
-										// 	//	Lgort: Lgort,
-										// 	Matnr: 'Plant' + " " + Werks,
-										// 	//	Werks: Werks,
-										// 	MultipleIt: InnerinnerChild
-
-										// });
-
-										InnerinnerChild.push({
-											//	Bukrs: Bukrs,
-											Labst: Labst,
-											
-												Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-
-											Matnr: 'SLoc' + " " + Lgort,
-											OsalesOrder:"So"
-
-										});
-									} else {
-										InnerChild.push({
-											//	Bukrs: Bukrs,
-									
-											//	Lgort: Lgort,
-											Matnr: 'Plant' + " " + Werks,
-											Werks: Werks,
-											MultipleIt: InnerinnerChild,
-											 	OpenPOQty:sOpenPoQuantity,
-											OsalesOrder:"So",
-											RunRate:sRunRate
-										
-											
-
-										});
-
-										InnerinnerChild.push({
-											//	Bukrs: Bukrs,
-											Labst: Labst,
-											
-
-											Matnr: 'SLoc' + " " + Lgort,
-											Crtlv: "crtlv",
-											Cytlv: "cytlv",
-											Cgtlv: "cgtlv",
-											OsalesOrder:"So"
-
-										});
+								for (var z1 = 0; z1 < TotalLabst.length; z1++) {
+									if (Matnr === TotalLabst[z1].Matnr) {
+										var sTotalLabst = TotalLabst[z1].Labst;
 
 									}
-
-								} else {
-									childarray.push({
-										Bukrs: Bukrs,
-										BLabst:"AL",
-										ALabst:" ",
-										Labst: sTotalLabst,
-										Matnr: 'Company Level' + " " + Bukrs,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-										OsalesOrder:sOpenSalesOrder,
-
-										//	Lgort: Lgort,
-										//	Werks: Werks,
-										MultipleIt: InnerChild,
-										OpenPODate:sOpenPoDate,
-							            // OpenPOQty:sOpenPoQuantity,
-							            DocDate:sDocDate
-
-									});
-									sOpenSalesOrder="";
-								    sOpenPoDate="";
-						            
-						            sDocDate="";
-
-									InnerChild.push({
-										//	Bukrs: Bukrs,
-										// Labst: Labst,
-										//	Lgort: Lgort,
-										Matnr: 'Plant' + " " + Werks,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-										Werks: Werks,
-										MultipleIt: InnerinnerChild,
-									        OpenPOQty:sOpenPoQuantity,
-										OsalesOrder:"So",
-										RunRate:sRunRate
-
-									});
-									sOpenPoQuantity="";
-										sRunRate="";
-
-									InnerinnerChild.push({
-										//	Bukrs: Bukrs,
-										Labst: Labst,
-										Crtlv: "crtlv",
-										Cytlv: "cytlv",
-										Cgtlv: "cgtlv",
-										Cbtlv: "cbtlv",
-
-										Matnr: 'SLoc' + " " + Lgort,
-										OsalesOrder:"So"
-
-									});
-
 								}
+							}
 
-								//	childarray.push(StockList[j]);
-								//	console.log(StockList[j]);
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var x = 0; x < oMaterialList.length; x++) {
+									if (Matnr === oMaterialList[x].Materialno) {
+										var sMatDescription = oMaterialList[x].Description;
+
+									}
+								}
+							}
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var x1 = 0; x1 <= result.length - 1; x1++) {
+
+									if (Matnr === result[x1].Matnr) {
+										var sOpenSalesOrder = result[x1].Kwmeng;
+
+									}
+								}
+							}
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var x2 = 0; x2 < PoQuantity.length; x2++) {
+
+									if (Matnr === PoQuantity[x2].Matnr) {
+										var sOpenPoQuantity = PoQuantity[x2].Menge;
+										var sOpenPoDate = PoQuantity[x2].Prdat;
+										var sDocDate = PoQuantity[x2].Bedat;
+
+									}
+								}
+							}
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var j = 0; j < Totalsaleset.length; j++) {
+
+									if (Matnr === Totalsaleset[j].Matnr) {
+										var sRunRate = Totalsaleset[j].Kwmeng;
+
+									}
+								}
+							}
+							if (!UniqueMatnr.includes(Matnr)) {
+								UniqueMatnr.push(Matnr);
+								ListofSrs.push({
+									Cbtlv: Cbtlv,
+									Cgtlv: Cgtlv,
+									Cytlv: Cytlv,
+									Changedon: Changedon,
+									Crtlv: Crtlv,
+									Labst: parseInt(sTotalLabst),
+									ALabst: parseInt(sTotalLabst),
+									Matnr: Matnr,
+									Description: sMatDescription,
+									Werks: Werks,
+									Color: "",
+									MultipleIt: childarray,
+									OsalesOrder: sOpenSalesOrder,
+									OpenPODate: sOpenPoDate,
+									OpenPOQty: sOpenPoQuantity,
+									DocDate: sDocDate,
+									RunRate: sRunRate
+								});
+								console.log(sOpenPoDate);
+
+								for (var j = 0; j < StockList.length; j++) {
+									var stock = StockList[j];
+									var Bukrs = stock.Bukrs;
+									var Lbkum = stock.Lbkum;
+									var Labst = stock.Labst;
+									var Lgort = stock.Lgort;
+									var Werkss = stock.Werks;
+									var Matnr2 = stock.Matnr;
+
+									if (Matnr === Matnr2) {
+										//	console.log(sum);
+
+										if (userExists(Bukrs)) {
+											// childarray.push({
+											// 		//	Bukrs: Bukrs,
+											// 		Labst: Labst,
+											// 		//Matnr: 'Company Level' + " " + Bukrs,
+											// 		//	Lgort: Lgort,
+											// 		//	Werks: Werks,
+											// 		MultipleIt: InnerChild
+
+											// 	});
+
+											if (PlantExists(Werkss)) {
+
+												// 	InnerChild.push({
+												// 	//	Bukrs: Bukrs,
+												// 	Labst: Labst,
+												// 	//	Lgort: Lgort,
+												// 	Matnr: 'Plant' + " " + Werks,
+												// 	//	Werks: Werks,
+												// 	MultipleIt: InnerinnerChild
+
+												// });
+
+												InnerinnerChild.push({
+													//	Bukrs: Bukrs,
+													Labst: Labst,
+
+													Crtlv: "crtlv",
+													Cytlv: "cytlv",
+													Cgtlv: "cgtlv",
+													Cbtlv: "cbtlv",
+
+													Matnr: 'SLoc' + " " + Lgort,
+													OsalesOrder: "So"
+
+												});
+											} else {
+												InnerChild.push({
+													//	Bukrs: Bukrs,
+
+													//	Lgort: Lgort,
+													Matnr: 'Plant' + " " + Werks,
+													Werks: Werks,
+													MultipleIt: InnerinnerChild,
+													OpenPOQty: sOpenPoQuantity,
+													OsalesOrder: "So",
+													RunRate: sRunRate
+
+												});
+
+												InnerinnerChild.push({
+													//	Bukrs: Bukrs,
+													Labst: Labst,
+
+													Matnr: 'SLoc' + " " + Lgort,
+													Crtlv: "crtlv",
+													Cytlv: "cytlv",
+													Cgtlv: "cgtlv",
+													OsalesOrder: "So"
+
+												});
+
+											}
+
+										} else {
+											childarray.push({
+												Bukrs: Bukrs,
+												BLabst: "AL",
+												ALabst: " ",
+												Labst: sTotalLabst,
+												Matnr: 'Company Level' + " " + Bukrs,
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
+												OsalesOrder: sOpenSalesOrder,
+
+												//	Lgort: Lgort,
+												//	Werks: Werks,
+												MultipleIt: InnerChild,
+												OpenPODate: sOpenPoDate,
+												// OpenPOQty:sOpenPoQuantity,
+												DocDate: sDocDate
+
+											});
+											sOpenSalesOrder = "";
+											sOpenPoDate = "";
+
+											sDocDate = "";
+
+											InnerChild.push({
+												//	Bukrs: Bukrs,
+												// Labst: Labst,
+												//	Lgort: Lgort,
+												Matnr: 'Plant' + " " + Werks,
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
+												Werks: Werks,
+												MultipleIt: InnerinnerChild,
+												OpenPOQty: sOpenPoQuantity,
+												OsalesOrder: "So",
+												RunRate: sRunRate
+
+											});
+											sOpenPoQuantity = "";
+											sRunRate = "";
+
+											InnerinnerChild.push({
+												//	Bukrs: Bukrs,
+												Labst: Labst,
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
+
+												Matnr: 'SLoc' + " " + Lgort,
+												OsalesOrder: "So"
+
+											});
+
+										}
+
+										//	childarray.push(StockList[j]);
+										//	console.log(StockList[j]);
+
+									}
+								}
+								InnerChild = [];
+								InnerinnerChild = [];
+								childarray = [];
 
 							}
 						}
-						InnerChild = [];
-						InnerinnerChild = [];
-						childarray = [];
-					
 
-					}
-					}
+						oView.getModel("oStockDataModel").setData(ListofSrs);
+						console.log(ListofSrs);
 
-					oView.getModel("oStockDataModel").setData(ListofSrs);
-					console.log(ListofSrs);
+						Massupload = ListofSrs;
 
+					},
 
-
-					Massupload = ListofSrs;
-
-				},
-					
-					
 					error: function(oError) {
 						BusyIndicator.hide();
 						MessageBox.error("No price found for given material number and plant combination. Add the price manually.");
@@ -1684,121 +1661,119 @@ var ChildarrIndex = [];
 			var sPath = sPathThreshold;
 			var oInput = sap.ui.getCore().byId("idNewValue");
 			var sValue = oInput.getValue();
-			
+
 			var pattern = /[^\d]/;
 			if (pattern.test(sValue)) {
 				oInput.setValueState("Error");
 				oInput.setValueStateText("Enter Numeric Value");
-			} else{
-			
-			
-			
-			var sSelectTdLevel = sap.ui.getCore().byId('SelectTdlevel').getSelectedKey();
+			} else {
 
-			if (sSelectTdLevel === "Red") {
-				var sCurrent = oTabSelectModel.oData.oData.Crtlv;
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Prtlv", sCurrent);
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Crtlv", sValue);
+				var sSelectTdLevel = sap.ui.getCore().byId('SelectTdlevel').getSelectedKey();
 
-			} else if (sSelectTdLevel === "Green") {
-				var sCurrent = oTabSelectModel.oData.oData.Cgtlv;
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Pgtlv", sCurrent);
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Cgtlv", sValue);
+				if (sSelectTdLevel === "Red") {
+					var sCurrent = oTabSelectModel.oData.oData.Crtlv;
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Prtlv", sCurrent);
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Crtlv", sValue);
 
-			} else if (sSelectTdLevel === "Yellow") {
-				var sCurrent = oTabSelectModel.oData.oData.Cytlv;
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Pytlv", sCurrent);
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Cytlv", sValue);
+				} else if (sSelectTdLevel === "Green") {
+					var sCurrent = oTabSelectModel.oData.oData.Cgtlv;
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Pgtlv", sCurrent);
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Cgtlv", sValue);
 
-			} else if (sSelectTdLevel === "Blue") {
-				var sCurrent = oTabSelectModel.oData.oData.Cbtlv;
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Pbtlv", sCurrent);
-				oView.getModel("oStockDataModel").setProperty(sPath + "/Cbtlv", sValue);
+				} else if (sSelectTdLevel === "Yellow") {
+					var sCurrent = oTabSelectModel.oData.oData.Cytlv;
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Pytlv", sCurrent);
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Cytlv", sValue);
 
-			}
-			console.log(oTabSelectModel);
-			var oEntry1 = {};
-			var oContract = oTabSelectModel.oData.oData;
-			var Material = oContract.Matnr;
+				} else if (sSelectTdLevel === "Blue") {
+					var sCurrent = oTabSelectModel.oData.oData.Cbtlv;
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Pbtlv", sCurrent);
+					oView.getModel("oStockDataModel").setProperty(sPath + "/Cbtlv", sValue);
 
-			var Matnr = oContract.Matnr;
+				}
+				console.log(oTabSelectModel);
+				var oEntry1 = {};
+				var oContract = oTabSelectModel.oData.oData;
+				var Material = oContract.Matnr;
 
-			var zero = "";
+				var Matnr = oContract.Matnr;
 
-			if ($.isNumeric((Matnr)) === true) {
-				var len = Matnr.length;
-				if (len !== undefined) {
-					var z = 18 - len;
-					for (var i = 0; i < z; i++) {
-						zero += "0";
+				var zero = "";
+
+				if ($.isNumeric((Matnr)) === true) {
+					var len = Matnr.length;
+					if (len !== undefined) {
+						var z = 18 - len;
+						for (var i = 0; i < z; i++) {
+							zero += "0";
+						}
 					}
+
+					Matnr = zero + Matnr;
 				}
 
-				Matnr = zero + Matnr;
-			}
+				var Cbtlv = oContract.Cbtlv;
+				var Cgtlv = oContract.Cgtlv;
+				//	var Changedon = this.datatime(oContract.Changedon);
+				var Changedon = oContract.Changedon;
 
-			var Cbtlv = oContract.Cbtlv;
-			var Cgtlv = oContract.Cgtlv;
-			//	var Changedon = this.datatime(oContract.Changedon);
-			var Changedon = oContract.Changedon;
+				var Crtlv = oContract.Crtlv;
+				var Cytlv = oContract.Cytlv;
+				var Labst = oContract.Labst;
+				var labstString = Labst.toString();
+				var Pbtlv = oContract.Pbtlv;
+				var Pgtlv = oContract.Pgtlv;
+				var Prtlv = oContract.Prtlv;
+				var Pytlv = oContract.Pytlv;
+				var Werks = oContract.Werks;
 
-			var Crtlv = oContract.Crtlv;
-			var Cytlv = oContract.Cytlv;
-			var Labst = oContract.Labst;
-			var labstString = Labst.toString();
-			var Pbtlv = oContract.Pbtlv;
-			var Pgtlv = oContract.Pgtlv;
-			var Prtlv = oContract.Prtlv;
-			var Pytlv = oContract.Pytlv;
-			var Werks = oContract.Werks;
+				/*	var Maingrp = oContract.Maingrp;
+					var Grp = oContract.Grp;
+					var Subgrp = oContract.Subgrp;
 
-			/*	var Maingrp = oContract.Maingrp;
-				var Grp = oContract.Grp;
-				var Subgrp = oContract.Subgrp;
+				*/
+				oEntry1.Cbtlv = Cbtlv;
+				oEntry1.Cgtlv = Cgtlv;
+				oEntry1.Cytlv = Cytlv;
+				oEntry1.Crtlv = Crtlv;
+				oEntry1.Pbtlv = Pbtlv;
+				oEntry1.Prtlv = Prtlv;
+				oEntry1.Pytlv = Pytlv;
+				oEntry1.Pgtlv = Pgtlv;
+				oEntry1.Changedon = Changedon;
+				oEntry1.Werks = Werks;
+				oEntry1.Labst = labstString;
+				oEntry1.Matnr = Material;
 
-			*/
-			oEntry1.Cbtlv = Cbtlv;
-			oEntry1.Cgtlv = Cgtlv;
-			oEntry1.Cytlv = Cytlv;
-			oEntry1.Crtlv = Crtlv;
-			oEntry1.Pbtlv = Pbtlv;
-			oEntry1.Prtlv = Prtlv;
-			oEntry1.Pytlv = Pytlv;
-			oEntry1.Pgtlv = Pgtlv;
-			oEntry1.Changedon = Changedon;
-			oEntry1.Werks = Werks;
-			oEntry1.Labst = labstString;
-			oEntry1.Matnr = Material;
+				/*oEntry1.Maingrp = Maingrp;
+				oEntry1.Grp = Grp;
+				oEntry1.Subgrp = Subgrp;
+				console.log(oEntry1);*/
+				var that = this;
+				var mParameters = {
+					success: function(oResponse, object) {
+						that.OnclearFilter();
+						MessageBox.show("Value update Sucessfully..");
 
-			/*oEntry1.Maingrp = Maingrp;
-			oEntry1.Grp = Grp;
-			oEntry1.Subgrp = Subgrp;
-			console.log(oEntry1);*/
-			var that = this;
-			var mParameters = {
-				success: function(oResponse, object) {
-					that.OnclearFilter();
-					MessageBox.show("Value update Sucessfully..");
+						sap.ui.getCore().byId("EditDialog").destroy(null);
 
-					sap.ui.getCore().byId("EditDialog").destroy(null);
+					},
+					error: function(error) {
+						//MessageBox.error(error);
+						console.log(error);
+						sap.ui.getCore().byId("EditDialog").destroy(null);
 
-				},
-				error: function(error) {
-					//MessageBox.error(error);
-					console.log(error);
-					sap.ui.getCore().byId("EditDialog").destroy(null);
+					},
+					merge: false
+				};
+				var relPath = "/STOCK_DATASet(" + "Matnr=" + "'" + Matnr + "'" + "," + "Werks=" + "'" + Werks + "'" + ")";
+				//	BusyIndicator.show(true);
+				oModelService.update(relPath, oEntry1, mParameters);
 
-				},
-				merge: false
-			};
-			var relPath = "/STOCK_DATASet(" + "Matnr=" + "'" + Matnr + "'" + "," + "Werks=" + "'" + Werks + "'" + ")";
-			//	BusyIndicator.show(true);
-			oModelService.update(relPath, oEntry1, mParameters);
-
-			/*	this.pressDialogOpn.close();
+				/*	this.pressDialogOpn.close();
 			this.pressDialogOpn.destroy();
 */
-}
+			}
 		},
 		datatime: function(dDate) {
 			var s_doc_datePost = dDate;
@@ -3158,14 +3133,14 @@ var ChildarrIndex = [];
 
 		MassUpdatePo: function(oEvent) {
 			var Massupload2 = [];
-				var len = Massupload.length;
-						var ls = len - 1;
-						if (Massupload[ls].Color === 'red') {
+			var len = Massupload.length;
+			var ls = len - 1;
+			if (Massupload[ls].Color === 'red') {
 
-							Massupload2.push(Massupload[ls]);
+				Massupload2.push(Massupload[ls]);
 
-						}
-			
+			}
+
 			console.log(Massupload2)
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
@@ -3308,37 +3283,37 @@ var ChildarrIndex = [];
 			}
 
 		},
-	onNotify: function(oEvent) {
+		onNotify: function(oEvent) {
 			// var oModel = oView.getModel("oExcessModelData");
-			var array =[];
+			var array = [];
 			var count = 0;
 			var oModel = oView.getModel("oStockDataModel");
 			var Data = oModel.oData;
-		console.log(Data);
-			for (var i=0;i<Data.length;i++){
-		
-				if(Data[i].ALabst > parseInt(Data[i].Cgtlv)){
-			  count = count + 1;
-			 
-				array.push({
-					Matnr:Data[i].Matnr,
-					Description : Data[i].Description,
-					Werks:Data[i].Werks,
-					quantity:Data[i].Alabst,
-					Labst:Data[i].Labst,
-					counter:count,
-					Changedon:Data[i].Changedon,
-					markupDescription:true
-				});
-				oView.getModel("oExcessModelData").setData(array);
-			this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
-				// oView.getModel("oCounter").setData({
-				// 	count:count
-				// });
-				// console.log(oCounter);
+			console.log(Data);
+			for (var i = 0; i < Data.length; i++) {
+
+				if (Data[i].ALabst > parseInt(Data[i].Cgtlv)) {
+					count = count + 1;
+
+					array.push({
+						Matnr: Data[i].Matnr,
+						Description: Data[i].Description,
+						Werks: Data[i].Werks,
+						quantity: Data[i].Alabst,
+						Labst: Data[i].Labst,
+						counter: count,
+						Changedon: Data[i].Changedon,
+						markupDescription: true
+					});
+					oView.getModel("oExcessModelData").setData(array);
+					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+					// oView.getModel("oCounter").setData({
+					// 	count:count
+					// });
+					// console.log(oCounter);
 				}
 			}
-		  console.log(array);
+			console.log(array);
 			var oMessageTemplate = new MessageItem({
 				type: 'Warning',
 				title: '{Matnr}' + " " + "material is in excess quantity",
@@ -3487,197 +3462,162 @@ var ChildarrIndex = [];
 		},
 		//sales order service
 		getSalesOrderDetails: function() {
-		
-				var oModel = this.getOwnerComponent().getModel("StockModel");
-				oModel.read("/SalesOrdersSet ", {
-					success: function(oData) {
-						// 	var data = oData.results;
-						// 	var data2=[];
 
-						// 	console.log("data-----------------")
-						// 	console.log(data);
-						// 	oView.getModel("oSaleModel");
-						// console.log("-----------------")
-						// 	for(var i=0 ; i<data.length;i++){
-						// 		if(!uniqueMatnr.includes(data[i].Matnr)){
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read("/SalesOrdersSet ", {
+				success: function(oData) {
+					// 	var data = oData.results;
+					// 	var data2=[];
 
-						// 		    uniqueMatnr.push(data[i].Matnr)
+					// 	console.log("data-----------------")
+					// 	console.log(data);
+					// 	oView.getModel("oSaleModel");
+					// console.log("-----------------")
+					// 	for(var i=0 ; i<data.length;i++){
+					// 		if(!uniqueMatnr.includes(data[i].Matnr)){
 
-						// 		}
+					// 		    uniqueMatnr.push(data[i].Matnr)
 
-						// 	}
-						// 	console.log(uniqueMatnr)
-						// 	console.log(data2);
+					// 		}
 
-						// 		for(var x=0 ;x<uniqueMatnr.length;x++)
-						// 			var orderCount = 0;
-						// 			for(var j=0 ;j<data.length; j++){
-						// 		 		if(uniqueMatnr[x].===data[j].Matnr){
-						// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
-						// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
-						// 		 		}
-						// 		 	data2.push(data[j]);
+					// 	}
+					// 	console.log(uniqueMatnr)
+					// 	console.log(data2);
 
-						// 		 	}
+					// 		for(var x=0 ;x<uniqueMatnr.length;x++)
+					// 			var orderCount = 0;
+					// 			for(var j=0 ;j<data.length; j++){
+					// 		 		if(uniqueMatnr[x].===data[j].Matnr){
+					// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
+					// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
+					// 		 		}
+					// 		 	data2.push(data[j]);
 
-						var iItem = oData.results.length;
-						var aListofVendoritem = [];
-						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-							//		console.log(iRowIndex);
-							var Matnr = oData.results[iRowIndex].Matnr;
-							aListofVendoritem.push({
-								Matnr: Matnr
+					// 		 	}
 
-							});
-						}
-						var index = {};
+					var iItem = oData.results.length;
+					var aListofVendoritem = [];
+					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+						//		console.log(iRowIndex);
+						var Matnr = oData.results[iRowIndex].Matnr;
+						aListofVendoritem.push({
+							Matnr: Matnr
 
-						aListofVendoritem.forEach(function(point) {
-							var key = "" + point.Matnr + " ";
-							if (key in index) {
-								index[key].count++;
-							} else {
-								var newEntry = {
-									Matnr: point.Matnr,
-									Kwmeng: "",
-									count: 1
-								};
-								index[key] = newEntry;
-								result.push(newEntry);
-							}
 						});
-						//	console.log(result);
-						result.sort(function(a, b) {
-							return b.count - a.count;
-						});
-						//		console.log(result);
-						var sResultlengrh = result.length;
-
-						console.log(result);
-
-						var data = oData.results;
-
-						for (var x = 0; x < result.length; x++) {
-							var orderCount = 0;
-							for (var j = 0; j < data.length; j++) {
-								if (result[x].Matnr === data[j].Matnr) {
-									orderCount = orderCount + parseInt(data[j].Kwmeng)
-									result[x].Kwmeng = orderCount.toString();
-								}
-
-							}
-
-						}
-						//console.log(result);
-						sap.ui.getCore().getModel("oSaleModel").setData(result);
-						
-
-					},
-
-					error: function(oError) {
-
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
 					}
-				});
-			},
-			
+					var index = {};
+
+					aListofVendoritem.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+						if (key in index) {
+							index[key].count++;
+						} else {
+							var newEntry = {
+								Matnr: point.Matnr,
+								Kwmeng: "",
+								count: 1
+							};
+							index[key] = newEntry;
+							result.push(newEntry);
+						}
+					});
+					//	console.log(result);
+					result.sort(function(a, b) {
+						return b.count - a.count;
+					});
+					//		console.log(result);
+					var sResultlengrh = result.length;
+
+					console.log(result);
+
+					var data = oData.results;
+
+					for (var x = 0; x < result.length; x++) {
+						var orderCount = 0;
+						for (var j = 0; j < data.length; j++) {
+							if (result[x].Matnr === data[j].Matnr) {
+								orderCount = orderCount + parseInt(data[j].Kwmeng)
+								result[x].Kwmeng = orderCount.toString();
+							}
+
+						}
+
+					}
+					//console.log(result);
+					sap.ui.getCore().getModel("oSaleModel").setData(result);
+
+				},
+
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+
 		onStockSelectionItem: function() {
-		console.log(itemindex);
+
+			/*	var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+					var oSelectedRecord = oTreeModel.getProperty(spathh[0]);*/
+
 			var oTreetable = this.byId("TreeTableBasic2");
-			var aSelectedIndex = oTreetable.getSelectedIndices();
+
 			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
 
-
-						var Plant;
-				function userExists(Plant) {
-						return childarray.some(function(el) {
-							return el.Plant === Plant;
-						});
-					}
-		
-		
-					for (var i = 0; i < ChildarrIndex.length; i++) {
+			for (var i = 0; i < ChildarrIndex.length; i++) {
 
 				var indexRow = ChildarrIndex[i];
 				var indexchild = indexRow.split("/")[2];
-				if(indexchild === "MultipleIt" ){
-					
-				}else{
+				if (indexchild === "MultipleIt") {
+
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+					oRouter.navTo('StockTransfer');
+				} else {
 					MessageBox.error("Please Select Plant");
 				}
-				
-				
+
 				var oParentPath = indexRow.split('').splice(1).join("");
 				var oChildPath = itemindex[1].split('/').splice(3).join("");
-				
-				var splant = oTreeModel.oData[oParentPath].MultipleIt[oChildPath].MultipleIt[oChildPath].Werks;
-				var stock = oTreeModel.getProperty('/' +oParentPath);
-				StockTransfer.push(stock);
-						// if (userExists(Plant)) {
-							
-						// }else{
-							
-						// }
-						
-		
-										
-			}
-		console.log(StockTransfer);
-var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
-	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet", StockTransfer);
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-											oRouter.navTo('StockTransfer');
-											
-		
-			// for (var i = 0; i < aSelectedIndex.length; i++) {
 
-			// 	var odata = aSelectedIndex[i];
-			// 	var stock = oTreeModel.getProperty('/' +odata);
-			// 	StockTransfer.push(stock);
-					
-			// var oStock =	this.getOwnerComponent().getModel("StockTransferModel").setData(StockTransfer);
-			// 		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			// 								oRouter.navTo('StockTransfer');
-											
-										
-			// }
-				oTreetable.SelectedNode = null;
-				oTreetable.destroyNoData();
-			oTreetable.selected = false; 
+				var stock = oTreeModel.getProperty('/' + oParentPath);
+				StockTransfer.push(stock);
+
+			}
+			console.log(StockTransfer);
+
+			oTreetable.SelectedNode = null;
+			oTreetable.destroyNoData();
+			oTreetable.selected = false;
 		},
-		onPressItem : function(event){
-		
-		
+		onPressItem: function(event) {
+
 			var oTreetable = this.byId("TreeTableBasic2");
 			var aSelectedIndex = oTreetable.getSelectedIndices();
-		
+
 			var spath = event.getParameters().rowContext.sPath;
-				itemindex.push(spath);
-			
+			itemindex.push(spath);
+
 		},
-		OnTreecellclick : function(event){
-			 console.log(event);
+		OnTreecellclick: function(event) {
+			console.log(event);
 		},
-		onRowSelectionChange : function(event){
-			var indexParent = [] ;
-		
-	
+		onRowSelectionChange: function(event) {
+			var indexParent = [];
+
 			var oTreetable = this.byId("TreeTableBasic2");
 			var aSelectedIndex = oTreetable.getSelectedIndices();
-				var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
-					var spath = event.getParameters().rowContext.sPath;
-				ChildarrIndex.push(spath);
-			
+			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+			var spath = event.getParameters().rowContext.sPath;
+			ChildarrIndex.push(spath);
+			/*  spathh = event.getParameters().rowContext.sPath;
+			ChildarrIndex.push(spathh);*/
 		},
-		
-		
-		
-		onExcessMaterial : function(oEvent){
+
+		onExcessMaterial: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("ExcessData");	
-		
-			
+			oRouter.navTo("ExcessData");
+
 			// 	this.pressDialogExcess = oView.byId("idExcessDialog");
 			// if (!this.pressDialogExcess) {
 			// 	this.pressDialogExcess = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterial", this);
@@ -3685,40 +3625,35 @@ var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
 			// }
 		},
 
-		
-   getPodetailsset: function(evt){
-   	  var oModel = this.getOwnerComponent().getModel("StockModel");
-   	  oModel.read("/podetails_forzstockSet",{
-   	  	success: function(oData) {
+		getPodetailsset: function(evt) {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read("/podetails_forzstockSet", {
+				success: function(oData) {
 					var data = oData.results;
 
 					PoQuantity = data;
 					console.log(PoQuantity);
 
-
 				},
-			
+
 				error: function(oError) {
-				
+
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
-   	  	
-   	  	
-   	  });
-   	  	
-   	  
-   },
-   	getRunRate:function(){
-					var oModel = this.getOwnerComponent().getModel("StockModel");
-		oModel.read("/runrateSet", {
+
+			});
+
+		},
+		getRunRate: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read("/runrateSet", {
 				success: function(oData) {
-			
-					
+
 					var iItem = oData.results.length;
 					var saleset = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-					
+
 						var Matnr = oData.results[iRowIndex].Matnr;
 						saleset.push({
 							Matnr: Matnr
@@ -3748,7 +3683,7 @@ var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
 					//		console.log(result);
 					// var TotalsalesetLength = Totalsaleset.length;
 
-                	var data = oData.results;
+					var data = oData.results;
 
 					for (var x = 0; x < Totalsaleset.length; x++) {
 						var orderCount = 0;
@@ -3765,13 +3700,15 @@ var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
 
 				},
 				error: function(oError) {
-				
+
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
-		});
-			}
-   
+			});
+		},
+		onSelectionChange: function(oEvent) {
+			alert(oEvent.getParameters().listItem.getAggregation("rows")[0].getProperty("text"));
+		}
 
 	});
 });
