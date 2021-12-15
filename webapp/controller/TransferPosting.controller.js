@@ -11,8 +11,8 @@ sap.ui.define([
 	return Controller.extend("com.vSimpleApp.controller.TransferPosting", {
 
 		onInit: function() {
-			var oTransPostModel = new JSONModel();
-			this.getView().setModel(oData, "oTransPostModel");
+			// var oTransPostModel = new JSONModel();
+			// this.getView().setModel(oData, "oTransPostModel");
 		},
 
 		getPOPlant: function() {
