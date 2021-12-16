@@ -902,6 +902,17 @@ sap.ui.define([
 					ItemCat: "U"
 				};
 } ,
+getTransferPostingItem : function(){
+	return {
+	  Material : this.Matnr,
+      Plant : "",
+      StgeLoc : "",
+      MoveType : "", 
+      EntryQnt : this.Quantity,
+      PoNumber : "",
+      PoItem : ""
+	};
+},
 		getInstance: function() {
 			if (!instance) {
 				// create new instance of ODataUtility Object

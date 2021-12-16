@@ -7,12 +7,20 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel"
 ], function(Controller, Filter, FilterOperator, MessageToast, BusyIndicator, JSONModel) {
 	"use strict";
-
+var oView,sPlant, oComponent,oController;
 	return Controller.extend("com.vSimpleApp.controller.TransferPosting", {
 
 		onInit: function() {
 			// var oTransPostModel = new JSONModel();
 			// this.getView().setModel(oData, "oTransPostModel");
+			
+				oController = this;
+			oView = this.getView();
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+
+			oComponent = this.getOwnerComponent();
+			//set the model on view to be used by the UI controls
+			this.getView().setModel(oModel);
 		},
 
 		getPOPlant: function() {
@@ -37,7 +45,7 @@ sap.ui.define([
 		handleValueHelpPlant: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			this.inputIdplant = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogp) {
 				this._valueHelpDialogp = sap.ui.xmlfragment(
@@ -76,54 +84,25 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 
-		_handleAddPlantClose: function(evt) {
+		_handlePlantClose: function(evt) {
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdAddPlant);
+				var productInput = this.byId(this.inputIdplant);
 				productInput.setValue(oSelectedItem.getTitle());
-				var sPlant = oSelectedItem.getTitle();
+	 sPlant = oSelectedItem.getTitle();
 
-				productInput.setValue(sPlant);
+			//	productInput.setValue(sPlant);
 
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
 
-		handleValueHelpAddPlant: function(oEvent) {
-			var sInputValue = oEvent.getSource().getValue();
-			sap.ui.getCore().inputIdAddPlant = oEvent.getSource().getId();
-
-			// create value help dialog
-			if (!this._valueHelpDialogpp) {
-				this._valueHelpDialogpp = sap.ui.xmlfragment(
-					"com.vSimpleApp.fragment.Stock.Plant",
-					this
-				);
-				this.getView().addDependent(this._valueHelpDialogpp);
-			}
-			if (sInputValue.includes(")")) {
-				var sSubString = sInputValue.split(")")[1];
-				sInputValue = sSubString.trim();
-			}
-
-			// create a filter for the binding
-			this._valueHelpDialogpp.getBinding("items").filter(new Filter([new Filter(
-				"Bwkey",
-				FilterOperator.Contains, sInputValue
-			), new Filter(
-				"Bwkey",
-				FilterOperator.Contains, sInputValue
-			)]));
-			this.getPOPlant();
-			// open value help dialog filtered by the input value
-			this._valueHelpDialogpp.open(sInputValue);
-
-		},
+	
 		/*storage loc*/
 		handleStorageLocationValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-			this.inputId = oEvent.getSource().getId();
+			this.inputIdstg = oEvent.getSource().getId();
 
 			//create value help dialog 
 			if (!this._valueHelpDialogStorage) {
@@ -148,7 +127,7 @@ sap.ui.define([
 				)
 
 			]));
-			this.getStorageLocation();
+			this.getStorageLocationTo();
 			this._valueHelpDialogStorage.open(sInputValue);
 		},
 
@@ -166,7 +145,7 @@ sap.ui.define([
 		_handleStorageLocationClose: function(oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
+				var productInput = this.byId(this.inputIdstg);
 				productInput.setValue(oSelectedItem.getTitle());
 
 			}
@@ -174,24 +153,17 @@ sap.ui.define([
 
 		},
 
-		getStorageLocation: function() {
+	
+	getStorageLocationTo: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var oTempModel = oPurchaseModel.getProperty("/TempContract");
+			var StockModel = oView.getModel("StockTransferModel");
+			 
 
-			var aItems = oTempModel.PoitemSet;
-
-			for (var i = 0; i < aItems.length; i++) {
-
-				var s_Plant = oTempModel.PoitemSet[i].Plant;
-
-			}
-
-			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, s_Plant);
+			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
 			BusyIndicator.show(true);
-			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + s_Plant + "')", {
+			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + sPlant + "')", {
 				filters: [oFilter],
 
 				success: function(oData) {
@@ -207,7 +179,6 @@ sap.ui.define([
 				}
 			});
 		},
-
 		/*storage loc end*/
 
 		/* reason for movment  start    */
@@ -215,7 +186,7 @@ sap.ui.define([
 		handleValueHelpReasonForMvmt: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			this.inputIdMVT = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogRfm) {
 				this._valueHelpDialogRfm = sap.ui.xmlfragment(
@@ -259,10 +230,9 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdAddPlant);
+				var productInput = this.byId(this.inputIdMVT);
 				productInput.setValue(oSelectedItem.getTitle());
-				var sPlant = oSelectedItem.getTitle();
-
+			
 				productInput.setValue(sPlant);
 
 				evt.getSource().getBinding("items").filter([]);
@@ -287,12 +257,12 @@ sap.ui.define([
 				}
 			});
 		},
-
+	/* end reason for movment      */
 		/*Special stock*/
 		handleValueSplStock: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			this.inputIdsplst = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogSplStock) {
 				this._valueHelpDialogSplStock = sap.ui.xmlfragment(
@@ -336,11 +306,10 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdAddPlant);
+				var productInput = this.byId(this.inputIdsplst);
 				productInput.setValue(oSelectedItem.getTitle());
-				var sPlant = oSelectedItem.getTitle();
-
-				productInput.setValue(sPlant);
+			
+			
 
 				evt.getSource().getBinding("items").filter([]);
 			}
@@ -370,7 +339,7 @@ sap.ui.define([
 		handleValueMvtType: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			this.inputIdmvttype = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogMvtType) {
 				this._valueHelpDialogMvtType = sap.ui.xmlfragment(
@@ -414,11 +383,11 @@ sap.ui.define([
 
 				var oSelectedItem = evt.getParameter("selectedItem");
 				if (oSelectedItem) {
-					var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdAddPlant);
+					var productInput = this.byId(this.inputIdmvttype);
 					productInput.setValue(oSelectedItem.getTitle());
-					var sPlant = oSelectedItem.getTitle();
+				
 
-					productInput.setValue(sPlant);
+				
 
 					evt.getSource().getBinding("items").filter([]);
 				}

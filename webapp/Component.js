@@ -102,9 +102,10 @@ sap.ui.define([
 			this.setModel(oLookupModel, "Lookup");
 
 			var oPurchaseData = {
-			//	StockContract: new StockContract(),
+			
 				//	ContractList: new POrdersList()
-				TempContract: new PurchaseHeader()
+				TempContract: new PurchaseHeader(),
+					StockContract:  new PurchaseHeader()
 
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
@@ -120,6 +121,10 @@ sap.ui.define([
 
 			var oExcessData = new sap.ui.model.json.JSONModel([]);
 			this.setModel(oExcessData, "oExcessDataModel");
+
+	var oTransportPosting = new sap.ui.model.json.JSONModel([]);
+				sap.ui.getCore().setModel(oTransportPosting, "oTransferPostModel");
+
 
 			var oGRData = {
 				GRPost: new GRDisplayHeader()

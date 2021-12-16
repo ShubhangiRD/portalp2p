@@ -1,0 +1,145 @@
+<core:FragmentDefinition xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified"
+	class="sapUiSizeCompact" height="100%" displayBlock="true">
+	<m:Dialog id="transferdialog" class="sapUiSizeCompact" title="SO Creation" showHeader="false" contentHeight="1000px" contentWidth="1000px">
+		<m:Page showNavButton="true" >
+			<ObjectPageLayout id="ObjectPageLayout" showAnchorBarPopover="false" upperCaseAnchorBar="false">
+				<headerTitle>
+					<ObjectPageDynamicHeaderTitle>
+						<heading>
+							<m:Title text="Transfer Posting"/>
+						</heading>
+						<!--	<snappedTitleOnMobile>
+					<m:Title text="Navigation to sections" />
+				</snappedTitleOnMobile>-->
+						<actions>
+							<m:Button text="Save" id="idtp" press="OnSaveTransferPosting" type="Emphasized"/>
+						
+									<m:Button type="Transparent" text="Cancel" press="onClosefunction"/>
+							<!--	<m:OverflowToolbarButton icon="sap-icon://action" type="Transparent" text="Share" tooltip="action"/>-->
+						</actions>
+					</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+				<!--
+		<headerContent>
+			<m:Title text="This example shows how to change the default behavior in order to be able to navigate to sections instead of subsections, using the Anchor Bar" titleStyle="H6"/>
+		</headerContent>-->
+				<sections>
+					<ObjectPageSection titleUppercase="false" title="Section 1">
+						<subSections>
+							<ObjectPageSubSection title="Details" titleUppercase="false">
+								<blocks>
+									<form:SimpleForm id="idSmplFormTransferPostingDetails" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4"
+										labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="3"
+										columnsL="2" columnsM="2" singleContainerFullSize="false">
+										<form:content>
+											<core:Title text=""/>
+											<m:Label text="Document Date" required="true"/>
+											<m:DatePicker id="idDocDate" placeholder="Enter Document Date" value="{oTransferPostModel>/DocDateTP}" change="handleChange"/>
+											<m:Label text="Material Slip"/>
+											<m:Input maxLength="10" value="{oTransferPostModel>/MaterialslipTP}"/>
+											<m:Label text="Document HeaderText"/>
+											<m:Input id="docheader" maxLength="10" value="{oTransferPostModel>/DocHeaderTP}"/>
+											<core:Title text=""/>
+											<m:Label text="Posting Date" required="true"/>
+											<m:DatePicker id="idPostingDate" placeholder="Enter Posting Date" value="{oTransferPostModel>/PostingDate}" change="handleChange"/>
+											<m:Label text="Gr/GI Slip No."/>
+											<m:Input maxLength="10" value="{oTransferPostModel>/GISlipTP}"/>
+										</form:content>
+									</form:SimpleForm>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Section 2">
+						<subSections>
+							<ObjectPageSubSection title="Documet Items" titleUppercase="false">
+								<blocks>
+									<form:SimpleForm id="idSmplFormTransferPostingDocItems" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4"
+										labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0"
+										columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false">
+										<form:content>
+											<core:Title text=""/>
+											<m:Label text="Movement Type" required="true"/>
+											<m:Input id="idMovementType" maxLength="3" width="70%" placeholder="Movement Type" showSuggestion="true" showValueHelp="true"
+												value="{oTransferPostModel>/MovmtTypeTP}" valueHelpRequest="handleValueMvtType" suggestionItems="{ path: 'Lookup>/SplStock' }"
+												suggestionItemSelected="onSuggest">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Bwart}" text="{Lookup>Btext}" additionalText="{Lookup>Bwart}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<m:Label text="Plant" required="true"/>
+											<m:Input id="Plant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+												value="{oTransferPostModel>/PlantTransferTP}" liveChange="Validate" width="70%" suggestionItems="{ path: 'Lookup>/POPlant' }"
+												suggestionItemSelected="onSuggest">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<m:Label text="Storage Location" required="true"/>
+											<m:Input id="idInpStorageLocation" maxLength="4" width="70%" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+												valueHelpRequest="handleStorageLocationValue" value="{oTransferPostModel>/StgeLocTP}" suggestionItems="{ path: 'Lookup>/StorageLocationList' }">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<!--						<Input id="StgeLoc" value="" editable="" textFormatMode="KeyValue"
+							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
+							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
+							<suggestionItems>
+								<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
+							</suggestionItems>
+						</Input>-->
+											<core:Title text=""/>
+											<m:Label text="Special Stock"/>
+											<m:Input id="idInpSpecialStock" maxLength="1" width="30%" placeholder="" showSuggestion="true" showValueHelp="true"
+												value="{oTransferPostModel>/SpecialStkTP}" valueHelpRequest="handleValueSplStock" suggestionItems="{ path: 'Lookup>/SplStock' }"
+												suggestionItemSelected="onSuggest">
+												<m:suggestionItems>
+														<core:ListItem key="{Lookup>Sobkz}" text="{Lookup>Btext}" additionalText="{Lookup>Sobkz}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<m:Label text="Reason for Movement"/>
+											<m:Input id="idInpMovmentRsn" maxLength="4" width="70%" placeholder="" showSuggestion="true" showValueHelp="true"
+												value="{oTransferPostModel>/MReasonTP}" valueHelpRequest="handleValueHelpReasonForMvmt" suggestionItems="{ path: 'Lookup>/ReasonForMvt' }"
+												suggestionItemSelected="onSuggest">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Bwart}" text="{Lookup>Grtxt}" additionalText="{Lookup>Grund}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<m:Label text=""/>
+											<m:CheckBox text="Suggest Zero Lines"/>
+										</form:content>
+									</form:SimpleForm>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Section 1">
+						<subSections>
+							<ObjectPageSubSection title="GR/GI Slip" titleUppercase="false">
+								<blocks>
+									<form:SimpleForm id="idSmplFormTransferPostingGrSlip" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4"
+										labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="4" emptySpanS="1" columnsXL="3"
+										columnsL="2" columnsM="2" singleContainerFullSize="false">
+										<form:content>
+											<core:Title text=""/>
+											<m:Label text=""/>
+											<m:CheckBox text="Print"/>
+											<core:Title text=""/>
+											<m:VBox class="sapUiLargeMarginBegin">
+												<m:RadioButton text="Individual Slip" class="sapUiMediumMarginBegin"/>
+												<m:RadioButton text="Indiv.Slip w.Inspect.Text" class="sapUiMediumMarginBegin"/>
+												<m:RadioButton text="Collective Slip" class="sapUiMediumMarginBegin"/>
+											</m:VBox>
+										</form:content>
+									</form:SimpleForm>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+				</sections>
+			</ObjectPageLayout>
+		</m:Page>
+	</m:Dialog>
+</core:FragmentDefinition>

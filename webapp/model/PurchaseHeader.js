@@ -93,6 +93,12 @@ sap.ui.define([
 			this.Description = (oData && oData.Description) ? oData.Description : "";
 			this.Quantity = (oData && oData.Quantity) ? oData.Quantity : "";
 			this.StgeLoc = (oData && oData.StgeLoc) ? oData.StgeLoc : "";
+			
+				this.PlantTransferTP = (oData && oData.PlantTransferTP) ? oData.PlantTransferTP : "";
+			this.MovmtTypeTP = (oData && oData.MovmtTypeTP) ? oData.MovmtTypeTP : "";
+				this.StgeLocTP = (oData && oData.StgeLocTP) ? oData.StgeLocTP : "";
+			
+			
 		},
 		getRequestPayloadPO: function() {
 
@@ -693,6 +699,33 @@ PoitemSet : PoitemSet
 			};
 
 		},
+
+
+	TransferPosting: function() {
+
+			var PoitemSet = [];
+			
+					this.PoitemSet.forEach(function(item) {
+				var sPo = new RebateConditionItemPO(item);
+				PoitemSet.push(sPo.getTransferPostingItem());
+				//	PoitemSet.push(item);
+
+			});
+
+
+			return {
+			
+				PstngDate: this.CreatDate,
+				DocDate: this.CreatedBy,
+			
+			GoodsmvtitemSet : PoitemSet
+		
+
+			};
+
+		},
+
+
 
 		validateVendor: function(Vendor) {
 			var zero = "";

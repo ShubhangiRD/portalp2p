@@ -6,7 +6,7 @@
 		class="sapUiPopupWithPadding"
 		items="{Lookup>/ReasonForMvt}"
 		search="_handleRFSSearch"
-		confirm="_handleRFSSearch"
+		confirm="_handleAddRFMClose"
 		cancel="_handleAddRFMClose">
 		<StandardListItem
 			title="{Lookup>Grund}"

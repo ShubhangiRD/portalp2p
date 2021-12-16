@@ -6,7 +6,7 @@
 		class="sapUiPopupWithPadding"
 		items="{Lookup>/SplStock}"
 		search="_handleMvtTypeSearch"
-		confirm="_handleMvtTypeSearch"
+		confirm="_handleMvtTypeClose"
 		cancel="_handleMvtTypeClose">
 		<StandardListItem
 			title="{Lookup>Bwart}"

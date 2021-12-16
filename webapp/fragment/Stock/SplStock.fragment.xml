@@ -6,7 +6,7 @@
 		class="sapUiPopupWithPadding"
 		items="{Lookup>/SplStock}"
 		search="_handleSplStockSearch"
-		confirm="_handleSplStockSearch"
+		confirm="_handleAddSplStockClose"
 		cancel="_handleAddSplStockClose">
 		<StandardListItem
 			title="{Lookup>Sobkz}"

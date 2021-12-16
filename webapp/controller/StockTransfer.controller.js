@@ -10,7 +10,7 @@ sap.ui.define([
 	"sap/m/MessageToast"
 ], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast) {
 	"use strict";
-	var oView,sPlant, oComponent;
+	var oView,sPlant, oComponent ,  successObj;
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -227,7 +227,7 @@ this.getdocumenttypeSet();
 		},
 		handleStorageLocationValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-			this.inputId = oEvent.getSource().getId();
+				sap.ui.getCore().inputIdstg = oEvent.getSource().getId();
 
 			//create value help dialog 
 			if (!this._valueHelpDialogStorage) {
@@ -255,7 +255,7 @@ this.getdocumenttypeSet();
 		},
 		handleStorageLocValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-			this.inputId = oEvent.getSource().getId();
+			sap.ui.getCore().inputIdstg = oEvent.getSource().getId();
 
 			//create value help dialog 
 			if (!this._valueHelpDialogStorage) {
@@ -297,7 +297,7 @@ this.getdocumenttypeSet();
 		_handleStorageLocationClose: function(oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdstg);
 				productInput.setValue(oSelectedItem.getTitle());
 
 			}
@@ -378,7 +378,7 @@ this.getdocumenttypeSet();
 		handleValueHelpPlant: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			sap.ui.getCore().inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogpp) {
 				this._valueHelpDialogpp = sap.ui.xmlfragment(
@@ -422,13 +422,126 @@ this.getdocumenttypeSet();
 			var oSelectedItem = evt.getParameter("selectedItem");
 
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputId);
 				productInput.setValue(oSelectedItem.getTitle());
 				sPlant = oSelectedItem.getTitle();
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
+	onSavePurchaseOrde4r : function(){
+					var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+			var oTransferPostModel = sap.ui.getCore().getModel("oTransferPostModel");
+			var oStockContract = oPurchaseModel.setProperty("/StockContract" ,oPurchaseContract);
+				sap.m.MessageBox.show("S.T.O created under the number" +  + " Proceed  ", {
+				icon: sap.m.MessageBox.Icon.INFORMATION,
+
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
+				onClose: function(oAction) {
+					if (oAction === "OK") {
+
+					//	BusyIndicator.hide();
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+						oRouter.navTo('ManageStockTable');
+						//	window.location.reload();
+					}else{
+							this.transferdialog = oView.byId("transferdialog");
+			if (!this.transferdialog) {
+				this.transferdialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.TranfPost", this);
+				this.transferdialog.open();
+
+			}
+					}
+				}.bind(this)
+			});
+	},
 	
+	OnSaveTransferPosting : function(){
+	
+			MessageToast.show("Save TransferPosting");
+				var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+				var oTransferPostModel = sap.ui.getCore().getModel("oTransferPostModel");
+				var oStockData = oTransferPostModel.oData;
+				//	var oStockContract = oPurchaseModel.setProperty("/TempContract",oStockData);
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
+			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
+			var oRequestPayload = oPurchaseContract.TransferPosting();
+				var MovmtTypeTP = oStockData.MovmtTypeTP;
+					var PlantTransferTP = oStockData.PlantTransferTP;
+						var StgeLocTP = oStockData.StgeLocTP;
+						var docDate = this.datatime(oStockData.DocDateTP);
+						var PostingDate = this.datatime(oStockData.PostingDate);
+				var vln = oRequestPayload.GoodsmvtitemSet.length;
+				oRequestPayload.PstngDate = PostingDate;
+					oRequestPayload.DocDate = docDate;
+				function LeadingZeros(num, size) {
+				var s = num + "0" + "";
+				while (s.length < size) s = "0" + s;
+				return s;
+			}
+			for (var vlen = 0; vlen < vln; vlen++) {
+			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+		
+			 oRequestPayload.GoodsmvtitemSet[vlen].PoItem = LeadingZeros(vlen + 1, 5);
+			  oRequestPayload.GoodsmvtitemSet[vlen].MoveType = MovmtTypeTP;
+			   oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
+			    oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = StgeLocTP;
+			     oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
+			     	//  oRequestPayload.GoodsmvtitemSet[vlen].Material = Material;
+			     	  	//  oRequestPayload.GoodsmvtitemSet[vlen].EntryQnt = EntryQnt;
+			}
+			
+			
+		//	console.log(oRequestPayload);
+			
+				oModel.create("/GrCrudSet", oRequestPayload, {
+				success: this._onCreateEntrySuccessTR.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+
+			
+},
+_onCreateEntrySuccessTR: function(oObject, oResponse) {
+			BusyIndicator.hide();
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var oTempContract = oPurchaseModel.getProperty("/TempContract");
+			oTempContract.setData();
+			var s = oPurchaseModel.oData.TempContract.destroy;
+			var aaa = oPurchaseModel.oData.TempContract.setData([]);
+				s.refresh(true);
+var that = this; 
+			sap.m.MessageBox.show("Stock Transfer Successfully", {
+				icon: sap.m.MessageBox.Icon.INFORMATION,
+
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
+				onClose: function(oAction) {
+					if (oAction === "OK") {
+
+						BusyIndicator.hide();
+							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+						oRouter.navTo('ManageStockTable');
+						that.transferdialog.destroy(null);	
+				that.transferdialog.close();
+			that.transferdialog.destroy();
+					}
+				}.bind(this)
+			});
+
+		},
+		datatime: function(dDate) {
+			var s_doc_datePost = new Date(dDate);
+			var Datepoststring = s_doc_datePost.toISOString();
+			Datepoststring = Datepoststring.slice(0, -5);
+			return Datepoststring;
+		},
+		onClosefunction: function() {
+			this.transferdialog.close();
+			this.transferdialog.destroy();
+			this.transferdialog.destroy(null);	
+
+		},
 			onSavePurchaseOrder: function(evt) {
 					MessageToast.show("Save PO");
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
@@ -442,7 +555,7 @@ this.getdocumenttypeSet();
 			BusyIndicator.show(true);
 			//delete oRequestPayload.Vendor;
 			var vln = oRequestPayload.PoitemSet.length;
-				
+			
 					function LeadingZeros(num, size) {
 				var s = num + "0" + "";
 				while (s.length < size) s = "0" + s;
@@ -463,40 +576,41 @@ this.getdocumenttypeSet();
 		},
 		_onCreateEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
-			var successObj = oObject.PoNumber;
-
-			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-			var oTempContract = oPurchaseModel.getProperty("/TempContract");
-			oTempContract.setData();
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			var aaa = oPurchaseModel.oData.TempContract.setData([]);
+			successObj = oObject.PoNumber;
+var ResponseData = oResponse.data;
+	var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+	var oStockContract = oPurchaseModel.setProperty("/StockContract" ,ResponseData);
+//	var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+		//	var oTempContract = oPurchaseModel.getProperty("/TempContract");
+		//	oTempContract.setData();
+		//	var s = oPurchaseModel.oData.TempContract.destroy;
+		//	var aaa = oPurchaseModel.oData.TempContract.setData([]);
 			//	s.refresh(true);
 
 		
 
-			var idq = "__xmlview1--nDescription-__clone1";
-			$("#" + idq + "-inner").val(" ");
 
-			var idqq = "__xmlview1--uom1-__clone3";
-			$("#" + idqq + "-inner").val(" ");
-
-			var idqa = "__xmlview1--Price-__clone5";
-			$("#" + idqa + "-inner").val(" ");
-
-			oPurchaseModel.refresh(true);
-			this.getView().getModel("PurchaseSet").refresh();
-
-			sap.m.MessageBox.show("S.T.O created under the number" + successObj + " ", {
+			sap.m.MessageBox.show("S.T.O created under the number #" + successObj + " Do you want to Stock transfer Automatically", {
 				icon: sap.m.MessageBox.Icon.INFORMATION,
 
-				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
+				actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 				onClose: function(oAction) {
-					if (oAction === "OK") {
+					if (oAction === "YES") {
 
 						BusyIndicator.hide();
-						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('ManageStockTable');
-							window.location.reload();
+					//	this.OnSaveTransferPosting();
+						//var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+					//	oRouter.navTo('ManageStockTable');
+							//window.location.reload();
+					}else{
+					
+							this.transferdialog = oView.byId("transferdialog");
+			if (!this.transferdialog) {
+				this.transferdialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.TranfPost", this);
+				this.transferdialog.open();
+
+			}
 					}
 				}.bind(this)
 			});
@@ -516,8 +630,219 @@ this.getdocumenttypeSet();
 		},
 		onCancelPRess : function(evt){
 			
-		}
-		/*plant search end*/
+		},
+				getSpecialStockList: function() {
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+
+			oModel.read("/get_movementTypef4Set", {
+				success: function(oData) {
+
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/SplStock", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+
+		/* movement type    */
+
+		handleValueMvtType: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			sap.ui.getCore().inputIdmvttype = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogMvtType) {
+				this._valueHelpDialogMvtType = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.MovementType",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogMvtType);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogMvtType.getBinding("items").filter(new Filter([new Filter(
+				"Bwart",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Btext",
+				FilterOperator.Contains, sInputValue
+			)]));
+			this.getSpecialStockList();
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogMvtType.open(sInputValue);
+
+		},
+		_handleMvtTypeSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Bwart",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Btext",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleMvtTypeClose: function(evt) {
+
+				var oSelectedItem = evt.getParameter("selectedItem");
+				if (oSelectedItem) {
+					var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdmvttype);
+					productInput.setValue(oSelectedItem.getTitle());
+				
+
+				
+
+					evt.getSource().getBinding("items").filter([]);
+				}
+			},
+				/* reason for movment  start    */
+
+		handleValueHelpReasonForMvmt: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+				sap.ui.getCore().inputIdMVT = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogRfm) {
+				this._valueHelpDialogRfm = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.RsnForMvt",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogRfm);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogRfm.getBinding("items").filter(new Filter([new Filter(
+				"Grund ",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Grtxt",
+				FilterOperator.Contains, sInputValue
+			)]));
+			this.getReasonforMvt();
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogRfm.open(sInputValue);
+
+		},
+		_handleRFSSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Grund",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Grtxt",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleAddRFMClose: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = 	sap.ui.getCore().byId(sap.ui.getCore().inputIdMVT);
+				productInput.setValue(oSelectedItem.getTitle());
+			
+			
+
+				evt.getSource().getBinding("items").filter([]);
+			}
+		},
+		getReasonforMvt: function() {
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+
+			oModel.read("/get_ReasonforMovmentf4Set", {
+				success: function(oData) {
+
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/ReasonForMvt", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+	/* end reason for movment      */
+		/*Special stock*/
+		handleValueSplStock: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			sap.ui.getCore().inputIdsplst = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogSplStock) {
+				this._valueHelpDialogSplStock = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.SplStock",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogSplStock);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogSplStock.getBinding("items").filter(new Filter([new Filter(
+				"Sobkz",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Btext",
+				FilterOperator.Contains, sInputValue
+			)]));
+			this.getSpecialStockList();
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogSplStock.open(sInputValue);
+
+		},
+		_handleSplStockSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Sobkz",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Btext",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleAddSplStockClose: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdsplst);
+				productInput.setValue(oSelectedItem.getTitle());
+			
+			
+
+				evt.getSource().getBinding("items").filter([]);
+			}
+		},
+
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
