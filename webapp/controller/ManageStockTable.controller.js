@@ -265,7 +265,7 @@ sap.ui.define([
 			oModel.read("/STOCK_DATASet", {
 				success: function(oData) {
 					BusyIndicator.hide();
-
+					console.log(oData);
 					var len = oData.results.length;
 					var UniqueMatnr = [];
 
@@ -402,6 +402,7 @@ sap.ui.define([
 					var InnerChild = [];
 					var InnerinnerChild = [];
 					var UniqueMatnr = [];
+					var UniqueWerks = [];
 
 					function userExists(Bukrs) {
 						return childarray.some(function(el) {
@@ -414,13 +415,13 @@ sap.ui.define([
 							return edl.Werks === Werks;
 						});
 					}
-					
-					function StorageExists (Lgort){
-						return InnerinnerChild.some(function(ed2){
+
+					function StorageExists(Lgort) {
+						return InnerinnerChild.some(function(ed2) {
 							return ed2.Lgort === Lgort;
 						});
 					}
-					
+
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
 
 						var odataset = oData.results[iRowIndex];
@@ -511,53 +512,76 @@ sap.ui.define([
 								var Lbkum = stock.Lbkum;
 								var Labst = stock.Labst;
 								var Lgort = stock.Lgort;
-								var Werkss = stock.Werks;
+								var Werks = stock.Werks;
 								var Matnr2 = stock.Matnr;
 
 								if (Matnr === Matnr2) {
 									//	console.log(sum);
 
 									if (userExists(Bukrs)) {
-									
-										if (PlantExists(Werks)) {
 
-											
-											InnerinnerChild.push({
-												//	Bukrs: Bukrs,
-												Labst: Labst,
-												Matnr: 'SLoc' + " " + Lgort,
-												OsalesOrder: "So",
-												Lgort : Lgort
+										if (!UniqueWerks.includes(Werks)) {
+											UniqueWerks.push(Werks);
 
-											});
-											
-		
-
-										} else {
 											InnerChild.push({
 												//	Bukrs: Bukrs,
-
 												//	Lgort: Lgort,
 												Matnr: 'Plant' + " " + Werks,
 												Werks: Werks,
 												MultipleIt: InnerinnerChild,
 												OpenPOQty: sOpenPoQuantity,
 												OsalesOrder: "So",
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
 												RunRate: sRunRate
 
 											});
-	if (StorageExists(Lgort)) {
 											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
 												Labst: Labst,
-
 												Matnr: 'SLoc' + " " + Lgort,
-											
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
 												OsalesOrder: "So",
-													Lgort : Lgort
+												Lgort: Lgort
 
 											});
-}
+
+										} else {
+											/*					InnerChild.push({
+																			//	Bukrs: Bukrs,
+
+																			//	Lgort: Lgort,
+																			Matnr: 'Plant' + " " + Werks,
+																			Werks: Werks,
+																			MultipleIt: InnerinnerChild,
+																			OpenPOQty: sOpenPoQuantity,
+																			OsalesOrder: "So",
+																				Crtlv: "crtlv",
+											                                   Cytlv: "cytlv",
+											                                   Cgtlv: "cgtlv",
+											                                   Cbtlv: "cbtlv",
+																			RunRate: sRunRate
+
+																		});*/
+											// if (StorageExists(Lgort)) {
+											InnerinnerChild.push({
+												//	Bukrs: Bukrs,
+												Labst: Labst,
+												Matnr: 'SLoc' + " " + Lgort,
+												Crtlv: "crtlv",
+												Cytlv: "cytlv",
+												Cgtlv: "cgtlv",
+												Cbtlv: "cbtlv",
+												OsalesOrder: "So",
+												Lgort: Lgort
+
+											});
+											// }
 										}
 
 									} else {
@@ -604,7 +628,7 @@ sap.ui.define([
 										});
 										sOpenPoQuantity = "";
 										sRunRate = "";
-	if (StorageExists(Lgort)) {
+										// if (StorageExists(!Lgort==="0")) {
 										InnerinnerChild.push({
 											//	Bukrs: Bukrs,
 											Labst: Labst,
@@ -615,10 +639,10 @@ sap.ui.define([
 
 											Matnr: 'SLoc' + " " + Lgort,
 											OsalesOrder: "So",
-												Lgort : Lgort
+											Lgort: Lgort
 
 										});
-	}
+										// }
 
 									}
 
@@ -1225,6 +1249,7 @@ sap.ui.define([
 						var InnerChild = [];
 						var InnerinnerChild = [];
 						var UniqueMatnr = [];
+						var UniquePlant = [];
 
 						function userExists(Bukrs) {
 							return childarray.some(function(el) {
@@ -3545,62 +3570,54 @@ sap.ui.define([
 		},
 
 		onStockSelectionItem: function() {
-	var	oStockFinal = [];
-		
-		var RowPath = [];
+			var oStockFinal = [];
+
+			var RowPath = [];
 			var oTreetable = this.byId("TreeTableBasic2");
 			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
 
-				var SamePlant = [];
-		
-				for(var it = 0; it < ChildarrIndex.length; it++){
-					var indexRow = ChildarrIndex[it];
-					var indexchild = indexRow.split("/")[2];
-					var startPath = ChildarrIndex[it].split('/')[1];
-					if (indexchild === "MultipleIt") {
-							var stockvalue = oTreeModel.getProperty(indexRow);
-							var STPlant = stockvalue.Werks;
-						
-							if(!SamePlant.includes(STPlant)){
-									SamePlant.push(STPlant);
-							}
-						
-					}
-			RowPath.push(startPath);
-				}
-			var uniqueNames = [];
-$.each(RowPath, function(i, el){
-    if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
-});		
+			var SamePlant = [];
 
-		
-			
-		for(var  strows = 0; strows < uniqueNames.length; strows++){
-		
-					var sstr = uniqueNames[strows];
-		var stock = oTreeModel.getProperty('/' +sstr);
-		
-		
-		oStockFinal.push(stock);
-		
-	
-		}
-		
-		
-		if(SamePlant && SamePlant.length){
-			var splantt = SamePlant[0];
-				var oPurchaseModel=this.getOwnerComponent().getModel("PurchaseModel");
-		var aPurchaseConditionItems = oPurchaseModel.setProperty("/TempContract/PoitemSet", oStockFinal);
-		var aplant = oPurchaseModel.setProperty("/TempContract/SupplPlnt", splantt);
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-											oRouter.navTo('StockTransfer');	
-		}else{
-			MessageBox.error("Please Select Plant");
-		}
-		
-		
-	
-		
+			for (var it = 0; it < ChildarrIndex.length; it++) {
+				var indexRow = ChildarrIndex[it];
+				var indexchild = indexRow.split("/")[2];
+				var startPath = ChildarrIndex[it].split('/')[1];
+				if (indexchild === "MultipleIt") {
+					var stockvalue = oTreeModel.getProperty(indexRow);
+					var STPlant = stockvalue.Werks;
+
+					if (!SamePlant.includes(STPlant)) {
+						SamePlant.push(STPlant);
+					}
+
+				}
+				RowPath.push(startPath);
+			}
+			var uniqueNames = [];
+			$.each(RowPath, function(i, el) {
+				if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+			});
+
+			for (var strows = 0; strows < uniqueNames.length; strows++) {
+
+				var sstr = uniqueNames[strows];
+				var stock = oTreeModel.getProperty('/' + sstr);
+
+				oStockFinal.push(stock);
+
+			}
+
+			if (SamePlant && SamePlant.length) {
+				var splantt = SamePlant[0];
+				var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+				var aPurchaseConditionItems = oPurchaseModel.setProperty("/TempContract/PoitemSet", oStockFinal);
+				var aplant = oPurchaseModel.setProperty("/TempContract/SupplPlnt", splantt);
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo('StockTransfer');
+			} else {
+				MessageBox.error("Please Select Plant");
+			}
+
 		},
 		onPressItem: function(event) {
 
@@ -3630,7 +3647,6 @@ $.each(RowPath, function(i, el){
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ExcessData");
 
-	
 		},
 
 		getPodetailsset: function(evt) {
