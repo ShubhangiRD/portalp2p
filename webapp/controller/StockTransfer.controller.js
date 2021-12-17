@@ -428,33 +428,7 @@ this.getdocumenttypeSet();
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
-	onSavePurchaseOrde4r : function(){
-					var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-			var oTransferPostModel = sap.ui.getCore().getModel("oTransferPostModel");
-			var oStockContract = oPurchaseModel.setProperty("/StockContract" ,oPurchaseContract);
-				sap.m.MessageBox.show("S.T.O created under the number" +  + " Proceed  ", {
-				icon: sap.m.MessageBox.Icon.INFORMATION,
 
-				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
-				onClose: function(oAction) {
-					if (oAction === "OK") {
-
-					//	BusyIndicator.hide();
-						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('ManageStockTable');
-						//	window.location.reload();
-					}else{
-							this.transferdialog = oView.byId("transferdialog");
-			if (!this.transferdialog) {
-				this.transferdialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.TranfPost", this);
-				this.transferdialog.open();
-
-			}
-					}
-				}.bind(this)
-			});
-	},
 	
 	OnSaveTransferPosting : function(){
 	
@@ -476,15 +450,11 @@ this.getdocumenttypeSet();
 				var vln = oRequestPayload.GoodsmvtitemSet.length;
 				oRequestPayload.PstngDate = PostingDate;
 					oRequestPayload.DocDate = docDate;
-				function LeadingZeros(num, size) {
-				var s = num + "0" + "";
-				while (s.length < size) s = "0" + s;
-				return s;
-			}
+			
 			for (var vlen = 0; vlen < vln; vlen++) {
 			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
 		
-			 oRequestPayload.GoodsmvtitemSet[vlen].PoItem = LeadingZeros(vlen + 1, 5);
+			 oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 			  oRequestPayload.GoodsmvtitemSet[vlen].MoveType = MovmtTypeTP;
 			   oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
 			    oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = StgeLocTP;
@@ -503,15 +473,56 @@ this.getdocumenttypeSet();
 
 			
 },
+onSaveAutoTRP : function(oPurchaseModel){
+
+
+var odata = oPurchaseModel.oData.StockContract;
+var stg = oPurchaseModel.oData.StockContract.PoitemSet.results[0].StgeLoc;
+var docdate = odata.DocDate;
+var podate = odata.DocDate;
+	var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+	var oRequestPayload = oPurchaseContract.TransferPosting();
+			
+						var PlantTransferTP = oPurchaseModel.oData.TempContract.SupplPlnt;
+						
+					
+				var vln = oRequestPayload.GoodsmvtitemSet.length;
+				oRequestPayload.PstngDate =this.datatime(docdate);
+					oRequestPayload.DocDate =this.datatime(podate);
+			
+			for (var vlen = 0; vlen < vln; vlen++) {
+		
+			oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc  = stg;
+				oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+			    oRequestPayload.GoodsmvtitemSet[vlen].MoveType = "351";
+			    oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
+				oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
+			     
+			}
+			
+			
+		//	console.log(oRequestPayload);
+			
+				oModel.create("/GrCrudSet", oRequestPayload, {
+				success: this._onCreateEntrySuccessTR.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+
+	
+	
+},
 _onCreateEntrySuccessTR: function(oObject, oResponse) {
 			BusyIndicator.hide();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			var aaa = oPurchaseModel.oData.TempContract.setData([]);
-				s.refresh(true);
-var that = this; 
+				oPurchaseModel.setData({
+				oData: {}
+			});
+
+			oPurchaseModel.refresh(true);
+
 			sap.m.MessageBox.show("Stock Transfer Successfully", {
 				icon: sap.m.MessageBox.Icon.INFORMATION,
 
@@ -520,16 +531,20 @@ var that = this;
 					if (oAction === "OK") {
 
 						BusyIndicator.hide();
+						
 							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 						oRouter.navTo('ManageStockTable');
-						that.transferdialog.destroy(null);	
-				that.transferdialog.close();
-			that.transferdialog.destroy();
+						window.location.reload();
 					}
 				}.bind(this)
 			});
 
 		},
+			LeadingZeros : function (num, size) {
+				var s = num + "0" + "";
+				while (s.length < size) s = "0" + s;
+				return s;
+			},
 		datatime: function(dDate) {
 			var s_doc_datePost = new Date(dDate);
 			var Datepoststring = s_doc_datePost.toISOString();
@@ -556,15 +571,10 @@ var that = this;
 			//delete oRequestPayload.Vendor;
 			var vln = oRequestPayload.PoitemSet.length;
 			
-					function LeadingZeros(num, size) {
-				var s = num + "0" + "";
-				while (s.length < size) s = "0" + s;
-				return s;
-			}
 			for (var vlen = 0; vlen < vln; vlen++) {
 			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
 		
-		 oRequestPayload.PoitemSet[vlen].PoItem = LeadingZeros(vlen + 1, 5);
+		 oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 			}
 			oModel.create("/PoDisplaySet", oRequestPayload, {
 				success: this._onCreateEntrySuccess.bind(this),
@@ -581,12 +591,6 @@ var ResponseData = oResponse.data;
 	var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 	var oStockContract = oPurchaseModel.setProperty("/StockContract" ,ResponseData);
-//	var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-		//	var oTempContract = oPurchaseModel.getProperty("/TempContract");
-		//	oTempContract.setData();
-		//	var s = oPurchaseModel.oData.TempContract.destroy;
-		//	var aaa = oPurchaseModel.oData.TempContract.setData([]);
-			//	s.refresh(true);
 
 		
 
@@ -599,7 +603,7 @@ var ResponseData = oResponse.data;
 					if (oAction === "YES") {
 
 						BusyIndicator.hide();
-					//	this.OnSaveTransferPosting();
+						this.onSaveAutoTRP(oPurchaseModel);
 						//var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 					//	oRouter.navTo('ManageStockTable');
 							//window.location.reload();

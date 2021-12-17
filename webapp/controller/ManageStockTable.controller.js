@@ -198,66 +198,7 @@ sap.ui.define([
 			this.getView().setModel(MaterialModel, "MaterialModel");
 		},
 
-		getMaterialstockSet11: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			oModel.read('/getMaterialstockSet', {
-				success: function(odata) {
-
-					CompanyLevelset = odata.results;
-					//	console.log(CompanyLevelset);
-
-					var iItem = odata.results.length;
-					var ListItem = [];
-					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-
-						var Matnr = odata.results[iRowIndex].Matnr;
-						ListItem.push({
-							Matnr: Matnr
-
-						});
-					}
-					var index = {};
-
-					ListItem.forEach(function(point) {
-						var key = "" + point.Matnr + " ";
-						if (key in index) {
-							index[key].count++;
-						} else {
-							var newEntry = {
-								Matnr: point.Matnr,
-								Labst: "",
-								count: 1
-							};
-							index[key] = newEntry;
-							TotalLabst.push(newEntry);
-						}
-					});
-
-					TotalLabst.sort(function(a, b) {
-						return b.count - a.count;
-					});
-
-					var data = odata.results;
-
-					for (var x = 0; x < TotalLabst.length; x++) {
-						var orderCount = 0;
-						for (var j = 0; j < data.length; j++) {
-							if (TotalLabst[x].Matnr === data[j].Matnr) {
-								orderCount = orderCount + parseInt(data[j].Labst)
-								TotalLabst[x].Labst = orderCount.toString();
-							}
-
-						}
-
-					}
-					console.log(TotalLabst);
-
-				},
-				error: function(oerror) {
-					MessageBox.error(oerror);
-				}
-			});
-		},
+	
 
 		getStockDetailListSiddhi: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
@@ -410,17 +351,7 @@ sap.ui.define([
 						});
 					}
 
-					function PlantExists(Werks) {
-						return InnerChild.some(function(edl) {
-							return edl.Werks === Werks;
-						});
-					}
-
-					function StorageExists(Lgort) {
-						return InnerinnerChild.some(function(ed2) {
-							return ed2.Lgort === Lgort;
-						});
-					}
+				
 
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
 
@@ -504,7 +435,7 @@ sap.ui.define([
 								DocDate: sDocDate,
 								RunRate: sRunRate
 							});
-							console.log(sOpenPoDate);
+						
 
 							for (var j = 0; j < StockList.length; j++) {
 								var stock = StockList[j];
@@ -538,6 +469,7 @@ sap.ui.define([
 												RunRate: sRunRate
 
 											});
+												if (!InnerinnerChild.includes(Lgort)) {
 											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
 												Labst: Labst,
@@ -550,25 +482,10 @@ sap.ui.define([
 												Lgort: Lgort
 
 											});
-
+}
 										} else {
-											/*					InnerChild.push({
-																			//	Bukrs: Bukrs,
-
-																			//	Lgort: Lgort,
-																			Matnr: 'Plant' + " " + Werks,
-																			Werks: Werks,
-																			MultipleIt: InnerinnerChild,
-																			OpenPOQty: sOpenPoQuantity,
-																			OsalesOrder: "So",
-																				Crtlv: "crtlv",
-											                                   Cytlv: "cytlv",
-											                                   Cgtlv: "cgtlv",
-											                                   Cbtlv: "cbtlv",
-																			RunRate: sRunRate
-
-																		});*/
-											// if (StorageExists(Lgort)) {
+										
+											if (!InnerinnerChild.includes(Lgort)) {
 											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
 												Labst: Labst,
@@ -581,8 +498,8 @@ sap.ui.define([
 												Lgort: Lgort
 
 											});
-											// }
-										}
+											 
+										}}
 
 									} else {
 										childarray.push({
@@ -628,7 +545,8 @@ sap.ui.define([
 										});
 										sOpenPoQuantity = "";
 										sRunRate = "";
-										// if (StorageExists(!Lgort==="0")) {
+									
+											if (InnerinnerChild.includes(Lgort)) {
 										InnerinnerChild.push({
 											//	Bukrs: Bukrs,
 											Labst: Labst,
@@ -642,12 +560,9 @@ sap.ui.define([
 											Lgort: Lgort
 
 										});
-										// }
-
+									
+}
 									}
-
-									//	childarray.push(StockList[j]);
-									//	console.log(StockList[j]);
 
 								}
 							}
@@ -659,8 +574,7 @@ sap.ui.define([
 					}
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
-					console.log(ListofSrs);
-
+				
 					Massupload = ListofSrs;
 
 				},
@@ -676,7 +590,7 @@ sap.ui.define([
 			oModel.read('/getMaterialstockSet', {
 				success: function(odata) {
 					StockList = odata.results;
-					console.log(odata);
+				
 					var iItem = odata.results.length;
 					var ListItem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
