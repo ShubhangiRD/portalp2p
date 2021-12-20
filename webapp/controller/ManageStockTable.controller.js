@@ -107,8 +107,8 @@ sap.ui.define([
 			this.getStockDetailList();
 
 			//	this.getStockDetailListSiddhi();
-			var oExcessModelData = new JSONModel();
-			sap.ui.getCore().setModel(oExcessModelData, "oExcessModelData");
+			 var oExcessModelData = new JSONModel();
+			 sap.ui.getCore().setModel(oExcessModelData, "oExcessDataModel");
 			var oExcessHierarchy = new JSONModel();
 			oView.setModel(oExcessHierarchy, "oExcessHierarchy");
 
@@ -576,9 +576,10 @@ sap.ui.define([
 					}
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
+					
 				
 					Massupload = ListofSrs;
-
+	this.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -3234,8 +3235,9 @@ sap.ui.define([
 						Changedon: Data[i].Changedon,
 						markupDescription: true
 					});
-					sap.ui.getCore().getModel("oExcessModelData").setData(array);
-					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+					console.log(array);
+				//	sap.ui.getCore().getModel("oExcessModelData").setData(array);
+				sap.ui.getCore().getModel("oExcessDataModel").setData(array);
 					// oView.getModel("oCounter").setData({
 					// 	count:count
 					// });
@@ -3560,13 +3562,17 @@ sap.ui.define([
 		},
 
 		onExcessMaterial: function(oEvent) {
-		/*	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("ExcessData");*/
-        	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
-			if (!this.pressDialogExcessMaterial) {
-				this.pressDialogExcessMaterial = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterialManagement", this);
-				this.pressDialogExcessMaterial.open();
-			}
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("ExcessData");
+		
+		
+			
+	
+   //     	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
+			// if (!this.pressDialogExcessMaterial) {
+			// 	this.pressDialogExcessMaterial = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterialManagement", this);
+			// 	this.pressDialogExcessMaterial.open();
+			// }
 		},
 		
 		onSaveExcessScreen:function(){

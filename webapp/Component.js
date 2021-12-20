@@ -119,13 +119,14 @@ sap.ui.define([
 			var oStockData = new sap.ui.model.json.JSONModel([]);
 			this.setModel(oStockData, "oStockDataModel");
 
-			var oExcessData = new sap.ui.model.json.JSONModel([]);
-			this.setModel(oExcessData, "oExcessDataModel");
+			 var oExcessData = new sap.ui.model.json.JSONModel([]);
+		this.setModel(oExcessData, "oExcessDataModel");
 
 	var oTransportPosting = new sap.ui.model.json.JSONModel([]);
 				sap.ui.getCore().setModel(oTransportPosting, "oTransferPostModel");
 
-
+	var oTransferMod = new sap.ui.model.json.JSONModel([]);
+				this.setModel(oTransferMod, "oTransferMod");
 			var oGRData = {
 				GRPost: new GRDisplayHeader()
 			};

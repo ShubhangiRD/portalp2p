@@ -32,8 +32,8 @@
 						<!--		<core:ListItem key="{Lookup>Ebeln}" text="{Lookup>Lifnr}" additionalText="{Lookup>Ebeln}"/>-->
 						<!--	</m:suggestionItems>-->
 						<!--</m:Input>-->
-						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true" width="70%"
-						value="{PurchaseModel>/TempContract/SupplPlnt}"	showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
+						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}"  showSuggestion="true" 
+						width="20%"	value="{PurchaseModel>/TempContract/SupplPlnt}"	showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
 							suggestionItemSelected="onSuggest" liveChange="Validate">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
@@ -64,24 +64,24 @@
 									<form:content>
 										<core:Title text=""/>
 										<m:Label text="Purchase Org " required="true"/>
-										<m:Input id="PurchOrg" textFormatMode="KeyValue" placeholder=" Purchase Org .." showSuggestion="true"
-											value="{PurchaseModel>/TempContract/PurchOrg}" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
+										<m:Input id="PurchOrg" textFormatMode="KeyValue"  showSuggestion="true"
+								width="50%"			value="{PurchaseModel>/TempContract/PurchOrg}" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
 											suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Purchase Group"/>
-										<m:Input id="PurGroup" textFormatMode="KeyValue" placeholder="Purchase Group ..." showSuggestion="true"
-											value="{PurchaseModel>/TempContract/PurGroup}" editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
+										<m:Input id="PurGroup" textFormatMode="KeyValue"  showSuggestion="true"
+											width="40%"	value="{PurchaseModel>/TempContract/PurGroup}" editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
 											suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Ekgrp}" text="{Lookup>Eknam}" additionalText="{Lookup>Ekgrp}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Company Code" required="true"/>
-										<m:Input id="CompCode" textFormatMode="KeyValue" placeholder="Company Code ..." showSuggestion="true"
-											value="{PurchaseModel>/TempContract/CompCode}" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
+										<m:Input id="CompCode" textFormatMode="KeyValue"  showSuggestion="true"
+										width="50%"		value="{PurchaseModel>/TempContract/CompCode}" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
 											suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>
@@ -90,9 +90,9 @@
 										
 										
 											<m:Label text="Document Type" required="true"/>
-										<m:Input id="iddoctype" textFormatMode="KeyValue" placeholder="Document Type..." showSuggestion="true"
+										<m:Input id="iddoctype" textFormatMode="KeyValue"  showSuggestion="true"
 											value="{PurchaseModel>/TempContract/DocumentType}" showValueHelp="true" valueHelpRequest="handleDoctypevalue"
-											suggestionItems="{ path: 'Lookup>/documentType' }" suggestionItemSelected="onSuggest">
+											width="30%"	suggestionItems="{ path: 'Lookup>/documentType' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Auart}" text="{Lookup>Auart}" additionalText="{Lookup>Auart}"/>
 											</m:suggestionItems>
@@ -146,14 +146,14 @@
 												</m:Input>
 											</t:template>
 										</t:Column>
-										<t:Column width="11rem" hAlign="Center">
+										<t:Column width="7rem" hAlign="Center">
 											<m:Label text="PO Quantity"/>
 											<t:template>
 												<m:Input id="Quantity" value="{PurchaseModel>Quantity}" textAlign="End" placeholder="Enter PO Quantity"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="11rem" hAlign="Center">
-											<m:Label text="Unit of Measure"/>
+										<t:Column width="5rem" hAlign="Center">
+											<m:Label text="UOM"/>
 											<t:template>
 												<m:Input id="PoUnit" value="{PurchaseModel>PoUnit}" class="measure1"/>
 											</t:template>

@@ -34,18 +34,7 @@
 					</t:template>
 				</t:Column>
 					
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Net Price"/>
-					<t:template>
-						<Input id="idNtgew" value="{oSalesModel>Ntgew}" editable="{EditModel>/isEditable}" textAlign="End"/>
-					</t:template>
-				</t:Column>
-					<t:Column width="7rem" hAlign="Center">
-					<Label text="Gross Weight"/>
-					<t:template>
-						<Input id="idBrgew" value="{oSalesModel>Brgew}" editable="{EditModel>/isEditable}" textAlign="End"/>
-					</t:template>
-				</t:Column>
+	
 					<t:Column hAlign="Center" width="12rem">
 					<Label text="Customer Material Description"/>
 					<t:template>

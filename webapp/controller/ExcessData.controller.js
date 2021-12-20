@@ -52,7 +52,51 @@ var Excessdata  = [];
 			this.getView().setModel(oModel);
 			this.getExcess();
 	this.getCustomer();
+//	this.getExcessStck();
 		},
+	//	
+	getExcessStck: function(){
+			var oModel = this.getOwnerComponent().getModel("oTransferMod");
+				var Data = oModel.oData;
+			console.log(Data);
+				for (var i = 0; i < Data.length; i++) {
+var color = Data[i].Color;
+	var array = [];
+				if (color === "blue") {
+				
+					array.push({
+						Matnr: Data[i].Matnr,
+						Description: Data[i].Description,
+						Werks: Data[i].Werks,
+						quantity: Data[i].Alabst,
+						Labst: Data[i].Labst,
+					//	counter: count,
+						markupDescription: true
+					});	
+				}
+					// count = count + 1;
+
+					// array.push({
+					// 	Matnr: Data[i].Matnr,
+					// 	Description: Data[i].Description,
+					// 	Werks: Data[i].Werks,
+					// 	quantity: Data[i].Alabst,
+					// 	Labst: Data[i].Labst,
+					// 	counter: count,
+					// 	markupDescription: true
+					// });
+					//	oView.getModel("oExcessModelData").setData(array);
+					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+				
+			}
+	},
+	OnNaveBack : function(){
+			var StockTransferModel = 	this.getOwnerComponent().getModel("oExcessDataModel");
+	
+		
+			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+	},
+	
 		getExcess: function(evt) {
 			var array = [];
 			var count = 0;
