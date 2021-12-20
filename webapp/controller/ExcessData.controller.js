@@ -22,13 +22,16 @@ sap.ui.define([
 	library, jquery, RowAction,
 	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
 	"use strict";
-	var oView, oComponent, oController, sPathThreshold, PoDocumentNumber = [];
+	var oView, oComponent, 
+	oController,
+	sPathThreshold,
+	PoDocumentNumber = [];
 var Excessdata  = [];
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
 	
 	var sCustomer = [];
-	var sKunnr , sSalesorg;
+	var sKunnr , sSalesorg ;
 	
 	return Controller.extend("com.vSimpleApp.controller.ExcessData", {
 
@@ -47,6 +50,8 @@ var Excessdata  = [];
 			
 			var oSalesModel = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(oSalesModel, "oSalesModel");
+			var SingleExcessData = new sap.ui.model.json.JSONModel();
+			sap.ui.getCore().setModel(SingleExcessData, "SingleExcessData");
 			
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
@@ -144,9 +149,21 @@ var Excess = [] ;
 					
 					
 				console.log(sSoItem);
+				
+		var tableItems = this.byId("excesstable");
+			sPathThreshold = tableItems.getSelectedContextPaths();
+			console.log(sPathThreshold);
 
 		},
 		onDiscountMaterial: function() {
+		
+			var oExcessmodelInfo = oView.getModel("oExcessDataModel");
+			var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
+			console.log(oSelectedRecord.Matnr);
+			
+			 	sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
+			
+				
 			this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
 			if (!this.pressDialogExcessDiscount) {
 				this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
@@ -154,7 +171,71 @@ var Excess = [] ;
 			}
 		},
 		onSaveDiscount: function() {
-		var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");
+	/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
+		var oModelService = this.getOwnerComponent().getModel("StockModel");
+			var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
+			var matnr = oPostData.Matnr;
+			var Amt = oPostData.DiscAmt;
+			var ValidTo = oPostData.ValidTo;
+			// .toISOString();
+			// ValidTo.slice(0, -5);
+			var ValidDate = oPostData.ValidDate;
+			// .toISOString();
+			// ValidDate.slice(0, -5);
+			var salesorg = "0001";
+			var distriChnl ="01";
+			var caltype ="A";
+			var Unit ="INR";
+			var oEntry = {};
+			
+			oEntry.Vkorg = salesorg;
+			oEntry.Vtweg = distriChnl;
+			oEntry.Matnr = matnr;
+			oEntry.Kbetr = '            5000';
+			oEntry.Konwa = Unit;
+			oEntry.Krech = caltype;
+			oEntry.Datab = ValidDate;
+			oEntry.Datbi = ValidTo;
+				console.log(oEntry);
+					var that = this;
+			
+		var mParameters = {
+					success: function(oResponse, object) {
+						that.OnclearFilterHierarchy();
+						MessageBox.show("Added Discount Sucessfully..");
+					/*	oContractModel.setData({
+							oData: {}
+						});
+						oContractModel.updateBindings(true);*/
+					/*	sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
+					},
+					error: function(error) {
+						MessageBox.error(error);
+				/*		sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
+					},
+					merge: false
+				};
+				var relPath = "/CreateDiscountConditionSet";
+				//	BusyIndicator.show(true);
+				oModelService.create(relPath, oEntry, mParameters);
+				
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			this.pressDialogExcessDiscount.close();
+			this.pressDialogExcessDiscount.destroy();
 
 			
 			//this.pressDialogExcessDiscount.close();
