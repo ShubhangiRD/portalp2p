@@ -42,7 +42,7 @@
 							<Button tooltip="{i18n>addItem}" text="Back" press="OnNaveBack"/>
 								<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder"/>
 						<Button tooltip="{i18n>addItem}" text="Discount" press="onDiscountMaterial"/>
-						<Button tooltip="{i18n>addItem}" text="Discard" press="onDescardMaterial"/>
+						<!--<Button tooltip="{i18n>addItem}" text="Discard" press="onDescardMaterial"/>-->
 						<Button tooltip="{i18n>addItem}" text="Download" press="onDownloadExcess"/>
 					</Toolbar>
 				</headerToolbar>

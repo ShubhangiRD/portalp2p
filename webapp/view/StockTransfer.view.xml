@@ -88,10 +88,10 @@
 											</m:suggestionItems>
 										</m:Input>
 										
-										
+					
 											<m:Label text="Document Type" required="true"/>
 										<m:Input id="iddoctype" textFormatMode="KeyValue"  showSuggestion="true"
-											value="{PurchaseModel>/TempContract/DocumentType}" showValueHelp="true" valueHelpRequest="handleDoctypevalue"
+									editable="false"		value="{PurchaseModel>/TempContract/DocumentType}" showValueHelp="true" valueHelpRequest="handleDoctypevalue"
 											width="30%"	suggestionItems="{ path: 'Lookup>/documentType' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Auart}" text="{Lookup>Auart}" additionalText="{Lookup>Auart}"/>

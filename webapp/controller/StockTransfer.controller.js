@@ -29,8 +29,9 @@ sap.ui.define([
 			oView.setModel(oMatData, "MatData");
 			
 			var oStockModel = 	this.getOwnerComponent().getModel("StockTransferModel");
-			console.log(oStockModel);
-
+				var Standards = 	sap.ui.getCore().getModel("Standards");
+			var value2 = Standards.oData.Standards.DocType;                                
+		this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType" , value2);
 		},
 		
 		onBackStock : function(){

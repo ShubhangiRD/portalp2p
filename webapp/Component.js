@@ -11,12 +11,13 @@ sap.ui.define([
 	"com/vSimpleApp/model/GRDisplayHeader",
 	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/VendorP2P",
+	"com/vSimpleApp/Classes/StockStandards",
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast",
 	"com/vSimpleApp/model/StockContract"
 
 ], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, GRDisplayHeader,
-	PurchaseHeader, VendorP2P,
+	PurchaseHeader, VendorP2P, StockStandards,
 	BusyIndicator, MessageToast, StockContract
 ) {
 	"use strict";
@@ -100,6 +101,15 @@ sap.ui.define([
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");
+
+var std = {
+	Standards : new StockStandards()
+};
+
+	var oModel = new sap.ui.model.json.JSONModel(std);
+			sap.ui.getCore().setModel(oModel, "Standards");
+
+
 
 			var oPurchaseData = {
 			

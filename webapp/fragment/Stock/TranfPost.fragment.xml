@@ -62,7 +62,7 @@
 											<core:Title text=""/>
 											<m:Label text="Movement Type" required="true"/>
 											<m:Input id="idMovementType" maxLength="3" width="70%" placeholder="Movement Type" showSuggestion="true" showValueHelp="true"
-												value="{oTransferPostModel>/MovmtTypeTP}" valueHelpRequest="handleValueMvtType" suggestionItems="{ path: 'Lookup>/SplStock' }"
+										editable="false"		value="{oTransferPostModel>/MovmtTypeTP}" valueHelpRequest="handleValueMvtType" suggestionItems="{ path: 'Lookup>/SplStock' }"
 												suggestionItemSelected="onSuggest">
 												<m:suggestionItems>
 													<core:ListItem key="{Lookup>Bwart}" text="{Lookup>Btext}" additionalText="{Lookup>Bwart}"/>

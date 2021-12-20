@@ -52,7 +52,12 @@ var Excessdata  = [];
 			sap.ui.getCore().setModel(oSalesModel, "oSalesModel");
 			var SingleExcessData = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(SingleExcessData, "SingleExcessData");
-			
+			var Standards = 	sap.ui.getCore().getModel("Standards");
+			var value = Standards.oData.Standards.MomentType;                                
+			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP" , value);
+	
+			var value2 = Standards.oData.Standards.Auart;                                
+			sap.ui.getCore().getModel("oSalesModel").setProperty("/DocType" , value2);
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			this.getExcess();
@@ -409,93 +414,9 @@ var Excess = [] ;
 					var itemPO = oData.results.length;
 					var ListofShipDetails = [];
 						oLookupModel.setProperty("/shipdetails", oData.results);
-				// for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
-
-				// 		var odataset = oData.results[iRowIndex];
-				// 		var Kunnr = odataset.Kunnr;
-				// 		var Vkorg = odataset.Vkorg;
-				// 		var Vtweg = odataset.Vtweg;
-				// 		var Spart = odataset.Spart;
-				// 		var Ernam = odataset.Ernam;
-				// 		var Erdat = odataset.Erdat;
-				// 		var Begru = odataset.Begru;
-				// 		var Loevm = odataset.Loevm;
-				// 		var Versg = odataset.Versg;
-				// 		var Aufsd = odataset.Aufsd;
-				// 		var Kalks = odataset.Kalks;
-				// 		var Kdgrp = odataset.Kdgrp;
-				// 		var Bzirk = odataset.Bzirk;
-				// 		var Konda = odataset.Konda;
-				// 		var Pltyp = odataset.Pltyp;
-
-				// 		if (Kunnr !== "" || Kunnr !== undefined) {
-				// 			for (var x = 0; x < sCustomer.length; x++) {
-				// 				if (Kunnr === sCustomer[x].Kunnr) {
-				// 					var sDescription = sCustomer[x].Name1;
-
-				// 				}
-				// 			}
-				// 		}
-
-				// 	ListofShipDetails.push({
-				// 		  Kunnr : Kunnr,
-				// 		  Name1 : sDescription,
-    //     Vkorg :Vkorg,
-    //     Vtweg : Vtweg,
-    //     Spart : Spart,
-    //     Ernam : Ernam,
-    //     Erdat : Erdat,
-    //     Begru : Begru,
-    //     Loevm :Loevm,
-    //     Versg : Versg,
-    //     Aufsd : Aufsd,
-    //     Kalks : Kalks,
-    //     Kdgrp :Kdgrp,
-    //     Bzirk : Bzirk,
-    //     Konda : Konda,
-    //     Pltyp : Pltyp
-
-				// 		});
-				// //	console.log(ListofShipDetails);
-				// 		oLookupModel.setProperty("/shipdetails", ListofShipDetails);
-				// 				 oLookupModel.refresh(true);
-
-
-				// 	}
-					
-			
-					
-					
-		// 			for(var itex = 0 ; itex< len ; itex++){
-		// 				var iCust = sShipDetails[itex].Kunnr;
-		// 				if(iCust !== "" || iCust !== "Undefined"){
-		// 					for(var x = 0 ; x<sCustomer.length ; x++){
-		// 						if(iCust === sCustomer[x].Kunnr){
-		// 							var sName = sCustomer[x].Name1;
-		// 						//	console.log(sName);
-		// 				//	oView.getModel("Lookup").getProperty("/CustomerDetails" + itex + " /Name1", sName);
-		// 							oLookupModel.setProperty("/shipdetails", oData.results);
-		// 							oView.getModel("Lookup").setProperty("/shipdetails/" + itex + "/Name1", sName);
-									
-		// 							//	oView.getModel("Lookup").setProperty("/CustomerDetails/" + itex + "/Name1", sName);
-
-		// //	console.log(oLookupModel);
-										
-									
-		// 						}
-		// 					}
-							
-						
-		// 				}
-						
-							
-						
-						
-		// 			}
-					// var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					// oLookupModel.setProperty("/CustomerDetails", oData.results);
-					// oLookupModel.refresh(true);
-
+		
+		// 				//	
+	
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
