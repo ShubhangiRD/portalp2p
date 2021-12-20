@@ -36,7 +36,9 @@ sap.ui.define([
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
 	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool) {
 	"use strict";
-	var oView, oComponent, sPathThreshold, PoDocumentNumber = [];
+	var oView, oComponent, 
+	sPathThreshold,
+	PoDocumentNumber = [];
 	var groups, StockTransfer = [];
 	var Massupload = [];
 	var yellow;
@@ -106,7 +108,7 @@ sap.ui.define([
 
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
-			oView.setModel(oExcessModelData, "oExcessModelData");
+			sap.ui.getCore().setModel(oExcessModelData, "oExcessModelData");
 			var oExcessHierarchy = new JSONModel();
 			oView.setModel(oExcessHierarchy, "oExcessHierarchy");
 
@@ -3232,7 +3234,7 @@ sap.ui.define([
 						Changedon: Data[i].Changedon,
 						markupDescription: true
 					});
-					oView.getModel("oExcessModelData").setData(array);
+					sap.ui.getCore().getModel("oExcessModelData").setData(array);
 					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
 					// oView.getModel("oCounter").setData({
 					// 	count:count
@@ -3558,9 +3560,23 @@ sap.ui.define([
 		},
 
 		onExcessMaterial: function(oEvent) {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("ExcessData");
-
+		/*	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("ExcessData");*/
+        	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
+			if (!this.pressDialogExcessMaterial) {
+				this.pressDialogExcessMaterial = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterialManagement", this);
+				this.pressDialogExcessMaterial.open();
+			}
+		},
+		
+		onSaveExcessScreen:function(){
+			this.pressDialogExcessMaterial.close();
+			this.pressDialogExcessMaterial.destroy();
+		},
+		
+		onCancelExcessScreen:function(){
+				this.pressDialogExcessMaterial.close();
+			this.pressDialogExcessMaterial.destroy();
 		},
 
 		getPodetailsset: function(evt) {
