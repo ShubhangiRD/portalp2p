@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Sales Organization"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/SalesOrg1}"
+		search="_handleSalesOrg1Search"
+		confirm="_handleSalesOrg1Close"
+		cancel="_handleSalesOrg1Close">
+		<StandardListItem
+			title="{Lookup>Vkorg}"
+			info="{Lookup>Vtext}"
+			/>
+	</SelectDialog>
+</core:FragmentDefinition>

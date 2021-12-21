@@ -1,30 +1,42 @@
 <core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" class="sapUiSizeCompact"
 	xmlns:core="sap.ui.core" xmlns="sap.m">
-	<Dialog title="Discount" showHeader="true" id="idExcessDiscountDialog" afterClose="onAfterClose" class="sapUiSizeCompact fragmentHeading"
-		contentWidth="400px" contentHeight="200px">
+	<Dialog title= "Create Discount" showHeader="true" id="idExcessDiscountDialog" afterClose="onAfterClose" class="sapUiSizeCompact fragmentHeading"
+		contentWidth="400px" contentHeight="300px">
 		<VBox class="sapUiSmallMargin">
 			<f:Form id="FormChange354" editable="true">
 				<f:layout>
-					<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="2"
-						emptySpanM="2" emptySpanS="2" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+					<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="5" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1"
+						emptySpanM="1" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
 				</f:layout>
 				<f:formContainers>
 					<f:FormContainer>
 						<f:formElements>
 									<f:FormElement label="Sales Org">
 											<f:fields>
-										<Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" 
-										value="{oSalesModel>/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
-											suggestionItems="{ path: 'Lookup>/shipdetails'}" >
+										<Input id="idSaOrg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"  width="50%"
+										value="{SingleExcessData>/SalesOrg1}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorg1"
+											suggestionItems="{ path: 'Lookup>/SalesOrg1'}" >
 											<suggestionItems>
-												<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtweg}" additionalText="{Lookup>Vtweg}"/>
+												<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtext}"/>
+											</suggestionItems>
+										</Input>
+											</f:fields>
+										</f:FormElement>
+					
+									<f:FormElement label="Distribution Channel">
+											<f:fields>
+										<Input id="idDistriChannel" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"  width="50%"
+										value="{SingleExcessData>/DistriChnl}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleDistributionChannel"
+											suggestionItems="{ path: 'Lookup>/DistributionChnl'}" >
+											<suggestionItems>
+												<core:ListItem key="{Lookup>Vtweg}" text="{Lookup>Vtext}" />
 											</suggestionItems>
 										</Input>
 											</f:fields>
 										</f:FormElement>
 							<f:FormElement label="Material">
 								<f:fields>
-									<Input id="idMateial" value ="{SingleExcessData>/Matnr}"/>
+									<Input id="idMateial" value ="{SingleExcessData>/Matnr}" width="70%"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Description">
@@ -34,13 +46,14 @@
 							</f:FormElement>
 							<f:FormElement label="Amount">
 								<f:fields>
-									<Input id="idDiscount"    description="%" value = "{SingleExcessData>/DiscAmt}"/>
+									<Input id="idDiscount"  maxLength="5
+									"  description="%" value = "{SingleExcessData>/DiscAmt}"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Valid From">
 								<f:fields>
 									<DatePicker id="idDateFrom"  valueFormat="yyyy.MM.dd" placeholder="Enter Date" change="handleChangeDate" 
-									value = "{SingleExcessData>/ValidDate}"/>
+									value = "{SingleExcessData>/ValidFrom}" width="70%"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Valid To">
@@ -48,7 +61,7 @@
 									
 								<!--	<DatePicker id="abcf" valueFormat="yyyy.MM.dd" change="handleChange"/>-->
 									<DatePicker id="idDateTo" placeholder="Enter Date" change="handleChangeDate"  valueFormat="yyyy.MM.dd" 
-										value = "{SingleExcessData>/ValidTo}"/>
+										value = "{SingleExcessData>/ValidTo}" width="70%"/>
 								</f:fields>
 							</f:FormElement>
 						</f:formElements>

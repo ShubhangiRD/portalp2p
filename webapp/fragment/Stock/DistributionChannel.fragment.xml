@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Distribution Channel"
+		class="sapUiPopupWithPadding"
+		items="{Lookup>/DistributionChnl}"
+		search="_handleDistributionChannelSearch"
+		confirm="_handleDistributionChannelClose"
+		cancel="_handleDistributionChannelClose">
+		<StandardListItem
+			title="{Lookup>Vtweg}"
+			info="{Lookup>Vtext}"
+			/>
+	</SelectDialog>
+</core:FragmentDefinition>

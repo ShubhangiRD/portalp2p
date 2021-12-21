@@ -22,17 +22,17 @@ sap.ui.define([
 	library, jquery, RowAction,
 	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
 	"use strict";
-	var oView, oComponent, 
-	oController,
-	sPathThreshold,
-	PoDocumentNumber = [];
-var Excessdata  = [];
+	var oView, oComponent,
+		oController,
+		sPathThreshold,
+		PoDocumentNumber = [];
+	var Excessdata = [];
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
-	
+
 	var sCustomer = [];
-	var sKunnr , sSalesorg ;
-	
+	var sKunnr, sSalesorg;
+
 	return Controller.extend("com.vSimpleApp.controller.ExcessData", {
 
 		/**
@@ -44,69 +44,68 @@ var Excessdata  = [];
 			oController = this;
 			oView = this.getView();
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-	oController = this;
+			oController = this;
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
-			
+
 			var oSalesModel = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(oSalesModel, "oSalesModel");
 			var SingleExcessData = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(SingleExcessData, "SingleExcessData");
-			var Standards = 	sap.ui.getCore().getModel("Standards");
-			var value = Standards.oData.Standards.MomentType;                                
-			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP" , value);
-	
-			var value2 = Standards.oData.Standards.Auart;                                
-			sap.ui.getCore().getModel("oSalesModel").setProperty("/DocType" , value2);
+			var Standards = sap.ui.getCore().getModel("Standards");
+			var value = Standards.oData.Standards.MomentType;
+			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
+
+			var value2 = Standards.oData.Standards.Auart;
+			sap.ui.getCore().getModel("oSalesModel").setProperty("/DocType", value2);
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			this.getExcess();
-	this.getCustomer();
-//	this.getExcessStck();
+			this.getCustomer();
+			//	this.getExcessStck();
 		},
-	//	
-	getExcessStck: function(){
+		//	
+		getExcessStck: function() {
 			var oModel = this.getOwnerComponent().getModel("oTransferMod");
-				var Data = oModel.oData;
+			var Data = oModel.oData;
 			console.log(Data);
-				for (var i = 0; i < Data.length; i++) {
-var color = Data[i].Color;
-	var array = [];
+			for (var i = 0; i < Data.length; i++) {
+				var color = Data[i].Color;
+				var array = [];
 				if (color === "blue") {
-				
+
 					array.push({
 						Matnr: Data[i].Matnr,
 						Description: Data[i].Description,
 						Werks: Data[i].Werks,
 						quantity: Data[i].Alabst,
 						Labst: Data[i].Labst,
-					//	counter: count,
+						//	counter: count,
 						markupDescription: true
-					});	
+					});
 				}
-					// count = count + 1;
+				// count = count + 1;
 
-					// array.push({
-					// 	Matnr: Data[i].Matnr,
-					// 	Description: Data[i].Description,
-					// 	Werks: Data[i].Werks,
-					// 	quantity: Data[i].Alabst,
-					// 	Labst: Data[i].Labst,
-					// 	counter: count,
-					// 	markupDescription: true
-					// });
-					//	oView.getModel("oExcessModelData").setData(array);
-					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
-				
+				// array.push({
+				// 	Matnr: Data[i].Matnr,
+				// 	Description: Data[i].Description,
+				// 	Werks: Data[i].Werks,
+				// 	quantity: Data[i].Alabst,
+				// 	Labst: Data[i].Labst,
+				// 	counter: count,
+				// 	markupDescription: true
+				// });
+				//	oView.getModel("oExcessModelData").setData(array);
+				this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+
 			}
-	},
-	OnNaveBack : function(){
-			var StockTransferModel = 	this.getOwnerComponent().getModel("oExcessDataModel");
-	
-		
+		},
+		OnNaveBack: function() {
+			var StockTransferModel = this.getOwnerComponent().getModel("oExcessDataModel");
+
 			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-	},
-	
+		},
+
 		getExcess: function(evt) {
 			var array = [];
 			var count = 0;
@@ -140,7 +139,7 @@ var color = Data[i].Color;
 			var oPurchaseItemTable = this.byId("excesstable");
 			var aSelectedIndex = oPurchaseItemTable._aSelectedPaths;
 			var oExcessModel = this.getOwnerComponent().getModel("oExcessDataModel");
-var Excess = [] ;
+			var Excess = [];
 			//	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			for (var i = 0; i < aSelectedIndex.length; i++) {
 
@@ -148,27 +147,24 @@ var Excess = [] ;
 				var excess = oExcessModel.getProperty(odata);
 				Excess.push(excess);
 			}
-						var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-							var sSoItem = SalesOrder.setProperty("/SOItem" , Excess);
-			
-					
-					
-				console.log(sSoItem);
-				
-		var tableItems = this.byId("excesstable");
+			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
+			var sSoItem = SalesOrder.setProperty("/SOItem", Excess);
+
+			console.log(sSoItem);
+
+			var tableItems = this.byId("excesstable");
 			sPathThreshold = tableItems.getSelectedContextPaths();
 			console.log(sPathThreshold);
 
 		},
 		onDiscountMaterial: function() {
-		
+
 			var oExcessmodelInfo = oView.getModel("oExcessDataModel");
 			var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
 			console.log(oSelectedRecord.Matnr);
-			
-			 	sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
-			
-				
+
+			sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
+
 			this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
 			if (!this.pressDialogExcessDiscount) {
 				this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
@@ -176,75 +172,78 @@ var Excess = [] ;
 			}
 		},
 		onSaveDiscount: function() {
-	/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
-		var oModelService = this.getOwnerComponent().getModel("StockModel");
+			/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
+			var oModelService = this.getOwnerComponent().getModel("StockModel");
 			var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
+			// console.log(oPostData);
 			var matnr = oPostData.Matnr;
 			var Amt = oPostData.DiscAmt;
 			var ValidTo = oPostData.ValidTo;
 			// .toISOString();
 			// ValidTo.slice(0, -5);
-			var ValidDate = oPostData.ValidDate;
+			var ValidFrom = oPostData.ValidFrom;
 			// .toISOString();
 			// ValidDate.slice(0, -5);
-			var salesorg = "0001";
-			var distriChnl ="01";
-			var caltype ="A";
-			var Unit ="INR";
+			var salesorg = oPostData.SalesOrg1;
+			var distriChnl = oPostData.DistriChnl;
+			var caltype = "A";
+			var Unit = "%";
 			var oEntry = {};
-			
+
 			oEntry.Vkorg = salesorg;
 			oEntry.Vtweg = distriChnl;
 			oEntry.Matnr = matnr;
-			oEntry.Kbetr = '            5000';
+			oEntry.Kbetr = Amt;
 			oEntry.Konwa = Unit;
-			oEntry.Krech = caltype;
-			oEntry.Datab = ValidDate;
-			oEntry.Datbi = ValidTo;
-				console.log(oEntry);
-					var that = this;
+			// oEntry.Krech = caltype;
+
+			// DateTime date1 = DateTime.Parse(ValidTo);
+			// DateTime date2 = DateTime.Parse(ValidDate);
+			// var sFromatedDate1 = sap.ui.core.format.DateFormat.getDateInstance({
+			// 	pattern: "dd.MM.YYYY"
+			// }).format(ValidTo);
+			// var sFromatedDate2 = sap.ui.core.format.DateFormat.getDateInstance({
+			// 	pattern: "dd.MM.YYYY"
+			// }).format(ValidDate);
 			
-		var mParameters = {
-					success: function(oResponse, object) {
-						that.OnclearFilterHierarchy();
-						MessageBox.show("Added Discount Sucessfully..");
+				var ValidFromDate = new Date(ValidFrom);
+				var Date1 = ValidFromDate.toISOString();
+				Date1 = Date1.slice(0, -5)
+				var ValidToDate = new Date(ValidTo);
+				var Date2 = ValidToDate.toISOString();
+				Date2 = Date2.slice(0, -5)
+       console.log(Date1);
+       console.log(Date2);
+			oEntry.Datab = Date1;
+			oEntry.Datbi = Date2;
+			console.log(oEntry);
+			var that = this;
+
+			var mParameters = {
+				success: function(oResponse, object) {
+					// that.OnclearFilterHierarchy();
+					MessageBox.show("Added Discount Sucessfully..");
 					/*	oContractModel.setData({
 							oData: {}
 						});
 						oContractModel.updateBindings(true);*/
 					/*	sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
-					},
-					error: function(error) {
-						MessageBox.error(error);
-				/*		sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
-					},
-					merge: false
-				};
-				var relPath = "/CreateDiscountConditionSet";
-				//	BusyIndicator.show(true);
-				oModelService.create(relPath, oEntry, mParameters);
-				
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+				},
+				error: function(error) {
+					MessageBox.error(error);
+					/*		sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
+				},
+				merge: false
+			};
+			var relPath = "/CreateDiscountConditionSet";
+			//	BusyIndicator.show(true);
+			oModelService.create(relPath, oEntry, mParameters);
+
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
 
-			
 			//this.pressDialogExcessDiscount.close();
-		//	this.pressDialogExcessDiscount.destroy();
+			//	this.pressDialogExcessDiscount.destroy();
 		},
 		onCancelDiscount: function() {
 			this.pressDialogExcessDiscount.close();
@@ -322,10 +321,8 @@ var Excess = [] ;
 
 			return aCols;
 		},
-		
-		
-		
-			getCustomer: function() {
+
+		getCustomer: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -334,9 +331,9 @@ var Excess = [] ;
 					BusyIndicator.hide();
 					sCustomer = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-				oLookupModel.setProperty("/CustomerDetails", oData.results);
+					oLookupModel.setProperty("/CustomerDetails", oData.results);
 					oLookupModel.refresh(true);
-//this.getShipmentDetails();
+					//this.getShipmentDetails();
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -345,10 +342,10 @@ var Excess = [] ;
 				}
 			});
 		},
-	handleCustomervalue: function(oEvent) {
+		handleCustomervalue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-		sap.ui.getCore().inputId = oEvent.getSource().getId();
+			sap.ui.getCore().inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogCusto) {
 				this._valueHelpDialogCusto = sap.ui.xmlfragment(
@@ -388,35 +385,35 @@ var Excess = [] ;
 		_handleCustomerClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-		var	 productInput = sap.ui.getCore().byId(sap.ui.getCore().inputId);
-					sSalesorg = oSelectedItem.getInfo();
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputId);
+				sSalesorg = oSelectedItem.getInfo();
 				sKunnr = oSelectedItem.getTitle();
 				productInput.setSelectedKey(sSalesorg);
 				productInput.setValue(sKunnr);
-		sap.ui.getCore().getModel("oSalesModel").setProperty("/SoldToParty", sKunnr);
-	//oView.getModel("SOModel").setProperty("/ShipToParty", sTitle);
+				sap.ui.getCore().getModel("oSalesModel").setProperty("/SoldToParty", sKunnr);
+				//oView.getModel("SOModel").setProperty("/ShipToParty", sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
-				getShipmentDetails: function() {
+		getShipmentDetails: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-				
+			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+
 			BusyIndicator.show(true);
 			oModel.read("/getShipDetailsSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					var sShipDetails = oData.results;
 					var len = sShipDetails.length;
-				
+
 					var itemPO = oData.results.length;
 					var ListofShipDetails = [];
-						oLookupModel.setProperty("/shipdetails", oData.results);
-		
-		// 				//	
-	
+					oLookupModel.setProperty("/shipdetails", oData.results);
+
+					// 				//	
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -426,41 +423,40 @@ var Excess = [] ;
 			});
 		},
 
-getSalesOrg : function(){
-		var that = this;
+		getSalesOrg: function() {
+			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					
-					var zero = "";
+			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 
-				if ($.isNumeric((sKunnr)) === true) {
-					var len = sKunnr.length;
-					if (len !== undefined) {
-						var z = 10 - len;
-						for (var i = 0; i < z; i++) {
-							zero += "0";
-						}
+			var zero = "";
+
+			if ($.isNumeric((sKunnr)) === true) {
+				var len = sKunnr.length;
+				if (len !== undefined) {
+					var z = 10 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
 					}
-
-					sKunnr = zero + sKunnr;
 				}
 
-				
+				sKunnr = zero + sKunnr;
+			}
+
 			BusyIndicator.show(true);
-		
-				var oFilter = new sap.ui.model.Filter('Kunnr', sap.ui.model.FilterOperator.EQ, sKunnr);
-			
-	//	oModel.read("/getShipDetailsSet?$filter=(Kunnr  eq '" + sKunnr + "')", {
-		oModel.read("/getShipDetailsSet", {
+
+			var oFilter = new sap.ui.model.Filter('Kunnr', sap.ui.model.FilterOperator.EQ, sKunnr);
+
+			//	oModel.read("/getShipDetailsSet?$filter=(Kunnr  eq '" + sKunnr + "')", {
+			oModel.read("/getShipDetailsSet", {
 				filters: [oFilter],
 				success: function(oData) {
 					BusyIndicator.hide();
 					var sShipDetails = oData.results;
 					var len = sShipDetails.length;
-				
+
 					var itemPO = oData.results.length;
 					var ListofShipDetails = [];
-						oLookupModel.setProperty("/shipdetails", oData.results);
+					oLookupModel.setProperty("/shipdetails", oData.results);
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -468,7 +464,7 @@ getSalesOrg : function(){
 					MessageToast.show(errorMsg);
 				}
 			});
-},
+		},
 		handleSalesorgvalue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -494,7 +490,7 @@ getSalesOrg : function(){
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-this.getSalesOrg();
+			this.getSalesOrg();
 			// open value help dialog filtered by the input value
 			this._valueHelpSalesorg.open(sInputValue);
 		},
@@ -515,24 +511,21 @@ this.getSalesOrg();
 				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdSorg),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-					var div = oSelectedItem.getDescription();
-					
+				var div = oSelectedItem.getDescription();
+
 				productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
-	
-	
-		sap.ui.getCore().getModel("oSalesModel").setProperty("/SalesOrg", sTitle);
-		sap.ui.getCore().getModel("oSalesModel").setProperty("/DistributionChannel", sDescription);
-	sap.ui.getCore().getModel("oSalesModel").setProperty("/Division", div);
 
+				sap.ui.getCore().getModel("oSalesModel").setProperty("/SalesOrg", sTitle);
+				sap.ui.getCore().getModel("oSalesModel").setProperty("/DistributionChannel", sDescription);
+				sap.ui.getCore().getModel("oSalesModel").setProperty("/Division", div);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
-		
-		
-		getdocumenttypeSet : function(){
-					var that = this;
+
+		getdocumenttypeSet: function() {
+			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/getdocumenttypeSet", {
@@ -540,7 +533,7 @@ this.getSalesOrg();
 					BusyIndicator.hide();
 					sCustomer = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-				oLookupModel.setProperty("/documentType", oData.results);
+					oLookupModel.setProperty("/documentType", oData.results);
 					oLookupModel.refresh(true);
 
 				},
@@ -551,8 +544,8 @@ this.getSalesOrg();
 				}
 			});
 		},
-		
-	handleDoctypevalue: function(oEvent) {
+
+		handleDoctypevalue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
 			sap.ui.getCore().inputIddoct = oEvent.getSource().getId();
@@ -577,10 +570,10 @@ this.getSalesOrg();
 				"Auart",
 				FilterOperator.Contains, sInputValue
 			)]));
-this.getdocumenttypeSet();
+			this.getdocumenttypeSet();
 			// open value help dialog filtered by the input value
 			this._valueHelpdoctype.open(sInputValue);
-		}, 
+		},
 		_handleDoctypeSearch: function(evt) {
 			var sValue = evt.getParameter("value");
 			var oFilter = new Filter([new Filter(
@@ -598,27 +591,23 @@ this.getdocumenttypeSet();
 				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIddoct),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-					var div = oSelectedItem.getDescription();
-					
+				var div = oSelectedItem.getDescription();
+
 				productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
-	
-	
 
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
-		
-		
-		
-			onProcessOrder: function(event) {
-				
-					var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-					var odata = SalesOrder.oData.SOItem;
-					
-				var SO =	sap.ui.getCore().getModel("oSalesModel").setProperty("/SOItem" , odata);
-				console.log(SO);
-									
+
+		onProcessOrder: function(event) {
+
+			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
+			var odata = SalesOrder.oData.SOItem;
+
+			var SO = sap.ui.getCore().getModel("oSalesModel").setProperty("/SOItem", odata);
+			console.log(SO);
+
 			this.UpdateSale = this.getView().byId("helloDialog");
 			if (!this.UpdateSale) {
 				this.UpdateSale = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.SOCreation", this);
@@ -631,173 +620,316 @@ this.getdocumenttypeSet();
 			this.UpdateCard.destroy();
 
 		},
-		callMatnr  : function(Matnr){
-			
-				var zero = "";
+		callMatnr: function(Matnr) {
 
-				if ($.isNumeric((Matnr)) === true) {
-					var len = Matnr.length;
-					if (len !== undefined) {
-						var z = 18 - len;
-						for (var i = 0; i < z; i++) {
-							zero += "0";
-						}
+			var zero = "";
+
+			if ($.isNumeric((Matnr)) === true) {
+				var len = Matnr.length;
+				if (len !== undefined) {
+					var z = 18 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
 					}
-
-					Matnr = zero + Matnr;
-					
 				}
-			
+
+				Matnr = zero + Matnr;
+
+			}
+
 			return Matnr;
 		},
-				callKunner  : function(Kunnr){
-			
-				var zero = "";
+		callKunner: function(Kunnr) {
 
-				if ($.isNumeric((Kunnr)) === true) {
-					var len = Kunnr.length;
-					if (len !== undefined) {
-						var z = 10 - len;
-						for (var i = 0; i < z; i++) {
-							zero += "0";
-						}
+			var zero = "";
+
+			if ($.isNumeric((Kunnr)) === true) {
+				var len = Kunnr.length;
+				if (len !== undefined) {
+					var z = 10 - len;
+					for (var i = 0; i < z; i++) {
+						zero += "0";
 					}
-
-					Kunnr = zero + Kunnr;
-					
 				}
-			
+
+				Kunnr = zero + Kunnr;
+
+			}
+
 			return Kunnr;
 		},
-			onSaveSalesorder : function(){
-				var oModel = this.getOwnerComponent().getModel("StockModel");
-					var SalesOrder = sap.ui.getCore().getModel("oSalesModel");
-					
-					var odata = SalesOrder.oData;
-				var Vtweg = odata.DistributionChannel;
-				var Spart = odata.Division;
-				var Vkorg = odata.SalesOrg;
-				var Kunnr = this.callKunner(odata.SoldToParty);
-				var Auart = odata.DocType;
-				
-					function LeadingZeros(num, size) {
+		onSaveSalesorder: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var SalesOrder = sap.ui.getCore().getModel("oSalesModel");
+
+			var odata = SalesOrder.oData;
+			var Vtweg = odata.DistributionChannel;
+			var Spart = odata.Division;
+			var Vkorg = odata.SalesOrg;
+			var Kunnr = this.callKunner(odata.SoldToParty);
+			var Auart = odata.DocType;
+
+			function LeadingZeros(num, size) {
 				var s = num + "0" + "";
 				while (s.length < size) s = "0" + s;
 				return s;
 			}
-			
-				var sSoItem = SalesOrder.getProperty("/SOItem"); 
-				var SOItem = [] ;
-					var itemPO =	 SalesOrder.oData.SOItem.length;
-					for(var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++){
-						 var   Vbeln =  "";
-						var ItmNumber = LeadingZeros(iRowIndex + 1, 6);
-						var Zmeng = sSoItem[iRowIndex].Quantity;
-						var Zieme = sSoItem[iRowIndex].OrderprUn;
-						var Material = this.callMatnr(sSoItem[iRowIndex].Matnr);
-						var Plant = sSoItem[iRowIndex].Werks;
-							var Qty = sSoItem[iRowIndex].Quantity;
-						var Kunnr1  = Kunnr;
-								var Brgew = sSoItem[iRowIndex].Brgew;
-										var Ntgew = sSoItem[iRowIndex].Ntgew;
-						SOItem.push({
-							Vbeln : Vbeln,
-							ItmNumber : ItmNumber,
-							Zmeng: Zmeng,
-							Zieme: "ST",
-							Material: Material,
-							Plant : Plant,
-							Qty: Qty,
-							Kunnr : Kunnr1,
-							Parvw :  "AG",
-							Brgew : Brgew,
-							Ntgew : Ntgew
-							
-						});
-						
-					}
-			
-					var Payload = {
-					Vbeln : "",
-				  Auart : Auart,
-				  Vkorg : Vkorg,
-				  Vtweg : Vtweg,
-				  Spart : Spart,
-					 Kunnr : Kunnr,
-				  Parvw : "AG",
-				  sitem_To_header : SOItem 
-					};
-			
-					console.log(Payload);
-					
-					
-						var mParameters = {
-					success: function(oResponse, object) {
-				var so = object.data.Vbeln ;
-						MessageBox.show("Standard Order "+so+" has been Created Sucessfully..");
-						sap.ui.getCore().byId("histroyDialog").destroy(null);
-	this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-					},
-					error: function(error) {
-						//MessageBox.error(error);
-						console.log(error);
-					},
-					merge: false
-				};
-				var relPath = "/SOHeaderSet";
-				//	BusyIndicator.show(true);
-				oModel.create(relPath, Payload, mParameters);
-					
-					
-					// oModel.create("/SOHeaderSet", Payload, {
-					// 	sucess : function(oRes, obj){
-					// 		console.log(oRes);
-					
-					// 	},
-					// 	error : function(oError){
-					// 		MessageBox.show(oError);
-					// 	}
-					// });
-					
+
+			var sSoItem = SalesOrder.getProperty("/SOItem");
+			var SOItem = [];
+			var itemPO = SalesOrder.oData.SOItem.length;
+			for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
+				var Vbeln = "";
+				var ItmNumber = LeadingZeros(iRowIndex + 1, 6);
+				var Zmeng = sSoItem[iRowIndex].Quantity;
+				var Zieme = sSoItem[iRowIndex].OrderprUn;
+				var Material = this.callMatnr(sSoItem[iRowIndex].Matnr);
+				var Plant = sSoItem[iRowIndex].Werks;
+				var Qty = sSoItem[iRowIndex].Quantity;
+				var Kunnr1 = Kunnr;
+				var Brgew = sSoItem[iRowIndex].Brgew;
+				var Ntgew = sSoItem[iRowIndex].Ntgew;
+				SOItem.push({
+					Vbeln: Vbeln,
+					ItmNumber: ItmNumber,
+					Zmeng: Zmeng,
+					Zieme: "ST",
+					Material: Material,
+					Plant: Plant,
+					Qty: Qty,
+					Kunnr: Kunnr1,
+					Parvw: "AG",
+					Brgew: Brgew,
+					Ntgew: Ntgew
+
+				});
+
+			}
+
+			var Payload = {
+				Vbeln: "",
+				Auart: Auart,
+				Vkorg: Vkorg,
+				Vtweg: Vtweg,
+				Spart: Spart,
+				Kunnr: Kunnr,
+				Parvw: "AG",
+				sitem_To_header: SOItem
+			};
+
+			console.log(Payload);
+
+			var mParameters = {
+				success: function(oResponse, object) {
+					var so = object.data.Vbeln;
+					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
+					sap.ui.getCore().byId("histroyDialog").destroy(null);
+					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				},
+				error: function(error) {
+					//MessageBox.error(error);
+					console.log(error);
+				},
+				merge: false
+			};
+			var relPath = "/SOHeaderSet";
+			//	BusyIndicator.show(true);
+			oModel.create(relPath, Payload, mParameters);
+
+			// oModel.create("/SOHeaderSet", Payload, {
+			// 	sucess : function(oRes, obj){
+			// 		console.log(oRes);
+
+			// 	},
+			// 	error : function(oError){
+			// 		MessageBox.show(oError);
+			// 	}
+			// });
+
 		},
-		onCancelSales : function(){
-				this.UpdateSale.close();
+		onCancelSales: function() {
+			this.UpdateSale.close();
 			this.UpdateSale.destroy();
 		},
-				onBackNav : function(){
-				var StockTransferModel = this.getView().getModel("SOModel");
-				var sItem = StockTransferModel.SOItem;
-				//	window.location.reload();
+		onBackNav: function() {
+			var StockTransferModel = this.getView().getModel("SOModel");
+			var sItem = StockTransferModel.SOItem;
+			//	window.location.reload();
 			StockTransferModel.setData({
 				oData: {}
 			});
 
 			StockTransferModel.refresh(true);
-		
+
 			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-			
+
 		},
 
-		//	onBeforeRendering: function() {
-		//
-		//	},
+		// f4 for create condtion
 
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf com.vSimpleApp.view.ExcessData
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+		handleSalesorg1: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
 
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf com.vSimpleApp.view.ExcessData
-		 */
-		//	onExit: function() {
-		//
-		//	}
+			sap.ui.getCore().salesorg1 = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueSalesOrg) {
+				this._valueSalesOrg = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.SalesOrg1",
+					this
+				);
+				this.getView().addDependent(this._valueSalesOrg);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+
+			}
+
+			// create a filter for the binding
+			this._valueSalesOrg.getBinding("items").filter(new Filter([new Filter(
+				"Vkorg",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sInputValue
+			)]));
+			this.getSalesOrgforCondition();
+			// open value help dialog filtered by the input value
+			this._valueSalesOrg.open(sInputValue);
+
+		},
+		_handleSalesOrg1Search: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Vkorg",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleSalesOrg1Close: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+			// 		if (oSelectedItem) {
+			// 			var productInput = this.byId(sap.ui.getCore().siddhikasalesorg);
+			// /*			productInput.setValue(oSelectedItem.getTitle());*/
+			// 			productInput.setValue(oSelectedItem.getTitle());
+			// 		// productInput.setValue(oSelectedItem);
+
+			// 			evt.getSource().getBinding("items").filter([]);
+			// 		}
+
+			if (oSelectedItem) {
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().salesorg1),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				var div = oSelectedItem.getDescription();
+
+				// productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+			}
+		},
+		getSalesOrgforCondition: function() {
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+
+			oModel.read("/get_salesorgf4Set", {
+				success: function(oData) {
+
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/SalesOrg1", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+
+		//*Distribution channel*/
+
+		handleDistributionChannel: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			sap.ui.getCore().InpDistributionChannel = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueDistriChannel) {
+				this._valueDistriChannel = sap.ui.xmlfragment(
+					"com.vSimpleApp.fragment.Stock.DistributionChannel",
+					this
+				);
+				this.getView().addDependent(this._valueDistriChannel);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+
+			}
+
+			// create a filter for the binding
+			this._valueDistriChannel.getBinding("items").filter(new Filter([new Filter(
+				"Vtweg",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sInputValue
+			)]));
+			this.getDistributionChannelforCondition();
+			// open value help dialog filtered by the input value
+			this._valueDistriChannel.open(sInputValue);
+
+		},
+		_handleDistributionChannelSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Vtweg",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Vtext",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+
+		_handleDistributionChannelClose: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+
+			if (oSelectedItem) {
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().InpDistributionChannel),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				var div = oSelectedItem.getDescription();
+
+				// productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+			}
+		},
+		getDistributionChannelforCondition: function() {
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+
+			oModel.read("/get_DistributionChannelf4Set", {
+				success: function(oData) {
+
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/DistributionChnl", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
 
 	});
 
