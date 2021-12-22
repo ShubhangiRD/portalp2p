@@ -58,6 +58,7 @@ sap.ui.define([
 	var TotalLabst = [];
 	var PoQuantity = [];
 	var Totalsaleset = [];
+	var EventArray = [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -3486,8 +3487,47 @@ sap.ui.define([
 				}
 			});
 		},
-
+/*	onStockSelectionItem:function(){
+			var oTreetable = this.byId("TreeTableBasic2");
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+				var spath = event.getParameters().rowContext.sPath;
+			itemindex.push(spath);
+		
+	},*/
 		onStockSelectionItem: function() {
+			// var items = this.getView().byId("TreeTableBasic2");
+			// console.log(items);
+			console.log(EventArray);
+			/*for(var i=0;i<EventArray.length;i++){
+					var bSelected = EventArray[i].oSource.getSelectedIndex();
+			console.log(bSelected);*/
+	
+		
+			// ChildarrIndex.length = 4;
+	/*		if(bSelected===0){
+			ChildarrIndex.push(spath);
+		  
+			}
+			}*/ var uniqueData = [];
+			    var duplicateData = [];
+				for(var i=0;i<EventArray.length;i++){
+				   		if (!uniqueData.includes(EventArray[i])) {
+						uniqueData.push(EventArray[i]);
+				   		}
+					}
+						for(var z=0;z<uniqueData.length;z++){
+						if(!uniqueData[z].spathh === EventArray[z].spathh){
+							// ChildarrIndex.push(uniqueData[j].spathh);
+							duplicateData.push(uniqueData[z]);
+								duplicateData.push(EventArray[z]);
+							
+						}
+				
+				console.log(duplicateData);
+				}
+			
+
+			// 
 			var oStockFinal = [];
 
 			var RowPath = [];
@@ -3550,14 +3590,21 @@ sap.ui.define([
 			console.log(event);
 		},
 		onRowSelectionChange: function(event) {
-			var indexParent = [];
-
-			var oTreetable = this.byId("TreeTableBasic2");
-			var aSelectedIndex = oTreetable.getSelectedIndices();
-			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
-			var spath = event.getParameters().rowContext.sPath;
-			ChildarrIndex.push(spath);
-			/*  spathh = event.getParameters().rowContext.sPath;
+				// var value = event.getSelected();
+			// 	 var selected = event.getSource().getSelectedItem();
+			//  console.log(selected);	
+		 //EventArray.push(event);
+		 var index = event.oSource.mProperties.selectedIndex;
+		 spathh = event.getParameters().rowContext.sPath;
+		   EventArray.push({
+		   	index: index,
+		   	spathh : spathh
+		   });
+		 
+           
+		
+		
+		/*	  spathh = event.getParameters().rowContext.sPath;
 			ChildarrIndex.push(spathh);*/
 		},
 
@@ -3668,6 +3715,9 @@ sap.ui.define([
 		},
 		onSelectionChange: function(oEvent) {
 			alert(oEvent.getParameters().listItem.getAggregation("rows")[0].getProperty("text"));
+			 var selected = event.getSource().getSelectedItem();
+			 console.log(selected);
+  
 		}
 
 	});
