@@ -625,8 +625,16 @@ sap.ui.define([
 				//	PoitemSet.push(item);
 
 			});
+	// var PoCondSet = [];
+	// var PoScheduleSet =[];
+	// 		this.PoCondSet.forEach(function(item3) {
+	// 			PoCondSet.push(item3);
 
+	// 		});
+	// this.PoScheduleSet.forEach(function(item2) {
+	// 			PoScheduleSet.push(item2);
 
+	// 		});
 			return {
 				Purchaseorder: "",
 				PoNumber: "",
@@ -683,8 +691,8 @@ sap.ui.define([
 				RetentionType: "",
 				RetentionPercentage: "0.00",
 				DownpayType: "",
-				//	DownpayAmount: this.DownpayAmount,
-				//	DownpayPercent: this.DownpayPercent,
+					DownpayAmount: "0.0000",
+					DownpayPercent: "0.00",
 				//	DownpayDuedate: this.DownpayDuedate,
 
 				Memory: "",
@@ -694,6 +702,8 @@ sap.ui.define([
 				Shipcond: this.Shipcond,
 				Testrun: "",
 PoitemSet : PoitemSet
+//PoCondSet : PoCondSet
+
 		
 
 			};

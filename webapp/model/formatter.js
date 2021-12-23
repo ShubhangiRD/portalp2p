@@ -201,7 +201,7 @@ sap.ui.define([
 				return "Error";
 			}
 		},
-		statusColor: function(quantity, red, yellow, green, blue, Matnr) {
+		statusColor: function(quantity, red, yellow, green, blue, Material) {
 			quantity = quantity;
 			red = red;
 			yellow = yellow;
@@ -217,7 +217,7 @@ sap.ui.define([
 					return edl.quantity === quantity;
 				});
 			}
-			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Matnr !== null) {
+			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Material !== null) {
 				if (quantity > green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
 					countt++;
@@ -255,7 +255,7 @@ sap.ui.define([
 				if (color === 'blue') {
 					unique.push({
 						quantity: quantity,
-						Matnr: Matnr
+						Matnr: Material
 
 					});
 

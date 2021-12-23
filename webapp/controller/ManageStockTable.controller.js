@@ -425,11 +425,12 @@ sap.ui.define([
 								Cytlv: Cytlv,
 								Changedon: Changedon,
 								Crtlv: Crtlv,
+								
 								Labst: parseInt(sTotalLabst),
 								ALabst: parseInt(sTotalLabst),
-								Matnr: Matnr,
-								Description: sMatDescription,
-								Werks: Werks,
+								Material: Matnr,
+								ShortText: sMatDescription,
+								Plant: Werks,
 								Color: "",
 								MultipleIt: childarray,
 								OsalesOrder: sOpenSalesOrder,
@@ -460,8 +461,8 @@ sap.ui.define([
 											InnerChild.push({
 												//	Bukrs: Bukrs,
 												//	Lgort: Lgort,
-												Matnr: 'Plant' + " " + Werks,
-												Werks: Werks,
+												Material: 'Plant' + " " + Werks,
+												Plant: Werks,
 												MultipleIt: InnerinnerChild,
 												OpenPOQty: sOpenPoQuantity,
 												OsalesOrder: "So",
@@ -476,7 +477,7 @@ sap.ui.define([
 											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
 												Labst: Labst,
-												Matnr: 'SLoc' + " " + Lgort,
+												Material: 'SLoc' + " " + Lgort,
 												Crtlv: "crtlv",
 												Cytlv: "cytlv",
 												Cgtlv: "cgtlv",
@@ -492,7 +493,7 @@ sap.ui.define([
 											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
 												Labst: Labst,
-												Matnr: 'SLoc' + " " + Lgort,
+												Material: 'SLoc' + " " + Lgort,
 												Crtlv: "crtlv",
 												Cytlv: "cytlv",
 												Cgtlv: "cgtlv",
@@ -510,7 +511,7 @@ sap.ui.define([
 											BLabst: "AL",
 											ALabst: " ",
 											Labst: sTotalLabst,
-											Matnr: 'Company Level' + " " + Bukrs,
+											Material: 'Company Level' + " " + Bukrs,
 											Crtlv: "crtlv",
 											Cytlv: "cytlv",
 											Cgtlv: "cgtlv",
@@ -534,12 +535,12 @@ sap.ui.define([
 											//	Bukrs: Bukrs,
 											// Labst: Labst,
 											//	Lgort: Lgort,
-											Matnr: 'Plant' + " " + Werks,
+											Material: 'Plant' + " " + Werks,
 											Crtlv: "crtlv",
 											Cytlv: "cytlv",
 											Cgtlv: "cgtlv",
 											Cbtlv: "cbtlv",
-											Werks: Werks,
+											Plant: Werks,
 											MultipleIt: InnerinnerChild,
 											OpenPOQty: sOpenPoQuantity,
 											OsalesOrder: "So",
@@ -558,7 +559,7 @@ sap.ui.define([
 											Cgtlv: "cgtlv",
 											Cbtlv: "cbtlv",
 
-											Matnr: 'SLoc' + " " + Lgort,
+											Material: 'SLoc' + " " + Lgort,
 											OsalesOrder: "So",
 											Lgort: Lgort
 
@@ -3398,35 +3399,7 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/SalesOrdersSet ", {
 				success: function(oData) {
-					// 	var data = oData.results;
-					// 	var data2=[];
-
-					// 	console.log("data-----------------")
-					// 	console.log(data);
-					// 	oView.getModel("oSaleModel");
-					// console.log("-----------------")
-					// 	for(var i=0 ; i<data.length;i++){
-					// 		if(!uniqueMatnr.includes(data[i].Matnr)){
-
-					// 		    uniqueMatnr.push(data[i].Matnr)
-
-					// 		}
-
-					// 	}
-					// 	console.log(uniqueMatnr)
-					// 	console.log(data2);
-
-					// 		for(var x=0 ;x<uniqueMatnr.length;x++)
-					// 			var orderCount = 0;
-					// 			for(var j=0 ;j<data.length; j++){
-					// 		 		if(uniqueMatnr[x].===data[j].Matnr){
-					// 		 		 orderCount=orderCount + parseInt(data[j].Kwmeng)
-					// 		 	     uniqueMatnr[x].Kwmeng=orderCount.toString();
-					// 		 		}
-					// 		 	data2.push(data[j]);
-
-					// 		 	}
-
+				
 					var iItem = oData.results.length;
 					var aListofVendoritem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -3487,14 +3460,55 @@ sap.ui.define([
 				}
 			});
 		},
-/*	onStockSelectionItem:function(){
-			var oTreetable = this.byId("TreeTableBasic2");
-			var aSelectedIndex = oTreetable.getSelectedIndices();
-				var spath = event.getParameters().rowContext.sPath;
-			itemindex.push(spath);
+	onStockSelectionItem:function(){
+			
+        	this.pressidMainitainPlant = oView.byId("idMainitainPlant");
+			if (!this.pressidMainitainPlant) {
+				this.pressidMainitainPlant = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.MaintainPlant", this);
+				this.pressidMainitainPlant.open();
+			}
 		
-	},*/
-		onStockSelectionItem: function() {
+		
+		
+		
+			// 	var spath = event.getParameters().rowContext.sPath;
+			// itemindex.push(spath);
+		
+	},
+	OnMainPlantStockTransfer : function(oEvent){
+			this.pressidMainitainPlant.close();
+			this.pressidMainitainPlant.destroy();
+			var oTreetable = this.byId("TreeTableBasic2");
+			var oStockFinal = [];
+				var oMaintainPlant = sap.ui.getCore().getModel("ThresholdModel");
+				var splantt = oMaintainPlant.oData.SupplyingPlant;
+				var ItemPlant = oMaintainPlant.oData.ItemPlant;
+				
+			var oTreeModel = this.getOwnerComponent().getModel("oStockDataModel");
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+		
+
+			var aSelectedIndex = oTreetable.getSelectedIndices();
+			for(var i = 0; i< aSelectedIndex.length ; i++){
+				var odata = aSelectedIndex[i];
+					var stock = oTreeModel.getProperty('/' + odata);
+					
+						oStockFinal.push(stock);
+						oStockFinal[i].Plant = ItemPlant;
+			}
+		
+			oPurchaseModel.setProperty("/TempContract/PoitemSet", oStockFinal);
+			oPurchaseModel.setProperty("/TempContract/SupplPlnt", splantt);
+	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo('StockTransfer');
+			
+		
+	},
+	onCloseDialogMaintain: function(){
+			this.pressidMainitainPlant.close();
+			this.pressidMainitainPlant.destroy();
+	},
+		onStockSelectionItem11: function() {
 			// var items = this.getView().byId("TreeTableBasic2");
 			// console.log(items);
 			console.log(EventArray);

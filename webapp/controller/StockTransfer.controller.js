@@ -7,10 +7,12 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/m/MessageToast"
-], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast) {
+	"sap/m/MessageToast",
+		"com/vSimpleApp/model/PurchaseHeader",
+			"com/vSimpleApp/model/RebateConditionItemPO"
+], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast,PurchaseHeader,RebateConditionItemPO) {
 	"use strict";
-	var oView,sPlant, oComponent ,  successObj;
+	var oView, sPlant, oComponent, successObj;
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -27,23 +29,26 @@ sap.ui.define([
 
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
-			
-			var oStockModel = 	this.getOwnerComponent().getModel("StockTransferModel");
-				var Standards = 	sap.ui.getCore().getModel("Standards");
-			var value2 = Standards.oData.Standards.DocType;                                
-		this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType" , value2);
+
+			var oStockModel = this.getOwnerComponent().getModel("StockTransferModel");
+			var Standards = sap.ui.getCore().getModel("Standards");
+			var value2 = Standards.oData.Standards.DocType;
+			this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType", value2);
+			var value = Standards.oData.Standards.MomentType;
+			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
+
 		},
-		
-		onBackStock : function(){
-				var StockTransferModel = this.getView().getModel("StockTransferModel");
+
+		onBackStock: function() {
+			var StockTransferModel = this.getView().getModel("StockTransferModel");
 			StockTransferModel.setData({
 				oData: {}
 			});
 
 			StockTransferModel.refresh(true);
-		
+
 			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-				window.location.reload();
+			window.location.reload();
 		},
 		onStockCancel: function(event) {
 			//cancel the all selected values and data
@@ -59,19 +64,18 @@ sap.ui.define([
 			oRouter.navTo("ManageStockTable");
 
 		},
-		
-		
+
 		/*Document type*/
-			getdocumenttypeSet : function(){
-					var that = this;
+		getdocumenttypeSet: function() {
+			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/getdocumenttypeSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
-			
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-				oLookupModel.setProperty("/documentType", oData.results);
+					oLookupModel.setProperty("/documentType", oData.results);
 					oLookupModel.refresh(true);
 
 				},
@@ -82,14 +86,13 @@ sap.ui.define([
 				}
 			});
 		},
-		
-	handleDoctypevalue: function(oEvent) {
-		
-			
-					var sInputValue = oEvent.getSource().getValue();
+
+		handleDoctypevalue: function(oEvent) {
+
+			var sInputValue = oEvent.getSource().getValue();
 
 			this.inputIddoct = oEvent.getSource().getId();
-			
+
 			// create value help dialog
 			if (!this._valueHelpdoctype) {
 				this._valueHelpdoctype = sap.ui.xmlfragment(
@@ -111,10 +114,10 @@ sap.ui.define([
 				"Auart",
 				FilterOperator.Contains, sInputValue
 			)]));
-this.getdocumenttypeSet();
+			this.getdocumenttypeSet();
 			// open value help dialog filtered by the input value
 			this._valueHelpdoctype.open(sInputValue);
-		}, 
+		},
 		_handleDoctypeSearch: function(evt) {
 			var sValue = evt.getParameter("value");
 			var oFilter = new Filter([new Filter(
@@ -132,18 +135,16 @@ this.getdocumenttypeSet();
 				var productInput = this.byId(this.inputIddoct),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-					var div = oSelectedItem.getDescription();
-					
+				var div = oSelectedItem.getDescription();
+
 				productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
-	
-	
 
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
-/*Document type end*/		
-		
+		/*Document type end*/
+
 		/*Material Number Search start*/
 		getMaterialList: function() {
 			var that = this;
@@ -207,7 +208,7 @@ this.getdocumenttypeSet();
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 
-		_handlePOMaterialClose: function(evt) {
+		_handlePOMaterialClose1: function(evt) {
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 
@@ -226,9 +227,41 @@ this.getdocumenttypeSet();
 			evt.getSource().getBinding("items").filter([]);
 
 		},
+
+		_handlePOMaterialClose: function(evt) {
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			var lenthss = oPurchaseContract.length;
+
+			var lenthcount = lenthss - 1;
+			var oSelectedItem = evt.getParameter("selectedItem");
+
+			var oModel = oView.getModel("Lookup");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputId);
+				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
+				productInput.setValue(oSelectedItem.getTitle());
+
+				var oDiscription = oModel.getProperty(sBindPath + "/Description");
+				var ab = $(this)[0].inputId;
+				var id = $("#" + ab).closest("tr").find(".desc1").attr("id");
+				$("#" + id + "-inner").val(oDiscription);
+
+				var sUnitb = oModel.getProperty(sBindPath + "/UOM");
+				var ab1 = $(this)[0].inputId;
+				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
+				$("#" + id1 + "-inner").val(sUnitb);
+				oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + lenthcount + "/Description", oDiscription);
+
+				oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + lenthcount + "/PoUnit", sUnitb);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+
+		},
 		handleStorageLocationValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-				sap.ui.getCore().inputIdstg = oEvent.getSource().getId();
+			sap.ui.getCore().inputIdstg = oEvent.getSource().getId();
 
 			//create value help dialog 
 			if (!this._valueHelpDialogStorage) {
@@ -311,7 +344,7 @@ this.getdocumenttypeSet();
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
 			var StockModel = oView.getModel("StockTransferModel");
-		//	var sPlant = StockModel.oData.PlantFrom;
+			//	var sPlant = StockModel.oData.PlantFrom;
 
 			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
 			BusyIndicator.show(true);
@@ -430,95 +463,99 @@ this.getdocumenttypeSet();
 			}
 		},
 
-	
-	OnSaveTransferPosting : function(){
-	
+		onDeleteConditionItem: function() {
+			var oPurchaseItemTable = this.byId("idTableitem");
+			var aSelectedIndex = oPurchaseItemTable.getSelectedIndices().reverse();
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			for (var i = 0; i < aSelectedIndex.length; i++) {
+				aPurchaseConditionItems.splice(aSelectedIndex[i], 1);
+			}
+			oPurchaseItemTable.clearSelection();
+			oPurchaseModel.refresh(true);
+		},
+
+		OnSaveTransferPosting: function() {
+
 			MessageToast.show("Save TransferPosting");
-				var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-				var oTransferPostModel = sap.ui.getCore().getModel("oTransferPostModel");
-				var oStockData = oTransferPostModel.oData;
-				//	var oStockContract = oPurchaseModel.setProperty("/TempContract",oStockData);
+			var oTransferPostModel = sap.ui.getCore().getModel("oTransferPostModel");
+			var oStockData = oTransferPostModel.oData;
+			//	var oStockContract = oPurchaseModel.setProperty("/TempContract",oStockData);
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
 			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
 			var oRequestPayload = oPurchaseContract.TransferPosting();
-				var MovmtTypeTP = oStockData.MovmtTypeTP;
-					var PlantTransferTP = oStockData.PlantTransferTP;
-						var StgeLocTP = oStockData.StgeLocTP;
-						var docDate = this.datatime(oStockData.DocDateTP);
-						var PostingDate = this.datatime(oStockData.PostingDate);
-				var vln = oRequestPayload.GoodsmvtitemSet.length;
-				oRequestPayload.PstngDate = PostingDate;
-					oRequestPayload.DocDate = docDate;
-			
+			var MovmtTypeTP = oStockData.MovmtTypeTP;
+			var PlantTransferTP = oStockData.PlantTransferTP;
+			var StgeLocTP = oStockData.StgeLocTP;
+			var docDate = this.datatime(oStockData.DocDateTP);
+			var PostingDate = this.datatime(oStockData.PostingDate);
+			var vln = oRequestPayload.GoodsmvtitemSet.length;
+			oRequestPayload.PstngDate = PostingDate;
+			oRequestPayload.DocDate = docDate;
+
 			for (var vlen = 0; vlen < vln; vlen++) {
-			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
-		
-			 oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
-			  oRequestPayload.GoodsmvtitemSet[vlen].MoveType = MovmtTypeTP;
-			   oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
-			    oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = StgeLocTP;
-			     oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
-			     	//  oRequestPayload.GoodsmvtitemSet[vlen].Material = Material;
-			     	  	//  oRequestPayload.GoodsmvtitemSet[vlen].EntryQnt = EntryQnt;
-			}
-			
-			
-		//	console.log(oRequestPayload);
-			
-				oModel.create("/GrCrudSet", oRequestPayload, {
-				success: this._onCreateEntrySuccessTR.bind(this),
-				error: this._onCreateEntryError.bind(this)
-			});
+				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
 
-			
-},
-onSaveAutoTRP : function(oPurchaseModel){
-
-
-var odata = oPurchaseModel.oData.StockContract;
-var stg = oPurchaseModel.oData.StockContract.PoitemSet.results[0].StgeLoc;
-var docdate = odata.DocDate;
-var podate = odata.DocDate;
-	var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-	var oRequestPayload = oPurchaseContract.TransferPosting();
-			
-						var PlantTransferTP = oPurchaseModel.oData.TempContract.SupplPlnt;
-						
-					
-				var vln = oRequestPayload.GoodsmvtitemSet.length;
-				oRequestPayload.PstngDate =this.datatime(docdate);
-					oRequestPayload.DocDate =this.datatime(podate);
-			
-			for (var vlen = 0; vlen < vln; vlen++) {
-		
-			oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc  = stg;
 				oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
-			    oRequestPayload.GoodsmvtitemSet[vlen].MoveType = "351";
-			    oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
+				oRequestPayload.GoodsmvtitemSet[vlen].MoveType = MovmtTypeTP;
+				oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
+				oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = StgeLocTP;
 				oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
-			     
+				//  oRequestPayload.GoodsmvtitemSet[vlen].Material = Material;
+				//  oRequestPayload.GoodsmvtitemSet[vlen].EntryQnt = EntryQnt;
 			}
-			
-			
-		//	console.log(oRequestPayload);
-			
-				oModel.create("/GrCrudSet", oRequestPayload, {
+
+			//	console.log(oRequestPayload);
+
+			oModel.create("/GrCrudSet", oRequestPayload, {
 				success: this._onCreateEntrySuccessTR.bind(this),
 				error: this._onCreateEntryError.bind(this)
 			});
 
-	
-	
-},
-_onCreateEntrySuccessTR: function(oObject, oResponse) {
+		},
+		onSaveAutoTRP: function(oPurchaseModel) {
+
+			var odata = oPurchaseModel.oData.StockContract;
+			var stg = oPurchaseModel.oData.StockContract.PoitemSet.results[0].StgeLoc;
+			var docdate = odata.DocDate;
+			var podate = odata.DocDate;
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+			var oRequestPayload = oPurchaseContract.TransferPosting();
+
+			var PlantTransferTP = oPurchaseModel.oData.TempContract.SupplPlnt;
+
+			var vln = oRequestPayload.GoodsmvtitemSet.length;
+			oRequestPayload.PstngDate = this.datatime(docdate);
+			oRequestPayload.DocDate = this.datatime(podate);
+
+			for (var vlen = 0; vlen < vln; vlen++) {
+
+				oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = stg;
+				oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+				oRequestPayload.GoodsmvtitemSet[vlen].MoveType = "351";
+				oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
+				oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
+
+			}
+
+			//	console.log(oRequestPayload);
+
+			oModel.create("/GrCrudSet", oRequestPayload, {
+				success: this._onCreateEntrySuccessTR.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+
+		},
+		_onCreateEntrySuccessTR: function(oObject, oResponse) {
 			BusyIndicator.hide();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
-				oPurchaseModel.setData({
+			oPurchaseModel.setData({
 				oData: {}
 			});
 
@@ -531,9 +568,7 @@ _onCreateEntrySuccessTR: function(oObject, oResponse) {
 				onClose: function(oAction) {
 					if (oAction === "OK") {
 
-						BusyIndicator.hide();
-						
-							var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 						oRouter.navTo('ManageStockTable');
 						window.location.reload();
 					}
@@ -541,11 +576,11 @@ _onCreateEntrySuccessTR: function(oObject, oResponse) {
 			});
 
 		},
-			LeadingZeros : function (num, size) {
-				var s = num + "0" + "";
-				while (s.length < size) s = "0" + s;
-				return s;
-			},
+		LeadingZeros: function(num, size) {
+			var s = num + "0" + "";
+			while (s.length < size) s = "0" + s;
+			return s;
+		},
 		datatime: function(dDate) {
 			var s_doc_datePost = new Date(dDate);
 			var Datepoststring = s_doc_datePost.toISOString();
@@ -553,17 +588,20 @@ _onCreateEntrySuccessTR: function(oObject, oResponse) {
 			return Datepoststring;
 		},
 		onClosefunction: function() {
+			sap.ui.getCore().byId("Plant").setValue("");
+			sap.ui.getCore().byId("idInpStorageLocation").setValue("");
 			this.transferdialog.close();
 			this.transferdialog.destroy();
-			this.transferdialog.destroy(null);	
+			this.transferdialog.destroy(null);
 
 		},
-			onSavePurchaseOrder: function(evt) {
-					MessageToast.show("Save PO");
+		onSavePOConditionRecords: function(evt) {
+		
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
+ 
 			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
 			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
 
@@ -571,11 +609,165 @@ _onCreateEntrySuccessTR: function(oObject, oResponse) {
 			BusyIndicator.show(true);
 			//delete oRequestPayload.Vendor;
 			var vln = oRequestPayload.PoitemSet.length;
-			
+			oRequestPayload.PoCondSet = [];
+					oRequestPayload.PoScheduleSet = [];
+			oRequestPayload.Testrun = "X";
 			for (var vlen = 0; vlen < vln; vlen++) {
-			//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+
+				oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+			}
+			oModel.create("/PoDisplaySet", oRequestPayload, {
+				success: this._onEntrySuccess.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+
+			oPurchaseModel.refresh(true);
+
+		},
 		
-		 oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+			_onEntrySuccess: function(oObject, oResponse) {
+				BusyIndicator.hide();
+		//	var Podata = new PurchaseHeader(Object);
+				//	oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
+
+					oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", oObject.PoitemSet.results);
+				
+			var ResponseData = oObject.PoCondSet.results;
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+		
+			oView.getModel("PurchaseModel").setProperty("/TempContract/PoCondSet", oObject.PoCondSet.results);
+	oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", oObject.PoScheduleSet.results);
+	
+	
+		var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			
+					var lenthPO = aPurchaseConditionItems.length;
+				
+					var netcount = lenthPO - 1;
+				
+					var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
+
+					var poitem = aPurchaseConditionItems.length;
+			
+					var sMatno = aPurchaseConditionItems[poitem - 1].Material;
+
+				
+					var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[poitem - 1]);
+					var oListModel = new JSONModel();
+					oListModel.setData(sMatList);
+					oView.setModel(oListModel, "POListModel");
+
+					var sInfoUpdate = oListModel.oData.InfoUpd;
+					var sIrInd = oListModel.oData.IrInd;
+
+					var sPrntPrice = oListModel.oData.PrntPrice;
+					var sGrNonVal = oListModel.oData.GrNonVal;
+					var sUnlimitedDlv = oListModel.oData.UnlimitedDlv;
+					var sNoMoreGr = oListModel.oData.NoMoreGr;
+					var sFinalInv = oListModel.oData.FinalInv;
+					var sGrBasediv = oListModel.oData.GrBasediv;
+					var sAcknReqd = oListModel.oData.AcknReqd;
+					var sEstPrice = oListModel.oData.EstPrice;
+					var sOrigAccept = oListModel.oData.OrigAccept;
+					var sGrInd = oListModel.oData.GrInd;
+					if (sInfoUpdate !== "") {
+						oView.getModel("POListModel").setProperty("/InfoUpd", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/InfoUpd", false);
+					}
+					if (sIrInd !== "") {
+						oView.getModel("POListModel").setProperty("/IrInd", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/IrInd", false);
+					}
+					if (sPrntPrice !== "") {
+						oView.getModel("POListModel").setProperty("/PrntPrice", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/PrntPrice", false);
+					}
+					if (sOrigAccept !== "") {
+						oView.getModel("POListModel").setProperty("/OrigAccept", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/OrigAccept", false);
+					}
+					if (sGrNonVal !== "") {
+						oView.getModel("POListModel").setProperty("/GrNonVal", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/GrNonVal", false);
+					}
+					if (sGrInd !== "") {
+						oView.getModel("POListModel").setProperty("/GrInd", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/GrInd", false);
+					}
+					if (sNoMoreGr !== "") {
+						oView.getModel("POListModel").setProperty("/NoMoreGr", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/NoMoreGr", false);
+					}
+					if (sFinalInv !== "") {
+						oView.getModel("POListModel").setProperty("/FinalInv", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/FinalInv", false);
+					}
+					if (sGrBasediv !== "") {
+						oView.getModel("POListModel").setProperty("/GrBasediv", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/GrBasediv", false);
+					}
+					if (sAcknReqd !== "") {
+						oView.getModel("POListModel").setProperty("/AcknReqd", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/AcknReqd", false);
+					}
+
+					if (sEstPrice !== "") {
+						oView.getModel("POListModel").setProperty("/EstPrice", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/EstPrice", false);
+					}
+					if (sUnlimitedDlv !== "") {
+						oView.getModel("POListModel").setProperty("/UnlimitedDlv", true);
+
+					} else {
+						oView.getModel("POListModel").setProperty("/UnlimitedDlv", false);
+					}
+
+					oView.setModel(oListModel, "PurchaseItems");
+
+		},
+		
+			onSavePurchaseOrder: function(evt) {
+			MessageToast.show("Save PO");
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
+ 
+			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
+			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
+
+			//method for creating the prod
+			BusyIndicator.show(true);
+			//delete oRequestPayload.Vendor;
+			var vln = oRequestPayload.PoitemSet.length;
+
+			for (var vlen = 0; vlen < vln; vlen++) {
+				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+
+				oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 			}
 			oModel.create("/PoDisplaySet", oRequestPayload, {
 				success: this._onCreateEntrySuccess.bind(this),
@@ -585,16 +777,14 @@ _onCreateEntrySuccessTR: function(oObject, oResponse) {
 			oPurchaseModel.refresh(true);
 
 		},
+		
 		_onCreateEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
 			successObj = oObject.PoNumber;
-var ResponseData = oResponse.data;
-	var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			var ResponseData = oResponse.data;
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-	var oStockContract = oPurchaseModel.setProperty("/StockContract" ,ResponseData);
-
-		
-
+			var oStockContract = oPurchaseModel.setProperty("/StockContract", ResponseData);
 
 			sap.m.MessageBox.show("S.T.O created under the number #" + successObj + " Do you want to Stock transfer Automatically", {
 				icon: sap.m.MessageBox.Icon.INFORMATION,
@@ -606,16 +796,16 @@ var ResponseData = oResponse.data;
 						BusyIndicator.hide();
 						this.onSaveAutoTRP(oPurchaseModel);
 						//var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-					//	oRouter.navTo('ManageStockTable');
-							//window.location.reload();
-					}else{
-					
-							this.transferdialog = oView.byId("transferdialog");
-			if (!this.transferdialog) {
-				this.transferdialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.TranfPost", this);
-				this.transferdialog.open();
+						//	oRouter.navTo('ManageStockTable');
+						//window.location.reload();
+					} else {
 
-			}
+						this.transferdialog = oView.byId("transferdialog");
+						if (!this.transferdialog) {
+							this.transferdialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.TranfPost", this);
+							this.transferdialog.open();
+
+						}
 					}
 				}.bind(this)
 			});
@@ -633,10 +823,17 @@ var ResponseData = oResponse.data;
 			);
 
 		},
-		onCancelPRess : function(evt){
-			
+		onCancelStock: function(evt) {
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			oPurchaseModel.setData({
+				oData: {}
+			});
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo('ManageStockTable');
+			window.location.reload();
+
 		},
-				getSpecialStockList: function() {
+		getSpecialStockList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 
@@ -703,23 +900,20 @@ var ResponseData = oResponse.data;
 
 		_handleMvtTypeClose: function(evt) {
 
-				var oSelectedItem = evt.getParameter("selectedItem");
-				if (oSelectedItem) {
-					var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdmvttype);
-					productInput.setValue(oSelectedItem.getTitle());
-				
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdmvttype);
+				productInput.setValue(oSelectedItem.getTitle());
 
-				
-
-					evt.getSource().getBinding("items").filter([]);
-				}
-			},
-				/* reason for movment  start    */
+				evt.getSource().getBinding("items").filter([]);
+			}
+		},
+		/* reason for movment  start    */
 
 		handleValueHelpReasonForMvmt: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-				sap.ui.getCore().inputIdMVT = oEvent.getSource().getId();
+			sap.ui.getCore().inputIdMVT = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogRfm) {
 				this._valueHelpDialogRfm = sap.ui.xmlfragment(
@@ -763,10 +957,8 @@ var ResponseData = oResponse.data;
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = 	sap.ui.getCore().byId(sap.ui.getCore().inputIdMVT);
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdMVT);
 				productInput.setValue(oSelectedItem.getTitle());
-			
-			
 
 				evt.getSource().getBinding("items").filter([]);
 			}
@@ -790,7 +982,7 @@ var ResponseData = oResponse.data;
 				}
 			});
 		},
-	/* end reason for movment      */
+		/* end reason for movment      */
 		/*Special stock*/
 		handleValueSplStock: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -841,13 +1033,10 @@ var ResponseData = oResponse.data;
 			if (oSelectedItem) {
 				var productInput = sap.ui.getCore().byId(sap.ui.getCore().inputIdsplst);
 				productInput.setValue(oSelectedItem.getTitle());
-			
-			
 
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
-
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
