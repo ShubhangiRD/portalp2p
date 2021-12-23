@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<form:SimpleForm id="idSalesOrderParty" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="12"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text="From"/>
+			<Label text="Req.Deliv Date" labelFor="idPricingDate"/>
+				<DatePicker id="idReqDlvDate" placeholder="Enter Date" width="80%"/>
+				
+					<core:Title text="From"/>
+					<Label text="Pricing Date" labelFor="idPricingDateSop"/>
+				<DatePicker id="idPricingDateSop" placeholder="Enter Date" width="80%"/>
+			
+	
+			</form:content>
+		</form:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>

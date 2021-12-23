@@ -1,0 +1,78 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="sapUiSmallMargin">
+		<form:SimpleForm id="idSalesItemDetails" editable="true" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="12"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
+			<form:content>
+				<core:Title text="From"/>
+				<Label text="Sales Document Item"/>
+				<Input id="idSalesDocItm" width="30%"/>
+				<Label text="Material"/>
+				<Input id="idMatnr" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%" value=""
+					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Unloading Point"/>
+				<Input id="idUnloadingPoint" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%" value=""
+					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="" text="" additionalText=""/>
+					</suggestionItems>
+				</Input>
+				<Label text="Receiving Point"/>
+				<Input id="idRecvPoint" showSuggestion="true" showValueHelp="true" width="90%" value="" liveChange="Validate"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="" text="" additionalText=""/>
+					</suggestionItems>
+				</Input>
+				<Label text="Order Quantity" id="idSalesOdrQty"/>
+				<Input value=""/>
+				<Input value="" width="35%">
+					<layoutData>
+						<l:GridData span="XL3 L3 M3 S4"/>
+					</layoutData>
+				</Input>
+				<Label text="Batch"/>
+				<Input id="idBatch" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="50%" value=""
+					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="" text="" additionalText=""/>
+					</suggestionItems>
+				</Input>
+				<core:Title text=""/>
+				<Label text="Plant"/>
+				<Input id="idPlant" width="50%" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleValueHelpPlant" value="" liveChange="Validate" suggestionItems="{ path: 'Lookup>/POPlant' }"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+					</suggestionItems>
+				</Input>
+				<Label text="Item Category"/>
+				<Input id="idItemCategory" width="50%" showSuggestion="true" showValueHelp="true" value="" liveChange="Validate"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="" text="" additionalText=""/>
+					</suggestionItems>
+				</Input>
+				<Label text="Bus Transaction Type"/>
+				<Input id="idBusTransactionType" width="20%" showSuggestion="true" showValueHelp="true" value="" liveChange="Validate"
+					suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="" text="" additionalText=""/>
+					</suggestionItems>
+				</Input>
+				<Label text="Pricing Date" labelFor="idPricingDate"/>
+				<DatePicker id="idPricingDate" placeholder="Enter Date" width="80%"/>
+				<Label text="Reason For Rejection"/>
+				<Select id="idRsnForRejection" forceSelection="false" selectedKey="{/SelectedProduct}" items="">
+					<core:Item key="" text=""/>
+				</Select>
+	
+			</form:content>
+		</form:SimpleForm>
+	</VBox>
+</core:FragmentDefinition>
