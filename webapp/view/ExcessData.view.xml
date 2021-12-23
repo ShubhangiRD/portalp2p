@@ -70,7 +70,7 @@
 							<ObjectIdentifier title="{oExcessDataModel>Matnr}"/>
 							<ObjectIdentifier title="{oExcessDataModel>Description}"/>
 							<ObjectIdentifier title="{oExcessDataModel>Werks}"/>
-							<ObjectIdentifier title="{oExcessDataModel>Labst}"/>
+							<ObjectIdentifier title="{= ${oExcessDataModel>Labst}- ${oExcessDataModel>salesord}}"/>
 							<ObjectIdentifier title="{oExcessDataModel>Changedon}"/>
 						</cells>
 					</ColumnListItem>

@@ -125,6 +125,7 @@ sap.ui.define([
 						quantity: Data[i].Alabst,
 						Labst: Data[i].Labst,
 						counter: count,
+						salesord:Data[i].OsalesOrder,
 						markupDescription: true
 					});
 					//	oView.getModel("oExcessModelData").setData(array);
