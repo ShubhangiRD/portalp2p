@@ -119,9 +119,9 @@ sap.ui.define([
 					count = count + 1;
 
 					array.push({
-						Matnr: Data[i].Matnr,
-						Description: Data[i].Description,
-						Werks: Data[i].Werks,
+						Matnr: Data[i].Material,
+						Description: Data[i].ShortText,
+						Werks: Data[i].Plant,
 						quantity: Data[i].Alabst,
 						Labst: Data[i].Labst,
 						counter: count,
