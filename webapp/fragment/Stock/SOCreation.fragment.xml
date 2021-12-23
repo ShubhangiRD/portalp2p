@@ -109,6 +109,24 @@
 						</ObjectPageSubSection>
 					</subSections>
 				</ObjectPageSection>
+				<ObjectPageSection titleUppercase="false" title="Item Details">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesItemDetail" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				<ObjectPageSection titleUppercase="false" title="Order Party">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
 			</sections>
 		</ObjectPageLayout>
 
