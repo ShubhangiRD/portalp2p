@@ -6,7 +6,7 @@
 			<form:content>
 				<core:Title text="From"/>
 				<Label text="Request Deliv Date" required="true"/>
-					<DatePicker id="idreqdeliv" placeholder="Enter Date" class="sapUiSmallMarginBottom"/>
+					<DatePicker id="idreqdeliv" placeholder="Enter Date" width="60%" class="sapUiSmallMarginBottom"/>
 			
 				<Label text="Delivery Block"/>
 				<Select id="idDelivblk" forceSelection="false" selectedKey="{/SelectedProduct}"
@@ -19,13 +19,13 @@
 					<core:Item key="{ProductId}" text="{Name}"/>
 				</Select>
 				<Label text="Payment Term"/>
-				<Input id="idpemtrn" width="50%"></Input>
+				<Input id="idpemtrn" width="30%"></Input>
 				<Label text="Inco Version"/>
 				<Input id="idvern" width="50%"></Input>
 				<Label text="Incoterms"/>
 				<Input id="idincoterms" width="50%"></Input>
-				<Label text="Inco. Location1"/>
-				<Input id="idincolocatn"></Input>
+				<!--<Label text="Inco. Location1"/>-->
+				<!--<Input id="idincolocatn"></Input>-->
 				<core:Title text="Dest"/>
 				<Label text="Delivery Plant" required="true"/>
 				<Input id="idDelivPlant" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
@@ -35,22 +35,22 @@
 						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Total Weight"/>
-				<Input value="{Street}"/>
-				<Input value="{HouseNumber}">
+				<Label text="Total Weight" />
+				<Input value="{Street}" />
+				<Input value="{HouseNumber}" width="35%">
 					<layoutData>
-						<l:GridData span="XL1 L2 M2 S4"/>
+						<l:GridData span="XL3 L3 M3 S4"/>
 					</layoutData>
 				</Input>
 				<Label text="Volumne"/>
-				<Input value="{Street}"/>
-				<Input value="{HouseNumber}">
+				<Input value="{Street}" />
+				<Input value="{HouseNumber}" width="35%">
 					<layoutData>
-						<l:GridData span="XL1 L2 M2 S4"/>
+						<l:GridData span="XL3 L3 M3 S4"/>
 					</layoutData>
 				</Input>
 				<Label text="Date" labelFor="DP1"/>
-				<DatePicker id="DP1" placeholder="Enter Date"  width="50%" class="sapUiSmallMarginBottom"/>
+				<DatePicker id="DP1" placeholder="Enter Date"  width="60%" class="sapUiSmallMarginBottom"/>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>

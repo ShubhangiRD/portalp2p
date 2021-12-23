@@ -15,13 +15,13 @@
 						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{oSalesModel>PoItem}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="12rem">
+				<t:Column hAlign="Center" width="8rem">
 					<Label text="Material"/>
 					<t:template>
 						<Input id="Material" value="{oSalesModel>Matnr}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="12rem">
+				<t:Column hAlign="Center" width="14rem">
 					<Label text="Material Description"/>
 					<t:template>
 						<Input id="idDescription" value="{oSalesModel>Description}" editable="{EditModel>/isEditable}"></Input>
@@ -35,13 +35,13 @@
 				</t:Column>
 					
 	
-					<t:Column hAlign="Center" width="12rem">
+					<t:Column hAlign="Center" width="14rem">
 					<Label text="Customer Material Description"/>
 					<t:template>
 						<Input id="idcustmat" value="{oSalesModel>Description}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column width="9rem" hAlign="Center">
+				<t:Column width="5rem" hAlign="Center">
 					<Label text="Plant"/>
 					<t:template>
 						<Input id="Plant" value="{oSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
@@ -65,7 +65,7 @@
 						<Input id="EntryUomIso" value="{oSalesModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="9rem" hAlign="Center">
+				<t:Column width="5rem" hAlign="Center">
 					<Label text="Storage Location"/>
 					<t:template>
 						<Input id="StgeLoc" value="{oSalesModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
@@ -78,7 +78,7 @@
 					</t:template>
 				</t:Column>
 				
-						<t:Column width="9rem" hAlign="Center">
+						<t:Column width="5rem" hAlign="Center">
 					<Label text="First Date"/>
 					<t:template>
 						<Input id="idfirstdate" value="{oSalesModel>Werks}" editable="{EditModel>/isEditable}"/>

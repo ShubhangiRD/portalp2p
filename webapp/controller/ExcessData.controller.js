@@ -16,7 +16,7 @@ sap.ui.define([
 	"sap/ui/table/RowSettings",
 	"sap/ui/core/Fragment",
 	"sap/ui/export/library",
-	"sap/ui/export/Spreadsheet"
+	"sap/ui/export/Spreadsheet",
 
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, Export, ExportTypeCSV, MessageBox, Sorter,
 	library, jquery, RowAction,
@@ -63,6 +63,7 @@ sap.ui.define([
 			this.getExcess();
 			this.getCustomer();
 			//	this.getExcessStck();
+			// sap.ui.getCore().getModel("excesstable").getModel("oExcessDataModel").refresh(true);
 		},
 		//	
 		getExcessStck: function() {
@@ -158,22 +159,44 @@ sap.ui.define([
 
 		},
 		onDiscountMaterial: function() {
+			var table = this.byId("excesstable");
+			// table.removeSelections();
+			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
+				var model = sap.ui.getCore().getModel("SingleExcessData");
+				model.setData({
+					oData: {}
+				});
+				model.Matnr = "";
+				model.Descrption = "";
+				MessageBox.alert("Please Select Material for Discount");
 
-			var oExcessmodelInfo = oView.getModel("oExcessDataModel");
-			var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
-			console.log(oSelectedRecord.Matnr);
+			} else {
+				// var oExcessmodelInfo = oView.getModel("oExcessDataModel");
+				var oExcessmodelInfo = this.getOwnerComponent().getModel("oExcessDataModel");
 
-			sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
+				var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
+				oSelectedRecord.DiscAmt = "";
+				oSelectedRecord.DistriChnl = "";
+				oSelectedRecord.SalesOrg1 = "";
+				oSelectedRecord.ValidFrom = "";
+				oSelectedRecord.ValidTo = "";
+				console.log(oSelectedRecord.Matnr);
 
-			this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
-			if (!this.pressDialogExcessDiscount) {
-				this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
-				this.pressDialogExcessDiscount.open();
+				sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
+
+				this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
+				if (!this.pressDialogExcessDiscount) {
+					this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
+					this.pressDialogExcessDiscount.open();
+				}
 			}
+
 		},
 		onSaveDiscount: function() {
+
 			/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
 			var oModelService = this.getOwnerComponent().getModel("StockModel");
+
 			var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
 			// console.log(oPostData);
 			var matnr = oPostData.Matnr;
@@ -195,48 +218,76 @@ sap.ui.define([
 			oEntry.Matnr = matnr;
 			oEntry.Kbetr = Amt;
 			oEntry.Konwa = Unit;
-			// oEntry.Krech = caltype;
 
-			// DateTime date1 = DateTime.Parse(ValidTo);
-			// DateTime date2 = DateTime.Parse(ValidDate);
-			// var sFromatedDate1 = sap.ui.core.format.DateFormat.getDateInstance({
-			// 	pattern: "dd.MM.YYYY"
-			// }).format(ValidTo);
-			// var sFromatedDate2 = sap.ui.core.format.DateFormat.getDateInstance({
-			// 	pattern: "dd.MM.YYYY"
-			// }).format(ValidDate);
-			
-				var ValidFromDate = new Date(ValidFrom);
-				var Date1 = ValidFromDate.toISOString();
-				Date1 = Date1.slice(0, -5)
-				var ValidToDate = new Date(ValidTo);
-				var Date2 = ValidToDate.toISOString();
-				Date2 = Date2.slice(0, -5)
-       console.log(Date1);
-       console.log(Date2);
-			oEntry.Datab = Date1;
-			oEntry.Datbi = Date2;
+			// var ValidFromDate = new Date(ValidFrom);
+			// var Date1 = ValidFromDate.toISOString();
+			// Date1 = Date1.slice(0, -5)
+			// var ValidToDate = new Date(ValidTo);
+			// var Date2 = ValidToDate.toISOString();
+			// Date2 = Date2.slice(0, -5)
+
+			var Date1 = new Date(ValidFrom);
+			Date1 = Date1.setDate(Date1.getDate() + 1);
+
+			var Date2 = new Date(ValidTo);
+			Date2 = Date2.setDate(Date2.getDate() + 1);
+
+			var Date3 = new Date(Date1).toISOString();
+			var Date4 = new Date(Date2).toISOString();
+			Date3 = Date3.slice(0, -5)
+			Date4 = Date4.slice(0, -5)
+
+			console.log(Date3);
+			console.log(Date4);
+
+			console.log(Date1);
+			console.log(Date2);
+			oEntry.Datab = Date3;
+			oEntry.Datbi = Date4;
 			console.log(oEntry);
 			var that = this;
 
 			var mParameters = {
 				success: function(oResponse, object) {
-					// that.OnclearFilterHierarchy();
-					MessageBox.show("Added Discount Sucessfully..");
-					/*	oContractModel.setData({
-							oData: {}
-						});
-						oContractModel.updateBindings(true);*/
-					/*	sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
+
+					MessageBox.show("Discount Added Sucessfully.");
+					BusyIndicator.hide();
+					/*		oPostData.setData({
+								oData: {}
+							});*/
+					// oPostData = {};
+					// sap.ui.getCore().getModel("SingleExcessData").setData({
+					// 	oData: {}
+					// });
+					var oModel = sap.ui.getCore().getModel("SingleExcessData");
+					var oModel2 = sap.ui.getCore().getModel("oExcessDataModel");
+
+					oModel.setData({
+						oData: {}
+					});
+
+					/*
+					Description: "主板 32 MB Mhz cpu R ) / 100"
+					DiscAmt: "1"
+					DistriChnl: "01"
+					Labst: 1422
+					Matnr: "50065573"
+					SalesOrg1: "0001"
+					ValidFrom: "2021.12.22"
+					ValidTo: "2021.12.23"
+					Werks: "0001"
+					counter: 3
+					markupDescription: true
+					quantity: undefined*/
 				},
 				error: function(error) {
 					MessageBox.error(error);
-					/*		sap.ui.getCore().byId("idAddHierarchyitem").destroy(null);*/
+					BusyIndicator.hide();
 				},
 				merge: false
 			};
 			var relPath = "/CreateDiscountConditionSet";
-			//	BusyIndicator.show(true);
+			BusyIndicator.show(true);
 			oModelService.create(relPath, oEntry, mParameters);
 
 			this.pressDialogExcessDiscount.close();
@@ -246,6 +297,13 @@ sap.ui.define([
 			//	this.pressDialogExcessDiscount.destroy();
 		},
 		onCancelDiscount: function() {
+			var table = this.byId("excesstable");
+			var oModel = sap.ui.getCore().getModel("SingleExcessData");
+
+			oModel.setData({
+				oData: {}
+			});
+			table.removeSelections();
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
 		},
@@ -601,6 +659,13 @@ sap.ui.define([
 		},
 
 		onProcessOrder: function(event) {
+				var table = this.byId("excesstable");
+			// table.removeSelections();
+			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
+	
+				MessageBox.alert("Please Select Material");
+				
+			}else{
 
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 			var odata = SalesOrder.oData.SOItem;
@@ -613,6 +678,7 @@ sap.ui.define([
 				this.UpdateSale = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.SOCreation", this);
 
 				this.UpdateSale.open();
+			}
 			}
 		},
 		onCloseDialog: function() {
@@ -748,6 +814,16 @@ sap.ui.define([
 
 		},
 		onCancelSales: function() {
+				var StockTransferModel = this.getView().getModel("SOModel");
+			var sItem = StockTransferModel.SOItem;
+			//	window.location.reload();
+			StockTransferModel.setData({
+				oData: {}
+			});
+
+			StockTransferModel.refresh(true);
+			var table = this.byId("excesstable");
+			table.removeSelections();
 			this.UpdateSale.close();
 			this.UpdateSale.destroy();
 		},
@@ -762,6 +838,7 @@ sap.ui.define([
 			StockTransferModel.refresh(true);
 
 			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+			// this.getOwnerComponent().getRouter().navTo("ExcessData");
 
 		},
 
@@ -930,6 +1007,11 @@ sap.ui.define([
 				}
 			});
 		},
+		onRefreshTable: function() {
+
+			var table = this.byId("excesstable");
+			table.removeSelections();
+		}
 
 	});
 

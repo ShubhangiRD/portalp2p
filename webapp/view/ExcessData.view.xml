@@ -33,12 +33,13 @@
 			</Switch>
 		</tnt:ToolHeader>
 		<content>
-			<Table id="excesstable" mode="MultiSelect" class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiSmallMarginTop" width="1250px"
+			<Table id="excesstable" mode="SingleSelectLeft" class="sapUiLargeMarginBeginEnd" width="1200px"
 				selectionChange="onExcessSelectionItem" items="{ path: 'oExcessDataModel>/'}">
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Excess Material List" level="H2"/>
 						<ToolbarSpacer/>
+							<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh" />
 							<Button tooltip="{i18n>addItem}" text="Back" press="OnNaveBack"/>
 								<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder"/>
 						<Button tooltip="{i18n>addItem}" text="Discount" press="onDiscountMaterial"/>
@@ -47,21 +48,21 @@
 					</Toolbar>
 				</headerToolbar>
 				<columns>
-					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true" width="10rem">
 						<Text text="Material"/>
 					</Column>
-					<Column minScreenWidth="Desktop" width="9rem" hAlign="Center" demandPopin="true">
+					<Column minScreenWidth="Desktop"  hAlign="Center" demandPopin="true"  width="15rem">
 						<Text text="Material Disptn"/>
 					</Column>
-					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true">
+					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true"  width="10rem">
 						<Text text="Plant "/>
 					</Column>
-					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity"  width="10rem">
 						<Text text="Available Qnty"/>
 					</Column>
-					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-						<Text text="Changed On"/>
-					</Column>
+				<!--<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+				<!--	<Text text="Changed On"/>-->
+				<!--	</Column>-->
 				</columns>
 				<items>
 					<ColumnListItem press="SelectRows">

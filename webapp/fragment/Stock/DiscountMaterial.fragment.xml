@@ -46,8 +46,8 @@
 							</f:FormElement>
 							<f:FormElement label="Amount">
 								<f:fields>
-									<Input id="idDiscount"  maxLength="5
-									"  description="%" value = "{SingleExcessData>/DiscAmt}"/>
+									<Input id="idDiscount"  maxLength="2" width= "50%"
+									 description="%" value = "{SingleExcessData>/DiscAmt}"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Valid From">
