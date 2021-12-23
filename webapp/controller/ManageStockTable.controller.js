@@ -118,7 +118,7 @@ sap.ui.define([
 
 			var oHierarchyData = new JSONModel();
 			oView.setModel(oHierarchyData, "HierarchyData");
-			this.getHierarchy();
+		
 
 			var oStocktempData = new JSONModel();
 			oView.setModel(oStocktempData, "oStocktempData");
@@ -2423,6 +2423,7 @@ sap.ui.define([
 				//	oView.byId("checkboxform").setVisible(false);
 
 			} else if (oselecttab === "Hierarchy") {
+					this.OnclearFilterHierarchy();
 				ocheckModel.setProperty("/Hierarchy", true);
 				ocheckModel.setProperty("/MaterialGroup", false);
 				ocheckModel.setProperty("/Material", false);
@@ -3461,18 +3462,19 @@ sap.ui.define([
 			});
 		},
 	onStockSelectionItem:function(){
-			
-        	this.pressidMainitainPlant = oView.byId("idMainitainPlant");
+				var oTreetable = this.byId("TreeTableBasic2");
+					var aSelectedIndex = oTreetable.getSelectedIndices();
+					if(aSelectedIndex.length){
+							this.pressidMainitainPlant = oView.byId("idMainitainPlant");
 			if (!this.pressidMainitainPlant) {
 				this.pressidMainitainPlant = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.MaintainPlant", this);
 				this.pressidMainitainPlant.open();
 			}
-		
-		
-		
-		
-			// 	var spath = event.getParameters().rowContext.sPath;
-			// itemindex.push(spath);
+					}else{
+						MessageBox.error("Please Select Material");
+					}
+        
+
 		
 	},
 	OnMainPlantStockTransfer : function(oEvent){
@@ -3499,8 +3501,14 @@ sap.ui.define([
 		
 			oPurchaseModel.setProperty("/TempContract/PoitemSet", oStockFinal);
 			oPurchaseModel.setProperty("/TempContract/SupplPlnt", splantt);
-	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+		
+			if(splantt !== "" && splantt !== undefined && ItemPlant !== "" && ItemPlant !== undefined ){
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouter.navTo('StockTransfer');
+			}else{
+				MessageBox.error("Please select Plant");
+			}
+		
 			
 		
 	},

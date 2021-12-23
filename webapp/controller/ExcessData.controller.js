@@ -125,7 +125,7 @@ sap.ui.define([
 						quantity: Data[i].Alabst,
 						Labst: Data[i].Labst,
 						counter: count,
-						salesord:Data[i].OsalesOrder,
+						salesord: Data[i].OsalesOrder,
 						markupDescription: true
 					});
 					//	oView.getModel("oExcessModelData").setData(array);
@@ -660,26 +660,26 @@ sap.ui.define([
 		},
 
 		onProcessOrder: function(event) {
-				var table = this.byId("excesstable");
+			var table = this.byId("excesstable");
 			// table.removeSelections();
 			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
-	
+
 				MessageBox.alert("Please Select Material");
-				
-			}else{
 
-			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-			var odata = SalesOrder.oData.SOItem;
+			} else {
 
-			var SO = sap.ui.getCore().getModel("oSalesModel").setProperty("/SOItem", odata);
-			console.log(SO);
+				var SalesOrder = this.getOwnerComponent().getModel("SOModel");
+				var odata = SalesOrder.oData.SOItem;
 
-			this.UpdateSale = this.getView().byId("helloDialog");
-			if (!this.UpdateSale) {
-				this.UpdateSale = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.SOCreation", this);
+				var SO = sap.ui.getCore().getModel("oSalesModel").setProperty("/SOItem", odata);
+				console.log(SO);
 
-				this.UpdateSale.open();
-			}
+				this.UpdateSale = this.getView().byId("helloDialog");
+				if (!this.UpdateSale) {
+					this.UpdateSale = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.SOCreation", this);
+
+					this.UpdateSale.open();
+				}
 			}
 		},
 		onCloseDialog: function() {
@@ -754,20 +754,23 @@ sap.ui.define([
 				var Plant = sSoItem[iRowIndex].Werks;
 				var Qty = sSoItem[iRowIndex].Quantity;
 				var Kunnr1 = Kunnr;
-				var Brgew = sSoItem[iRowIndex].Brgew;
-				var Ntgew = sSoItem[iRowIndex].Ntgew;
+			
 				SOItem.push({
-					Vbeln: Vbeln,
-					ItmNumber: ItmNumber,
-					Zmeng: Zmeng,
-					Zieme: "ST",
-					Material: Material,
+					SoldToParty: "",
+					ShipToParty: "",
+					ztest: "1",
+					Salesdocument: Vbeln,
+					PartnRole: "AG",
+					PartnNumb: Kunnr1,
 					Plant: Plant,
-					Qty: Qty,
-					Kunnr: Kunnr1,
-					Parvw: "AG",
-					Brgew: Brgew,
-					Ntgew: Ntgew
+					TargetQty: Qty,
+					CustMat22: "",
+					PriceDate: "",
+					StoreLoc: "",
+					Testrun: "",
+					Pmnttrms: "",
+					Material: Material,
+					ItmNumber: ItmNumber
 
 				});
 
@@ -791,6 +794,7 @@ sap.ui.define([
 					var so = object.data.Vbeln;
 					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
 					sap.ui.getCore().byId("histroyDialog").destroy(null);
+						sap.ui.getCore().byId("histroyDialog").close();
 					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
 				},
 				error: function(error) {
@@ -815,7 +819,7 @@ sap.ui.define([
 
 		},
 		onCancelSales: function() {
-				var StockTransferModel = this.getView().getModel("SOModel");
+			var StockTransferModel = this.getView().getModel("SOModel");
 			var sItem = StockTransferModel.SOItem;
 			//	window.location.reload();
 			StockTransferModel.setData({
