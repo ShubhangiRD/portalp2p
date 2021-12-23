@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified"
 	class="sapUiSizeCompact" height="100%" displayBlock="true">
 	<m:Dialog id="transferdialog" class="sapUiSizeCompact" title="SO Creation" showHeader="false" contentHeight="1000px" contentWidth="1000px">
-		<m:Page showNavButton="true" >
+		<m:Page showNavButton="false" >
 			<ObjectPageLayout id="ObjectPageLayout" showAnchorBarPopover="false" upperCaseAnchorBar="false">
 				<headerTitle>
 					<ObjectPageDynamicHeaderTitle>
@@ -62,7 +62,7 @@
 											<core:Title text=""/>
 											<m:Label text="Movement Type" required="true"/>
 											<m:Input id="idMovementType" maxLength="3" width="70%" placeholder="Movement Type" showSuggestion="true" showValueHelp="true"
-										editable="false"		value="{oTransferPostModel>/MovmtTypeTP}" valueHelpRequest="handleValueMvtType" suggestionItems="{ path: 'Lookup>/SplStock' }"
+										editable="false" value="{oTransferPostModel>/MovmtTypeTP}" valueHelpRequest="handleValueMvtType" suggestionItems="{ path: 'Lookup>/SplStock' }"
 												suggestionItemSelected="onSuggest">
 												<m:suggestionItems>
 													<core:ListItem key="{Lookup>Bwart}" text="{Lookup>Btext}" additionalText="{Lookup>Bwart}"/>

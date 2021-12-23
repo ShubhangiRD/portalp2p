@@ -1,0 +1,37 @@
+	<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Plant Selection" showHeader="true" id="idMainitainPlant" afterClose="onAfterClose" class="sapUiSizeCompact fragmentHeading" contentHeight="150px">
+		<f:SimpleForm id="idMainitainPlantform" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanXL="4" labelSpanL="4"
+			labelSpanM="2" labelSpanS="4" singleContainerFullSize="false" class="sapUiMediumMarginTopBottom">
+			<f:content>
+				<VBox>
+					<HBox class="sapUiMediumMarginBegin">
+						<Label text="Supplying Plant" required="true" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+						<Input id="SupplyingPlant" placeholder="Plant No" width="80%" showSuggestion="true" showValueHelp="true"
+						valueHelpRequest="handleValueHelpAddPlant" value="{ThresholdModel>/SupplyingPlant}"  suggestionItems="{ path: 'Lookup>/POPlant' }"
+						suggestionItemSelected="onSuggest" >
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+						</suggestionItems>
+					</Input>
+						<Label text="Item Plant" required="true" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
+							<Input id="MainPlant" placeholder="Plant No" width="80%" showSuggestion="true" showValueHelp="true"
+						valueHelpRequest="handleValueHelpAddPlant"  value="{ThresholdModel>/ItemPlant}" change="StockDetails" suggestionItems="{ path: 'Lookup>/POPlant' }"
+						suggestionItemSelected="onSuggest" >
+						<suggestionItems>
+							<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+						</suggestionItems>
+					</Input>
+				
+					</HBox>
+				
+					</VBox>
+				</f:content>
+			</f:SimpleForm>
+			<beginButton>
+				<Button text="Save" type="Emphasized" press="OnMainPlantStockTransfer"/>
+			</beginButton>
+			<endButton>
+				<Button text="Cancel" press="onCloseDialogMaintain"/>
+			</endButton>
+		</Dialog>
+	</core:FragmentDefinition>

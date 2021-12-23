@@ -23,13 +23,13 @@ toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="
 			<Column width="17rem">
 				<m:Label text="Material/Company Code/Plant/StogLoc"/>
 				<template>
-					<m:Text text="{oStockDataModel>Matnr}" wrapping="false"/>
+					<m:Text text="{oStockDataModel>Material}" wrapping="false"/>
 				</template>
 			</Column>
 			<Column width="9rem">
 				<m:Label text="Description"/>
 				<template>
-					<m:Text text="{oStockDataModel>Description}" wrapping="false"/>
+					<m:Text text="{oStockDataModel>ShortText}" wrapping="false"/>
 				</template>
 			</Column>
 			<!--<Column width="6rem">-->
@@ -43,7 +43,7 @@ toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="
 				<template>
 					<m:ObjectNumber
 						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
-						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Matnr'} ], formatter: '.formatter.statusColor' }"/>
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>

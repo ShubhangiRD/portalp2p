@@ -881,9 +881,9 @@ sap.ui.define([
 	return {
 					PoItem: " ",
 					DeleteInd: "",
-					ShortText: this.Description,
-					Material: this.Matnr,
-					Ematerial: this.Matnr,
+					ShortText: 	this.ShortText,
+					Material: this.Material,
+					Ematerial:this.Material,
 					Plant: this.Plant, //imp / necessary for STO (receiving plant)
 					StgeLoc: this.StgeLoc,
 					Quantity: this.Quantity,
