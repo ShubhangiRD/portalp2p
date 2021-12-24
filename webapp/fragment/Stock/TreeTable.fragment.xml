@@ -42,7 +42,7 @@ toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="
 				<m:Label text="Available Qty"/>
 				<template>
 					<m:ObjectNumber
-						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
+						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' || ${oStockDataModel>OsalesOrder} === undefined ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
 						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
@@ -175,8 +175,8 @@ toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="
 				<m:Label text="Action"/>
 				<template>
 					<m:HBox>
-						<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit" type="Accept" class="sapUiSmallMarginEnd"/>
-						<m:Button id="idRefill" text="Refill" press="onSavePurchaseOrder" type="Accept" ariaLabelledBy="editButtonLabel"/>
+						<m:Button id="Edit1" icon="sap-icon://edit-outside" press="onPressMaterialEdit"  class="sapUiSmallMarginEnd"/>
+						<m:Button id="idRefill" text="Refill" press="onSavePurchaseOrder" ariaLabelledBy="editButtonLabel" class="GreenClassButton"/>
 					</m:HBox>
 				</template>
 			</Column>

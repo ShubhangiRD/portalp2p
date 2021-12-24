@@ -72,6 +72,7 @@
 				
 						<Button id="Edit21" icon="sap-icon://edit-outside" press="onPressProdHieEdit" type="Accept" ariaLabelledBy="editButtonLabel"
 							class="sapUiTinyMarginEnd"/>
+	
 					<!--	<Button id="idRefill2" text="Refill" press="onSaveRefillHierarchy" type="Accept" ariaLabelledBy="editButtonLabel"/>
 					</HBox>-->
 				</cells>

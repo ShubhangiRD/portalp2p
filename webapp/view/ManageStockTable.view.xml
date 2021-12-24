@@ -58,7 +58,7 @@
 			<Button text="Green" type="Accept" id="idGreenb1" press="onFilterSelectHierarchy"/>
 			<Button text="Excess" id="idBlueb1" press="onFilterSelectHierarchy"/>
 			<Button text="Allq" id="idAll3" visible="false" press="onFilterSelect"/>
-			
+	
 			<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
 		</form:content>
 	</form:SimpleForm>
