@@ -40,14 +40,7 @@
 										<core:Title text=" "/>
 										<m:Label text="Doc Type"/>
 										<m:Input type="Text" id="iddocType2" 	editable="false"  width="20%"  value="{oSalesModel>/DocType}"></m:Input>
-										<m:Label text="Standard Order"/>
-										<m:Input id="idStdorder"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-											showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
-											suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
-											<m:suggestionItems>
-												<core:ListItem key="{Lookup>Lgort}" text="{Lookup>Lgobe}" additionalText="{Lookup>Lgort}"/>
-											</m:suggestionItems>
-										</m:Input>
+									
 										<m:Label text="Sold-To-Party"/>
 										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
 										value="{oSalesModel>/SoldToParty}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"

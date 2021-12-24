@@ -40,11 +40,11 @@
 						<Title text="Excess Material List" level="H2"/>
 						<ToolbarSpacer/>
 							<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh" />
-							<Button tooltip="{i18n>addItem}" text="Back" press="OnNaveBack"/>
+							<Button tooltip="{i18n>addItem}" icon="sap-icon://nav-back" text="Back" press="OnNaveBack"/>
 								<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder"/>
 						<Button tooltip="{i18n>addItem}" text="Discount" press="onDiscountMaterial"/>
 						<!--<Button tooltip="{i18n>addItem}" text="Discard" press="onDescardMaterial"/>-->
-						<Button tooltip="{i18n>addItem}" text="Download" press="onDownloadExcess"/>
+						<Button tooltip="{i18n>addItem}" icon="sap-icon://download"  press="onDownloadExcess"/>
 					</Toolbar>
 				</headerToolbar>
 				<columns>
@@ -52,13 +52,13 @@
 						<Text text="Material"/>
 					</Column>
 					<Column minScreenWidth="Desktop"  hAlign="Center" demandPopin="true"  width="15rem">
-						<Text text="Material Disptn"/>
+						<Text text="Material Discription"/>
 					</Column>
 					<Column minScreenWidth="Desktop" hAlign="Center" demandPopin="true"  width="10rem">
-						<Text text="Plant "/>
+						<Text text="Plant"/>
 					</Column>
 					<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity"  width="10rem">
-						<Text text="Available Qnty"/>
+						<Text text="Available Quantity"/>
 					</Column>
 				<!--<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
 				<!--	<Text text="Changed On"/>-->

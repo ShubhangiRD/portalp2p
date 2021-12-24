@@ -169,7 +169,7 @@ sap.ui.define([
 				});
 				model.Matnr = "";
 				model.Descrption = "";
-				MessageBox.alert("Please Select Material for Discount");
+				MessageBox.error("Please Select Material for Discount");
 
 			} else {
 				// var oExcessmodelInfo = oView.getModel("oExcessDataModel");
@@ -372,11 +372,11 @@ sap.ui.define([
 				property: 'Labst',
 				type: EdmType.String
 			});
-			aCols.push({
-				label: 'Created Date',
-				property: 'Changedon',
-				type: EdmType.Date
-			});
+			// aCols.push({
+			// 	label: 'Created Date',
+			// 	property: 'Changedon',
+			// 	type: EdmType.Date
+			// });
 
 			return aCols;
 		},
@@ -664,7 +664,7 @@ sap.ui.define([
 			// table.removeSelections();
 			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
 
-				MessageBox.alert("Please Select Material");
+				MessageBox.error("Please Select Material To Process Order");
 
 			} else {
 
