@@ -573,11 +573,11 @@ sap.ui.define([
 				property: 'Eindt',
 				type: EdmType.String
 			});
-			aCols.push({
-				label: 'Delivered Quantity',
-				property: 'Glmng',
-				type: EdmType.String
-			});
+			// aCols.push({
+			// 	label: 'Delivered Quantity',
+			// 	property: 'Glmng',
+			// 	type: EdmType.String
+			// });
 
 			return aCols;
 		}

@@ -87,6 +87,9 @@ sap.ui.define([
 			this.PoScheduleSet = (oData && oData.PoScheduleSet) ? oData.PoScheduleSet : [];
 			this.ParterDetails = (oData && oData) ? oData : [];
 
+	this.ShortText = (oData && oData.ShortText) ? oData.ShortText : "";
+			this.Material = (oData && oData.Material) ? oData.Material : "";
+		
 			this.Matnr = (oData && oData.Matnr) ? oData.Matnr : "";
 			this.Plant = (oData && oData.Plant) ? oData.Plant : "";
 		//	this.SupplPlnt = (oData && oData.SupplPlnt) ? oData.SupplPlnt : "" ;
@@ -407,7 +410,7 @@ sap.ui.define([
 				DelivCompl: "",
 				Distrib: "",
 				DownpayType: "",
-				Ematerial: this.Matnr,
+				Ematerial: this.Material,
 				EmaterialExternal: "",
 				EmaterialGuid: "",
 				EmaterialVersion: "",
@@ -447,7 +450,7 @@ sap.ui.define([
 				LongItemNumber: "",
 				ManualTcReason: "",
 				MatOrigin: "",
-				Material: this.Matnr,
+				Material: this.Material,
 				MaterialExternal: "",
 				MaterialGuid: "",
 				MaterialVersion: "",
@@ -462,7 +465,7 @@ sap.ui.define([
 				PartDeliv: "",
 				PartInv: "",
 				PeriodIndExpirationDate: "D",
-				Plant: this.Werks,
+				Plant: this.Plant,
 				PoItem: "00001",
 				PoPrice: "",
 				PoUnit: "ST",
@@ -494,7 +497,7 @@ sap.ui.define([
 				ShipBlocked: "",
 				Shipping: "",
 				Shiptype: "",
-				ShortText: this.Description,
+				ShortText: this.ShortText,
 				SiCat: "",
 				SpeCrmFkrel: "",
 				SrcStockType: "",
@@ -518,7 +521,7 @@ sap.ui.define([
 				Volumeunit: "",
 				VolumeunitIso: "",
 				Weightunit: "KG",
-				WeightunitIso: "KGM",
+				WeightunitIso: "KGM"
 
 			};
 		},

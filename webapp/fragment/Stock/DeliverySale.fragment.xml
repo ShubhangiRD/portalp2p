@@ -93,12 +93,12 @@
 						<m:Text text="{oAdvanceAnalytics>Wemng}"/>
 					</template>
 				</Column>
-				<Column width="9rem" hAlign="Center">
-					<m:Label text="Delivered Quantity"/>
-					<template>
-						<m:Text text="{oAdvanceAnalytics>Glmng}"/>
-					</template>
-				</Column>
+				<!--<Column width="9rem" hAlign="Center">-->
+				<!--	<m:Label text="Delivered Quantity"/>-->
+				<!--	<template>-->
+				<!--		<m:Text text="{oAdvanceAnalytics>Glmng}"/>-->
+				<!--	</template>-->
+				<!--</Column>-->
 			</columns>
 			<footer>
 				<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
