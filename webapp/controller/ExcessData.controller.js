@@ -85,18 +85,7 @@ sap.ui.define([
 						markupDescription: true
 					});
 				}
-				// count = count + 1;
-
-				// array.push({
-				// 	Matnr: Data[i].Matnr,
-				// 	Description: Data[i].Description,
-				// 	Werks: Data[i].Werks,
-				// 	quantity: Data[i].Alabst,
-				// 	Labst: Data[i].Labst,
-				// 	counter: count,
-				// 	markupDescription: true
-				// });
-				//	oView.getModel("oExcessModelData").setData(array);
+			
 				this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
 
 			}
@@ -118,6 +107,13 @@ sap.ui.define([
 				if (Data[i].ALabst > parseInt(Data[i].Cgtlv)) {
 					count = count + 1;
 
+					var Availble = Data[i].Labst - parseInt(Data[i].OsalesOrder);
+					if (isNaN(Availble)) {
+						Availble = Data[i].Labst;
+					} else {
+
+						Availble = Availble;
+					}
 					array.push({
 						Matnr: Data[i].Material,
 						Description: Data[i].ShortText,
@@ -126,12 +122,15 @@ sap.ui.define([
 						Labst: Data[i].Labst,
 						counter: count,
 						salesord: Data[i].OsalesOrder,
-						markupDescription: true
+						markupDescription: true,
+						AvailbleQnt: Availble
 					});
-					//	oView.getModel("oExcessModelData").setData(array);
-					this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
+
 				}
+				//	oView.getModel("oExcessModelData").setData(array);
+				this.getOwnerComponent().getModel("oExcessDataModel").setData(array);
 			}
+
 		},
 		getPath: function() {
 			var oPurchaseItemTable = this.byId("excesstable");
@@ -331,6 +330,7 @@ sap.ui.define([
 			}
 			oTable = this._oTable;
 			oRowBinding = oTable.getBinding('items');
+
 			aCols = this.createColumnConfig();
 			oSettings = {
 				workbook: {
@@ -369,7 +369,7 @@ sap.ui.define([
 			});
 			aCols.push({
 				label: 'Availble Quantity',
-				property: 'Labst',
+				property: 'AvailbleQnt',
 				type: EdmType.String
 			});
 			// aCols.push({
@@ -754,7 +754,7 @@ sap.ui.define([
 				var Plant = sSoItem[iRowIndex].Werks;
 				var Qty = sSoItem[iRowIndex].Quantity;
 				var Kunnr1 = Kunnr;
-			
+
 				SOItem.push({
 					SoldToParty: "",
 					ShipToParty: "",
@@ -794,7 +794,7 @@ sap.ui.define([
 					var so = object.data.Vbeln;
 					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
 					sap.ui.getCore().byId("histroyDialog").destroy(null);
-						sap.ui.getCore().byId("histroyDialog").close();
+					sap.ui.getCore().byId("histroyDialog").close();
 					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
 				},
 				error: function(error) {
