@@ -345,6 +345,7 @@ sap.ui.define([
 					var InnerinnerChild = [];
 					// var UniqueMatnr = [];
 					var UniqueWerks = [];
+					var UniqueStrLoc = [];
 
 					function userExists(Bukrs) {
 						return childarray.some(function(el) {
@@ -440,65 +441,68 @@ sap.ui.define([
 								var stock = StockList[j];
 								var Bukrs = stock.Bukrs;
 								var Lbkum = stock.Lbkum;
-								var Labst = stock.Labst;
-								var Lgort = stock.Lgort;
-								var Werks = stock.Werks;
+								var Labst1 = stock.Labst;
+								var Lgort1 = stock.Lgort;
+								var Werks1 = stock.Werks;
 								var Matnr2 = stock.Matnr;
-
+                                  console.log(StockList[j]);
 								if (Matnr === Matnr2) {
 									//	console.log(sum);
 
 									if (userExists(Bukrs)) {
 
-										if (!UniqueWerks.includes(Werks)) {
-											UniqueWerks.push(Werks);
+										if (!UniqueWerks.includes(Werks1)) {
+											UniqueWerks.push(Werks1);
+									         //if(Werks===Werks1){
+											if (!UniqueStrLoc.includes(Lgort1)) {
+												UniqueStrLoc.push(Lgort1);
+												InnerChild.push({
+													//	Bukrs: Bukrs,
+													//	Lgort: Lgort,
+													Material: 'Plant' + " " + Werks1,
+													Plant: Werks1,
+													MultipleIt: InnerinnerChild,
+													OpenPOQty: sOpenPoQuantity,
+													OsalesOrder: "So",
+													Crtlv: "crtlv",
+													Cytlv: "cytlv",
+													Cgtlv: "cgtlv",
+													Cbtlv: "cbtlv",
+													RunRate: sRunRate
 
-											InnerChild.push({
+												});
+
+												InnerinnerChild.push({
+													//	Bukrs: Bukrs,
+													Labst: Labst1,
+													Material: 'SLoc' + " " + Lgort1,
+													Crtlv: "crtlv",
+													Cytlv: "cytlv",
+													Cgtlv: "cgtlv",
+													Cbtlv: "cbtlv",
+													OsalesOrder: "So",
+													Lgort: Lgort1
+
+												});
+											}
+									         //}
+										} else {
+
+											// if (!InnerinnerChild.includes(Lgort)) {
+											InnerinnerChild.push({
 												//	Bukrs: Bukrs,
-												//	Lgort: Lgort,
-												Material: 'Plant' + " " + Werks,
-												Plant: Werks,
-												MultipleIt: InnerinnerChild,
-												OpenPOQty: sOpenPoQuantity,
-												OsalesOrder: "So",
+												Labst: Labst1,
+												Material: 'SLoc' + " " + Lgort1,
 												Crtlv: "crtlv",
 												Cytlv: "cytlv",
 												Cgtlv: "cgtlv",
 												Cbtlv: "cbtlv",
-												RunRate: sRunRate
+												OsalesOrder: "So",
+												Lgort: Lgort1
 
 											});
-											if (!InnerinnerChild.includes(Lgort)) {
-												InnerinnerChild.push({
-													//	Bukrs: Bukrs,
-													Labst: Labst,
-													Material: 'SLoc' + " " + Lgort,
-													Crtlv: "crtlv",
-													Cytlv: "cytlv",
-													Cgtlv: "cgtlv",
-													Cbtlv: "cbtlv",
-													OsalesOrder: "So",
-													Lgort: Lgort
 
-												});
-											}
-										} else {
-
-											if (!InnerinnerChild.includes(Lgort)) {
-												InnerinnerChild.push({
-													//	Bukrs: Bukrs,
-													Labst: Labst,
-													Material: 'SLoc' + " " + Lgort,
-													Crtlv: "crtlv",
-													Cytlv: "cytlv",
-													Cgtlv: "cgtlv",
-													Cbtlv: "cbtlv",
-													OsalesOrder: "So",
-													Lgort: Lgort
-
-												});
-
-											}
+											// }
 										}
 
 									} else {
@@ -531,12 +535,12 @@ sap.ui.define([
 											//	Bukrs: Bukrs,
 											// Labst: Labst,
 											//	Lgort: Lgort,
-											Material: 'Plant' + " " + Werks,
+											Material: 'Plant' + " " + Werks1,
 											Crtlv: "crtlv",
 											Cytlv: "cytlv",
 											Cgtlv: "cgtlv",
 											Cbtlv: "cbtlv",
-											Plant: Werks,
+											Plant: Werks1,
 											MultipleIt: InnerinnerChild,
 											OpenPOQty: sOpenPoQuantity,
 											OsalesOrder: "So",
@@ -546,22 +550,22 @@ sap.ui.define([
 										sOpenPoQuantity = "";
 										sRunRate = "";
 
-										if (InnerinnerChild.includes(Lgort)) {
-											InnerinnerChild.push({
-												//	Bukrs: Bukrs,
-												Labst: Labst,
-												Crtlv: "crtlv",
-												Cytlv: "cytlv",
-												Cgtlv: "cgtlv",
-												Cbtlv: "cbtlv",
+										// if (InnerinnerChild.includes(Lgort)) {
+										InnerinnerChild.push({
+											//	Bukrs: Bukrs,
+											Labst: Labst1,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
 
-												Material: 'SLoc' + " " + Lgort,
-												OsalesOrder: "So",
-												Lgort: Lgort
+											Material: 'SLoc' + " " + Lgort1,
+											OsalesOrder: "So",
+											Lgort: Lgort1
 
-											});
+										});
 
-										}
+										// }
 									}
 
 								}
@@ -1105,6 +1109,7 @@ sap.ui.define([
 								return el.Bukrs === Bukrs;
 							});
 						}
+				
 
 						for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
 
