@@ -1,0 +1,333 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<VBox class="TableBoxClass sapUiSmallMargin">
+		<t:Table id="idTableCondData" rows="{ path: 'SOSalesModel>/CondStNo'}" editable="true" visibleRowCount="4" selectionMode="MultiToggle">
+			<t:extension>
+				<OverflowToolbar>
+					<Title text="Items"/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</t:extension>
+			<t:columns>
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="Item"/>
+					<t:template>
+						<Input id="idItmNum" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="8rem">
+					<Label text="Step number"/>
+					<t:template>
+						<Input id="idStpNum" value="{SOSalesModel>CondStNo}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="14rem">
+					<Label text="Counter"/>
+					<t:template>
+						<Input id="idCondCount" value="{SOSalesModel>CondCount}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Condition type"/>
+					<t:template>
+						<Input id="idCondTyp" value="{SOSalesModel>CondType}" editable="{EditModel>/isEditable}" textAlign="End"/>
+					</t:template>
+				</t:Column>
+					
+	
+					<t:Column hAlign="Center" width="14rem">
+					<Label text="Amount"/>
+					<t:template>
+						<Input id="idCondVal" value="{SOSalesModel>CondValue}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Currency"/>
+					<t:template>
+						<Input id="idCondCurr" value="{SOSalesModel>Currency}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Unit of measure"/>
+					<t:template>
+						<Input id="idCondUnt" value="{SOSalesModel>CondUnit}" editable="{EditModel>/isEditable}" class="measure1"/>
+					</t:template>
+				</t:Column>
+				
+				
+				
+				
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="EUn"/>
+					<t:template>
+						<Input id="EntryUom" value="{SOSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="ISO code crcy"/>
+					<t:template>
+						<Input id="idIsoCurr" value="{SOSalesModel>CurrIso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<!---------------------------------->
+			<!--	<t:Column width="5rem" hAlign="Center">
+					<Label text="ISO cond. UoM"/>
+					<t:template>
+						<Input id="idIsoUoM" value="{SOSalesModel>CdUntIso}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
+							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
+							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
+							<suggestionItems>
+								<core:ListItem key="" text="" additionalText=""/>
+							</suggestionItems>
+						</Input>
+					</t:template>
+				</t:Column>-->
+				
+							<t:Column width="4rem" hAlign="Center">
+					<Label text="ISO cond. UoM"/>
+					<t:template>
+						<Input id="idIsoUoM" value="{SOSalesModel>CdUntIso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				
+			
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Object Type"/>
+					<t:template>
+						<Input id="idObjTyp" value="{SOSalesModel>Refobjtype}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Key "/>
+					<t:template>
+						<Input id="idRefObjKey" value="{SOSalesModel>Refobjkey}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Logical system"/>
+					<t:template>
+						<Input id="idLgclSys" value="{SOSalesModel>Reflogsys}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Application"/>
+					<t:template>
+						<Input id="idApl" value="{SOSalesModel>Applicatio}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Conpricdat"/>
+					<t:template>
+						<Input id="idCndPrcDat" value="{SOSalesModel>CondPricingDate}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Calculat.type"/>
+					<t:template>
+						<Input id="idCalTyp" value="{SOSalesModel>Calctypcon}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Condit.category"/>
+					<t:template>
+						<Input id="idCondTypCat" value="{SOSalesModel>Condtype}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Statistical"/>
+					<t:template>
+						<Input id="idStat" value="{SOSalesModel>StatCon}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Scale type"/>
+					<t:template>
+						<Input id="idScalTyp" value="{SOSalesModel>Scaletype}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Accruals"/>
+					<t:template>
+						<Input id="idAccurals" value="{SOSalesModel>Accruals}"  showSuggestion="true"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Inv.list cond."/>
+					<t:template>
+						<Input id="idConInvList" value="{SOSalesModel>Coninvolst}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Condit.origin"/>
+					<t:template>
+						<Input id="idConOrgn" value="{SOSalesModel>Condorigin}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Group condition"/>
+					<t:template>
+						<Input id="idGrpCon" value="{SOSalesModel>Groupcond}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Condit.update"/>
+					<t:template>
+						<Input id="idCondUpdat" value="{SOSalesModel>CondUpdat}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Access"/>
+					<t:template>
+						<Input id="idAccessSeq" value="{SOSalesModel>AccessSeq}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="SequNo of cond."/>
+					<t:template>
+						<Input id="idSeqNoCond" value="{SOSalesModel>Condcount}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Doc. Currency"/>
+					<t:template>
+						<Input id="idCurrency2" value="{SOSalesModel>Currency2}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+			
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="ISO code crcy"/>
+					<t:template>
+						<Input id="idCurrIso2" value="{SOSalesModel>CurrIso2}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Cond.control"/>
+					<t:template>
+						<Input id="idCondcntrl" value="{SOSalesModel>Condcntrl}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="Inactive"/>
+					<t:template>
+						<Input id="idInactiveCond" value="{SOSalesModel>Condisacti}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Condition class"/>
+					<t:template>
+						<Input id="idCondclass" value="{SOSalesModel>Condclass}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="CondFactor"/>
+					<t:template>
+						<Input id="idFactbasval" value="{SOSalesModel>Factbasval}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Scale basis"/>
+					<t:template>
+						<Input id="idScalebasin" value="{SOSalesModel>Scalebasin}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Scale UoM"/>
+					<t:template>
+						<Input id="idUnitmeasur" value="{SOSalesModel>Unitmeasur}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="9rem" hAlign="Center">
+					<Label text="ISO code"/>
+					<t:template>
+						<Input id="idIsoUnit" value="{SOSalesModel>IsoUnit}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Scale currency"/>
+					<t:template>
+						<Input id="idCurrenckey" value="{SOSalesModel>Currenckey}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="ISO code crcy"/>
+					<t:template>
+						<Input id="idCurreniso" value="{SOSalesModel>Curreniso}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Int-comBillCond"/>
+					<t:template>
+						<Input id="idCondincomp" value="{SOSalesModel>Condincomp}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Variant cond."/>
+					<t:template>
+						<Input id="idCondconfig" value="{SOSalesModel>Condconfig}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Changed manual."/>
+					<t:template>
+						<Input id="idCondchaman" value="{SOSalesModel>Condchaman}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Cond.record no."/>
+					<t:template>
+						<Input id="idCondNo" value="{SOSalesModel>CondNo}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Tax code"/>
+					<t:template>
+						<Input id="idTaxCode" value="{SOSalesModel>TaxCode}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Variant"/>
+					<t:template>
+						<Input id="idVarcond" value="{SOSalesModel>Varcond}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Account key"/>
+					<t:template>
+						<Input id="idAccountkey" value="{SOSalesModel>Accountkey}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Accruals"/>
+					<t:template>
+						<Input type="Text" id="idAccountKe" value="{SOSalesModel>AccountKe}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="W/tax code"/>
+					<t:template>
+						<Input id="idWtWithcd" value="{SOSalesModel>WtWithcd}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="StrucCond."/>
+					<t:template>
+						<Input id="idStructCond" value="{SOSalesModel>Structcond}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="CondFactor"/>
+					<t:template>
+						<Input id="idCondFactor" value="{SOSalesModel>Factconbas}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="HdCond.counter"/>
+					<t:template>
+						<Input id="idCondcoinhd" value="{SOSalesModel>Condcoinhd}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+			
+			</t:columns>
+		</t:Table>
+	</VBox>
+</core:FragmentDefinition>
