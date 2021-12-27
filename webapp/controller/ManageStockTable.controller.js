@@ -59,7 +59,7 @@ sap.ui.define([
 	var PoQuantity = [];
 	var Totalsaleset = [];
 	var EventArray = [];
-	var UniqueMatnr = [];
+	var UniqueMatnrGlobal = [];
 	return Controller.extend("com.vSimpleApp.controller.ManageStockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -249,6 +249,7 @@ sap.ui.define([
 
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
+						
 
 							ListofSrs.push({
 								Matnr: Matnr,
@@ -343,7 +344,7 @@ sap.ui.define([
 					var childarray = [];
 					var InnerChild = [];
 					var InnerinnerChild = [];
-					// var UniqueMatnr = [];
+					var UniqueMatnr = [];
 					var UniqueWerks = [];
 					var UniqueStrLoc = [];
 
@@ -416,6 +417,7 @@ sap.ui.define([
 
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
+							UniqueMatnrGlobal.push(Matnr);
 							ListofSrs.push({
 								Cbtlv: Cbtlv,
 								Cgtlv: Cgtlv,
@@ -1638,8 +1640,8 @@ sap.ui.define([
 			var oModel = sap.ui.getCore().getModel("ThresholdModel");
 			console.log(oModel);
 
-			for (var i = 0; i < UniqueMatnr.length; i++) {
-				if (oModel.oData.Matnr === UniqueMatnr[i]) {
+			for (var i = 0; i < UniqueMatnrGlobal.length; i++) {
+				if (oModel.oData.Matnr === UniqueMatnrGlobal[i]) {
 					isUnique = false;
 
 				}
