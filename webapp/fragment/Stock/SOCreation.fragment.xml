@@ -39,11 +39,11 @@
 									<form:content>
 										<core:Title text=" "/>
 										<m:Label text="Doc Type"/>
-										<m:Input type="Text" id="iddocType2" 	editable="false"  width="20%"  value="{oSalesModel>/DocType}"></m:Input>
+										<m:Input type="Text" id="iddocType2" 	editable="true"  width="20%"  value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
 									
 										<m:Label text="Sold-To-Party"/>
 										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-										value="{oSalesModel>/SoldToParty}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+										value="{SOSalesModel>/SalesContract/PartnNumb}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Name1}"/>
@@ -55,23 +55,23 @@
 										
 										<m:Label text="Ship-To-Party"/>
 										<m:Input id="idshiptopt"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-									value="{oSalesModel>/SoldToParty}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+									value="{SOSalesModel>/SalesContract/PartnNumb}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Kunnr}"/>
 											</m:suggestionItems>
 										</m:Input>
 						<!--				<m:Label text="Cust Reference"/>
-										<m:Input type="Text" id="idcustref" editable="{EditModel>/isEditable}" value="{oSalesModel>/CustRef}"/>-->
+										<m:Input type="Text" id="idcustref" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract>/CustRef}"/>-->
 										<core:Title text=" "/>
 										<m:Label text="Net Value"/>
-										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{oSalesModel>/NetValue}" width="60%"></m:Input>
+										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract/NetValue}" width="60%"></m:Input>
 										<m:Label text="Cust.Ref.Date"/>
 										<m:DatePicker id="DP2" placeholder="Enter Date" class="sapUiSmallMarginBottom"  width="60%"/>
 										
 											<m:Label text="Sales Org"  required="true" />
 										<m:Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-										value="{oSalesModel>/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
+										value="{SOSalesModel>/SalesContract/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
 											suggestionItems="{ path: 'Lookup>/shipdetails'}" >
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtweg}" additionalText="{Lookup>Vtweg}"/>
@@ -116,6 +116,23 @@
 						<ObjectPageSubSection>
 							<blocks>
 								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Condition">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOConditionData" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>	<ObjectPageSection titleUppercase="false" title="Schedule">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOScheduleData" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>

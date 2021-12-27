@@ -1,10 +1,14 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<VBox class="TableBoxClass sapUiSmallMargin">
-		<t:Table id="idTableitem" rows="{ path: 'oSalesModel>/SOItem'}" editable="true" visibleRowCount="4" selectionMode="MultiToggle">
+		
+		
+		<t:Table id="idTableitem" rows="{ path: 'SOSalesModel>/SalesContract/OrderItemsInSet'}" editable="true" visibleRowCount="4" selectionMode="MultiToggle">
 			<t:extension>
 				<OverflowToolbar>
 					<Title text="Items"/>
+					<Button id="idSimulate" text="Simulate" press="_getSimulateData" />
+				
 					<ToolbarSpacer/>
 				</OverflowToolbar>
 			</t:extension>
@@ -12,63 +16,127 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Line"/>
 					<t:template>
-						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{oSalesModel>PoItem}"></Input>
+						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber }"></Input>
 					</t:template>
 				</t:Column>
 				<t:Column hAlign="Center" width="8rem">
 					<Label text="Material"/>
 					<t:template>
-						<Input id="Material" value="{oSalesModel>Matnr}" editable="{EditModel>/isEditable}"></Input>
-					</t:template>
-				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
-					<Label text="Material Description"/>
-					<t:template>
-						<Input id="idDescription" value="{oSalesModel>Description}" editable="{EditModel>/isEditable}"></Input>
+						<Input id="Material" value="{SOSalesModel>Material}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Quantity"/>
 					<t:template>
-						<Input id="PoPrQnt" value="{oSalesModel>Quantity}" editable="{EditModel>/isEditable}" textAlign="End"/>
+						<Input id="PoPrQnt" value="{SOSalesModel>TargetQty}" editable="{EditModel>/isEditable}" textAlign="End"/>
 					</t:template>
 				</t:Column>
-					
-	
-					<t:Column hAlign="Center" width="14rem">
-					<Label text="Customer Material Description"/>
+				<t:Column hAlign="Center" width="14rem">
+					<Label text="Material Description"/>
 					<t:template>
-						<Input id="idcustmat" value="{oSalesModel>Description}" editable="{EditModel>/isEditable}"></Input>
+						<Input id="idDescription" value="{SOSalesModel>ShortText}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="4rem">
+					<Label text="Sales Unit"/>
+					<t:template>
+						<Input id="idSalesUnit" value="{SOSalesModel>SalesUnit}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="14rem">
+					<Label text="Cust.material"/>
+					<t:template>
+						<Input id="idcustmat" value="{SOSalesModel>CustMat22}" editable="{EditModel>/isEditable}"></Input>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Delivery Date"/>
+					<t:template>
+						<Input id="idDeliverydate" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="First Date"/>
+					<t:template>
+						<Input id="idfirstdate" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Plant"/>
 					<t:template>
-						<Input id="Plant" value="{oSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
+						<Input id="Plant" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Batch"/>
+					<t:template>
+						<Input id="Batch" value="{SOSalesModel>Batch}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Condition type"/>
+					<t:template>
+						<Input id="idCnty" value="{SOSalesModel>CondType }" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Center">
+					<Label text="Amount"/>
+					<t:template>
+						<Input id="idAmount" value="{SOSalesModel>CondValue}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
-					<Label text="Unit of Quantity"/>
+					<Label text="Currency"/>
 					<t:template>
-						<Input id="PoPrQnt1" value="{oSalesModel>PoUnit}" editable="{EditModel>/isEditable}" class="measure1"/>
+						<Input id="Currency" value="{SOSalesModel>Currency}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Net Price"/>
+					<t:template>
+						<Input id="idNetPrice" value="{SOSalesModel>NetPrice}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="4rem" hAlign="Center">
 					<Label text="EUn"/>
 					<t:template>
-						<Input id="EntryUom" value="{oSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+						<Input id="EntryUom" value="{SOSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Center">
+					<Label text="Net Value"/>
+					<t:template>
+						<Input id="idNetValue" value="{SOSalesModel>}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Doc. Currency"/>
+					<t:template>
+						<Input id="idDocCurrency" value="{SOSalesModel>Currency}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Catalog"/>
+					<t:template>
+						<Input id="idProdcat" value="{SOSalesModel>Prodcat}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Center">
+					<Label text="Unit of Quantity"/>
+					<t:template>
+						<Input id="PoPrQnt1" value="{SOSalesModel>PoUnit}" editable="{EditModel>/isEditable}" class="measure1"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="4rem" hAlign="Center">
 					<Label text="ISO Code"/>
 					<t:template>
-						<Input id="EntryUomIso" value="{oSalesModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="EntryUomIso" value="{SOSalesModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Storage Location"/>
 					<t:template>
-						<Input id="StgeLoc" value="{oSalesModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
+						<Input id="StgeLoc" value="{SOSalesModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
 							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
 							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
 							<suggestionItems>
@@ -77,65 +145,52 @@
 						</Input>
 					</t:template>
 				</t:Column>
-				
-						<t:Column width="5rem" hAlign="Center">
-					<Label text="First Date"/>
-					<t:template>
-						<Input id="idfirstdate" value="{oSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Purchase Order"/>
 					<t:template>
-						<Input id="PoNumber" value="{oSalesModel>PoNumber}" editable="{EditModel>/isEditable}"/>
+						<Input id="PoNumber" value="{SOSalesModel>PoNumber}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Item "/>
 					<t:template>
-						<Input id="PoItem" value="{oSalesModel>PoItem}" editable="{EditModel>/isEditable}"/>
+						<Input id="PoItem" value="{SOSalesModel>PoItem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Cost Center"/>
 					<t:template>
-						<Input id="Costcenter1" value="{oSalesModel>Costcenter}" editable="{EditModel>/isEditable}"/>
+						<Input id="Costcenter1" value="{SOSalesModel>Costcenter}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Partner"/>
 					<t:template>
-						<Input id="PartAcct" value="{oSalesModel>PartAcct}" editable="{EditModel>/isEditable}"/>
+						<Input id="PartAcct" value="{SOSalesModel>PartAcct}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Profit Center"/>
 					<t:template>
-						<Input id="ProfitCtr1" value="{oSalesModel>ProfitCtr}" editable="{EditModel>/isEditable}"/>
+						<Input id="ProfitCtr1" value="{SOSalesModel>ProfitCtr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Network"/>
 					<t:template>
-						<Input id="Network" value="{oSalesModel>Network}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
-					<Label text="Batch"/>
-					<t:template>
-						<Input id="Batch" value="{oSalesModel>Batch}" editable="{EditModel>/isEditable}"/>
+						<Input id="Network" value="{SOSalesModel>Network}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Valuation Type"/>
 					<t:template>
-						<Input id="ValType" value="{oSalesModel>ValType}" editable="{EditModel>/isEditable}"/>
+						<Input id="ValType" value="{SOSalesModel>ValType}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Movement Type"/>
 					<t:template>
-						<Input id="MoveType" value="{oSalesModel>MoveType}" editable="{EditModel>/isEditable}"/>
+						<Input id="MoveType" value="{SOSalesModel>MoveType}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
@@ -147,200 +202,187 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Stock Type"/>
 					<t:template>
-						<Input id="StckType" value="{oSalesModel>StckType}" editable="{EditModel>/isEditable}"/>
+						<Input id="StckType" value="{SOSalesModel>StckType}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Special Stock"/>
 					<t:template>
-						<Input id="SpecStock" value="{oSalesModel>SpecStock}" editable="{EditModel>/isEditable}"/>
+						<Input id="SpecStock" value="{SOSalesModel>SpecStock}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Customer"/>
 					<t:template>
-						<Input id="Customer" value="{oSalesModel>Customer}" editable="{EditModel>/isEditable}"/>
+						<Input id="Customer" value="{SOSalesModel>Customer}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Sales Order"/>
 					<t:template>
-						<Input id="SalesOrd" value="{oSalesModel>SalesOrd}" editable="{EditModel>/isEditable}"/>
+						<Input id="SalesOrd" value="{SOSalesModel>SalesOrd}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Sales Order Item"/>
 					<t:template>
-						<Input id="SOrdItem" value="{oSalesModel>SOrdItem}" editable="{EditModel>/isEditable}"/>
+						<Input id="SOrdItem" value="{SOSalesModel>SOrdItem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Deliv. Compl."/>
 					<t:template>
-						<Input id="NoMoreGr" value="{oSalesModel>NoMoreGr}" editable="{EditModel>/isEditable}"/>
+						<Input id="NoMoreGr" value="{SOSalesModel>NoMoreGr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="WBS Element"/>
 					<t:template>
-						<Input id="WbsElem" value="{oSalesModel>WbsElem}" editable="{EditModel>/isEditable}"/>
+						<Input id="WbsElem" value="{SOSalesModel>WbsElem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-			
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="OPUn"/>
 					<t:template>
-						<Input id="OrderprUn" value="{oSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+						<Input id="OrderprUn" value="{SOSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Item"/>
 					<t:template>
-						<Input id="ItemText" value="{oSalesModel>ItemText}" editable="{EditModel>/isEditable}"/>
+						<Input id="ItemText" value="{SOSalesModel>ItemText}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Material Document "/>
 					<t:template>
-						<Input id="MatDoc1" value="{oSalesModel>MatDoc1}" editable="{EditModel>/isEditable}"/>
+						<Input id="MatDoc1" value="{SOSalesModel>MatDoc1}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Material Document Item"/>
 					<t:template>
-						<Input id="MatdocItm" value="{oSalesModel>MatdocItm}" editable="{EditModel>/isEditable}"/>
+						<Input id="MatdocItm" value="{SOSalesModel>MatdocItm}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Ref Doc"/>
 					<t:template>
-						<Input id="RefDoc" value="{oSalesModel>RefDoc}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Currency"/>
-					<t:template>
-						<Input id="Currency" value="{oSalesModel>Currency}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="CurrencyIso"/>
-					<t:template>
-						<Input id="CurrencyIso" value="{oSalesModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDoc" value="{SOSalesModel>RefDoc}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Reservation Number"/>
 					<t:template>
-						<Input id="ReservNo" value="{oSalesModel>ReservNo}" editable="{EditModel>/isEditable}"/>
+						<Input id="ReservNo" value="{SOSalesModel>ReservNo}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="RealEstet Key"/>
 					<t:template>
-						<Input id="RlEstKey" value="{oSalesModel>RlEstKey}" editable="{EditModel>/isEditable}"/>
+						<Input id="RlEstKey" value="{SOSalesModel>RlEstKey}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Value Sales Order"/>
 					<t:template>
-						<Input id="ValSOrdItem" value="{oSalesModel>ValSOrdItem}" editable="{EditModel>/isEditable}"/>
+						<Input id="ValSOrdItem" value="{SOSalesModel>ValSOrdItem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Document Year"/>
 					<t:template>
-						<Input id="DocYear1" value="{oSalesModel>DocYear1}" editable="{EditModel>/isEditable}"/>
+						<Input id="DocYear1" value="{SOSalesModel>DocYear1}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Document Item"/>
 					<t:template>
-						<Input id="EarmarkedItem" value="{oSalesModel>EarmarkedItem}" editable="{EditModel>/isEditable}"/>
+						<Input id="EarmarkedItem" value="{SOSalesModel>EarmarkedItem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Earmarked Funds"/>
 					<t:template>
-						<Input id="EarmarkedNumber" value="{oSalesModel>EarmarkedNumber}" editable="{EditModel>/isEditable}"/>
+						<Input id="EarmarkedNumber" value="{SOSalesModel>EarmarkedNumber}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Budget Period"/>
 					<t:template>
-						<Input id="BudgetPeriod" value="{oSalesModel>BudgetPeriod}" editable="{EditModel>/isEditable}"/>
+						<Input id="BudgetPeriod" value="{SOSalesModel>BudgetPeriod}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Movement ind."/>
 					<t:template>
-						<Input id="MvtInd" value="{oSalesModel>MvtInd}" editable="{EditModel>/isEditable}"/>
+						<Input id="MvtInd" value="{SOSalesModel>MvtInd}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="ISO code."/>
 					<t:template>
-						<Input id="OrderprUnIso" value="{oSalesModel>OrderprUnIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="OrderprUnIso" value="{SOSalesModel>OrderprUnIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Acctg Indicator"/>
 					<t:template>
-						<Input id="CalcMotive" value="{oSalesModel>CalcMotive}" editable="{EditModel>/isEditable}"/>
+						<Input id="CalcMotive" value="{SOSalesModel>CalcMotive}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Business Proc."/>
 					<t:template>
-						<Input type="Text" id="CoBusproc1" value="{oSalesModel>CoBusproc}" editable="{EditModel>/isEditable}"/>
+						<Input type="Text" id="CoBusproc1" value="{SOSalesModel>CoBusproc}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Level"/>
 					<t:template>
-						<Input id="LineDepth" value="{oSalesModel>LineDepth}" editable="{EditModel>/isEditable}"/>
+						<Input id="LineDepth" value="{SOSalesModel>LineDepth}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Functional Area"/>
 					<t:template>
-						<Input id="FuncAreaLong1" value="{oSalesModel>FuncAreaLong}" editable="{EditModel>/isEditable}"/>
+						<Input id="FuncAreaLong1" value="{SOSalesModel>FuncAreaLong}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Parent Id"/>
 					<t:template>
-						<Input id="ParentId" value="{oSalesModel>ParentId}" editable="{EditModel>/isEditable}"/>
+						<Input id="ParentId" value="{SOSalesModel>ParentId}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Stock Segment"/>
 					<t:template>
-						<Input id="StkSegment" value="{oSalesModel>StkSegment}" editable="{EditModel>/isEditable}"/>
+						<Input id="StkSegment" value="{SOSalesModel>StkSegment}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Auto. created"/>
 					<t:template>
-						<Input id="XAutoCre" value="{oSalesModel>XAutoCre}" editable="{EditModel>/isEditable}"/>
+						<Input id="XAutoCre" value="{SOSalesModel>XAutoCre}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Funds Center"/>
 					<t:template>
-						<Input id="FundsCtr" value="{oSalesModel>FundsCtr}" editable="{EditModel>/isEditable}"/>
+						<Input id="FundsCtr" value="{SOSalesModel>FundsCtr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Ref Doc Year"/>
 					<t:template>
-						<Input id="RefDocYr" value="{oSalesModel>RefDocYr}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDocYr" value="{SOSalesModel>RefDocYr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="RfDocIt"/>
 					<t:template>
-						<Input id="RefDocIt" value="{oSalesModel>RefDocIt}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDocIt" value="{SOSalesModel>RefDocIt}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			</t:columns>

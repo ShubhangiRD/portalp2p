@@ -66,12 +66,11 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Pricing Date" labelFor="idPricingDate"/>
-				<DatePicker id="idPricingDate" placeholder="Enter Date" width="80%"/>
+				<DatePicker id="idPricingDate" placeholder="Enter Date" value="{SOSalesModel>/SalesContract/PriceDate}" width="80%"/>
 				<Label text="Reason For Rejection"/>
 				<Select id="idRsnForRejection" forceSelection="false" selectedKey="{/SelectedProduct}" items="">
 					<core:Item key="" text=""/>
 				</Select>
-	
 			</form:content>
 		</form:SimpleForm>
 	</VBox>

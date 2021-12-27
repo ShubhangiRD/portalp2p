@@ -17,10 +17,12 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"sap/ui/export/library",
 	"sap/ui/export/Spreadsheet",
+	"com/vSimpleApp/Classes/StockStandards",
+	"com/vSimpleApp/Classes/SOConditionItem"
 
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, Export, ExportTypeCSV, MessageBox, Sorter,
 	library, jquery, RowAction,
-	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet) {
+	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet,StockStandards,SOConditionItem) {
 	"use strict";
 	var oView, oComponent,
 		oController,
@@ -52,12 +54,12 @@ sap.ui.define([
 			sap.ui.getCore().setModel(oSalesModel, "oSalesModel");
 			var SingleExcessData = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(SingleExcessData, "SingleExcessData");
-			var Standards = sap.ui.getCore().getModel("Standards");
-			var value = Standards.oData.Standards.MomentType;
+			var Standards = sap.ui.getCore().getModel("SOSalesModel");
+			var value = Standards.oData.SalesContract.MomentType;
 			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
 
-			var value2 = Standards.oData.Standards.Auart;
-			sap.ui.getCore().getModel("oSalesModel").setProperty("/DocType", value2);
+			var value2 = Standards.oData.SalesContract.Auart;
+			sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/DocType", value2);
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			this.getExcess();
@@ -449,7 +451,7 @@ sap.ui.define([
 				sKunnr = oSelectedItem.getTitle();
 				productInput.setSelectedKey(sSalesorg);
 				productInput.setValue(sKunnr);
-				sap.ui.getCore().getModel("oSalesModel").setProperty("/SoldToParty", sKunnr);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/PartnNumb", sKunnr);
 				//oView.getModel("SOModel").setProperty("/ShipToParty", sTitle);
 
 			}
@@ -575,9 +577,10 @@ sap.ui.define([
 				productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
 
-				sap.ui.getCore().getModel("oSalesModel").setProperty("/SalesOrg", sTitle);
-				sap.ui.getCore().getModel("oSalesModel").setProperty("/DistributionChannel", sDescription);
-				sap.ui.getCore().getModel("oSalesModel").setProperty("/Division", div);
+
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/SalesOrg", sTitle);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/DistrChan", sDescription);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/Division", div);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -671,8 +674,8 @@ sap.ui.define([
 				var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 				var odata = SalesOrder.oData.SOItem;
 
-				var SO = sap.ui.getCore().getModel("oSalesModel").setProperty("/SOItem", odata);
-				console.log(SO);
+				var SO = sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", odata);
+			
 
 				this.UpdateSale = this.getView().byId("helloDialog");
 				if (!this.UpdateSale) {
@@ -725,7 +728,7 @@ sap.ui.define([
 
 			return Kunnr;
 		},
-		onSaveSalesorder: function() {
+		onSaveSalesorder2: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var SalesOrder = sap.ui.getCore().getModel("oSalesModel");
 
@@ -1016,7 +1019,105 @@ sap.ui.define([
 
 			var table = this.byId("excesstable");
 			table.removeSelections();
+		},
+		onSaveSalesorder : function(oEvent){
+			var ConditionItem = [],
+			ScheduleItem = [];
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+			var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
+		var SOSalesModel = oSalesModel.getProperty("/SalesContract");
+	
+		var getRequestPayload = SOSalesModel.getRequestPayload();
+	
+			
+			ConditionItem.push( {
+				ItmNumber: "000010",
+				CondType: "Z004",
+				CondValue: "9000"
+			});
+		
+			ScheduleItem.push({
+				ItmNumber: "000010",
+				ReqQty: "1"
+			});
+			
+				
+			getRequestPayload.OrderConditionsInSet = ConditionItem;
+			getRequestPayload.OrderSchedulesInSet = ScheduleItem;
+			var mParameters = {
+				success: function(oResponse, object) {
+					var so = object.data.Salesdocument;
+					var ss1 =	object.data.Salesdocumentin;	
+					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
+					sap.ui.getCore().byId("histroyDialog").destroy(null);
+					sap.ui.getCore().byId("histroyDialog").close();
+					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				},
+				error: function(error) {
+					MessageBox.error(error);
+			
+				},
+				merge: false
+			};
+			var relPath = "/sales_orderSet";
+			//	BusyIndicator.show(true);
+			oModel.create(relPath, getRequestPayload, mParameters);
+		
+
+			
+	
+			
+		},
+			_getSimulateData : function(oEvent){
+			var ConditionItem = [],
+			ScheduleItem = [];
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+			var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
+		var SOSalesModel = oSalesModel.getProperty("/SalesContract");
+	
+		var getRequestPayload = SOSalesModel.getRequestPayload();
+		getRequestPayload.Testrun = "X";
+	
+			
+			ConditionItem.push( {
+				ItmNumber: "000010",
+				CondType: "Z004",
+				CondValue: "9000"
+			});
+		
+			ScheduleItem.push({
+				ItmNumber: "000010",
+				ReqQty: "1"
+			});
+			
+				
+			getRequestPayload.OrderConditionsInSet = ConditionItem;
+			getRequestPayload.OrderSchedulesInSet = ScheduleItem;
+			var mParameters = {
+				success: function(oResponse, object) {
+					var so = object.data.Salesdocument;
+					var ss1 =	object.data.Salesdocumentin;	
+					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
+					sap.ui.getCore().byId("histroyDialog").destroy(null);
+					sap.ui.getCore().byId("histroyDialog").close();
+					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				},
+				error: function(error) {
+					MessageBox.error(error);
+			
+				},
+				merge: false
+			};
+			var relPath = "/sales_orderSet";
+			//	BusyIndicator.show(true);
+			oModel.create(relPath, getRequestPayload, mParameters);
+		
+
+			
+	
+			
 		}
+		
 
 	});
 

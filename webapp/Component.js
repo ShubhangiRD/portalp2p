@@ -105,11 +105,15 @@ sap.ui.define([
 			this.setModel(oLookupModel, "Lookup");
 
 var std = {
-	Standards : new StockStandards()
+	SalesContract : new StockStandards()
 };
 
 	var oModel = new sap.ui.model.json.JSONModel(std);
-			sap.ui.getCore().setModel(oModel, "Standards");
+			sap.ui.getCore().setModel(oModel, "SOSalesModel");
+
+
+
+
 
 
 
