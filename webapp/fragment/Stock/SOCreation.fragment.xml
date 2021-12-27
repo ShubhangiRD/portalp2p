@@ -39,7 +39,7 @@
 									<form:content>
 										<core:Title text=" "/>
 										<m:Label text="Doc Type"/>
-										<m:Input type="Text" id="iddocType2" 	editable="true"  width="20%"  value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
+										<m:Input type="Text" id="idCrDocTyp" editable="true"  width="20%"  value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
 									
 										<m:Label text="Sold-To-Party"/>
 										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
