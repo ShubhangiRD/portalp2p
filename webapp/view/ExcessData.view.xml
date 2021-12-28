@@ -67,9 +67,9 @@
 				<items>
 					<ColumnListItem press="SelectRows">
 						<cells>
-							<ObjectIdentifier title="{oExcessDataModel>Matnr}"/>
-							<ObjectIdentifier title="{oExcessDataModel>Description}"/>
-							<ObjectIdentifier title="{oExcessDataModel>Werks}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Material}"/>
+							<ObjectIdentifier title="{oExcessDataModel>ShortText}"/>
+							<ObjectIdentifier title="{oExcessDataModel>Plant}"/>
 							<ObjectIdentifier title="{= ${oExcessDataModel>Labst}- ${oExcessDataModel>salesord}}"/>
 							<ObjectIdentifier title="{oExcessDataModel>Changedon}"/>
 						</cells>

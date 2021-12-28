@@ -117,9 +117,9 @@ sap.ui.define([
 						Availble = Availble;
 					}
 					array.push({
-						Matnr: Data[i].Material,
-						Description: Data[i].ShortText,
-						Werks: Data[i].Plant,
+						Material: Data[i].Material,
+						ShortText: Data[i].ShortText,
+						Plant: Data[i].Plant,
 						quantity: Data[i].Alabst,
 						Labst: Data[i].Labst,
 						counter: count,

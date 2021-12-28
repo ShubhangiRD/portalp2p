@@ -36,12 +36,12 @@
 										</f:FormElement>
 							<f:FormElement label="Material">
 								<f:fields>
-									<Input id="idMateial" value ="{SingleExcessData>/Matnr}" width="70%"/>
+									<Input id="idMateial" value ="{SingleExcessData>/Material}" width="70%"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Description">
 								<f:fields>
-									<Input id="idMatDesc" value="{SingleExcessData>/Description}"/>
+									<Input id="idMatDesc" value="{SingleExcessData>/ShortText}"/>
 								</f:fields>
 							</f:FormElement>
 							<f:FormElement label="Amount">
