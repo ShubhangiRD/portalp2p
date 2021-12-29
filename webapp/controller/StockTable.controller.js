@@ -101,7 +101,7 @@ sap.ui.define([
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
 
-				this.getStockDetailList();
+				this.getStockDetailList1();
 		
 		
 
@@ -215,6 +215,54 @@ sap.ui.define([
 					var UniqueMatnr = [];
 					var UniqueWerks = [];
 					var UniqueStrLoc = [];
+					
+					StockList = oData.results;
+
+					var iItem = oData.results.length;
+					var ListItem = [];
+					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+
+						var Matnr = oData.results[iRowIndex].Matnr;
+						ListItem.push({
+							Matnr: Matnr
+
+						});
+					}
+					var index = {};
+
+					ListItem.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+						if (key in index) {
+							index[key].count++;
+						} else {
+							var newEntry = {
+								Matnr: point.Matnr,
+								Labst: "",
+								count: 1
+							};
+							index[key] = newEntry;
+							TotalLabst.push(newEntry);
+						}
+					});
+
+					TotalLabst.sort(function(a, b) {
+						return b.count - a.count;
+					});
+
+					var data = oData.results;
+
+					for (var x = 0; x < TotalLabst.length; x++) {
+						var orderCount = 0;
+						for (var j = 0; j < data.length; j++) {
+							if (TotalLabst[x].Matnr === data[j].Matnr) {
+								orderCount = orderCount + parseInt(data[j].Labst);
+								TotalLabst[x].Labst = orderCount.toString();
+							}
+
+						}
+
+					}
+					console.log(TotalLabst);
 
 					function userExists(Bukrs) {
 						return childarray.some(function(el) {
@@ -244,8 +292,14 @@ sap.ui.define([
 						var Lbkum = odataset.Lbkum;
 						var Lgort = odataset.Lgort;
 							
-						
-						
+							if (Matnr !== "" || Matnr !== undefined) {
+								for (var z = 0; z < TotalLabst.length; z++) {
+									if (Matnr === TotalLabst[z].Matnr) {
+										var sTotalLabst = TotalLabst[z].Labst;
+
+									}
+								}
+							}
 			
 
 			
@@ -290,8 +344,8 @@ sap.ui.define([
 								Changedon: Changedon,
 								Crtlv: Crtlv,
 
-							//	Labst: parseInt(sTotalLabst),
-								Labst: parseInt(Labst),
+								Labst: parseInt(sTotalLabst),
+								// Labst: parseInt(Labst),
 								ALabst: parseInt(Labst-sOpenSalesOrder),
 							//	ALabst :parseInt(sTotalLabst),
 								Material: Matnr,
