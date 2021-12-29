@@ -355,9 +355,9 @@ sap.ui.define([
 		getRequestItem: function() {
 			return {
 				ItmNumber: "000010",
-				Material: "000000000050065561",
-				Plant: "0001",
-				TargetQty: "1"
+				Material: 	this.Material ,
+				Plant:this.Plant,
+				TargetQty: this.TargetQty
 			};
 		},
 
@@ -373,7 +373,7 @@ sap.ui.define([
 		getRequestScheduleItem: function() {
 			return {
 				ItmNumber: "000010",
-				ReqQty: "1"
+				ReqQty: this.TargetQty
 			};
 		},
 

@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="OnTreecellclick"   selectionChange="onSelectionChange"    rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
+toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
 		ariaLabelledBy="title">
 		<extension>
 			<m:OverflowToolbar style="Clear">
@@ -32,21 +32,25 @@ toggleOpenState="onPressItem"  growing="true" growingThreshold="10"  cellClick="
 					<m:Text text="{oStockDataModel>ShortText}" wrapping="false"/>
 				</template>
 			</Column>
-			<!--<Column width="6rem">-->
-			<!--	<m:Label text="Plant"/>-->
-			<!--	<template>-->
-			<!--		<m:Text text="{oStockDataModel>Werks}"/>-->
-			<!--	</template>-->
-			<!--</Column>-->
+		
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Available Qty"/>
 				<template>
 					<m:ObjectNumber
-						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' || ${oStockDataModel>OsalesOrder} === undefined ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
-						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
+						number="{oStockDataModel>ALabst}"
+						state="{ parts: [ {path: 'oStockDataModel>ALabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
+			
+			
+			<!--<Column width="8rem" hAlign="Center">-->
+			<!--	<m:Label text="Available Qty"/>-->
+			<!--	<template>-->
+				
+			<!--	<m:Text text="{oStockDataModel>ALabst}" wrapping="false"/>-->
+			<!--	</template>-->
+			<!--</Column>-->
 				<Column width="9rem" hAlign="Center">
 				<m:Label text="RunRate(13 Weeks)"/>
 				<template>

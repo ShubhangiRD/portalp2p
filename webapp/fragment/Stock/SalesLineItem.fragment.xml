@@ -49,6 +49,13 @@
 						<Input id="idcustmat" value="{SOSalesModel>CustMat22}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
+						<t:Column width="5rem" hAlign="Center">
+					<Label text="Net Price"/>
+					<t:template>
+						<Input id="idnetPrice" value="{SOSalesModel>NetPrice}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
+				
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Delivery Date"/>
 					<t:template>
@@ -64,7 +71,7 @@
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Plant"/>
 					<t:template>
-						<Input id="Plant" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
+						<Input id="Plant" value="{SOSalesModel>Plant}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">

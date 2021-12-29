@@ -78,7 +78,7 @@ sap.ui.define([
 			console.log(PoDocumentNumber);
 
 			//		this.getMaterialstockSet11();
-			this.getMaterialList();
+		//	this.getMaterialList();
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
 
@@ -209,7 +209,7 @@ sap.ui.define([
 					BusyIndicator.hide();
 					console.log(oData);
 					var len = oData.results.length;
-					// UniqueMatnr = [];
+				var	 UniqueMatnr = [];
 
 					var ListofSrs = [];
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
@@ -603,7 +603,7 @@ sap.ui.define([
 					var data = oData.results;
 
 					PoQuantity = data;
-					console.log(PoQuantity);
+				//	console.log(PoQuantity);
 					
 
 				},
@@ -780,117 +780,7 @@ sap.ui.define([
 			this.getStockDetailList();
 			tbl.setBusy(false);
 		},
-		getTableStockDetail1s: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			//			var oModels = this.getOwnerComponent().getModel("PurchaseSet");
-
-			var ListofSrs = [];
-			var CriticleState = [];
-			BusyIndicator.show(true);
-			oModel.read("/STOCK_DATASet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					console.log(oData);
-					var listOfMat = [];
-					//	console.log(oMaterialList);
-					//		var MaterialList = [];
-					var itemPO = oData.results.length;
-					//	oView.getModel("oStockDataModel").setData(oData.results);
-					var arr = [];
-
-					for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
-
-						var odataset = oData.results[iRowIndex];
-						var Cbtlv = odataset.Cbtlv;
-						var Cgtlv = odataset.Cgtlv;
-						var Cytlv = odataset.Cytlv;
-						var Changedon = odataset.Changedon;
-						var Crtlv = odataset.Crtlv;
-						var Labst = odataset.Labst;
-
-						var Maingrp = odataset.Maingrp;
-						var Grp = odataset.Grp;
-						var Subgrp = odataset.Subgrp;
-
-						var Matnr = odataset.Matnr;
-
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var x = 0; x < oMaterialList.length; x++) {
-								if (Matnr === oMaterialList[x].Materialno) {
-									var sMatDescription = oMaterialList[x].Description;
-
-								}
-							}
-						}
-
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var x1 = 0; x1 <= result.length - 1; x1++) {
-
-								if (Matnr === result[x1].Matnr) {
-									var sOpenSalesOrder = result[x1].Kwmeng;
-
-								}
-							}
-						}
-
-						var Pbtlv = odataset.Pbtlv;
-						var Pgtlv = odataset.Pgtlv;
-
-						var Prtlv = odataset.Prtlv;
-						var Pytlv = odataset.Pytlv;
-						var Werks = odataset.Werks;
-
-						var quantity = Labst;
-						//fillArray(odataset, 4);
-
-						ListofSrs.push({
-							Cbtlv: Cbtlv,
-							Cgtlv: Cgtlv,
-							Cytlv: Cytlv,
-							Changedon: Changedon,
-							Crtlv: Crtlv,
-							Subgrp: Subgrp,
-							Maingrp: Maingrp,
-							Grp: Grp,
-							Labst: parseInt(Labst),
-							Unit: "PC",
-							Matnr: Matnr,
-							Description: sMatDescription,
-							OpenSO: sOpenSalesOrder,
-							Pbtlv: Pbtlv,
-							Pgtlv: Pgtlv,
-							Prtlv: Prtlv,
-							Pytlv: Pytlv,
-							Werks: Werks,
-							Color: ""
-
-						});
-						//	console.log(ListofSrs);
-
-						oView.getModel("oStockDataModel").setData(ListofSrs);
-						sOpenSalesOrder = "";
-						//	console.log(ListofSrs);
-
-						var len = ListofSrs.length;
-						var ls = len - 1;
-						if (ListofSrs[ls].Color === 'red') {
-
-							Massupload.push(ListofSrs[ls]);
-
-						}
-
-					}
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-
-			});
-
-		},
+	
 
 		//	return new Promise ( function(ee,we){
 
@@ -3618,27 +3508,7 @@ sap.ui.define([
 			this.pressDialogExcessMaterial.destroy();
 		},
 
-		// getPodetailsset: function(evt) {
-		// 	var oModel = this.getOwnerComponent().getModel("StockModel");
-		// 	oModel.read("/podetails_forzstockSet", {
-		// 		success: function(oData) {
-		// 			var data = oData.results;
-
-		// 			PoQuantity = data;
-		// 			console.log(PoQuantity);
-		// 				this.getSalesOrderDetails();
-
-		// 		},
-
-		// 		error: function(oError) {
-
-		// 			var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-		// 			MessageToast.show(errorMsg);
-		// 		}
-
-		// 	});
-
-		// },
+	
 		getRunRate: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/runrateSet", {

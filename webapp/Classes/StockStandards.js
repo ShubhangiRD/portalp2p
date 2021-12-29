@@ -209,10 +209,10 @@ sap.ui.define([
 				SoPartnersSet.push(this.getRequestPartnr());
 		 
 			return {
-				DocType: "OR1",
-				SalesOrg: "0001",
-				DistrChan: "01",
-				Division: "01",
+				DocType: this.DocType,
+				SalesOrg: this.SalesOrg,
+				DistrChan: this.DistrChan,
+				Division: this.Division,
 				Salesdocumentin: "",
 				Testrun: "",
 				Salesdocument: "",

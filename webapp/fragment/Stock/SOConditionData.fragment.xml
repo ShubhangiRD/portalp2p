@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<VBox class="TableBoxClass sapUiSmallMargin">
-		<t:Table id="idTableCondData" rows="{ path: 'SOSalesModel>/SalesContract/OrderConditionsInSet'}" editable="true" visibleRowCount="4"
+		<t:Table id="idTableCondData" rows="{path: 'SOSalesModel>/SalesContract/OrderConditionsInSet'}" editable="true" visibleRowCount="4"
 			selectionMode="MultiToggle">
 			<t:extension>
 				<OverflowToolbar>
@@ -13,7 +13,7 @@
 				<t:Column width="4rem" hAlign="Center">
 					<Label text="Item"/>
 					<t:template>
-						<Input id="idItmNumCnditon" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SoSalesModel>ItmNumber}"></Input>
+						<Input id="idItmNumCnditon"  editable="{EditModel>/isEditable}" value="{SoSalesModel>ItmNumber}"></Input>
 					</t:template>
 				</t:Column>
 				<t:Column hAlign="Center" width="8rem">

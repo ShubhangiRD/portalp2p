@@ -353,20 +353,20 @@ sap.ui.define([
 			var aCols = [];
 			aCols.push({
 				label: 'Material Number',
-				property: 'Matnr',
+				property: 'Material',
 				type: EdmType.String
 
 			});
 			aCols.push({
 				label: 'Material Description',
-				property: 'Description',
+				property: 'ShortText',
 				type: EdmType.String
 
 			});
 			aCols.push({
 				label: 'Plant',
 				type: EdmType.String,
-				property: 'Werks',
+				property: 'Plant',
 				scale: 0
 			});
 			aCols.push({
