@@ -103,10 +103,10 @@ sap.ui.define([
 			oView.setModel(oMatData, "MatData");
 
 			this.getMaterialstockSet();
-			this.getPodetailsset();
-			this.getSalesOrderDetails();
-			this.getRunRate();
-			this.getStockDetailList();
+			// this.getPodetailsset();
+			// this.getSalesOrderDetails();
+			// this.getRunRate();
+			// this.getStockDetailList();
 
 			//	this.getStockDetailListSiddhi();
 			var oExcessModelData = new JSONModel();
@@ -447,7 +447,7 @@ sap.ui.define([
 								var Lgort1 = stock.Lgort;
 								var Werks1 = stock.Werks;
 								var Matnr2 = stock.Matnr;
-                                  console.log(StockList[j]);
+                                  //console.log(StockList[j]);
 								if (Matnr === Matnr2) {
 									//	console.log(sum);
 
@@ -455,9 +455,11 @@ sap.ui.define([
 
 										if (!UniqueWerks.includes(Werks1)) {
 											UniqueWerks.push(Werks1);
+										
 									         //if(Werks===Werks1){
-											if (!UniqueStrLoc.includes(Lgort1)) {
-												UniqueStrLoc.push(Lgort1);
+											if (!UniqueStrLoc.includes({Werks1:Lgort1})) {
+												UniqueStrLoc.push({Werks1:Lgort1});
+											
 												InnerChild.push({
 													//	Bukrs: Bukrs,
 													//	Lgort: Lgort,
@@ -486,6 +488,7 @@ sap.ui.define([
 													Lgort: Lgort1
 
 												});
+									
 											}
 									         //}
 										} else {
@@ -532,7 +535,9 @@ sap.ui.define([
 										sOpenPoDate = "";
 
 										sDocDate = "";
-
+										var uniquewa=[]
+ 	                                 if (!uniquewa.includes(Werks1)) {
+											uniquewa.push(Werks1);
 										InnerChild.push({
 											//	Bukrs: Bukrs,
 											// Labst: Labst,
@@ -567,7 +572,7 @@ sap.ui.define([
 
 										});
 
-										// }
+										}
 									}
 
 								}
@@ -591,9 +596,32 @@ sap.ui.define([
 				}
 			});
 		},
-
-		getMaterialstockSet: function() {
+			getPodetailsset: function(evt) {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
+			oModel.read("/podetails_forzstockSet", {
+				success: function(oData) {
+					var data = oData.results;
+
+					PoQuantity = data;
+					console.log(PoQuantity);
+					
+
+				},
+
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+
+			});
+	this.getSalesOrderDetails();
+		},
+          
+		getMaterialstockSet: function() {
+				BusyIndicator.show(true);
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+		
 			oModel.read('/getMaterialstockSet', {
 				success: function(odata) {
 					StockList = odata.results;
@@ -643,11 +671,15 @@ sap.ui.define([
 
 					}
 					//	console.log(TotalLabst);
+					
+					
 				},
 				error: function(oerror) {
 					MessageBox.error(oerror);
 				}
+				
 			});
+				this.getPodetailsset();
 		},
 
 		onExpandFirstLevel: function() {
@@ -3393,7 +3425,7 @@ sap.ui.define([
 					}
 					//console.log(result);
 					sap.ui.getCore().getModel("oSaleModel").setData(result);
-
+                  
 				},
 
 				error: function(oError) {
@@ -3401,7 +3433,9 @@ sap.ui.define([
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
+				
 			});
+			 this.getRunRate();
 		},
 		onStockSelectionItem: function() {
 			var oTreetable = this.byId("TreeTableBasic2");
@@ -3584,26 +3618,27 @@ sap.ui.define([
 			this.pressDialogExcessMaterial.destroy();
 		},
 
-		getPodetailsset: function(evt) {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			oModel.read("/podetails_forzstockSet", {
-				success: function(oData) {
-					var data = oData.results;
+		// getPodetailsset: function(evt) {
+		// 	var oModel = this.getOwnerComponent().getModel("StockModel");
+		// 	oModel.read("/podetails_forzstockSet", {
+		// 		success: function(oData) {
+		// 			var data = oData.results;
 
-					PoQuantity = data;
-					console.log(PoQuantity);
+		// 			PoQuantity = data;
+		// 			console.log(PoQuantity);
+		// 				this.getSalesOrderDetails();
 
-				},
+		// 		},
 
-				error: function(oError) {
+		// 		error: function(oError) {
 
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
+		// 			var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+		// 			MessageToast.show(errorMsg);
+		// 		}
 
-			});
+		// 	});
 
-		},
+		// },
 		getRunRate: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			oModel.read("/runrateSet", {
@@ -3656,7 +3691,7 @@ sap.ui.define([
 
 					}
 					console.log(Totalsaleset);
-
+				
 				},
 				error: function(oError) {
 
@@ -3664,6 +3699,9 @@ sap.ui.define([
 					MessageToast.show(errorMsg);
 				}
 			});
+				BusyIndicator.show(true);
+                     	this.getStockDetailList();
+                     	BusyIndicator.hide();
 		},
 		onSelectionChange: function(oEvent) {
 			alert(oEvent.getParameters().listItem.getAggregation("rows")[0].getProperty("text"));
