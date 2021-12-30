@@ -20,7 +20,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 			</m:OverflowToolbar>
 		</extension>
 		<columns>
-			<Column width="17rem">
+			<Column width="10rem">
 				<m:Label text="Material/Company Code/Plant/StogLoc"/>
 				<template>
 					<m:Text text="{oStockDataModel>Material}" wrapping="false"/>
@@ -59,7 +59,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 			</Column>
 			
 			
-			<Column width="8rem" hAlign="Center">
+			<Column width="6rem" hAlign="Center">
 				<m:Label text="Stock in hand"/>
 				<template>
 					<m:Text text="{oStockDataModel>Labst}"
@@ -69,7 +69,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 				</template>
 			</Column>
 			
-			<Column width="8rem" hAlign="Center">
+			<Column width="6rem" hAlign="Center">
 				<m:Label text=" Open SO"/>
 				<template>
 					<m:Text text="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} }"/>
@@ -89,6 +89,8 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 				<m:Label text="Criticle threshold"/>
 				<template>
 					<m:ObjectNumber number="{= ${oStockDataModel>Crtlv} === 'crtlv' ? ' ' : '0 - ' + ${oStockDataModel>Crtlv} } " state="Error"></m:ObjectNumber>
+			
+			
 				</template>
 			</Column>
 			<Column width="8rem" hAlign="Center">
@@ -186,4 +188,9 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 			</Column>
 		</columns>
 	</TreeTable>
+
+
+
+
+
 </core:FragmentDefinition>

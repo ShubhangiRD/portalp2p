@@ -355,7 +355,7 @@ sap.ui.define([
 		getRequestItem: function() {
 			return {
 				ItmNumber: "000010",
-				Material: 	this.Material ,
+				Material: 	this.Material,
 				Plant:this.Plant,
 				TargetQty: this.TargetQty
 			};

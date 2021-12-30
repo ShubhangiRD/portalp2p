@@ -274,6 +274,81 @@ sap.ui.define([
 	//		console.log(ostock);
 
 		},
+		
+			statusColorExcess: function(quantity, red, yellow, green, blue, Material) {
+			quantity = quantity;
+			red = red;
+			yellow = yellow;
+			green = green;
+			blue = blue;
+			var oBinding1 = this.getView().byId("exces").getBinding("items");
+			var oModel = oBinding1.oModel.oData;
+			var slength = oBinding1.oModel.oData.length;
+			var sColumnlength = slength - (slength - 1);
+
+			function PlantExists(quantity) {
+				return oExcess.some(function(edl) {
+					return edl.quantity === quantity;
+				});
+			}
+			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Material !== null) {
+				if (quantity > green) {
+					this.getView().getModel("oEX").setProperty("/" + countt + "/Color", "blue");
+					countt++;
+					// oExcess.push({
+					// 	quantity: quantity,
+					// 	Matnr: Matnr
+					// });
+					// console.log(oExcess)
+					// this.getView().getModel("oExcessModelData").setData(oExcess);
+
+					return "Information";
+				} else if (quantity > yellow && quantity < green) {
+					this.getView().getModel("oEX").setProperty("/" + countt + "/Color", "green");
+					countt++;
+					return "Success";
+				} else if (quantity > red && quantity <= yellow) {
+					this.getView().getModel("oEX").setProperty("/" + countt + "/Color", "yellow");
+					countt++;
+					return "Warning";
+				} else if (quantity < yellow) {
+					this.getView().getModel("oEX").setProperty("/" + countt + "/Color", "red");
+					countt++;
+					return "Error";
+				}
+
+			}
+
+			var ostock = this.getView().getModel("oEX");
+			var odata = ostock.oData.length;
+			var unique = [];
+			for (var i = 0; i < odata; i++) {
+				var color = ostock.oData[i].Color;
+				var Matnrs = ostock.oData[i].Matnr;
+				var Labsts = ostock.oData[i].Labst;
+				if (color === 'blue') {
+					unique.push({
+						quantity: quantity,
+						Matnr: Material
+
+					});
+
+				}
+			}
+		//	console.log(unique);
+			var length = unique.length;
+
+			var count = new JSONModel({
+				count: ""
+			});
+			this.getView().setModel(count, "count");
+			//		this.getView().getProperty('/count' , length);
+			this.getView().getModel("count").setProperty("/count", length);
+
+	//		console.log(ostock);
+
+		},
+		
 		HierarchyColorState: function(quantity, red, yellow, green, blue, Maingrp) {
 			quantity = quantity;
 			red = red;

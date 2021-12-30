@@ -31,10 +31,10 @@ sap.ui.define([
 			oView.setModel(oMatData, "MatData");
 
 			var oStockModel = this.getOwnerComponent().getModel("StockTransferModel");
-			var Standards = sap.ui.getCore().getModel("Standards");
-			var value2 = Standards.oData.Standards.DocType;
+			var Standards = sap.ui.getCore().getModel("SOSalesModel");
+			var value2 = Standards.oData.SalesContract.DocType;
 			this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType", value2);
-			var value = Standards.oData.Standards.MomentType;
+			var value = Standards.oData.SalesContract.MomentType;
 			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
 
 		},
