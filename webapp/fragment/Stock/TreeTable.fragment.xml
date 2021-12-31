@@ -20,7 +20,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 			</m:OverflowToolbar>
 		</extension>
 		<columns>
-			<Column width="10rem">
+			<Column width="15rem">
 				<m:Label text="Material/Company Code/Plant/StogLoc"/>
 				<template>
 					<m:Text text="{oStockDataModel>Material}" wrapping="false"/>
@@ -33,16 +33,16 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 				</template>
 			</Column>
 		
+	
 			<Column width="8rem" hAlign="Center">
 				<m:Label text="Available Qty"/>
 				<template>
 					<m:ObjectNumber
-						number="{oStockDataModel>ALabst}"
-						state="{ parts: [ {path: 'oStockDataModel>ALabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
+						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' || ${oStockDataModel>OsalesOrder} === undefined ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
+						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
-			
 			
 			<!--<Column width="8rem" hAlign="Center">-->
 			<!--	<m:Label text="Available Qty"/>-->

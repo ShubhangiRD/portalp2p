@@ -510,7 +510,8 @@ sap.ui.define([
 											// }
 										}
 
-									} else {
+									}
+									else {
 										childarray.push({
 											Bukrs: Bukrs,
 											BLabst: "AL",
@@ -830,10 +831,10 @@ sap.ui.define([
 		getMaterialList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(true);
+				BusyIndicator.show(true);
 			oModel.read("/MaterialmasterSet", {
 				success: function(oData) {
-					//		BusyIndicator.hide();
+							BusyIndicator.hide();
 					oMaterialList = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
@@ -969,10 +970,10 @@ sap.ui.define([
 		getPOPlant: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-
+               BusyIndicator.show(true);
 			oModel.read("/get_plant_f4helpSet", {
 				success: function(oData) {
-
+                   BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POPlant", oData.results);
 					oLookupModel.refresh(true);
