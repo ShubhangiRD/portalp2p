@@ -6,7 +6,7 @@
 			<headerTitle>
 				<ObjectPageDynamicHeaderTitle>
 					<expandedHeading>
-						<m:Title text="PO Creation" wrapping="true"/>
+						<m:Title text="Stock Transfer" wrapping="true"/>
 					</expandedHeading>
 					<snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center">
@@ -77,7 +77,7 @@
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Document Type" required="true"/>
-										<m:Input id="iddoctype" textFormatMode="KeyValue" showSuggestion="true" editable="false" value="{PurchaseModel>/TempContract/DocumentType}"
+										<m:Input id="iddoctype" textFormatMode="KeyValue" showSuggestion="true"  value="{PurchaseModel>/TempContract/DocumentType}"
 											showValueHelp="true" valueHelpRequest="handleDoctypevalue" width="30%" suggestionItems="{ path: 'Lookup>/documentType' }"
 											suggestionItemSelected="onSuggest">
 											<m:suggestionItems>

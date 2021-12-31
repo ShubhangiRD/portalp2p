@@ -61,7 +61,8 @@ sap.ui.define([
 
 			var EX = new JSONModel();
 			oView.setModel(EX, "oEX");
-		
+			var SOitemDetailModel = new sap.ui.model.json.JSONModel();
+			sap.ui.getCore().setModel(SOitemDetailModel, "SOitemDetailModel");
 
 			var SingleExcessData = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(SingleExcessData, "SingleExcessData");
@@ -810,6 +811,12 @@ sap.ui.define([
 
 			return Kunnr;
 		},
+		
+		LeadingZeros:	function (num, size) {
+				var s = num + "0" + "";
+				while (s.length < size) s = "0" + s;
+				return s;
+			},
 		onSaveSalesorder2: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var SalesOrder = sap.ui.getCore().getModel("oSalesModel");
@@ -821,18 +828,13 @@ sap.ui.define([
 			var Kunnr = this.callKunner(odata.SoldToParty);
 			var Auart = odata.DocType;
 
-			function LeadingZeros(num, size) {
-				var s = num + "0" + "";
-				while (s.length < size) s = "0" + s;
-				return s;
-			}
 
 			var sSoItem = SalesOrder.getProperty("/SOItem");
 			var SOItem = [];
 			var itemPO = SalesOrder.oData.SOItem.length;
 			for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
 				var Vbeln = "";
-				var ItmNumber = LeadingZeros(iRowIndex + 1, 6);
+				var ItmNumber = this.LeadingZeros(iRowIndex + 1, 6);
 				var Zmeng = sSoItem[iRowIndex].Quantity;
 				var Zieme = sSoItem[iRowIndex].OrderprUn;
 				var Material = this.callMatnr(sSoItem[iRowIndex].Matnr);
@@ -903,20 +905,7 @@ sap.ui.define([
 			// });
 
 		},
-		onCancelSales: function() {
-			var StockTransferModel = this.getView().getModel("SOModel");
-			var sItem = StockTransferModel.SOItem;
-			//	window.location.reload();
-			StockTransferModel.setData({
-				oData: {}
-			});
 
-			StockTransferModel.refresh(true);
-			var table = this.byId("excesstable");
-			table.removeSelections();
-			this.UpdateSale.close();
-			this.UpdateSale.destroy();
-		},
 		onBackNav: function() {
 			var StockTransferModel = this.getView().getModel("SOModel");
 			var sItem = StockTransferModel.SOItem;
@@ -1111,19 +1100,19 @@ sap.ui.define([
 			var Stock = new StockStandards(SOSalesModel);
 			var getRequestPayload = Stock.getRequestPayload();
 			getRequestPayload.Testrun = "";
-			var oCondition = SOSalesModel.OrderItemsInSet[0].NetPrice;
-				function LeadingZeros(num, size) {
-				var s = num + "0" + "";
-				while (s.length < size) s = "0" + s;
-				return s;
-			}
+		
+			// 	function LeadingZeros(num, size) {
+			// 	var s = num + "0" + "";
+			// 	while (s.length < size) s = "0" + s;
+			// 	return s;
+			// }
 
 			
 			
-			var len =  SOSalesModel.OrderItemsInSet.length;
-			for(var v=0 ; v< len ; v++){
-				getRequestPayload.OrderItemsInSet[v].ItmNumber = LeadingZeros(v + 1, 6);
-			}
+			// var len =  SOSalesModel.OrderItemsInSet.length;
+			// for(var v=0 ; v< len ; v++){
+			// 	getRequestPayload.OrderItemsInSet[v].ItmNumber = LeadingZeros(v + 1, 6);
+			// }
 			
 			// ScheduleItem.push({
 			// 	ItmNumber: "000010",
@@ -1131,11 +1120,20 @@ sap.ui.define([
 			// });
 			
 			
-	 getRequestPayload.OrderConditionsInSet.push({
-	 		ItmNumber : "000010", 
+		var len =  SOSalesModel.OrderItemsInSet.length;
+			 for(var v=0 ; v< len ; v++){
+			 		var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
+			 	var ItmNumber = SOSalesModel.OrderItemsInSet[v].NetPrice;	
+				 getRequestPayload.OrderConditionsInSet.push({
+	 				ItmNumber : ItmNumber, 
 			 		CondType: "ZMA1",
 				CondValue: oCondition
-	 });
+				 });
+			 
+			 }
+			
+			
+
 	
 			 
 			console.log(getRequestPayload);
@@ -1175,15 +1173,108 @@ sap.ui.define([
 			oModel.create(relPath, getRequestPayload, mParameters);
 
 		},
+				onCancelSales: function() {
+			var StockTransferModel = sap.ui.getCore().getModel("SOSalesModel");
+				var SOSalesModel = StockTransferModel.getProperty("/SalesContract");
+		
+			//	window.location.reload();
+			// StockTransferModel.setData({
+			// 	oData: {}
+			// });
+
+			StockTransferModel.refresh(true);
+			var table = this.byId("excesstable");
+			table.removeSelections();
+			this.UpdateSale.close();
+			this.UpdateSale.destroy();
+		},
 		_getSimulateData: function(oEvent) {
 			var ConditionItem = [],
 				ScheduleItem = [];
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 			var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
 			var SOSalesModel = oSalesModel.getProperty("/SalesContract");
+	var Price = SOSalesModel.OrderItemsInSet[0].NetPrice;
+	
+			var getRequestPayload;
+	
 
-			var getRequestPayload = SOSalesModel.getRequestPayload();
+	if(Price === "" || Price === undefined){
+		
+			var Stock = new StockStandards(SOSalesModel);
+ getRequestPayload = Stock.getRequestPayload();
 			getRequestPayload.Testrun = "X";
+	
+	
+			var mParameters = {
+				success: function(oResponse, object) {
+				
+					var Podata = new StockStandards(oResponse);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
+
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
+				sap.ui.getCore().getModel("SOitemDetailModel").setProperty("/Soitems", Podata.OrderItemsInSet.results[0]);
+			
+				//	sap.ui.getCore().byId("histroyDialog").destroy(null);
+				//	sap.ui.getCore().byId("histroyDialog").close();
+				//	this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				},
+				error: function(error) {
+					MessageBox.error(error);
+
+				},
+				merge: false
+			};
+			var relPath = "/sales_orderSet";
+			//	BusyIndicator.show(true);
+			oModel.create(relPath, getRequestPayload, mParameters);
+	
+}else{
+	var Stocks = new StockStandards(SOSalesModel);
+		var getRequestPayload1 = Stocks.getRequestPayload();
+		var len =  SOSalesModel.OrderItemsInSet.length;
+			 for(var v=0 ; v< len ; v++){
+			 		var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
+			 
+				 getRequestPayload1.OrderConditionsInSet.push({
+	 				ItmNumber : this.LeadingZeros(v + 1, 6),
+			 		CondType: "ZMA1",
+				CondValue: oCondition
+				 });
+			 
+			 }
+				
+	
+			getRequestPayload1.Testrun = "X";
+			
+					var mParameters = {
+				success: function(oResponse, object) {
+				
+					var Podata = new StockStandards(oResponse);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
+
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
+					sap.ui.getCore().getModel("SOitemDetailModel").setProperty("/Soitems", Podata.OrderItemsInSet.results[0]);
+				//	sap.ui.getCore().byId("histroyDialog").destroy(null);
+				//	sap.ui.getCore().byId("histroyDialog").close();
+				//	this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				},
+				error: function(error) {
+					MessageBox.error(error);
+
+				},
+				merge: false
+			};
+			var relPath1 = "/sales_orderSet";
+			//	BusyIndicator.show(true);
+			oModel.create(relPath1, getRequestPayload1, mParameters);
+} 
+
+
 
 			// ConditionItem.push({
 			// 	ItmNumber: "000010",
@@ -1198,29 +1289,7 @@ sap.ui.define([
 
 			// getRequestPayload.OrderConditionsInSet = ConditionItem;
 			// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
-			var mParameters = {
-				success: function(oResponse, object) {
-				
-					var Podata = new StockStandards(oResponse);
-				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
-
-					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
-					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
-					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
-				
-				//	sap.ui.getCore().byId("histroyDialog").destroy(null);
-				//	sap.ui.getCore().byId("histroyDialog").close();
-				//	this.getOwnerComponent().getRouter().navTo("ManageStockTable");
-				},
-				error: function(error) {
-					MessageBox.error(error);
-
-				},
-				merge: false
-			};
-			var relPath = "/sales_orderSet";
-			//	BusyIndicator.show(true);
-			oModel.create(relPath, getRequestPayload, mParameters);
+	
 
 		}
 

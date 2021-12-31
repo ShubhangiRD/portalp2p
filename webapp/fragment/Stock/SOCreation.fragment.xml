@@ -38,10 +38,10 @@
 									labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
 									<form:content>
 										<core:Title text=" "/>
-										<m:Label text="Doc Type"/>
+										<m:Label text="Doc Type" required="true"/>
 										<m:Input type="Text" id="siddhihiSangd" editable="true"  width="20%"  value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
 									
-										<m:Label text="Sold-To-Party"/>
+										<m:Label text="Sold-To-Party" required="true"/>
 										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
 										value="{SOSalesModel>/SalesContract/PartnNumb}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
@@ -53,7 +53,7 @@
 					
 										
 										
-										<m:Label text="Ship-To-Party"/>
+										<m:Label text="Ship-To-Party" required="true"/>
 										<m:Input id="idshiptopt"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
 									value="{SOSalesModel>/SalesContract/PartnNumb}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
 											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
@@ -67,7 +67,11 @@
 										<m:Label text="Net Value"/>
 										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract/NetValue}" width="60%"></m:Input>
 										<m:Label text="Cust.Ref.Date"/>
-										<m:DatePicker id="DP2" placeholder="Enter Date" class="sapUiSmallMarginBottom"  width="60%"/>
+										<m:DatePicker id="DP2" 
+										
+										
+										
+										value="{SOSalesModel>/SalesContract/ReqDateH}" class="sapUiSmallMarginBottom"  width="60%"/>
 										
 											<m:Label text="Sales Org"  required="true" />
 										<m:Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"

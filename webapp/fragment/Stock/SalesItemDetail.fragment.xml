@@ -6,38 +6,34 @@
 			<form:content>
 				<core:Title text="From"/>
 				<Label text="Sales Document Item"/>
-				<Input id="idSalesDocItm" width="30%"/>
+				<Input id="idSalesDocItm" value="{SOitemDetailModel>/Soitems/ItmNumber}" width="30%"/>
 				<Label text="Material"/>
-				<Input id="idMatnr" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%" value=""
-					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+				<Input id="idMatnr" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%"
+					value="{SOitemDetailModel>/Soitems/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+					suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Unloading Point"/>
-				<Input id="idUnloadingPoint" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%" value=""
+				<Input id="idUnloadingPoint" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%"
 					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="" text="" additionalText=""/>
 					</suggestionItems>
 				</Input>
 				<Label text="Receiving Point"/>
-				<Input id="idRecvPoint" showSuggestion="true" showValueHelp="true" width="90%" value="" liveChange="Validate"
-					suggestionItemSelected="onSuggest">
+				<Input id="idRecvPoint" showSuggestion="true" showValueHelp="true" width="90%" liveChange="Validate" suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="" text="" additionalText=""/>
 					</suggestionItems>
 				</Input>
 				<Label text="Order Quantity" id="idSalesOdrQty"/>
-				<Input value=""/>
-				<Input value="" width="35%">
-					<layoutData>
-						<l:GridData span="XL3 L3 M3 S4"/>
-					</layoutData>
-				</Input>
+				<Input value="{SOitemDetailModel>/Soitems/TargetQty}"/>
 				<Label text="Batch"/>
-				<Input id="idBatch" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="50%" value=""
-					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+				<Input id="idBatch" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="50%"
+					value="{SOitemDetailModel>/Soitems/Batch}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+					suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="" text="" additionalText=""/>
 					</suggestionItems>
@@ -45,26 +41,16 @@
 				<core:Title text=""/>
 				<Label text="Plant"/>
 				<Input id="idPlant" width="50%" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true"
-					valueHelpRequest="handleValueHelpPlant" value="" liveChange="Validate" suggestionItems="{ path: 'Lookup>/POPlant' }"
-					suggestionItemSelected="onSuggest">
+					valueHelpRequest="handleValueHelpPlant" value="{SOitemDetailModel>/Soitems/Plant}" liveChange="Validate"
+					suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Item Category"/>
-				<Input id="idItemCategory" width="50%" showSuggestion="true" showValueHelp="true" value="" liveChange="Validate"
-					suggestionItemSelected="onSuggest">
-					<suggestionItems>
-						<core:ListItem key="" text="" additionalText=""/>
-					</suggestionItems>
-				</Input>
+				<Input id="idItemCategory" width="50%" showSuggestion="true" showValueHelp="true"></Input>
 				<Label text="Bus Transaction Type"/>
-				<Input id="idBusTransactionType" width="20%" showSuggestion="true" showValueHelp="true" value="" liveChange="Validate"
-					suggestionItemSelected="onSuggest">
-					<suggestionItems>
-						<core:ListItem key="" text="" additionalText=""/>
-					</suggestionItems>
-				</Input>
+				<Input id="idBusTransactionType" width="20%" showSuggestion="true" liveChange="Validate"></Input>
 				<Label text="Pricing Date" labelFor="idPricingDate"/>
 				<DatePicker id="idPricingDate" placeholder="Enter Date" value="{SOSalesModel>/SalesContract/PriceDate}" width="80%"/>
 				<Label text="Reason For Rejection"/>

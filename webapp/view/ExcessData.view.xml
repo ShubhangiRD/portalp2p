@@ -33,7 +33,7 @@
 			</Switch>
 		</tnt:ToolHeader>
 		<content>
-			<Table id="excesstable" mode="SingleSelectLeft" class="sapUiLargeMarginBeginEnd" width="1200px" selectionChange="onExcessSelectionItem"
+			<Table id="excesstable" mode="MultiSelect" class="sapUiLargeMarginBeginEnd" width="1200px" selectionChange="onExcessSelectionItem"
 				items="{ path: 'oExcessDataModel>/'}">
 				<headerToolbar>
 					<Toolbar>

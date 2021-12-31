@@ -9,17 +9,19 @@
 				<DatePicker id="idreqdeliv" value="{SOSalesModel>/SalesContract/ReqDateH}" placeholder="Enter Date" width="60%"
 					class="sapUiSmallMarginBottom"/>
 				<Label text="Delivery Block"/>
-				<Select id="idDelivblk" forceSelection="false" selectedKey="{/SelectedProduct}"
-					items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
-					<core:Item key="{ProductId}" text="{Name}"/>
+				<Select id="idDelivblk">
+					<items>
+						<core:Item text="Customer Request" key="Customer Request"/>
+					</items>
 				</Select>
 				<Label text="Billing Block"/>
-				<Select id="idbillingblk" forceSelection="false" selectedKey="{/SelectedProduct}"
-					items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
-					<core:Item key="{ProductId}" text="{Name}"/>
+				<Select id="idbillingblk">
+					<items>
+						<core:Item text="Approval Required" key="Approval Required"/>
+					</items>
 				</Select>
 				<Label text="Payment Term"/>
-				<Input id="idpemtrn" width="30%" value="{SOSalesModel>/SalesContract/Pmnttrms }"></Input>
+				<Input id="idpemtrn" width="30%" value="{SOitemDetailModel>/Soitems/Pmnttrms}"></Input>
 				<Label text="Inco Version"/>
 				<Input id="idvern" width="50%"></Input>
 				<Label text="Incoterms"/>
@@ -28,10 +30,11 @@
 				<!--<Input id="idincolocatn"></Input>-->
 				<core:Title text="Dest"/>
 				<Label text="Delivery Plant" required="true"/>
-				<Input id="idDelivPlant" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="50%"
-					liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+				<Input id="idDelivPlant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+					value="{SOitemDetailModel>/Soitems/Plant}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/POPlant' }"
+					suggestionItemSelected="onSuggest">
 					<suggestionItems>
-						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+						<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Total Weight"/>
@@ -49,7 +52,7 @@
 					</layoutData>
 				</Input>
 				<Label text="Date" labelFor="DP1"/>
-				<DatePicker id="DP1" placeholder="Enter Date" width="60%" class="sapUiSmallMarginBottom"/>
+				<DatePicker id="DP1" value="{SOSalesModel>/SalesContract/ReqDateH}" width="60%" class="sapUiSmallMarginBottom"/>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>

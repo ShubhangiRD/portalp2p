@@ -358,7 +358,7 @@ sap.ui.define([
 
 						var odataset = oData.results[iRowIndex];
 						var Werks = odataset.Werks;
-
+						var Maktx = odataset.Maktx;
 						var Cbtlv = odataset.Cbtlv;
 						var Cgtlv = odataset.Cgtlv;
 						var Cytlv = odataset.Cytlv;
@@ -376,14 +376,14 @@ sap.ui.define([
 							}
 						}
 
-						if (Matnr !== "" || Matnr !== undefined) {
-							for (var x = 0; x < oMaterialList.length; x++) {
-								if (Matnr === oMaterialList[x].Materialno) {
-									var sMatDescription = oMaterialList[x].Description;
+						// if (Matnr !== "" || Matnr !== undefined) {
+						// 	for (var x = 0; x < oMaterialList.length; x++) {
+						// 		if (Matnr === oMaterialList[x].Materialno) {
+						// 			var sMatDescription = oMaterialList[x].Description;
 
-								}
-							}
-						}
+						// 		}
+						// 	}
+						// }
 						if (Matnr !== "" || Matnr !== undefined) {
 							for (var x1 = 0; x1 <= result.length - 1; x1++) {
 
@@ -426,9 +426,10 @@ sap.ui.define([
 								Crtlv: Crtlv,
 
 								Labst: parseInt(sTotalLabst),
-								ALabst: parseInt(sTotalLabst),
+							//	ALabst: parseInt(sTotalLabst),
+									ALabst: parseInt(Labst-sOpenSalesOrder),
 								Material: Matnr,
-								ShortText: sMatDescription,
+								ShortText: Maktx,
 								Plant: Werks,
 								Color: "",
 								MultipleIt: childarray,
@@ -3491,7 +3492,7 @@ sap.ui.define([
 		onExcessMaterial: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ExcessData");
-
+window.location.reload();
 			//     	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
 			// if (!this.pressDialogExcessMaterial) {
 			// 	this.pressDialogExcessMaterial = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterialManagement", this);

@@ -16,7 +16,7 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Line"/>
 					<t:template>
-						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber }"></Input>
+						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber}"></Input>
 					</t:template>
 				</t:Column>
 				<t:Column hAlign="Center" width="8rem">
@@ -37,7 +37,7 @@
 						<Input id="idDescription" value="{SOSalesModel>ShortText}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="4rem">
+				<t:Column hAlign="Center" width="6rem">
 					<Label text="Sales Unit"/>
 					<t:template>
 						<Input id="idSalesUnit" value="{SOSalesModel>SalesUnit}" editable="{EditModel>/isEditable}"></Input>
@@ -49,8 +49,8 @@
 				<!--		<Input id="idcustmat" value="{SOSalesModel>CustMat22}" editable="{EditModel>/isEditable}"></Input>-->
 				<!--	</t:template>-->
 				<!--</t:Column>-->
-						<t:Column width="5rem" hAlign="Center">
-					<Label text="Net Price"/>
+						<t:Column width="7rem" hAlign="Center">
+					<Label text="Manual Price"/>
 					<t:template>
 						<Input id="idnetPrice" value="{SOSalesModel>NetPrice}" editable="{EditModel>/isEditable}"/>
 					</t:template>
@@ -63,22 +63,24 @@
 						<Input id="idItemCateg" value="{SOSalesModel>ItemCateg}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
-					<Label text="Delivery Date"/>
-					<t:template>
-						<Input id="idDeliverydate" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+			
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="First Date"/>
 					<t:template>
-						<Input id="idfirstdate" value="{SOSalesModel>Werks}" editable="{EditModel>/isEditable}"/>
+						<Input id="idfirstdate" value="{SOSalesModel>PriceDate}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
+				<t:Column width="7rem" hAlign="Center">
 					<Label text="Plant"/>
 					<t:template>
-						<Input id="Plant" value="{SOSalesModel>Plant}" editable="{EditModel>/isEditable}"/>
+							<Input id="Plant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+			value="{SOSalesModel>Plant}" liveChange="Validate"  suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
+				<suggestionItems>
+					<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
+				</suggestionItems>
+			</Input>
+						
+					
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
