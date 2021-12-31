@@ -262,7 +262,7 @@ sap.ui.define([
 		},
 		onDiscountMaterial: function() {
 			var table = this.byId("excesstable");
-			// table.removeSelections();
+		
 			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
 				var model = sap.ui.getCore().getModel("SingleExcessData");
 				model.setData({
@@ -301,7 +301,7 @@ sap.ui.define([
 
 			var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
 			// console.log(oPostData);
-			var matnr = oPostData.Matnr;
+			var matnr = oPostData.Material;
 			var Amt = oPostData.DiscAmt;
 			var ValidTo = oPostData.ValidTo;
 			// .toISOString();
