@@ -1,7 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<VBox class="TableBoxClass sapUiSmallMargin">
-		<t:Table id="idTableScheduleData" rows="{ path: 'SOSalesModel>/SalesContract/OrderConditionsInSet'}" editable="true" visibleRowCount="4" selectionMode="MultiToggle">
+		<t:Table id="idTableScheduleData"   rows="{ path: 'SOSalesModel>/SalesContract/OrderSchedulesInSet'}"      editable="true"
+		visibleRowCount="4" selectionMode="MultiToggle">
 			<t:extension>
 				<OverflowToolbar>
 					<Title text="Items"/>
@@ -9,7 +10,7 @@
 				</OverflowToolbar>
 			</t:extension>
 			<t:columns>
-				<t:Column width="4rem" hAlign="Center">
+				<t:Column width="7rem" hAlign="Center">
 					<Label text="Item"/>
 					<t:template>
 						<Input id="idItmNum2" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber}"></Input>
@@ -21,13 +22,15 @@
 						<Input id="idSchedLine" value="{SOSalesModel>SchedLine}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
+				<t:Column hAlign="Center" width="10rem">
 					<Label text="Delivery Date"/>
 					<t:template>
-						<Input id="idReqDate" value="{SOSalesModel>ReqDate}" editable="{EditModel>/isEditable}"></Input>
+						<Input id="idReqDate" 
+							value="{ path: 'SOSalesModel>ReqDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
+				<t:Column width="5rem" hAlign="Center">
 					<Label text="Date type"/>
 					<t:template>
 						<Input id="idDateType" value="{SOSalesModel>DateType}" editable="{EditModel>/isEditable}" textAlign="End"/>
@@ -35,13 +38,13 @@
 				</t:Column>
 					
 	
-					<t:Column hAlign="Center" width="14rem">
-					<Label text="Arrival time"/>
-					<t:template>
-						<Input id="idReqTime" value="{SOSalesModel>ReqTime}" editable="{EditModel>/isEditable}"></Input>
-					</t:template>
-				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
+				<!--	<t:Column hAlign="Center" width="14rem">-->
+				<!--	<Label text="Arrival time"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idReqTime" value="{SOSalesModel>ReqTime}" editable="{EditModel>/isEditable}"></Input>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
+				<t:Column width="7rem" hAlign="Center">
 					<Label text="Order quantity"/>
 					<t:template>
 						<Input id="idReqQty" value="{SOSalesModel>ReqQty}" editable="{EditModel>/isEditable}"/>
@@ -57,63 +60,73 @@
 				
 				
 				
-				<t:Column width="4rem" hAlign="Center">
+				<t:Column width="5rem" hAlign="Center">
 					<Label text="Sched.line cat."/>
 					<t:template>
 						<Input id="idSchedType" value="{SOSalesModel>SchedType}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="4rem" hAlign="Center">
+				<t:Column width="10rem" hAlign="Center">
 					<Label text="TranspPlngDate"/>
 					<t:template>
-						<Input id="idTpDate" value="{SOSalesModel>TpDate}" editable="{EditModel>/isEditable}"/>
+						<Input id="idTpDate" 
+							value="{ path: 'SOSalesModel>TpDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						
+						editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 
-							<t:Column width="4rem" hAlign="Center">
+							<t:Column width="10rem" hAlign="Center">
 					<Label text="Mat.Avail.Date"/>
 					<t:template>
-						<Input id="idMsDate" value="{SOSalesModel>MsDate}" editable="{EditModel>/isEditable}"/>
+						<Input id="idMsDate"
+							value="{ path: 'SOSalesModel>MsDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+					 editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				
 			
-				<t:Column width="9rem" hAlign="Center">
+				<t:Column width="10rem" hAlign="Center">
 					<Label text="Loading Date"/>
 					<t:template>
-						<Input id="idLoadDate" value="{SOSalesModel>LoadDate}" editable="{EditModel>/isEditable}"/>
+						<Input id="idLoadDate" 
+						value="{ path: 'SOSalesModel>LoadDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						
+						editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="9rem" hAlign="Center">
+				<t:Column width="10rem" hAlign="Center">
 					<Label text="Goods Issue"/>
 					<t:template>
-						<Input id="idGiDate" value="{SOSalesModel>GiDate}" editable="{EditModel>/isEditable}"/>
+						<Input id="idGiDate"
+						value="{ path: 'SOSalesModel>GiDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Tr. Plan. Time"/>
-					<t:template>
-						<Input id="idTpTime" value="{SOSalesModel>TpTime}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Matl Staging Tme"/>
-					<t:template>
-						<Input id="idMsTime" value="{SOSalesModel>MsTime}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
-					<Label text="Loading Time"/>
-					<t:template>
-						<Input id="idLoadTime" value="{SOSalesModel>LoadTime}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
-				<t:Column width="5rem" hAlign="Center">
-					<Label text="GI Time"/>
-					<t:template>
-						<Input id="idGiTime" value="{SOSalesModel>GiTime}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+				<!--<t:Column width="7rem" hAlign="Center">-->
+				<!--	<Label text="Tr. Plan. Time"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idTpTime" value="{SOSalesModel>TpTime}" editable="{EditModel>/isEditable}"/>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
+				<!--<t:Column width="7rem" hAlign="Center">-->
+				<!--	<Label text="Matl Staging Tme"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idMsTime" value="{SOSalesModel>MsTime}" editable="{EditModel>/isEditable}"/>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
+				<!--<t:Column width="5rem" hAlign="Center">-->
+				<!--	<Label text="Loading Time"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idLoadTime" value="{SOSalesModel>LoadTime}" editable="{EditModel>/isEditable}"/>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
+				<!--<t:Column width="5rem" hAlign="Center">-->
+				<!--	<Label text="GI Time"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idGiTime" value="{SOSalesModel>GiTime}" editable="{EditModel>/isEditable}"/>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Object Type"/>
 					<t:template>
@@ -138,12 +151,12 @@
 						<Input id="idDlvDat" value="{SOSalesModel>DlvDate}"  showSuggestion="true"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Arrival time"/>
-					<t:template>
-						<Input id="idDlvTime" value="{SOSalesModel>DlvTime}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+				<!--<t:Column width="7rem" hAlign="Center">-->
+				<!--	<Label text="Arrival time"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idDlvTime" value="{SOSalesModel>DlvTime}" editable="{EditModel>/isEditable}"/>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Release type"/>
 					<t:template>

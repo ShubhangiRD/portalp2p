@@ -1,28 +1,32 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout"
 	xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<VBox class="TableBoxClass sapUiSmallMargin">
-		<t:Table id="idTableCondData" rows="{path: 'SOSalesModel>/SalesContract/OrderConditionsInSet'}" editable="true" visibleRowCount="4"
-			selectionMode="MultiToggle">
+
+
+		<t:Table id="idCondTab"  rows="{ path: 'SOSalesModel>/SalesContract/OrderConditionsInSet'}"   editable="true"
+		visibleRowCount="4" selectionMode="MultiToggle">
 			<t:extension>
 				<OverflowToolbar>
 					<Title text="Items"/>
 					<ToolbarSpacer/>
 				</OverflowToolbar>
 			</t:extension>
-			<t:columns>
-				<t:Column width="4rem" hAlign="Center">
+
+			
+			
+					<t:columns>
+				<t:Column width="7rem" hAlign="Center">
 					<Label text="Item"/>
 					<t:template>
-						<Input id="idItmNumCnditon"  editable="{EditModel>/isEditable}" value="{SoSalesModel>ItmNumber}"></Input>
+						<Input id="idItmNumCnditon"  editable="{EditModel>/isEditable}" value="{SOSalesModel>ItmNumber}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="8rem">
+				<t:Column hAlign="Center" width="7rem">
 					<Label text="Step number"/>
 					<t:template>
 						<Input id="idStpNum" value="{SOSalesModel>CondStNo}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
+				<t:Column width="5rem"  hAlign="Center" >
 					<Label text="Counter"/>
 					<t:template>
 						<Input id="idCondCount" value="{SOSalesModel>CondCount}" editable="{EditModel>/isEditable}"></Input>
@@ -34,7 +38,7 @@
 						<Input id="idCondTyp" value="{SOSalesModel>CondType}" editable="{EditModel>/isEditable}" textAlign="End"/>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
+				<t:Column hAlign="Center" width="10rem">
 					<Label text="Amount"/>
 					<t:template>
 						<Input id="idCondVal" value="{SOSalesModel>CondValue}" editable="{EditModel>/isEditable}"></Input>
@@ -52,12 +56,7 @@
 						<Input id="idCondUnt" value="{SOSalesModel>CondUnit}" editable="{EditModel>/isEditable}" class="measure1"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="4rem" hAlign="Center">
-					<Label text="EUn"/>
-					<t:template>
-						<Input id="idEntryUomCnd" value="{SOSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+			
 				<t:Column width="4rem" hAlign="Center">
 					<Label text="ISO code crcy"/>
 					<t:template>
@@ -67,21 +66,12 @@
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="ISO cond. UoM"/>
 					<t:template>
-						<Input id="idIsoUoM" value="{SOSalesModel>CdUntIso}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
-							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
-							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
-							<suggestionItems>
-								<core:ListItem key="" text="" additionalText=""/>
-							</suggestionItems>
-						</Input>
-					</t:template>
-				</t:Column>-->
-				<t:Column width="4rem" hAlign="Center">
-					<Label text="ISO cond. UoM"/>
-					<t:template>
-						<Input id="idCdUntIsoCond" value="{SOSalesModel>CdUntIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="idIsoUoM" value="{SOSalesModel>CdUntIso}" editable="{EditModel>/isEditable}" ></Input>
+						
+						
 					</t:template>
 				</t:Column>
+			
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Object Type"/>
 					<t:template>
@@ -107,9 +97,12 @@
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
-					<Label text="Conpricdat"/>
+					<Label text="CondPricing Date"/>
 					<t:template>
-						<Input id="idCndPrcDat" value="{SOSalesModel>CondPricingDate}" editable="{EditModel>/isEditable}"/>
+						<Input id="idCndPrcDat"    
+						
+						value="{ path: 'SOSalesModel>Conpricdat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"
+						editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
@@ -181,7 +174,7 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Doc. Currency"/>
 					<t:template>
-						<Input id="idCurrency2" value="{SOSalesModel>Currency2}" editable="{EditModel>/isEditable}"/>
+						<Input id="idCurrency2" value="{SOSalesModel>Currency}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
@@ -226,12 +219,7 @@
 						<Input id="idUnitmeasur" value="{SOSalesModel>Unitmeasur}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="9rem" hAlign="Center">
-					<Label text="ISO code"/>
-					<t:template>
-						<Input id="idIsoUnit" value="{SOSalesModel>IsoUnit}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+			
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Scale currency"/>
 					<t:template>
@@ -286,12 +274,7 @@
 						<Input id="idAccountkey" value="{SOSalesModel>Accountkey}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
-					<Label text="Accruals"/>
-					<t:template>
-						<Input type="Text" id="idAccountKe" value="{SOSalesModel>AccountKe}" editable="{EditModel>/isEditable}"/>
-					</t:template>
-				</t:Column>
+		
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="W/tax code"/>
 					<t:template>
@@ -317,6 +300,8 @@
 					</t:template>
 				</t:Column>
 			</t:columns>
-		</t:Table>
-	</VBox>
+	</t:Table>
+
+
+
 </core:FragmentDefinition>

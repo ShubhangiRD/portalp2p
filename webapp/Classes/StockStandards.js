@@ -1,8 +1,8 @@
 sap.ui.define([
 	"sap/ui/base/Object",
 	"sap/ui/model/json/JSONModel",
-		"com/vSimpleApp/Classes/SOConditionItem"
-], function(Object, JSONModel,SOConditionItem) {
+	"com/vSimpleApp/Classes/SOConditionItem"
+], function(Object, JSONModel, SOConditionItem) {
 	"use strict";
 	return Object.extend("com.vSimpleApp.Classes.StockStandards", {
 		constructor: function(oData) {
@@ -27,9 +27,11 @@ sap.ui.define([
 			this.Division = (oData && oData.Division) ? oData.Division : "";
 			this.SalesGrp = (oData && oData.SalesGrp) ? oData.SalesGrp : "";
 			this.SalesOff = (oData && oData.SalesOff) ? oData.SalesOff : "";
-			this.ReqDateH = (oData && oData.ReqDateH) ? oData.ReqDateH : "";
+		//	this.ReqDateH = (oData && oData.ReqDateH) ? oData.ReqDateH : "";
+				this.ReqDateH = (oData && oData.ReqDateH) ? this.datatime(new Date(oData.ReqDateH)) : this.datatime(new Date());
 			this.DateType = (oData && oData.DateType) ? oData.DateType : "";
-			this.PurchDate = (oData && oData.PurchDate) ? oData.PurchDate : "";
+		//	this.PurchDate = (oData && oData.PurchDate) ? oData.PurchDate : "";
+				this.PurchDate = (oData && oData.PurchDate) ? this.datatime(new Date(oData.PurchDate)) : this.datatime(new Date());
 			this.PoMethod = (oData && oData.PoMethod) ? oData.PoMethod : "";
 			this.PoSupplem = (oData && oData.PoSupplem) ? oData.PoSupplem : "";
 			this.Ref1 = (oData && oData.Ref1) ? oData.Ref1 : "";
@@ -46,7 +48,8 @@ sap.ui.define([
 			this.BillBlock = (oData && oData.BillBlock) ? oData.BillBlock : "";
 			this.OrdReason = (oData && oData.OrdReason) ? oData.OrdReason : "";
 			this.ComplDlv = (oData && oData.ComplDlv) ? oData.ComplDlv : "";
-			this.PriceDate = (oData && oData.PriceDate) ? oData.PriceDate : "";
+		//	this.PriceDate = (oData && oData.PriceDate) ? oData.PriceDate : "";
+				this.PriceDate = (oData && oData.PriceDate) ? this.datatime(new Date(oData.PriceDate)) : this.datatime(new Date());
 			this.QtValidF = (oData && oData.QtValidF) ? oData.QtValidF : "";
 			this.QtValidT = (oData && oData.QtValidT) ? oData.QtValidT : "";
 			this.CtValidF = (oData && oData.CtValidF) ? oData.CtValidF : "";
@@ -58,15 +61,19 @@ sap.ui.define([
 			this.CustGrp5 = (oData && oData.CustGrp5) ? oData.CustGrp5 : "";
 			this.PurchNoC = (oData && oData.PurchNoC) ? oData.PurchNoC : "";
 			this.PurchNoS = (oData && oData.PurchNoS) ? oData.PurchNoS : "";
-			this.PoDatS = (oData && oData.PoDatS) ? oData.PoDatS : "";
+		//	this.PoDatS = (oData && oData.PoDatS) ? oData.PoDatS : "";
+				this.PoDatS = (oData && oData.PoDatS) ? this.datatime(new Date(oData.PoDatS)) : this.datatime(new Date());
 			this.PoMethS = (oData && oData.PoMethS) ? oData.PoMethS : "";
 			this.Ref1S = (oData && oData.Ref1S) ? oData.Ref1S : "";
 			this.SdDocCat = (oData && oData.SdDocCat) ? oData.SdDocCat : "";
-			this.DocDate = (oData && oData.DocDate) ? oData.DocDate : "";
-			this.WarDate = (oData && oData.WarDate) ? oData.WarDate : "";
+		//	this.DocDate = (oData && oData.DocDate) ? oData.DocDate : "";
+				this.DocDate = (oData && oData.DocDate) ? this.datatime(new Date(oData.DocDate)) : this.datatime(new Date());
+					this.WarDate = (oData && oData.WarDate) ? this.datatime(new Date(oData.WarDate)) : this.datatime(new Date());
+		//	this.WarDate = (oData && oData.WarDate) ? oData.WarDate : "";
 			this.ShipCond = (oData && oData.ShipCond) ? oData.ShipCond : "";
 			this.PpSearch = (oData && oData.PpSearch) ? oData.PpSearch : "";
-			this.DunDate = (oData && oData.DunDate) ? oData.DunDate : "";
+		//	this.DunDate = (oData && oData.DunDate) ? oData.DunDate : "";
+				this.DunDate = (oData && oData.DunDate) ? this.datatime(new Date(oData.DunDate)) : this.datatime(new Date());
 			this.Dlvschduse = (oData && oData.Dlvschduse) ? oData.Dlvschduse : "";
 			this.Pldlvstyp = (oData && oData.Pldlvstyp) ? oData.Pldlvstyp : "";
 			this.RefDoc = (oData && oData.RefDoc) ? oData.RefDoc : "";
@@ -91,8 +98,10 @@ sap.ui.define([
 			this.FixValDy = (oData && oData.FixValDy) ? oData.FixValDy : "";
 			this.PymtMeth = (oData && oData.PymtMeth) ? oData.PymtMeth : "";
 			this.AccntAsgn = (oData && oData.AccntAsgn) ? oData.AccntAsgn : "";
-			this.BillDate = (oData && oData.BillDate) ? oData.BillDate : "";
-			this.ServDate = (oData && oData.ServDate) ? oData.ServDate : "";
+		//	this.BillDate = (oData && oData.BillDate) ? oData.BillDate : "";
+				this.BillDate = (oData && oData.BillDate) ? this.datatime(new Date(oData.BillDate)) : this.datatime(new Date());
+		//	this.ServDate = (oData && oData.ServDate) ? oData.ServDate : "";
+				this.ServDate = (oData && oData.ServDate) ? this.datatime(new Date(oData.ServDate)) : this.datatime(new Date());
 			this.DunnKey = (oData && oData.DunnKey) ? oData.DunnKey : "";
 			this.DunnBlock = (oData && oData.DunnBlock) ? oData.DunnBlock : "";
 			this.PmtgarPro = (oData && oData.PmtgarPro) ? oData.PmtgarPro : "";
@@ -107,7 +116,8 @@ sap.ui.define([
 			this.DlvTime = (oData && oData.DlvTime) ? oData.DlvTime : "";
 			this.Currency = (oData && oData.Currency) ? oData.Currency : "";
 			this.CurrIso = (oData && oData.CurrIso) ? oData.CurrIso : "";
-			this.CreatedBy = (oData && oData.CreatedBy) ? oData.CreatedBy : "";
+		//	this.CreatedBy = (oData && oData.CreatedBy) ? oData.CreatedBy : "";
+				this.CreatedBy = (oData && oData.CreatedBy) ? this.datatime(new Date(oData.CreatedBy)) : this.datatime(new Date());
 			this.TaxdepCty = (oData && oData.TaxdepCty) ? oData.TaxdepCty : "";
 			this.TaxdstCty = (oData && oData.TaxdstCty) ? oData.TaxdstCty : "";
 			this.EutriDeal = (oData && oData.EutriDeal) ? oData.EutriDeal : "";
@@ -178,7 +188,9 @@ sap.ui.define([
 			this.Refobjtype = (oData && oData.Refobjtype) ? oData.Refobjtype : "";
 			this.Refobjkey = (oData && oData.Refobjkey) ? oData.Refobjkey : "";
 			this.Reflogsys = (oData && oData.Reflogsys) ? oData.Reflogsys : "";
-
+		this.OrderItemsInSet = (oData && oData.OrderItemsInSet) ? oData.OrderItemsInSet : [];
+			this.OrderConditionsInSet = (oData && oData.OrderConditionsInSet) ? oData.OrderConditionsInSet : [];
+			this.OrderSchedulesInSet = (oData && oData.OrderSchedulesInSet) ? oData.OrderSchedulesInSet : [];
 		},
 
 		getRequestPayload: function() {
@@ -187,50 +199,168 @@ sap.ui.define([
 			var OrderSchedulesInSet = [];
 			var OrderConditionsInSet = [];
 			var SoPartnersSet = [];
-			
-			
+
 			this.OrderItemsInSet.forEach(function(item) {
 				var so = new SOConditionItem(item);
-			OrderItemsInSet.push(so.getRequestItem());
+				OrderItemsInSet.push(so.getRequestItem());
 
 			});
+	
+			this.OrderSchedulesInSet.forEach(function(item1) {
+			//	var so = new SOConditionItem(item1);
+				OrderSchedulesInSet.push(item1);
+			});
 
-			// this.OrderSchedulesInSet.forEach(function(item1) {
-			// 	var so = new SOConditionItem(item1);
-			// 	OrderSchedulesInSet.push(so.getRequestScheduleItem());
-			// });
+			this.OrderConditionsInSet.forEach(function(item2) {
+					//var so = new SOConditionItem(item2);
+				OrderConditionsInSet.push(item2);
+				//	OrderConditionsInSet.push(so.getRequestPriceCondition());
+		//	console.log(OrderConditionsInSet);
+			});
 
-			// this.OrderConditionsInSet.forEach(function(item2) {
-			// 		var so = new SOConditionItem(item2);
-			// 	OrderConditionsInSet.push(so.getRequestConditionItem());
-			// });
+			SoPartnersSet.push(this.getRequestPartnr());
 
-			 	
-				SoPartnersSet.push(this.getRequestPartnr());
-		 
 			return {
+			
+	
+			
+				Refobjtype: this.Refobjtype,
+				Refobjkey: this.Refobjkey,
+				Refdoctype: this.Refdoctype,
 				DocType: this.DocType,
+				CollectNo: this.CollectNo,
 				SalesOrg: this.SalesOrg,
 				DistrChan: this.DistrChan,
 				Division: this.Division,
-				Salesdocumentin: "",
-				Testrun: "",
-				Salesdocument: "",
-				OrderItemsInSet : OrderItemsInSet,
-				OrderSchedulesInSet : OrderSchedulesInSet,
-				OrderConditionsInSet : OrderConditionsInSet,
-				SoPartnersSet : SoPartnersSet
-				
-				
+				SalesGrp: this.SalesGrp,
+				SalesOff: this.SalesOff,
+				ReqDateH: this.ReqDateH,
+				DateType: this.DateType,
+				PurchDate: this.PurchDate,
+				PoMethod: this.PoMethod,
+				PoSupplem: this.PoSupplem,
+				Ref1: this.Ref1,
+				Name: this.Name,
+				Telephone: this.Telephone,
+				PriceGrp: this.PriceGrp,
+				CustGroup: this.CustGroup,
+				SalesDist: this.SalesDist,
+				PriceList: this.PriceList,
+				Incoterms1: this.Incoterms1,
+				Incoterms2: this.Incoterms2,
+				Pmnttrms: this.Pmnttrms,
+				DlvBlock: "91",
+				BillBlock: "99",
+				OrdReason: this.OrdReason,
+				ComplDlv: this.ComplDlv,
+				PriceDate: this.PriceDate,
+		//		QtValidF: this.QtValidF,
+			//	QtValidT: this.QtValidT,
+			//	CtValidF: this.CtValidF,
+			//	CtValidT: this.CtValidT,
+			//	CustGrp1: this.CustGrp1,
+			//	CustGrp2: this.CustGrp2,
+			//	CustGrp3: this.CustGrp3,
+			//	CustGrp4: this.CustGrp4,
+			//	CustGrp5: this.CustGrp5,
+				PurchNoC: this.PurchNoC,
+				PurchNoS: this.PurchNoS,
+			//	PoDatS: this.PoDatS,
+				PoMethS: this.PoMethS,
+				Ref1S: this.Ref1S,
+				SdDocCat: this.SdDocCat,
+				DocDate: this.DocDate,
+				WarDate: this.WarDate,
+				ShipCond: this.ShipCond,
+				PpSearch: this.PpSearch,
+				DunDate: this.DunDate,
+				Dlvschduse: this.Dlvschduse,
+				Pldlvstyp: this.Pldlvstyp,
+				RefDoc: this.RefDoc,
+				CompCdeB: this.CompCdeB,
+				AlttaxCls: this.AlttaxCls,
+				TaxClass2: this.TaxClass2,
+				TaxClass3: this.TaxClass3,
+				TaxClass4: this.TaxClass4,
+				TaxClass5: this.TaxClass5,
+				TaxClass6: this.TaxClass6,
+				TaxClass7: this.TaxClass7,
+				TaxClass8: this.TaxClass8,
+				TaxClass9: this.TaxClass9,
+				RefDocL: this.RefDocL,
+				AssNumber: this.AssNumber,
+				RefdocCat: this.RefdocCat,
+				OrdcombIn: this.OrdcombIn,
+				BillSched: this.BillSched,
+				InvoSched: this.InvoSched,
+				MnInvoice: this.MnInvoice,
+				AddValDy: this.AddValDy,
+			//	FixValDy: this.FixValDy,
+				PymtMeth: this.PymtMeth,
+				AccntAsgn: this.AccntAsgn,
+			//	BillDate: this.BillDate,
+			//	ServDate: this.ServDate,
+				DunnKey: this.DunnKey,
+				DunnBlock: this.DunnBlock,
+				PmtgarPro: this.PmtgarPro,
+				DepartmNo: this.DepartmNo,
+				RecPoint: this.RecPoint,
+				DocNumFi: this.DocNumFi,
+				Cstcndgrp1: this.Cstcndgrp1,
+				Cstcndgrp2: this.Cstcndgrp2,
+				Cstcndgrp3: this.Cstcndgrp3,
+				Cstcndgrp4: this.Cstcndgrp4,
+				Cstcndgrp5: this.Cstcndgrp5,
+			//	DlvTime: this.DlvTime,
+				Currency: this.Currency,
+				CurrIso: this.CurrIso,
+			///	CreatedBy: this.CreatedBy,
+				TaxdepCty: this.TaxdepCty,
+				TaxdstCty: this.TaxdstCty,
+			// 	EutriDeal: this.EutriDeal,
+			// 	MastContr: this.MastContr,
+			// 	RefProc: this.RefProc,
+			// 	Chkprtauth: this.Chkprtauth,
+			// 	CmlqtyDat: this.CmlqtyDat,
+			// 	Version: this.Version,
+			// 	NotifNo: this.NotifNo,
+			// 	WbsElem: this.WbsElem,
+			// 	FkkConacct: this.FkkConacct,
+			// 	DocClass: this.DocClass,
+			// 	HCurr: this.HCurr,
+			// 	HCurrIso: this.HCurrIso,
+			// 	ShipType: this.ShipType,
+			// 	SProcInd: this.SProcInd,
+			// 	RefDocLLong: this.RefDocLLong,
+			// //	LineTime: this.LineTime,
+			// 	CalcMotive: this.CalcMotive,
+			// 	PsmPstngDate: this.PsmPstngDate,
+			// 	TreasuryAccSymbol: this.TreasuryAccSymbol,
+			// 	BusinessEventTcode: this.BusinessEventTcode,
+			// 	ModificationAllowed: this.ModificationAllowed,
+			// 	CancellationAllowed: this.CancellationAllowed,
+			// 	PaymentMethods: this.PaymentMethods,
+			// 	BusinessPartnerNo: this.BusinessPartnerNo,
+			// 	ReportingFreq: this.ReportingFreq,
+			// 	SepaMandateId: this.SepaMandateId,
+				Salesdocumentin: this.Salesdocumentin,
+				Testrun: this.Testrun,
+				Salesdocument: this.Salesdocument,
+
+				OrderItemsInSet: OrderItemsInSet,
+				OrderSchedulesInSet: OrderSchedulesInSet,
+				OrderConditionsInSet: OrderConditionsInSet,
+				SoPartnersSet: SoPartnersSet
+
 			};
 		},
-		getRequestPartnr : function(){
-			return{
-			   PartnRole : "AG",
-      PartnNumb : this.callKunner(this.PartnNumb)
+		getRequestPartnr: function() {
+			return {
+				PartnRole: "AG",
+				PartnNumb: this.callKunner(this.PartnNumb)
 			};
 		},
-			callKunner: function(Kunnr) {
+		callKunner: function(Kunnr) {
 
 			var zero = "";
 
@@ -249,6 +379,7 @@ sap.ui.define([
 
 			return Kunnr;
 		},
+		
 		datatime: function(dDate, tyt) {
 			var s_doc_datePost = dDate;
 			var Datepoststring = s_doc_datePost.toISOString();

@@ -31,7 +31,7 @@
 						<Input id="PoPrQnt" value="{SOSalesModel>TargetQty}" editable="{EditModel>/isEditable}" textAlign="End"/>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
+				<t:Column hAlign="Center" width="10rem">
 					<Label text="Material Description"/>
 					<t:template>
 						<Input id="idDescription" value="{SOSalesModel>ShortText}" editable="{EditModel>/isEditable}"></Input>
@@ -43,12 +43,12 @@
 						<Input id="idSalesUnit" value="{SOSalesModel>SalesUnit}" editable="{EditModel>/isEditable}"></Input>
 					</t:template>
 				</t:Column>
-				<t:Column hAlign="Center" width="14rem">
-					<Label text="Cust.material"/>
-					<t:template>
-						<Input id="idcustmat" value="{SOSalesModel>CustMat22}" editable="{EditModel>/isEditable}"></Input>
-					</t:template>
-				</t:Column>
+				<!--<t:Column hAlign="Center" width="14rem">-->
+				<!--	<Label text="Cust.material"/>-->
+				<!--	<t:template>-->
+				<!--		<Input id="idcustmat" value="{SOSalesModel>CustMat22}" editable="{EditModel>/isEditable}"></Input>-->
+				<!--	</t:template>-->
+				<!--</t:Column>-->
 						<t:Column width="5rem" hAlign="Center">
 					<Label text="Net Price"/>
 					<t:template>
@@ -56,6 +56,13 @@
 					</t:template>
 				</t:Column>
 				
+				
+					<t:Column width="5rem" hAlign="Center">
+					<Label text="Item Catlog"/>
+					<t:template>
+						<Input id="idItemCateg" value="{SOSalesModel>ItemCateg}" editable="{EditModel>/isEditable}"/>
+					</t:template>
+				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Delivery Date"/>
 					<t:template>
@@ -99,15 +106,15 @@
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
-					<Label text="Net Price"/>
+					<Label text="Material Group"/>
 					<t:template>
-						<Input id="idNetPrice" value="{SOSalesModel>NetPrice}" editable="{EditModel>/isEditable}"/>
+						<Input id="idMatlGroup" value="{SOSalesModel>MatlGroup}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="4rem" hAlign="Center">
-					<Label text="EUn"/>
+					<Label text="Sales Unit"/>
 					<t:template>
-						<Input id="EntryUom" value="{SOSalesModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+						<Input id="idsSUnitIso" value="{SOSalesModel>SUnitIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="4rem" hAlign="Center">

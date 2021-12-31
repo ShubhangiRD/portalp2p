@@ -111,29 +111,31 @@
 						</ObjectPageSubSection>
 					</subSections>
 				</ObjectPageSection>
-				<ObjectPageSection titleUppercase="false" title="Order Party">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-					<ObjectPageSection titleUppercase="false" title="Condition">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOConditionData" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>	
-			<ObjectPageSection titleUppercase="false" title="Schedule">
+				<!--<ObjectPageSection titleUppercase="false" title="Order Party">-->
+				<!--	<subSections>-->
+				<!--		<ObjectPageSubSection>-->
+				<!--			<blocks>-->
+				<!--				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>-->
+				<!--			</blocks>-->
+				<!--		</ObjectPageSubSection>-->
+				<!--	</subSections>-->
+				<!--</ObjectPageSection>-->
+					
+			<ObjectPageSection titleUppercase="false" title="Schedule Item">
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
 								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOScheduleData" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
+				
+					<ObjectPageSection titleUppercase="false" title="Condition Item">
+					<subSections>
+						<ObjectPageSubSection>
+							<blocks>
+							<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOConditionData" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>

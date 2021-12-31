@@ -533,6 +533,8 @@ sap.ui.define([
 				sKunnr = oSelectedItem.getTitle();
 				productInput.setSelectedKey(sSalesorg);
 				productInput.setValue(sKunnr);
+				
+					sap.ui.getCore().byId("idsoldtopt").setValue(sKunnr);
 				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/PartnNumb", sKunnr);
 				//oView.getModel("SOModel").setProperty("/ShipToParty", sTitle);
 
@@ -1106,30 +1108,61 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 			var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
 			var SOSalesModel = oSalesModel.getProperty("/SalesContract");
+			var Stock = new StockStandards(SOSalesModel);
+			var getRequestPayload = Stock.getRequestPayload();
+			getRequestPayload.Testrun = "";
+			var oCondition = SOSalesModel.OrderItemsInSet[0].NetPrice;
+				function LeadingZeros(num, size) {
+				var s = num + "0" + "";
+				while (s.length < size) s = "0" + s;
+				return s;
+			}
 
-			var getRequestPayload = SOSalesModel.getRequestPayload();
-
-			ConditionItem.push({
-				ItmNumber: "000010",
-				CondType: "Z004",
-				CondValue: "9000"
-			});
-
-			ScheduleItem.push({
-				ItmNumber: "000010",
-				ReqQty: "1"
-			});
-
-			getRequestPayload.OrderConditionsInSet = ConditionItem;
-			getRequestPayload.OrderSchedulesInSet = ScheduleItem;
+			
+			
+			var len =  SOSalesModel.OrderItemsInSet.length;
+			for(var v=0 ; v< len ; v++){
+				getRequestPayload.OrderItemsInSet[v].ItmNumber = LeadingZeros(v + 1, 6);
+			}
+			
+			// ScheduleItem.push({
+			// 	ItmNumber: "000010",
+			// 	ReqQty: "1"
+			// });
+			
+			
+	 getRequestPayload.OrderConditionsInSet.push({
+	 		ItmNumber : "000010", 
+			 		CondType: "ZMA1",
+				CondValue: oCondition
+	 });
+	
+			 
+			console.log(getRequestPayload);
+			// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
 			var mParameters = {
 				success: function(oResponse, object) {
 					var so = object.data.Salesdocument;
 					var ss1 = object.data.Salesdocumentin;
+				
+						oSalesModel.setData({
+				oData: {}
+			});	
+					
+		
+		
 					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
+					
+				
+				
+		
+					
+					
 					sap.ui.getCore().byId("histroyDialog").destroy(null);
 					sap.ui.getCore().byId("histroyDialog").close();
-					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+						var table = this.byId("excesstable");
+					table.removeSelections();
+				oSalesModel.refresh();
 				},
 				error: function(error) {
 					MessageBox.error(error);
@@ -1152,27 +1185,32 @@ sap.ui.define([
 			var getRequestPayload = SOSalesModel.getRequestPayload();
 			getRequestPayload.Testrun = "X";
 
-			ConditionItem.push({
-				ItmNumber: "000010",
-				CondType: "Z004",
-				CondValue: "9000"
-			});
+			// ConditionItem.push({
+			// 	ItmNumber: "000010",
+			// 	CondType: "Z004",
+			// 	CondValue: "9000"
+			// });
 
-			ScheduleItem.push({
-				ItmNumber: "000010",
-				ReqQty: "1"
-			});
+			// ScheduleItem.push({
+			// 	ItmNumber: "000010",
+			// 	ReqQty: "11"
+			// });
 
-			getRequestPayload.OrderConditionsInSet = ConditionItem;
-			getRequestPayload.OrderSchedulesInSet = ScheduleItem;
+			// getRequestPayload.OrderConditionsInSet = ConditionItem;
+			// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
 			var mParameters = {
 				success: function(oResponse, object) {
-					var so = object.data.Salesdocument;
-					var ss1 = object.data.Salesdocumentin;
-					MessageBox.show("Standard Order " + so + " has been Created Sucessfully..");
-					sap.ui.getCore().byId("histroyDialog").destroy(null);
-					sap.ui.getCore().byId("histroyDialog").close();
-					this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+				
+					var Podata = new StockStandards(oResponse);
+				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
+
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
+					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
+				
+				//	sap.ui.getCore().byId("histroyDialog").destroy(null);
+				//	sap.ui.getCore().byId("histroyDialog").close();
+				//	this.getOwnerComponent().getRouter().navTo("ManageStockTable");
 				},
 				error: function(error) {
 					MessageBox.error(error);
