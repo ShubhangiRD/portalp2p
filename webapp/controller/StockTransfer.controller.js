@@ -13,6 +13,7 @@ sap.ui.define([
 ], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast,PurchaseHeader,RebateConditionItemPO) {
 	"use strict";
 	var oView, sPlant, oComponent, successObj;
+	
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -36,6 +37,10 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType", value2);
 			var value = Standards.oData.SalesContract.MomentType;
 			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
+			
+					var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+					var itemplant = oPurchaseModel.oData.TempContract.PoitemSet[0].Plant;
+			sPlant = itemplant;
 
 		},
 
@@ -47,7 +52,7 @@ sap.ui.define([
 
 			StockTransferModel.refresh(true);
 
-			this.getOwnerComponent().getRouter().navTo("ManageStockTable");
+			this.getOwnerComponent().getRouter().navTo("StockTable");
 			window.location.reload();
 		},
 		onStockCancel: function(event) {
@@ -61,7 +66,7 @@ sap.ui.define([
 
 			//redirect the page	frot view
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("ManageStockTable");
+			oRouter.navTo("StockTable");
 
 		},
 
@@ -569,7 +574,7 @@ sap.ui.define([
 					if (oAction === "OK") {
 
 						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('ManageStockTable');
+						oRouter.navTo('StockTable');
 						window.location.reload();
 					}
 				}.bind(this)
@@ -796,7 +801,7 @@ sap.ui.define([
 						BusyIndicator.hide();
 						this.onSaveAutoTRP(oPurchaseModel);
 						//var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						//	oRouter.navTo('ManageStockTable');
+						//	oRouter.navTo('StockTable');
 						//window.location.reload();
 					} else {
 
@@ -829,7 +834,7 @@ sap.ui.define([
 				oData: {}
 			});
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo('ManageStockTable');
+			oRouter.navTo('StockTable');
 			window.location.reload();
 
 		},

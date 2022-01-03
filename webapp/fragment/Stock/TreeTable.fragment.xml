@@ -8,7 +8,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionC
 				<m:ToolbarSpacer/>
 					<m:Button text="Analytics"  id="idana" press="onAnalytics"/>
 					<m:Button text="Excess Material"  id="idExcessButton" press="onExcessMaterial"/>
-				<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>
+				<!--<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>-->
 				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
 				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->

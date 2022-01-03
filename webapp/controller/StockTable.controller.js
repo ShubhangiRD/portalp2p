@@ -4427,7 +4427,7 @@ sap.ui.define([
 		onExcessMaterial: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ExcessData");
-
+			window.location.reload();
 			//     	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
 			// if (!this.pressDialogExcessMaterial) {
 			// 	this.pressDialogExcessMaterial = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.ExcessMaterialManagement", this);
