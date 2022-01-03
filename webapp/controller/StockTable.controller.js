@@ -100,8 +100,8 @@ sap.ui.define([
 
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
-
-			this.getStockDetailList();
+              this.getStockDetailListNew();
+			// this.getStockDetailList();
 			// this.getStockDetailList3();
 
 			//	this.getStockDetailListSiddhi();
@@ -501,6 +501,362 @@ sap.ui.define([
 		// 		}
 		// 	});
 		// },
+		
+		getStockDetailListNew: function() {
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			BusyIndicator.show(true);
+			oModel.read("/STOCK_DATASet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					console.log(oData);
+					var ListofSrs = [];
+
+					var len = oData.results.length;
+					var childarray = [];
+					var InnerChild = [];
+					var InnerinnerChild = [];
+					var UniqueMatnr = [];
+					var UniqueWerks = [];
+					var UniqueStrLoc = [];
+					StockList = oData.results;
+                    var filterObj = {  plant:[], cc:[], stloc:[] };
+					function userExists(Bukrs) {
+						return childarray.some(function(el) {
+							return el.Bukrs === Bukrs;
+						});
+					}
+
+					function PlantExits(Plant) {
+						return InnerChild.some(function(el) {
+							return el.Plant === Plant;
+						});
+					}
+
+					function StorageExits(Lgort) {
+						return InnerinnerChild.some(function(el) {
+							return el.Lgort === Lgort;
+						});
+					}
+
+					var iItem = oData.results.length;
+					var ListItem = [];
+					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+
+						var Matnr = oData.results[iRowIndex].Matnr;
+						ListItem.push({
+							Matnr: Matnr
+
+						});
+					}
+					var index = {};
+
+					ListItem.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+						if (key in index) {
+							index[key].count++;
+						} else {
+							var newEntry = {
+								Matnr: point.Matnr,
+								Labst: "",
+								count: 1
+							};
+							index[key] = newEntry;
+							TotalLabst.push(newEntry);
+						}
+					});
+
+					TotalLabst.sort(function(a, b) {
+						return b.count - a.count;
+					});
+
+					var data = oData.results;
+
+					for (var x = 0; x < TotalLabst.length; x++) {
+						var orderCount = 0;
+						for (var j = 0; j < data.length; j++) {
+							if (TotalLabst[x].Matnr === data[j].Matnr) {
+								orderCount = orderCount + parseInt(data[j].Labst);
+								TotalLabst[x].Labst = orderCount.toString();
+							}
+
+						}
+
+					}
+
+					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+
+						var odataset = oData.results[iRowIndex];
+						var Werks = odataset.Werks;
+
+						var Cbtlv = odataset.Cbtlv;
+						var Cgtlv = odataset.Cgtlv;
+						var Cytlv = odataset.Cytlv;
+						var Changedon = odataset.Changedon;
+						var Crtlv = odataset.Crtlv;
+						var Labst = odataset.Labst;
+
+						var Description = odataset.Maktx;
+						//var openpo = PoDocumentNumber[iRowIndex].Bedat;
+						var Matnr = odataset.Matnr;
+
+						var Bukrs = odataset.Bukrs;
+
+						var Lbkum = odataset.Lbkum;
+						var Lgort = odataset.Lgort;
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var z = 0; z < TotalLabst.length; z++) {
+								if (Matnr === TotalLabst[z].Matnr) {
+									var sTotalLabst = TotalLabst[z].Labst;
+
+								}
+							}
+						}
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x1 = 0; x1 <= result.length - 1; x1++) {
+
+								if (Matnr === result[x1].Matnr) {
+									var sOpenSalesOrder = result[x1].Kwmeng;
+
+								}
+							}
+						}
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var x2 = 0; x2 < PoQuantity.length; x2++) {
+
+								if (Matnr === PoQuantity[x2].Matnr) {
+									var sOpenPoQuantity = PoQuantity[x2].Menge;
+									var sOpenPoDate = PoQuantity[x2].Prdat;
+									var sDocDate = PoQuantity[x2].Bedat;
+
+								}
+							}
+						}
+
+						if (Matnr !== "" || Matnr !== undefined) {
+							for (var k = 0; k < Totalsaleset.length; k++) {
+
+								if (Matnr === Totalsaleset[k].Matnr) {
+									var sRunRate = Totalsaleset[k].Kwmeng;
+
+								}
+							}
+						}
+
+						if (!UniqueMatnr.includes(Matnr)) {
+							UniqueMatnr.push(Matnr);
+							ListofSrs.push({
+								Cbtlv: Cbtlv,
+								Cgtlv: Cgtlv,
+								Cytlv: Cytlv,
+								Changedon: Changedon,
+								Crtlv: Crtlv,
+
+								Labst: parseInt(sTotalLabst),
+								ALabst: parseInt(sTotalLabst),
+								Material: Matnr,
+								ShortText: Description,
+								Plant: Werks,
+								Color: "",
+								MultipleIt: childarray,
+								OsalesOrder: sOpenSalesOrder,
+								OpenPODate: sOpenPoDate,
+								OpenPOQty: sOpenPoQuantity,
+								DocDate: sDocDate,
+								RunRate: sRunRate,
+
+							});
+
+							for (var j = 0; j < StockList.length; j++) {
+								var stock = StockList[j];
+								var Bukrs1 = stock.Bukrs;
+								var Lbkum1 = stock.Lbkum;
+								var Labst1 = stock.Labst;
+								var Lgort1 = stock.Lgort;
+								var Werks1 = stock.Werks;
+								var Matnr1 = stock.Matnr;
+
+								if (Matnr === Matnr1) {
+									//	console.log(sum);
+
+									if (userExists(Bukrs1)) {
+
+										for (var j = 0; j < StockList.length; j++) {
+											var stock = StockList[j];
+											var Bukrs2 = stock.Bukrs;
+											var Lbkum2 = stock.Lbkum;
+											var Labst2 = stock.Labst;
+											var Lgort2 = stock.Lgort;
+											var Werks2 = stock.Werks;
+											var Matnr2 = stock.Matnr;
+											if (Matnr === Matnr2) {
+
+												if (PlantExits(Werks2)) {
+
+															InnerinnerChild.push({
+																		//	Bukrs: Bukrs,
+																		Labst: Labst2,
+																		Material: 'SLoc' + " " + Lgort2,
+																		Crtlv: "crtlv",
+																		Cytlv: "cytlv",
+																		Cgtlv: "cgtlv",
+																		Cbtlv: "cbtlv",
+																		OsalesOrder: "So",
+																		Lgort: Lgort2
+
+																	});
+
+													// for (var j = 0; j < StockList.length; j++) {
+													// 	var stock = StockList[j];
+													// 	var Bukrs3 = stock.Bukrs;
+													// 	var Lbkum3 = stock.Lbkum;
+													// 	var Labst3 = stock.Labst;
+													// 	var Lgort3 = stock.Lgort;
+													// 	var Werks3 = stock.Werks;
+													// 	var Matnr3 = stock.Matnr;
+													// 	if (Matnr === Matnr3) {
+
+													// 		if (StorageExits(Lgort3)) {
+
+														
+													
+
+													// 		}else{
+													// 						InnerinnerChild.push({
+													// 					//	Bukrs: Bukrs,
+													// 					Labst: Labst2,
+													// 					Material: 'SLoc' + " " + Lgort2,
+													// 					Crtlv: "crtlv",
+													// 					Cytlv: "cytlv",
+													// 					Cgtlv: "cgtlv",
+													// 					Cbtlv: "cbtlv",
+													// 					OsalesOrder: "So",
+													// 					Lgort: Lgort2
+
+													// 				});
+													// 		}
+													// 	}
+													// }
+
+												} else {
+													InnerChild.push({
+														//	Bukrs: Bukrs,
+														//	Lgort: Lgort,
+														Material: 'Plant' + " " + Werks2,
+														Plant: Werks2,
+														MultipleIt: InnerinnerChild,
+														OpenPOQty: sOpenPoQuantity,
+														OsalesOrder: "So",
+														Crtlv: "crtlv",
+														Cytlv: "cytlv",
+														Cgtlv: "cgtlv",
+														Cbtlv: "cbtlv",
+														RunRate: sRunRate
+
+													});
+												
+														InnerinnerChild.push({
+															//	Bukrs: Bukrs,
+															Labst: Labst2,
+															Material: 'SLoc' + " " + Lgort2,
+															Crtlv: "crtlv",
+															Cytlv: "cytlv",
+															Cgtlv: "cgtlv",
+															Cbtlv: "cbtlv",
+															OsalesOrder: "So",
+															Lgort: Lgort2
+
+														});
+												
+												}
+											}
+											//PlantExits(Plant)
+										}
+
+									} else {
+										childarray.push({
+											Bukrs: Bukrs1,
+											BLabst: "AL",
+											ALabst: " ",
+											Labst: sTotalLabst,
+											Material: 'Company Level' + " " + Bukrs,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
+											OsalesOrder: sOpenSalesOrder,
+
+											//	Lgort: Lgort,
+											//	Werks: Werks,
+											MultipleIt: InnerChild,
+											OpenPODate: sOpenPoDate,
+											// OpenPOQty:sOpenPoQuantity,
+											DocDate: sDocDate
+
+										});
+										sOpenSalesOrder = "";
+										sOpenPoDate = "";
+
+										sDocDate = "";
+
+										InnerChild.push({
+											//	Bukrs: Bukrs,
+											// Labst: Labst,
+											//	Lgort: Lgort,
+											Material: 'Plant' + " " + Werks1,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
+											Plant: Werks1,
+											MultipleIt: InnerinnerChild,
+											OpenPOQty: sOpenPoQuantity,
+											OsalesOrder: "So",
+											RunRate: sRunRate
+
+										});
+										sOpenPoQuantity = "";
+										sRunRate = "";
+
+										InnerinnerChild.push({
+											//	Bukrs: Bukrs,
+											Labst: Labst1,
+											Crtlv: "crtlv",
+											Cytlv: "cytlv",
+											Cgtlv: "cgtlv",
+											Cbtlv: "cbtlv",
+
+											Material: 'SLoc' + " " + Lgort1,
+											OsalesOrder: "So",
+											Lgort: Lgort1
+
+										});
+
+									}
+
+								}
+							}
+							InnerChild = [];
+							InnerinnerChild = [];
+							childarray = [];
+
+						}
+
+					}
+
+					oView.getModel("oStockDataModel").setData(ListofSrs);
+					console.log(ListofSrs);
+					Massupload = ListofSrs;
+					this.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
 
 		getStockDetailList: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
