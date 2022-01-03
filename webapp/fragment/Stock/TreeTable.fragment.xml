@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-toggleOpenState="onPressItem"    cellClick="OnTreecellclick"       rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
+toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8"     rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
 		ariaLabelledBy="title">
 		<extension>
 			<m:OverflowToolbar style="Clear">

@@ -5,7 +5,7 @@
 			class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text="From"/>
-				<Label text="Request Deliv Date" required="true"/>
+				<Label text="Request Deliv Date" />
 				<DatePicker id="idreqdeliv" value="{SOSalesModel>/SalesContract/ReqDateH}" placeholder="Enter Date" width="60%"
 					class="sapUiSmallMarginBottom"/>
 				<Label text="Delivery Block"/>
@@ -29,7 +29,7 @@
 				<!--<Label text="Inco. Location1"/>-->
 				<!--<Input id="idincolocatn"></Input>-->
 				<core:Title text="Dest"/>
-				<Label text="Delivery Plant" required="true"/>
+				<Label text="Delivery Plant" />
 				<Input id="idDelivPlant" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
 					value="{SOitemDetailModel>/Soitems/Plant}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/POPlant' }"
 					suggestionItemSelected="onSuggest">

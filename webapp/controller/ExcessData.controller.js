@@ -894,7 +894,10 @@ sap.ui.define([
 
 				var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 				var odata = SalesOrder.oData.SOItem;
-
+				for(var i=0;i<odata.length ; i++){
+				 odata[i].TargetQty = "";
+				}
+				console.log(odata);
 				var SO = sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", odata);
 
 				this.UpdateSale = this.getView().byId("helloDialog");
@@ -1230,7 +1233,7 @@ sap.ui.define([
 		onSaveSalesorder: function(oEvent) {
 			var ConditionItem = [],
 				ScheduleItem = [];
-var SalesOrder = this.getOwnerComponent().getModel("SOModel");
+			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 			var soldtoparty = sap.ui.getCore().byId("idsoldtopt").getValue();
 
 			if (soldtoparty == "") {
@@ -1255,7 +1258,7 @@ var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 
 				//  }
 
-				 var len =  SOSalesModel.OrderItemsInSet.length;
+				var len = SOSalesModel.OrderItemsInSet.length;
 				// for(var v=0 ; v< len ; v++){
 				// 	getRequestPayload.OrderItemsInSet[v].ItmNumber = LeadingZeros(v + 1, 6);
 				// }
@@ -1287,7 +1290,6 @@ var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 
 				// 	 }
 
-			
 				for (var v = 0; v < len; v++) {
 					var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
 					var ItmNumber = SOSalesModel.OrderItemsInSet[v].ItmNumber;
@@ -1311,38 +1313,36 @@ var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 						var so = object.data.Salesdocument;
 						var ss1 = object.data.Salesdocumentin;
 
+						sap.m.MessageBox.show("Standard Order #" + so + " has been Created Sucessfully..", {
+							icon: sap.m.MessageBox.Icon.INFORMATION,
 
+							actions: [sap.m.MessageBox.Action.OK],
+							onClose: function(oAction) {
+								if (oAction === "OK") {
+									var SO = sap.ui.getCore().getModel("SOSalesModel");
+									var SOContract = SO.getProperty("/SalesContract");
+									SOContract.OrderItemsInSet = [];
+									SOContract.OrderConditionsInSet = [];
+									SOContract.OrderSchedulesInSet = [];
+									var SOitemDetailModel = sap.ui.getCore().getModel("SOitemDetailModel");
+									SOitemDetailModel.oData = [];
 
+									//		SO.oData = [];
 
-	sap.m.MessageBox.show("Standard Order #" + so + " has been Created Sucessfully..", {
-				icon: sap.m.MessageBox.Icon.INFORMATION,
+									// 
+									// SO.oData = [];
+									// SO.oData.SalesContract = [];
+									//	 window.location.reload();
 
-				actions: [sap.m.MessageBox.Action.OK],
-				onClose: function(oAction) {
-					if (oAction === "OK") {
-				var SO = sap.ui.getCore().getModel("SOSalesModel");
-						var SOContract = SO.getProperty("/SalesContract");
-						SO.oData.SalesContract = [];
+									//	var odata = SalesOrder.oData.SOItem;
 
-						
-						var odata = SalesOrder.oData.SOItem;
+									SalesOrder.refresh(true);
 
-						SalesOrder.refresh(true);
-					
-						sap.ui.getCore().byId("histroyDialog").destroy(null);
-					sap.ui.getCore().byId("histroyDialog").close();
-					} 
-				}.bind(this)
-			});
-
-
-
-
-
-
-					
-
-					
+									sap.ui.getCore().byId("histroyDialog").destroy(null);
+									//sap.ui.getCore().byId("histroyDialog").close();
+								}
+							}.bind(this)
+						});
 
 					},
 					error: function(error) {
@@ -1354,23 +1354,35 @@ var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 				var relPath = "/sales_orderSet";
 				//	BusyIndicator.show(true);
 				oModel.create(relPath, getRequestPayload, mParameters);
+
+				var table = this.byId("excesstable");
+
+				table.removeSelections();
 			}
 
 		},
 		onCancelSales: function() {
 			var SO = sap.ui.getCore().getModel("SOSalesModel");
 			var SOContract = SO.getProperty("/SalesContract");
-			SO.oData.SalesContract = [];
-
+		//	SO.oData.SalesContract = [];
+			SOContract.OrderItemsInSet = [];
+			SOContract.OrderItemsInSet.length = 0;
+			SOContract.OrderConditionsInSet.length = 0;
+			SOContract.OrderSchedulesInSet = [];
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-			var odata = SalesOrder.oData.SOItem;
-
+			 SalesOrder.oData.SOItem.length=0;
+			SalesOrder.oData.SOItem = [];
 			//	window.location.reload();
 			// SO.setData({
 			// 	oData: {}
 			// });
 
+		
+			
+				
+			
 			SalesOrder.refresh(true);
+			
 			var table = this.byId("excesstable");
 			table.removeSelections();
 			this.UpdateSale.close();

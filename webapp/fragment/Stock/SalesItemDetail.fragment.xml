@@ -6,7 +6,7 @@
 			<form:content>
 				<core:Title text="From"/>
 				<Label text="Sales Document Item"/>
-				<Input id="idSalesDocItm" value="{SOitemDetailModel>/Soitems/ItmNumber}" width="30%"/>
+				<Input id="idSalesDocItm" value="{SOitemDetailModel>/Soitems/ItmNumber}" width="50%"/>
 				<Label text="Material"/>
 				<Input id="idMatnr" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp" width="90%"
 					value="{SOitemDetailModel>/Soitems/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
