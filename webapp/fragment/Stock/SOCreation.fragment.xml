@@ -1,159 +1,141 @@
-<core:FragmentDefinition  xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m"
-	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
-		<m:Dialog id="histroyDialog" class="sapUiSizeCompact"  title="SO Creation" showHeader="false" contentHeight="1300px" contentWidth="1300px" >
+<core:FragmentDefinition xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified"
+	class="sapUiSizeCompact" height="100%" displayBlock="true">
+	<m:Dialog id="histroyDialog" class="sapUiSizeCompact" title="SO Creation" showHeader="false" contentHeight="1300px" contentWidth="1300px">
 		<m:Page>
-		<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
-			preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
-			<headerTitle>
-				<ObjectPageDynamicHeaderTitle >
-					<expandedHeading>
-						<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
-						<m:FlexBox fitContainer="true" alignItems="Center">
-							<m:HBox>
-								<m:Title text="Sales Order"/>
-								<m:ObjectMarker type="Favorite" class="sapUiTinyMarginBegin"/>
-							</m:HBox>
-						</m:FlexBox>
-					</expandedHeading>
-					<snappedHeading>
-						<m:FlexBox fitContainer="true" alignItems="Center">
+			<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
+				preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+				<headerTitle>
+					<ObjectPageDynamicHeaderTitle >
+						<expandedHeading>
 							<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Sales Order"/>
-						</m:FlexBox>
-					</snappedHeading>
-					<actions>
-						<ObjectPageHeaderActionButton text="Cancel" type="Transparent" hideText="false" press="onCancelSales"/>
-						<ObjectPageHeaderActionButton text="Save" type="Emphasized" hideText="false" press="onSaveSalesorder"/>
-					</actions>
-				</ObjectPageDynamicHeaderTitle>
-			</headerTitle>
-			<headerContent></headerContent>
-			<sections>
-				<ObjectPageSection titleUppercase="false" title="Sales Header" id="general">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<form:SimpleForm id="FormLumpSum" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
-									labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
-									<form:content>
-										<core:Title text=" "/>
-										<m:Label text="Doc Type" required="true"/>
-										<m:Input type="Text" id="siddhihiSangd" editable="true"  width="20%"  value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
-									
-										<m:Label text="Sold-To-Party" required="true"/>
-										<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-										value="{SOSalesModel>/SalesContract/PartnNumb}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
-											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
-											<m:suggestionItems>
-												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Name1}"/>
-											</m:suggestionItems>
-										</m:Input>
-										
-					
-										
-										
-										<m:Label text="Ship-To-Party" required="true"/>
-										<m:Input id="idshiptopt"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-									value="{SOSalesModel>/SalesContract/PartnNumb}"		showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
-											suggestionItems="{ path: 'Lookup>/CustomerDetails'}" >
-											<m:suggestionItems>
-												<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Kunnr}"/>
-											</m:suggestionItems>
-										</m:Input>
-						<!--				<m:Label text="Cust Reference"/>
+							<m:FlexBox fitContainer="true" alignItems="Center">
+								<m:HBox>
+									<m:Title text="Sales Order"/>
+									<m:ObjectMarker type="Favorite" class="sapUiTinyMarginBegin"/>
+								</m:HBox>
+							</m:FlexBox>
+						</expandedHeading>
+						<snappedHeading>
+							<m:FlexBox fitContainer="true" alignItems="Center">
+								<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
+								<m:Title text="Sales Order"/>
+							</m:FlexBox>
+						</snappedHeading>
+						<actions>
+							<ObjectPageHeaderActionButton text="Cancel" type="Transparent" hideText="false" press="onCancelSales"/>
+							<ObjectPageHeaderActionButton text="Save" type="Emphasized" hideText="false" press="onSaveSalesorder"/>
+						</actions>
+					</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+				<headerContent></headerContent>
+				<sections>
+					<ObjectPageSection titleUppercase="false" title="Sales Header" id="general">
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<form:SimpleForm id="FormLumpSum" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+										labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
+										<form:content>
+											<core:Title text=" "/>
+											<m:Label text="Doc Type" required="true"/>
+											<m:Input type="Text" id="siddhihiSangd" placeholder="Document Type"  liveChange="onChangeValue" editable="true" width="20%" value="{SOSalesModel>/SalesContract/DocType}"></m:Input>
+											<m:Label text="Sold-To-Party" required="true"/>
+											<m:Input id="idsoldtopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
+											placeholder="Sold-To-Party"	value="{SOSalesModel>/SalesContract/PartnNumb}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+											liveChange="onChangeValue"	suggestionItems="{ path: 'Lookup>/CustomerDetails'}">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Name1}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<m:Label text="Ship-To-Party" required="true"/>
+											<m:Input id="idshiptopt" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
+											placeholder="Ship-To-Party"		value="{SOSalesModel>/SalesContract/PartnNumb}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCustomervalue"
+											liveChange="onChangeValue"		suggestionItems="{ path: 'Lookup>/CustomerDetails'}">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Kunnr}" text="{Lookup>Name1}" additionalText="{Lookup>Kunnr}"/>
+												</m:suggestionItems>
+											</m:Input>
+											<!--				<m:Label text="Cust Reference"/>
 										<m:Input type="Text" id="idcustref" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract>/CustRef}"/>-->
-										<core:Title text=" "/>
-										<m:Label text="Net Value"/>
-										<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract/NetValue}" width="60%"></m:Input>
-										<m:Label text="Cust.Ref.Date"/>
-										<m:DatePicker id="DP2" 
-										
-										
-										
-										value="{SOSalesModel>/SalesContract/ReqDateH}" class="sapUiSmallMarginBottom"  width="60%"/>
-										
-											<m:Label text="Sales Org"  required="true" />
-										<m:Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
-										value="{SOSalesModel>/SalesContract/SalesOrg}"	showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
-											suggestionItems="{ path: 'Lookup>/shipdetails'}" >
-											<m:suggestionItems>
-												<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtweg}" additionalText="{Lookup>Vtweg}"/>
-											</m:suggestionItems>
-										</m:Input>
-										
-									</form:content>
-								</form:SimpleForm>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-				<ObjectPageSection titleUppercase="false" title="Sales">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Sales" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-				<ObjectPageSection titleUppercase="false" title="Line Items">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesLineItem" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-				<ObjectPageSection titleUppercase="false" title="Item Details">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesItemDetail" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-				<!--<ObjectPageSection titleUppercase="false" title="Order Party">-->
-				<!--	<subSections>-->
-				<!--		<ObjectPageSubSection>-->
-				<!--			<blocks>-->
-				<!--				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>-->
-				<!--			</blocks>-->
-				<!--		</ObjectPageSubSection>-->
-				<!--	</subSections>-->
-				<!--</ObjectPageSection>-->
-					
-			<ObjectPageSection titleUppercase="false" title="Schedule Item">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOScheduleData" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-				
+											<core:Title text=" "/>
+											<m:Label text="Net Value"/>
+											<m:Input type="Text" id="idnetVal" editable="{EditModel>/isEditable}" value="{SOSalesModel>/SalesContract/NetValue}" width="60%"></m:Input>
+											<m:Label text="Cust.Ref.Date"/>
+											<m:DatePicker id="DP2" value="{SOSalesModel>/SalesContract/ReqDateH}" class="sapUiSmallMarginBottom" width="60%"/>
+											<m:Label text="Sales Org" required="true"/>
+											<m:Input id="idSaleorg" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" width="50%"
+											placeholder="Sales Organization" 	liveChange="onChangeValue"				value="{SOSalesModel>/SalesContract/SalesOrg}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSalesorgvalue"
+												suggestionItems="{ path: 'Lookup>/shipdetails'}">
+												<m:suggestionItems>
+													<core:ListItem key="{Lookup>Vkorg}" text="{Lookup>Vtweg}" additionalText="{Lookup>Vtweg}"/>
+												</m:suggestionItems>
+											</m:Input>
+										</form:content>
+									</form:SimpleForm>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Sales">
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Sales" type="XML"/>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Line Items">
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesLineItem" type="XML"/>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Item Details">
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesItemDetail" type="XML"/>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<!--<ObjectPageSection titleUppercase="false" title="Order Party">-->
+					<!--	<subSections>-->
+					<!--		<ObjectPageSubSection>-->
+					<!--			<blocks>-->
+					<!--				<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SalesOrderParty" type="XML"/>-->
+					<!--			</blocks>-->
+					<!--		</ObjectPageSubSection>-->
+					<!--	</subSections>-->
+					<!--</ObjectPageSection>-->
+					<ObjectPageSection titleUppercase="false" title="Schedule Item">
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOScheduleData" type="XML"/>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
 					<ObjectPageSection titleUppercase="false" title="Condition Item">
-					<subSections>
-						<ObjectPageSubSection>
-							<blocks>
-							<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOConditionData" type="XML"/>
-							</blocks>
-						</ObjectPageSubSection>
-					</subSections>
-				</ObjectPageSection>
-			</sections>
-		</ObjectPageLayout>
-
-			</m:Page>
-			
-				</m:Dialog>
-			
-			
-		<!--	contentHeight="1300px" contentWidth="1300px"-->
+						<subSections>
+							<ObjectPageSubSection>
+								<blocks>
+									<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.SOConditionData" type="XML"/>
+								</blocks>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+				</sections>
+			</ObjectPageLayout>
+		</m:Page>
+	</m:Dialog>
+	<!--	contentHeight="1300px" contentWidth="1300px"-->
 	<!--<m:Page showNavButton="true" navButtonPress="onBackNav">-->
-		<!--</m:Page>-->
-
+	<!--</m:Page>-->
 </core:FragmentDefinition>

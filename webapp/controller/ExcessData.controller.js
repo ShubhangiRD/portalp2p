@@ -1234,11 +1234,19 @@ sap.ui.define([
 			var ConditionItem = [],
 				ScheduleItem = [];
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-			var soldtoparty = sap.ui.getCore().byId("idsoldtopt").getValue();
+			var soldtoparty = sap.ui.getCore().byId("idsoldtopt");
+	var idSaleorg = sap.ui.getCore().byId("idSaleorg");
 
-			if (soldtoparty == "") {
-				MessageBox.error("Please Enter Sold-To-Party");
-			} else {
+			if (soldtoparty.getValue() == "") {
+			
+					soldtoparty.setValueState("Error");
+				soldtoparty.setValueStateText("Sold-To-Party is required");
+			}else if(idSaleorg.getValue() == ""){
+					idSaleorg.setValueState("Error");
+				idSaleorg.setValueStateText("Sales Organization is required");
+			}
+			
+			else {
 				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 				var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
 				var SOSalesModel = oSalesModel.getProperty("/SalesContract");
@@ -1499,7 +1507,59 @@ sap.ui.define([
 			// getRequestPayload.OrderConditionsInSet = ConditionItem;
 			// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
 
-		}
+		},
+			//validation function//
+		Validate: function(evt) {
+			var sValue = evt.mParameters.value;
+			var sInput = evt.getSource().sId;
+			var oinputbox = sap.ui.getCore().byId(sInput)
+			var pattern = /[^\w]/;
+			if (pattern.test(sValue)) {
+				oinputbox.setValueState("Error");
+				oinputbox.setValueStateText("Enter Valid Value");
+			} else {
+				oinputbox.setValueState("None");
+				oinputbox.setValueStateText("");
+
+			}
+
+		},
+
+		//numeric validation
+onChangeValue : function(oEvent){
+		var oControl = oEvent.getSource();
+			var sPlaceholder = oControl.getProperty("placeholder");
+			var sValue = oControl.getValue();
+			 
+				
+		if(sValue === "") {
+				oControl.setValueState("Error");
+				oControl.setValueStateText(sPlaceholder + "is required");
+			} else {
+				oControl.setValueState("None");
+				oControl.setValueStateText("");
+
+			}
+ 	
+			
+		
+},
+
+		numValidate: function(evt) {
+			var sValue = evt.mParameters.value;
+			var sInput = evt.getSource().sId;
+			var oinputbox = sap.ui.getCore().byId(sInput)
+			var pattern = /[^\d]/;
+			if (pattern.test(sValue)) {
+				oinputbox.setValueState("Error");
+				oinputbox.setValueStateText("Enter Numeric Value");
+			} else {
+				oinputbox.setValueState("None");
+				oinputbox.setValueStateText("");
+
+			}
+
+		},
 
 	});
 

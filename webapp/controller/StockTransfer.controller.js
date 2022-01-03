@@ -8,12 +8,14 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/m/MessageToast",
-		"com/vSimpleApp/model/PurchaseHeader",
-			"com/vSimpleApp/model/RebateConditionItemPO"
-], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast,PurchaseHeader,RebateConditionItemPO) {
+	"com/vSimpleApp/model/PurchaseHeader",
+	"com/vSimpleApp/model/RebateConditionItemPO",
+	"sap/m/MessageBox"
+], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast, PurchaseHeader,
+	RebateConditionItemPO, MessageBox) {
 	"use strict";
 	var oView, sPlant, oComponent, successObj;
-	
+
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -37,10 +39,13 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("PurchaseModel").setProperty("/TempContract/DocumentType", value2);
 			var value = Standards.oData.SalesContract.MomentType;
 			sap.ui.getCore().getModel("oTransferPostModel").setProperty("/MovmtTypeTP", value);
-			
-					var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-					var itemplant = oPurchaseModel.oData.TempContract.PoitemSet[0].Plant;
-			sPlant = itemplant;
+
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			if (oPurchaseModel.oData.TempContract.PoitemSet[0]) {
+				var itemplant = oPurchaseModel.oData.TempContract.PoitemSet[0].Plant;
+				sPlant = itemplant;
+
+			}
 
 		},
 
@@ -601,12 +606,11 @@ sap.ui.define([
 
 		},
 		onSavePOConditionRecords: function(evt) {
-		
+
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
- 
 			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
 			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
 
@@ -615,7 +619,7 @@ sap.ui.define([
 			//delete oRequestPayload.Vendor;
 			var vln = oRequestPayload.PoitemSet.length;
 			oRequestPayload.PoCondSet = [];
-					oRequestPayload.PoScheduleSet = [];
+			oRequestPayload.PoScheduleSet = [];
 			oRequestPayload.Testrun = "X";
 			for (var vlen = 0; vlen < vln; vlen++) {
 				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
@@ -630,159 +634,176 @@ sap.ui.define([
 			oPurchaseModel.refresh(true);
 
 		},
-		
-			_onEntrySuccess: function(oObject, oResponse) {
-				BusyIndicator.hide();
-		//	var Podata = new PurchaseHeader(Object);
-				//	oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
 
-					oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", oObject.PoitemSet.results);
-				
+		_onEntrySuccess: function(oObject, oResponse) {
+			BusyIndicator.hide();
+			//	var Podata = new PurchaseHeader(Object);
+			//	oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
+
+			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", oObject.PoitemSet.results);
+
 			var ResponseData = oObject.PoCondSet.results;
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-		
+
 			oView.getModel("PurchaseModel").setProperty("/TempContract/PoCondSet", oObject.PoCondSet.results);
-	oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", oObject.PoScheduleSet.results);
-	
-	
-		var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
-			
-					var lenthPO = aPurchaseConditionItems.length;
-				
-					var netcount = lenthPO - 1;
-				
-					var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
+			oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", oObject.PoScheduleSet.results);
 
-					var poitem = aPurchaseConditionItems.length;
-			
-					var sMatno = aPurchaseConditionItems[poitem - 1].Material;
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 
-				
-					var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[poitem - 1]);
-					var oListModel = new JSONModel();
-					oListModel.setData(sMatList);
-					oView.setModel(oListModel, "POListModel");
+			var lenthPO = aPurchaseConditionItems.length;
 
-					var sInfoUpdate = oListModel.oData.InfoUpd;
-					var sIrInd = oListModel.oData.IrInd;
+			var netcount = lenthPO - 1;
 
-					var sPrntPrice = oListModel.oData.PrntPrice;
-					var sGrNonVal = oListModel.oData.GrNonVal;
-					var sUnlimitedDlv = oListModel.oData.UnlimitedDlv;
-					var sNoMoreGr = oListModel.oData.NoMoreGr;
-					var sFinalInv = oListModel.oData.FinalInv;
-					var sGrBasediv = oListModel.oData.GrBasediv;
-					var sAcknReqd = oListModel.oData.AcknReqd;
-					var sEstPrice = oListModel.oData.EstPrice;
-					var sOrigAccept = oListModel.oData.OrigAccept;
-					var sGrInd = oListModel.oData.GrInd;
-					if (sInfoUpdate !== "") {
-						oView.getModel("POListModel").setProperty("/InfoUpd", true);
+			var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
 
-					} else {
-						oView.getModel("POListModel").setProperty("/InfoUpd", false);
-					}
-					if (sIrInd !== "") {
-						oView.getModel("POListModel").setProperty("/IrInd", true);
+			var poitem = aPurchaseConditionItems.length;
 
-					} else {
-						oView.getModel("POListModel").setProperty("/IrInd", false);
-					}
-					if (sPrntPrice !== "") {
-						oView.getModel("POListModel").setProperty("/PrntPrice", true);
+			var sMatno = aPurchaseConditionItems[poitem - 1].Material;
 
-					} else {
-						oView.getModel("POListModel").setProperty("/PrntPrice", false);
-					}
-					if (sOrigAccept !== "") {
-						oView.getModel("POListModel").setProperty("/OrigAccept", true);
+			var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[poitem - 1]);
+			var oListModel = new JSONModel();
+			oListModel.setData(sMatList);
+			oView.setModel(oListModel, "POListModel");
 
-					} else {
-						oView.getModel("POListModel").setProperty("/OrigAccept", false);
-					}
-					if (sGrNonVal !== "") {
-						oView.getModel("POListModel").setProperty("/GrNonVal", true);
+			var sInfoUpdate = oListModel.oData.InfoUpd;
+			var sIrInd = oListModel.oData.IrInd;
 
-					} else {
-						oView.getModel("POListModel").setProperty("/GrNonVal", false);
-					}
-					if (sGrInd !== "") {
-						oView.getModel("POListModel").setProperty("/GrInd", true);
+			var sPrntPrice = oListModel.oData.PrntPrice;
+			var sGrNonVal = oListModel.oData.GrNonVal;
+			var sUnlimitedDlv = oListModel.oData.UnlimitedDlv;
+			var sNoMoreGr = oListModel.oData.NoMoreGr;
+			var sFinalInv = oListModel.oData.FinalInv;
+			var sGrBasediv = oListModel.oData.GrBasediv;
+			var sAcknReqd = oListModel.oData.AcknReqd;
+			var sEstPrice = oListModel.oData.EstPrice;
+			var sOrigAccept = oListModel.oData.OrigAccept;
+			var sGrInd = oListModel.oData.GrInd;
+			if (sInfoUpdate !== "") {
+				oView.getModel("POListModel").setProperty("/InfoUpd", true);
 
-					} else {
-						oView.getModel("POListModel").setProperty("/GrInd", false);
-					}
-					if (sNoMoreGr !== "") {
-						oView.getModel("POListModel").setProperty("/NoMoreGr", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/NoMoreGr", false);
-					}
-					if (sFinalInv !== "") {
-						oView.getModel("POListModel").setProperty("/FinalInv", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/FinalInv", false);
-					}
-					if (sGrBasediv !== "") {
-						oView.getModel("POListModel").setProperty("/GrBasediv", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/GrBasediv", false);
-					}
-					if (sAcknReqd !== "") {
-						oView.getModel("POListModel").setProperty("/AcknReqd", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/AcknReqd", false);
-					}
-
-					if (sEstPrice !== "") {
-						oView.getModel("POListModel").setProperty("/EstPrice", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/EstPrice", false);
-					}
-					if (sUnlimitedDlv !== "") {
-						oView.getModel("POListModel").setProperty("/UnlimitedDlv", true);
-
-					} else {
-						oView.getModel("POListModel").setProperty("/UnlimitedDlv", false);
-					}
-
-					oView.setModel(oListModel, "PurchaseItems");
-
-		},
-		
-			onSavePurchaseOrder: function(evt) {
-			MessageToast.show("Save PO");
-			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-
- 
-			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
-			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
-
-			//method for creating the prod
-			BusyIndicator.show(true);
-			//delete oRequestPayload.Vendor;
-			var vln = oRequestPayload.PoitemSet.length;
-
-			for (var vlen = 0; vlen < vln; vlen++) {
-				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
-
-				oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+			} else {
+				oView.getModel("POListModel").setProperty("/InfoUpd", false);
 			}
-			oModel.create("/PoDisplaySet", oRequestPayload, {
-				success: this._onCreateEntrySuccess.bind(this),
-				error: this._onCreateEntryError.bind(this)
-			});
+			if (sIrInd !== "") {
+				oView.getModel("POListModel").setProperty("/IrInd", true);
 
-			oPurchaseModel.refresh(true);
+			} else {
+				oView.getModel("POListModel").setProperty("/IrInd", false);
+			}
+			if (sPrntPrice !== "") {
+				oView.getModel("POListModel").setProperty("/PrntPrice", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/PrntPrice", false);
+			}
+			if (sOrigAccept !== "") {
+				oView.getModel("POListModel").setProperty("/OrigAccept", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/OrigAccept", false);
+			}
+			if (sGrNonVal !== "") {
+				oView.getModel("POListModel").setProperty("/GrNonVal", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/GrNonVal", false);
+			}
+			if (sGrInd !== "") {
+				oView.getModel("POListModel").setProperty("/GrInd", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/GrInd", false);
+			}
+			if (sNoMoreGr !== "") {
+				oView.getModel("POListModel").setProperty("/NoMoreGr", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/NoMoreGr", false);
+			}
+			if (sFinalInv !== "") {
+				oView.getModel("POListModel").setProperty("/FinalInv", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/FinalInv", false);
+			}
+			if (sGrBasediv !== "") {
+				oView.getModel("POListModel").setProperty("/GrBasediv", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/GrBasediv", false);
+			}
+			if (sAcknReqd !== "") {
+				oView.getModel("POListModel").setProperty("/AcknReqd", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/AcknReqd", false);
+			}
+
+			if (sEstPrice !== "") {
+				oView.getModel("POListModel").setProperty("/EstPrice", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/EstPrice", false);
+			}
+			if (sUnlimitedDlv !== "") {
+				oView.getModel("POListModel").setProperty("/UnlimitedDlv", true);
+
+			} else {
+				oView.getModel("POListModel").setProperty("/UnlimitedDlv", false);
+			}
+
+			oView.setModel(oListModel, "PurchaseItems");
 
 		},
-		
+
+		onSavePurchaseOrder: function(evt) {
+
+			var PurchOrg = oView.byId("PurchOrg");
+			var PurGroup = oView.byId("PurGroup");
+			var CompCode = oView.byId("CompCode");
+			var iddoctype = oView.byId("iddoctype");
+			if (PurchOrg.getValue() == "") {
+				PurchOrg.setValueState("Error");
+				PurchOrg.setValueStateText("Purch Org is required");
+				
+			} else if (PurGroup.getValue() == "") {
+				PurGroup.setValueState("Error");
+				PurGroup.setValueStateText("Purchase Group is required");
+			} else if (CompCode.getValue() == "") {
+				CompCode.setValueState("Error");
+				CompCode.setValueStateText("Company Code is required");
+			} else if (iddoctype.getValue() == "") {
+				iddoctype.setValueState("Error");
+				iddoctype.setValueStateText("Document Type is required");
+			} else {
+				var oPurchaseModel = this.getView().getModel("PurchaseModel");
+				var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
+				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
+				//	var oRequestPayload = oPurchaseContract.getRequestPayload();
+				var oRequestPayload = oPurchaseContract.getStockTransferPayload();
+
+				//method for creating the prod
+				BusyIndicator.show(true);
+				//delete oRequestPayload.Vendor;
+				var vln = oRequestPayload.PoitemSet.length;
+
+				for (var vlen = 0; vlen < vln; vlen++) {
+					//	delete oRequestPayload.PoitemSet[vlen].Vendor;
+
+					oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
+				}
+				oModel.create("/PoDisplaySet", oRequestPayload, {
+					success: this._onCreateEntrySuccess.bind(this),
+					error: this._onCreateEntryError.bind(this)
+				});
+
+				oPurchaseModel.refresh(true);
+
+			}
+
+		},
+
 		_onCreateEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
 			successObj = oObject.PoNumber;
@@ -1041,6 +1062,24 @@ sap.ui.define([
 
 				evt.getSource().getBinding("items").filter([]);
 			}
+		},
+		//validation function
+
+		//numeric validation
+		onChangeValue: function(oEvent) {
+			var oControl = oEvent.getSource();
+			var sPlaceholder = oControl.getProperty("placeholder");
+			var sValue = oControl.getValue();
+
+			if (sValue === "") {
+				oControl.setValueState("Error");
+				oControl.setValueStateText(sPlaceholder + "is required");
+			} else {
+				oControl.setValueState("None");
+				oControl.setValueStateText("");
+
+			}
+
 		},
 
 		/**
