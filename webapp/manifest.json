@@ -283,10 +283,14 @@
 				"target": ["StockTransfer"]
 			},
 			{
+				"pattern": "PoDecision",
+				"name": "PoDecision",
+				"target": ["PoDecision"]
+			},{
 				"pattern": "ShowTiles",
 				"name": "ShowTiles",
 				"target": ["ShowTiles"]
-			}, {
+			} ,{
 				"name": "PurchaseItemDetails",
 				"pattern": "PurchaseItemDetails/{PoNumber}",
 				"target": "PurchaseItemDetails"
@@ -493,6 +497,10 @@
 				},
 				"ShowTiles": {
 					"viewName": "ShowTiles",
+					"controlId": "idApp"
+				},
+					"PoDecision": {
+					"viewName": "PoDecision",
 					"controlId": "idApp"
 				},
 				"VendorDetail": {

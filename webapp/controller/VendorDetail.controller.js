@@ -53,6 +53,7 @@ sap.ui.define([
 			this.getView().setModel(oScreenModel, "ScreenName");
 
 			this.oRouter = this.getOwnerComponent().getRouter();
+		//	this.oRouter.getRoute("VendorDetail").attachPatternMatched(this._onRouteMatched2, this);
 			this.oRouter.getRoute("VendorDetail").attachPatternMatched(this._onRouteMatched1, this);
 
 		},
@@ -134,6 +135,11 @@ sap.ui.define([
 				}*/
 			}
 		},
+		
+		_onRouteMatched2 : function(){
+			
+		},
+		
 		onAlphabetnumericValidation : function(oEvent){
 		var sValue= oEvent.mParameters.value;
 		var sInput = oEvent.getSource().sId;

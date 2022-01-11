@@ -12,6 +12,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
 				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->
+				<m:Button tooltip="{i18n>addItem}" text="PoDecision" id="onPressPoDecision" press="onPressPoDecision"/>
 				<m:Button tooltip="{i18n>addItem}" text="MassUpdate" id="idMassUpdate" press="MassUpdatePo"/>
 				<m:Button tooltip="{i18n>addItem}" text="BuyerSheet" id="idBuyersheet" press="BuyerSheetChat"/>
 				<m:Button text="Collapse all" press="onCollapseAll"/>

@@ -15,13 +15,18 @@ sap.ui.define([
 	"sap/ui/table/RowActionItem",
 	"sap/ui/table/RowSettings",
 	"sap/ui/core/Fragment",
-
 	"sap/ui/export/Spreadsheet",
 	"sap/ui/export/library",
-	"com/vSimpleApp/model/VendorP2P"
+	"com/vSimpleApp/model/VendorP2P",
+	"sap/m/Dialog",
+	"sap/m/DialogType",
+	"sap/m/Button",
+	"sap/m/ButtonType",
+	"sap/ui/core/IconPool"
 
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, Export, ExportTypeCSV, MessageBox, Sorter,
-	library, jQuery, RowAction, RowActionItem, RowSettings, Fragment, Spreadsheet, exportLibrary, VendorP2P) {
+	library, jQuery, RowAction, RowActionItem, RowSettings, Fragment, Spreadsheet, exportLibrary, VendorP2P, Dialog, DialogType, Button,
+	ButtonType, IconPool) {
 	"use strict";
 	//global variable
 	var Purchaseordernumber;
@@ -58,16 +63,22 @@ sap.ui.define([
 
 			//Visible disable model
 			var oVisiblemodel = new JSONModel({
-				isEditable: false
+				isEditable: false,
+				isVisible: true
 			});
 
 			this.getView().setModel(oVisiblemodel, "Visiblemodel");
+			var oScreenModel = new JSONModel({
+				isScreen: "Create Vendor"
+			});
+
+			this.getView().setModel(oScreenModel, "ScreenName");
 
 			//calling function through init
 			this.getVendorList();
-			this.getPurchaseOrderList();
-			this.getVendorCountListByPO();
 			this.getTopProductsFirst();
+
+			//	this.getPurchaseOrderList();
 
 			// set explored app's demo model on this sample
 
@@ -109,6 +120,7 @@ sap.ui.define([
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
+			this.getVendorCountListByPO();
 
 		},
 
@@ -163,7 +175,51 @@ sap.ui.define([
 			}
 
 		},
+		pressGenericTileVendor: function(evt) {
 
+			this.pressDialogExcessDiscard = oView.byId("IdVendorLinks");
+			if (!this.pressDialogExcessDiscard) {
+				this.pressDialogExcessDiscard = sap.ui.xmlfragment("com.vSimpleApp.fragment.VendorDisplay.VendorLinks", this);
+				this.pressDialogExcessDiscard.open();
+
+			}
+
+		},
+		handleLinkPress: function(evt) {
+			if (evt.getSource().getProperty("text") === "Create Vendor") {
+
+				// 	oComponent.getRouter().navTo("VendorDetail", {
+				// 	StageId : "1"
+				// });
+				oComponent.getRouter().navTo("VendorDetail");
+			} else if (evt.getSource().getProperty("text") === "Edit Vendor") {
+				oComponent.getRouter().navTo("VendorDetail");
+
+				// 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				// oRouter.navTo("VendorDetail",{
+				// StageId : 2
+				// });
+
+				// 		var sVendor = "Edit Vendor";
+				// //setting property to models
+				// oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
+				// oView.getModel("VisibleModel").setProperty("/isVisible", true);
+
+				// oView.byId("iddEditt").setVisible(false);
+				// oView.getModel("EditModel").setProperty("/isEditable", true);
+
+			} else if (evt.getSource().getProperty("text") === "Display Vendor") {
+				oComponent.getRouter().navTo("VendorDetail");
+
+				// 	oComponent.getRouter().navTo("VendorDetail", {
+				// 	StageId: 3
+				// });
+			}
+		},
+		closeLinkbox: function(evt) {
+			this.pressDialogExcessDiscard.close();
+			this.pressDialogExcessDiscard.destroy();
+		},
 		pressGenericTile: function(evt) {
 			//navigate the property is selected subheader.
 			if (evt.getSource().getProperty("header") === "Vendor Master") {
@@ -176,8 +232,8 @@ sap.ui.define([
 				oComponent.getRouter().navTo("Dashboard");
 			} else if (evt.getSource().getProperty("header") === "Vendor Rebate Management") {
 				oComponent.getRouter().navTo("DashboardVendor");
-			}else if(evt.getSource().getProperty("header") === "Manage Stock"){
-				oComponent.getRouter().navTo("ManageStockTable");
+			} else if (evt.getSource().getProperty("header") === "Manage Stock") {
+				oComponent.getRouter().navTo("StockTable");
 			}
 
 		},
@@ -225,7 +281,7 @@ sap.ui.define([
 
 							}
 						});
-					//		console.log(result);
+						//		console.log(result);
 
 						result.sort(function(a, b) {
 							return b.count - a.count;
@@ -301,12 +357,12 @@ sap.ui.define([
 		getVendorList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(0);
+			BusyIndicator.show(true);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
+					BusyIndicator.hide();
 					var iItem = oData.results.length;
 					ListofVendor = oData.results;
-			
 
 					var oCount = new sap.ui.model.json.JSONModel({
 						item: iItem
@@ -328,7 +384,7 @@ sap.ui.define([
 					//that.getMaterialList();
 				},
 				error: function(oError) {
-					//BusyIndicator.hide();
+					BusyIndicator.hide();
 					MessageToast.show(oError);
 				}
 			});
@@ -388,7 +444,7 @@ sap.ui.define([
 					//oModel.read("/POItemSet", {
 					filters: aFilter,
 					success: function(oData) {
-					
+
 						var iItem = oData.results.length;
 						var oVendor = new VendorP2P(oData.results[0]);
 						oComponent.getModel("VendorModel").setData(oData.results[0]);
@@ -468,7 +524,7 @@ sap.ui.define([
 			var that = this;
 
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//BusyIndicator.show(0);
+			BusyIndicator.show(true);
 			oModel.read("/just_poheader2Set ", {
 
 				success: function(oData) {
@@ -482,202 +538,202 @@ sap.ui.define([
 					});
 					oView.setModel(oCountPo1, "CountPo1");
 
-					for (var iRowIndex = 0; iRowIndex < iItemPO; iRowIndex++) {
-						var odataset = oData.results[iRowIndex];
+					// for (var iRowIndex = 0; iRowIndex < iItemPO; iRowIndex++) {
+					// 	var odataset = oData.results[iRowIndex];
 
-						var Compcode = odataset.Bukrs;
-						Purchaseordernumber = odataset.Ebeln;
-						var pogrp = odataset.Ekgrp;
-						var poorg = odataset.Ekorg;
-						var lifnrr = odataset.Lifnr;
-						var currency = odataset.Waers;
-						var createddate = odataset.Bedat;
-						var Createdby = odataset.Ernam;
+					// 	var Compcode = odataset.Bukrs;
+					// 	Purchaseordernumber = odataset.Ebeln;
+					// 	var pogrp = odataset.Ekgrp;
+					// 	var poorg = odataset.Ekorg;
+					// 	var lifnrr = odataset.Lifnr;
+					// 	var currency = odataset.Waers;
+					// 	var createddate = odataset.Bedat;
+					// 	var Createdby = odataset.Ernam;
 
-						var Absgr = odataset.Absgr;
-						var Addnr = odataset.Addnr;
-						var Adrnr = odataset.Adrnr;
-						var Angdt = odataset.Angdt;
-						var Angnr = odataset.Angnr;
-						var Ausnr = odataset.Ausnr;
-						var Autlf = odataset.Autlf;
-						var Bnddt = odataset.Bnddt;
+					// 	var Absgr = odataset.Absgr;
+					// 	var Addnr = odataset.Addnr;
+					// 	var Adrnr = odataset.Adrnr;
+					// 	var Angdt = odataset.Angdt;
+					// 	var Angnr = odataset.Angnr;
+					// 	var Ausnr = odataset.Ausnr;
+					// 	var Autlf = odataset.Autlf;
+					// 	var Bnddt = odataset.Bnddt;
 
-						var Bsakz = odataset.Bsakz;
-						var Bsart = odataset.Bsart;
-						var Bstyp = odataset.Bstyp;
-						var Bwbdt = odataset.Bwbdt;
-						var Description = odataset.Description;
-						var Dpamt = odataset.Dpamt;
-						var Dpdat = odataset.Dpdat;
-						var Dppct = odataset.Dppct;
+					// 	var Bsakz = odataset.Bsakz;
+					// 	var Bsart = odataset.Bsart;
+					// 	var Bstyp = odataset.Bstyp;
+					// 	var Bwbdt = odataset.Bwbdt;
+					// 	var Description = odataset.Description;
+					// 	var Dpamt = odataset.Dpamt;
+					// 	var Dpdat = odataset.Dpdat;
+					// 	var Dppct = odataset.Dppct;
 
-						var Dptyp = odataset.Dptyp;
-						var Exnum = odataset.Exnum;
-						var Frggr = odataset.Frggr;
-						var Frgke = odataset.Frgke;
-						var Frgrl = odataset.Frgrl;
-						var Frgsx = odataset.Frgsx;
-						var Frgzu = odataset.Frgzu;
-						var Gwldt = odataset.Gwldt;
+					// 	var Dptyp = odataset.Dptyp;
+					// 	var Exnum = odataset.Exnum;
+					// 	var Frggr = odataset.Frggr;
+					// 	var Frgke = odataset.Frgke;
+					// 	var Frgrl = odataset.Frgrl;
+					// 	var Frgsx = odataset.Frgsx;
+					// 	var Frgzu = odataset.Frgzu;
+					// 	var Gwldt = odataset.Gwldt;
 
-						var HierarchyExists = odataset.HierarchyExists;
-						var Ihran = odataset.Ihran;
-						var Ihrez = odataset.Ihrez;
-						var Inco1 = odataset.Inco1;
-						var Inco2 = odataset.Inco2;
-						var Kalsm = odataset.Kalsm;
-						var Kdatb = odataset.Kdatb;
-						var Kdate = odataset.Kdate;
+					// 	var HierarchyExists = odataset.HierarchyExists;
+					// 	var Ihran = odataset.Ihran;
+					// 	var Ihrez = odataset.Ihrez;
+					// 	var Inco1 = odataset.Inco1;
+					// 	var Inco2 = odataset.Inco2;
+					// 	var Kalsm = odataset.Kalsm;
+					// 	var Kdatb = odataset.Kdatb;
+					// 	var Kdate = odataset.Kdate;
 
-						var Knumv = odataset.Knumv;
-						var Konnr = odataset.Konnr;
-						var Kornr = odataset.Kornr;
-						var Ktwrt = odataset.Ktwrt;
-						var Kufix = odataset.Kufix;
-						var Kunnr = odataset.Kunnr;
-						var Lands = odataset.Lands;
-						var Lblif = odataset.Lblif;
+					// 	var Knumv = odataset.Knumv;
+					// 	var Konnr = odataset.Konnr;
+					// 	var Kornr = odataset.Kornr;
+					// 	var Ktwrt = odataset.Ktwrt;
+					// 	var Kufix = odataset.Kufix;
+					// 	var Kunnr = odataset.Kunnr;
+					// 	var Lands = odataset.Lands;
+					// 	var Lblif = odataset.Lblif;
 
-						var LegalContract = odataset.LegalContract;
-						var Lifre = odataset.Lifre;
-						var Llief = odataset.Llief;
-						var Loekz = odataset.Loekz;
-						var Lphis = odataset.Lphis;
-						var Lponr = odataset.Lponr;
-						var Memory = odataset.Memory;
-						var Memorytype = odataset.Memorytype;
+					// 	var LegalContract = odataset.LegalContract;
+					// 	var Lifre = odataset.Lifre;
+					// 	var Llief = odataset.Llief;
+					// 	var Loekz = odataset.Loekz;
+					// 	var Lphis = odataset.Lphis;
+					// 	var Lponr = odataset.Lponr;
+					// 	var Memory = odataset.Memory;
+					// 	var Memorytype = odataset.Memorytype;
 
-						var MsrId = odataset.LegalContract;
-						var Pincr = odataset.Pincr;
-						var PohfType = odataset.PohfType;
-						var Procstat = odataset.Procstat;
-						var ReasonCode = odataset.ReasonCode;
-						var ReleaseDate = odataset.ReleaseDate;
-						var RelocId = odataset.RelocId;
-						var RelocSeqId = odataset.RelocSeqId;
+					// 	var MsrId = odataset.LegalContract;
+					// 	var Pincr = odataset.Pincr;
+					// 	var PohfType = odataset.PohfType;
+					// 	var Procstat = odataset.Procstat;
+					// 	var ReasonCode = odataset.ReasonCode;
+					// 	var ReleaseDate = odataset.ReleaseDate;
+					// 	var RelocId = odataset.RelocId;
+					// 	var RelocSeqId = odataset.RelocSeqId;
 
-						var Reswk = odataset.Reswk;
-						var Retpc = odataset.Retpc;
-						var Rettp = odataset.Rettp;
-						var Revno = odataset.Revno;
-						var Rlwrt = odataset.Rlwrt;
-						var Shipcond = odataset.Shipcond;
-						var Spras = odataset.Spras;
-						var Stafo = odataset.Stafo;
+					// 	var Reswk = odataset.Reswk;
+					// 	var Retpc = odataset.Retpc;
+					// 	var Rettp = odataset.Rettp;
+					// 	var Revno = odataset.Revno;
+					// 	var Rlwrt = odataset.Rlwrt;
+					// 	var Shipcond = odataset.Shipcond;
+					// 	var Spras = odataset.Spras;
+					// 	var Stafo = odataset.Stafo;
 
-						var Stako = odataset.Stako;
-						var Statu = odataset.Statu;
-						var Stceg = odataset.Stceg;
-						var Submi = odataset.Submi;
-						var Zbd1p = odataset.Zbd1p;
-						var Zbd1t = odataset.Zbd1t;
-						var Zbd2p = odataset.Zbd2p;
-						var Zbd2t = odataset.Zbd2t;
-						var Zbd3t = odataset.Zbd3t;
-						var Zterm = odataset.Zterm;
+					// 	var Stako = odataset.Stako;
+					// 	var Statu = odataset.Statu;
+					// 	var Stceg = odataset.Stceg;
+					// 	var Submi = odataset.Submi;
+					// 	var Zbd1p = odataset.Zbd1p;
+					// 	var Zbd1t = odataset.Zbd1t;
+					// 	var Zbd2p = odataset.Zbd2p;
+					// 	var Zbd2t = odataset.Zbd2t;
+					// 	var Zbd3t = odataset.Zbd3t;
+					// 	var Zterm = odataset.Zterm;
 
-						if (lifnrr !== "" || lifnrr !== undefined) {
-							for (var y = 0; y < ListofVendor.length; y++) {
-								if (lifnrr === ListofVendor[y].Lifnr) {
-									var venname = ListofVendor[y].Name1;
-									//	console.log(venname);
+					// 	if (lifnrr !== "" || lifnrr !== undefined) {
+					// 		for (var y = 0; y < ListofVendor.length; y++) {
+					// 			if (lifnrr === ListofVendor[y].Lifnr) {
+					// 				var venname = ListofVendor[y].Name1;
+					// 				//	console.log(venname);
 
-								}
-							}
-						}
+					// 			}
+					// 		}
+					// 	}
 
-						ListofPurchaseOrders.push({
-							Bukrs: Compcode,
-							Ebeln: Purchaseordernumber,
-							Ekgrp: pogrp,
-							Ekorg: poorg,
-							Lifnr: lifnrr,
-							Name: venname,
-							Waers: currency,
-							Bedat: createddate,
-							Ernam: Createdby,
+					// 	ListofPurchaseOrders.push({
+					// 		Bukrs: Compcode,
+					// 		Ebeln: Purchaseordernumber,
+					// 		Ekgrp: pogrp,
+					// 		Ekorg: poorg,
+					// 		Lifnr: lifnrr,
+					// 		Name: venname,
+					// 		Waers: currency,
+					// 		Bedat: createddate,
+					// 		Ernam: Createdby,
 
-							Absgr: Absgr,
-							Addnr: Addnr,
-							Adrnr: Adrnr,
-							Angdt: Angdt,
-							Angnr: Angnr,
-							Ausnr: Ausnr,
-							Autlf: Autlf,
-							Bnddt: Bnddt,
+					// 		Absgr: Absgr,
+					// 		Addnr: Addnr,
+					// 		Adrnr: Adrnr,
+					// 		Angdt: Angdt,
+					// 		Angnr: Angnr,
+					// 		Ausnr: Ausnr,
+					// 		Autlf: Autlf,
+					// 		Bnddt: Bnddt,
 
-							Bsakz: Bsakz,
-							Bsart: Bsart,
-							Bstyp: Bstyp,
-							Bwbdt: Bwbdt,
-							Description: Description,
-							Dpamt: Dpamt,
-							Dpdat: Dpdat,
-							Dppct: Dppct,
-							Dptyp: Dptyp,
-							Exnum: Exnum,
-							Frggr: Frggr,
-							Frgke: Frgke,
-							Frgrl: Frgrl,
-							Frgsx: Frgsx,
-							Frgzu: Frgzu,
-							Gwldt: Gwldt,
-							HierarchyExists: HierarchyExists,
-							Ihran: Ihran,
-							Ihrez: Ihrez,
-							Inco1: Inco1,
-							Inco2: Inco2,
-							Kalsm: Kalsm,
-							Kdatb: Kdatb,
-							Kdate: Kdate,
-							Knumv: Knumv,
-							Konnr: Konnr,
-							Kornr: Kornr,
-							Ktwrt: Ktwrt,
-							Kufix: Kufix,
-							Kunnr: Kunnr,
-							Lands: Lands,
-							Lblif: Lblif,
-							LegalContract: LegalContract,
-							Lifre: Lifre,
-							Llief: Llief,
-							Loekz: Loekz,
-							Lphis: Lphis,
-							Lponr: Lponr,
-							Memory: Memory,
-							Memorytype: Memorytype,
-							MsrId: MsrId,
-							Pincr: Pincr,
-							PohfType: PohfType,
-							Procstat: Procstat,
-							ReasonCode: ReasonCode,
-							ReleaseDate: ReleaseDate,
-							RelocId: RelocId,
-							RelocSeqId: RelocSeqId,
-							Reswk: Reswk,
-							Retpc: Retpc,
-							Rettp: Rettp,
-							Revno: Revno,
-							Rlwrt: Rlwrt,
-							Shipcond: Shipcond,
-							Spras: Spras,
-							Stafo: Stafo,
-							Stako: Stako,
-							Statu: Statu,
-							Stceg: Stceg,
-							Submi: Submi,
-							Zbd1p: Zbd1p,
-							Zbd1t: Zbd1t,
-							Zbd2p: Zbd2p,
-							Zbd2t: Zbd2t,
-							Zbd3t: Zbd3t,
-							Zterm: Zterm
+					// 		Bsakz: Bsakz,
+					// 		Bsart: Bsart,
+					// 		Bstyp: Bstyp,
+					// 		Bwbdt: Bwbdt,
+					// 		Description: Description,
+					// 		Dpamt: Dpamt,
+					// 		Dpdat: Dpdat,
+					// 		Dppct: Dppct,
+					// 		Dptyp: Dptyp,
+					// 		Exnum: Exnum,
+					// 		Frggr: Frggr,
+					// 		Frgke: Frgke,
+					// 		Frgrl: Frgrl,
+					// 		Frgsx: Frgsx,
+					// 		Frgzu: Frgzu,
+					// 		Gwldt: Gwldt,
+					// 		HierarchyExists: HierarchyExists,
+					// 		Ihran: Ihran,
+					// 		Ihrez: Ihrez,
+					// 		Inco1: Inco1,
+					// 		Inco2: Inco2,
+					// 		Kalsm: Kalsm,
+					// 		Kdatb: Kdatb,
+					// 		Kdate: Kdate,
+					// 		Knumv: Knumv,
+					// 		Konnr: Konnr,
+					// 		Kornr: Kornr,
+					// 		Ktwrt: Ktwrt,
+					// 		Kufix: Kufix,
+					// 		Kunnr: Kunnr,
+					// 		Lands: Lands,
+					// 		Lblif: Lblif,
+					// 		LegalContract: LegalContract,
+					// 		Lifre: Lifre,
+					// 		Llief: Llief,
+					// 		Loekz: Loekz,
+					// 		Lphis: Lphis,
+					// 		Lponr: Lponr,
+					// 		Memory: Memory,
+					// 		Memorytype: Memorytype,
+					// 		MsrId: MsrId,
+					// 		Pincr: Pincr,
+					// 		PohfType: PohfType,
+					// 		Procstat: Procstat,
+					// 		ReasonCode: ReasonCode,
+					// 		ReleaseDate: ReleaseDate,
+					// 		RelocId: RelocId,
+					// 		RelocSeqId: RelocSeqId,
+					// 		Reswk: Reswk,
+					// 		Retpc: Retpc,
+					// 		Rettp: Rettp,
+					// 		Revno: Revno,
+					// 		Rlwrt: Rlwrt,
+					// 		Shipcond: Shipcond,
+					// 		Spras: Spras,
+					// 		Stafo: Stafo,
+					// 		Stako: Stako,
+					// 		Statu: Statu,
+					// 		Stceg: Stceg,
+					// 		Submi: Submi,
+					// 		Zbd1p: Zbd1p,
+					// 		Zbd1t: Zbd1t,
+					// 		Zbd2p: Zbd2p,
+					// 		Zbd2t: Zbd2t,
+					// 		Zbd3t: Zbd3t,
+					// 		Zterm: Zterm
 
-						});
+					// 	});
 
-					}
-					//		console.log(ListofPurchaseOrders);
+					// }
+					// //		console.log(ListofPurchaseOrders);
 
 					var CountPo = new sap.ui.model.json.JSONModel({
 						item: iItemPO
@@ -688,7 +744,9 @@ sap.ui.define([
 					//	console.log(oData);
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/POOrderList", ListofPurchaseOrders);
+					//oLookupModel.setProperty("/POOrderList", ListofPurchaseOrders);
+					oLookupModel.setProperty("/POOrderList", oData.results);
+
 					oLookupModel.refresh(true);
 
 				},
@@ -703,8 +761,8 @@ sap.ui.define([
 
 		getTopProductsFirst: function() {
 			var oModel1 = this.getOwnerComponent().getModel("VHeader");
-
-			//	BusyIndicator.show(0);
+			var that = this;
+			BusyIndicator.show(true);
 			oModel1.read("/Max_MaterialSet", {
 				success: function(odata) {
 					BusyIndicator.hide();
@@ -763,7 +821,7 @@ sap.ui.define([
 					var oTop5productsModel = new JSONModel();
 					oTop5productsModel.setData(aTop5products);
 					oView.setModel(oTop5productsModel, "top5products");
-
+					that.getPurchaseOrderList();
 				},
 				error: function(er) {
 					BusyIndicator.hide();

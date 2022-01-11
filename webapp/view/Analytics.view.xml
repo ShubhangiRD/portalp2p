@@ -1,8 +1,8 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap"
 	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:card="sap.f.cards" class="sapUiSizeCompact" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
 	xmlns:viz.data="sap.viz.ui5.data" xmlns:viz="sap.viz.ui5.controls" controllerName="com.vSimpleApp.controller.Analytics"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:w="sap.ui.integration.widgets" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form">
+	xmlns:u="sap.ui.unified" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:w="sap.ui.integration.widgets" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form">
 	<tnt:ToolHeader>
 		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
 			<layoutData>

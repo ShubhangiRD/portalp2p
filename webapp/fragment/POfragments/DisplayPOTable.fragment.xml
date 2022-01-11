@@ -1,67 +1,186 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:core="sap.ui.core">
-	<Table id="PurchaseTableDisplay" class="sapUiSizeCompact" items="{ path: 'Lookup>/OpenPOList' }">
-		<headerToolbar>
-			<OverflowToolbar>
-				<Title text="Purchase Order( {CountPo>/item})" level="H2"/>
-				<ToolbarSpacer></ToolbarSpacer>
-					<SearchField id="searchField" width="20%" placeholder="Search..." search=".onSearchEbeln"/>
-							<Button
-							tooltip="Sort"
-							icon="sap-icon://sort"
-							press="onSort"
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form"-->
+<!--	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:core="sap.ui.core">-->
+<!--	<Table id="PurchaseTableDisplay" class="sapUiSizeCompact" items="{ path: 'Lookup>/OpenPOList' }">-->
+<!--		<headerToolbar>-->
+<!--			<OverflowToolbar>-->
+<!--				<Title text="Purchase Order( {CountPo>/item})" level="H2"/>-->
+<!--				<ToolbarSpacer></ToolbarSpacer>-->
+					<!--<SearchField id="searchField" width="20%" placeholder="Search..." search=".onSearchEbeln"/>-->
+<!--							<Button-->
+<!--							tooltip="Sort"-->
+<!--							icon="sap-icon://sort"-->
+<!--							press="onSort"-->
 							
-							/>
-								<Button icon="sap-icon://refresh" press="onRefresh" tooltip="Refresh" />
-			<!--			
-				<Button icon="sap-icon://paper-plane" text="Post" press="onPostItems" type="Accept" ariaLabelledBy="editButtonLabel"/>
-		-->	</OverflowToolbar>
-		</headerToolbar>
-		<columns>
-			<Column>
-				<Text text="Company Code"/>
-			</Column>
-			<Column>
-				<Text text="Vendor Details"/>
-			</Column>
-			<Column minScreenWidth="Tablet" demandPopin="true">
-				<Text text="Purchase Order "/>
-			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Purchase Group "/>
-			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Purchase Organization"/>
-			</Column>
+<!--							/>-->
+<!--								<Button icon="sap-icon://refresh" press="onRefresh" tooltip="Refresh" />-->
+<!--			</OverflowToolbar>-->
+<!--		</headerToolbar>-->
+<!--		<columns>-->
+<!--			<Column >-->
+<!--				<Text text="Company Code"/>-->
+<!--			</Column>-->
+<!--			<Column>-->
+<!--				<Text text="Vendor Details"/>-->
+<!--			</Column>-->
+<!--			<Column minScreenWidth="Tablet" demandPopin="true">-->
+<!--				<Text text="Purchase Order "/>-->
+<!--			</Column>-->
+<!--			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Purchase Group "/>-->
+<!--			</Column>-->
+<!--			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Purchase Organization"/>-->
+<!--			</Column>-->
 		
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Created By"/>
-			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Created Date"/>
-			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Country"/>
-			</Column>
-				<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-				<Text text="Payment Term"/>
-			</Column>
-		</columns>
-		<items>
-			<ColumnListItem type="Navigation" press="OnNavigateDetails" custom:Ebeln="{Lookup>Ebeln}">
-				<cells>
-					<ObjectIdentifier title="{Lookup>Bukrs}"/>
-					<ObjectIdentifier title="{Lookup>Lifnr}" text="{Lookup>Name}"/>
-					<ObjectIdentifier title="{Lookup>Ebeln}"/>
-					<ObjectIdentifier title="{Lookup>Ekgrp}"/>
-					<ObjectIdentifier title="{Lookup>Ekorg}"/>
+<!--			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Created By"/>-->
+<!--			</Column>-->
+<!--			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Created Date"/>-->
+<!--			</Column>-->
+<!--			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Country"/>-->
+<!--			</Column>-->
+<!--				<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+<!--				<Text text="Payment Term"/>-->
+<!--			</Column>-->
+<!--		</columns>-->
+<!--		<items>-->
+<!--			<ColumnListItem type="Navigation" press="OnNavigateDetails" custom:Ebeln="{Lookup>Ebeln}">-->
+<!--				<cells>-->
+<!--					<ObjectIdentifier title="{Lookup>Bukrs}"/>-->
+<!--					<ObjectIdentifier title="{Lookup>Lifnr}" text="{Lookup>Name}"/>-->
+<!--					<ObjectIdentifier title="{Lookup>Ebeln}"/>-->
+<!--					<ObjectIdentifier title="{Lookup>Ekgrp}"/>-->
+<!--					<ObjectIdentifier title="{Lookup>Ekorg}"/>-->
 				
-					<ObjectIdentifier title="{Lookup>Ernam}"/>
-					<ObjectIdentifier title="{path: 'Lookup>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
-					<ObjectIdentifier title="{Lookup>Lands}"/>
-						<ObjectIdentifier title="{Lookup>Zterm}"/>
-				</cells>
-			</ColumnListItem>
-		</items>
-	</Table>
+<!--					<ObjectIdentifier title="{Lookup>Ernam}"/>-->
+<!--					<ObjectIdentifier title="{path: 'Lookup>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>-->
+<!--					<ObjectIdentifier title="{Lookup>Lands}"/>-->
+<!--						<ObjectIdentifier title="{Lookup>Zterm}"/>-->
+<!--				</cells>-->
+<!--			</ColumnListItem>-->
+<!--		</items>-->
+<!--	</Table>-->
+<!--</core:FragmentDefinition>-->
+
+
+
+
+
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified" xmlns:m="sap.m"
+	height="100%" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<m:ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true">
+		<Table id="PurchaseTableDisplay" selectionMode="None" 
+		rows="{Lookup>/OpenPOList}" visibleRowCount="10" enableCellFilter="{ui>/cellFilterOn}"
+			filter="filterPrice" ariaLabelledBy="title"
+			
+			
+			>
+			<extension>
+				<m:OverflowToolbar >
+					
+					<m:Title id="title" text="Purchase Order( {CountPo>/item})"/>
+					<m:ToolbarSpacer/>
+				
+					<!--<m:Button-->
+					<!--		tooltip="Sort"-->
+					<!--		icon="sap-icon://sort"-->
+					<!--		press="onSort"-->
+							
+					<!--		/>-->
+					<!--			<m:Button icon="sap-icon://refresh" press="onRefresh" tooltip="Refresh" />-->
+				
+					<!--<m:Button icon="sap-icon://download" press="onExport"/>-->
+				
+					<!--<m:Button icon="sap-icon://decline" tooltip="Clear all filters" press="clearAllFiltersPOtable"/>-->
+					<!--<m:ToolbarSeparator/>-->
+					<!--<m:SearchField placeholder="Filter" value="{ui>/globalFilter}" search="onSearchEbeln" width="15rem"/>-->
+					
+				
+							<m:Select id="select" items="{modes>/items}" selectedKey="Navigation" change="onBehaviourModeChange">
+						<core:Item key="{modes>key}" text="{modes>text}"/>
+					</m:Select>
+			
+					<m:Button icon="sap-icon://download" press="onExport"/>
+					<!--<m:Button icon="sap-icon://full-screen" press="TableFullScreen"/>-->
+					<m:Button icon="sap-icon://decline" tooltip="Clear all filters" press="clearAllFiltersPOtable"/>
+					<m:ToolbarSeparator/>
+					<!--<m:SearchField placeholder="Filter" value="{ui>/globalFilter}" search="onSearchEbeln" width="15rem"/>-->
+			
+					
+					
+					
+					
+					
+					
+				</m:OverflowToolbar>
+			</extension>
+			<columns>
+				<Column width="9rem" hAlign="Center" filterProperty="Bukrs">
+					<m:Label text="Company Code"/>
+					<template>
+						<m:Text text="{Lookup>Bukrs}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="11rem" hAlign="Center" filterProperty="Ebeln" defaultFilterOperator="StartsWith">
+					<m:Label text="Purchase Order"/>
+					<template >
+						<m:Text text="{Lookup>Ebeln}" custom:Ebeln="{Lookup>Ebeln}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" sortProperty="Lifnr" filterProperty="Lifnr">
+					<m:Label text="Vendor Number "/>
+					<template>
+						<m:Text text="{Lookup>Lifnr} {Lookup>Name}" wrapping="false"/>
+					</template>
+				</Column>
+			
+				<Column  width="9rem" hAlign="Center" filterProperty="Ekorg">
+					<m:Label text="Purchase Org"/>
+					<template>
+						<m:Text text="{Lookup>Ekorg}" wrapping="false"/>
+					</template>
+				</Column>
+						<Column  width="9rem" hAlign="Center" filterProperty="Ekorg">
+					<m:Label text="Purchase Org"/>
+					<template>
+						<m:Text text="{Lookup>Ekgrp}" wrapping="false"/>
+					</template>
+				</Column>
+				<Column id="iddate" width="9rem" hAlign="Center" filterProperty="Bedat">
+					<m:Label text="Created On"/>
+					<template>
+						<m:Text text="{path: 'Lookup>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }" wrapping="false"/>
+					</template>
+				</Column>
+				<Column width="9rem" hAlign="Center" filterProperty="Ernam" sortProperty="Ernam">
+					<m:Label text="Created By"/>
+					<template>
+						<m:Text text="{Lookup>Ernam}"/>
+					</template>
+				</Column>
+					<Column width="5rem" hAlign="Center" filterProperty="Lands" sortProperty="Lands">
+					<m:Label text="Country"/>
+					<template>
+						<m:Text text="{Lookup>Lands}"/>
+					</template>
+				</Column>
+			
+				<Column width="9rem" hAlign="Center" filterProperty="Zterm" sortProperty="Zterm">
+					<m:Label text="Terms of Payment Key"/>
+					<template>
+						<m:Text text="{Lookup>Zterm}"/>
+					</template>
+				</Column>
+			</columns>
+			<footer>
+				<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+			</footer>
+		</Table>
+		
+		
+		
+		
+	</m:ScrollContainer>
 </core:FragmentDefinition>

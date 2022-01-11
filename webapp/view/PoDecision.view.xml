@@ -1,0 +1,156 @@
+<mvc:View 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:t="sap.ui.table"
+	xmlns:unified="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	xmlns:tnt="sap.tnt"
+	xmlns:u="sap.ui.unified"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiSizeCompact"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" controllerName="com.vSimpleApp.controller.PoDecision"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title" showHeader="false">
+				<content>
+	<!--					<Table id="leadtimeTable" busyIndicatorDelay="0" inset="false" items="{ path: 'oLeadTimeModel>/' }" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiLargeMarginEnd tileLayout">-->
+	<!--	<columns>-->
+	<!--		<Column minScreenWidth="Tablet" demandPopin="true">-->
+	<!--			<Text text="Material"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Material Description"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Quantity Inhand"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="48 Last Hour"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="This Month"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Last 3Month"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Last 6 Month"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Buffer"/>-->
+	<!--		</Column>-->
+	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
+	<!--			<Text text="Sales Consume"/>-->
+	<!--		</Column>-->
+	<!--	</columns>-->
+	<!--	<items>-->
+	<!--		<ColumnListItem vAlign="Middle" type="Navigation" custom:uniqueId="{oLeadTimeModel>uniqueId}" press="onSelectDocument">-->
+	<!--			<cells>-->
+	<!--				<ObjectIdentifier title="{oLeadTimeModel>uniqueId}"/>-->
+	<!--				<ObjectIdentifier title="{oLeadTimeModel>vendorName}" text="{oLeadTimeModel>vendorNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
+	<!--				<Text text="{oLeadTimeModel>poNumber}"/>-->
+	<!--				<Text text="{ path: 'oLeadTimeModel>documentDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"-->
+	<!--					wrapping="false"/>-->
+	<!--			</cells>-->
+	<!--		</ColumnListItem>-->
+	<!--	</items>-->
+	<!--</Table>-->
+
+
+
+	<Table id="leadtimeTable" inset="false" items="{oLeadTimeModel>/}" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiLargeMarginEnd tileLayout" >
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="List" level="H2"/>
+					<ToolbarSpacer/>
+					<!--	<ComboBox id="idPopinLayout"
+						placeholder="Popin layout options"
+						change="onPopinLayoutChanged">
+						<items>
+							<core:Item  text="Block"
+								key="Block"/>
+							<core:Item  text="Grid Large"
+								key="GridLarge"/>
+							<core:Item  text="Grid Small"
+								key="GridSmall"/>
+						</items>
+					</ComboBox>-->
+					<Label text="Select Hours/Month:"/>
+					<!--<RadioButton text="24 Hours" selected="{oCheckModel>/H24}" select="OnSelectRButton"/>-->
+					<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectRButton"/>
+					<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectRButton"/>
+					<RadioButton text="Last 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectRButton"/>
+					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>
+					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>
+					<!--	<ToggleButton id="toggleInfoToolbar"
+						text="Hide/Show InfoToolbar"
+						press="onToggleInfoToolbar" />-->
+					<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>
+					<Button id="idCall" press="getPo_decision"  text="Call"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column width="8em" hAlign="Center">
+				<Text text="Material"/>
+			</Column>
+			<Column width="12em" hAlign="Center">
+				<Text text="Description"/>
+			</Column>
+			<Column width="8em" hAlign="Center">
+				<Text text="Quantity Inhand"/>
+			</Column>
+			<Column width="7em" hAlign="Center">
+				<Text text="Lead Time"/>
+			</Column>
+				
+			<Column width="8em" hAlign="Center">
+				<Text text="Sales"/>
+			</Column>
+			
+			<Column width="7em" hAlign="Center">
+				<Text text="Buffer"/>
+			</Column>
+			<Column width="7em" hAlign="Center">
+				<Text text="Order Date"/>
+			</Column>
+		
+			<!--		<Column
+				hAlign="End">
+				<Text text="Price" />
+			</Column>-->
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<Text text="{oLeadTimeModel>Matnr}"/>
+					<Text text="{oLeadTimeModel>Description}"/>
+					<Text text="{oLeadTimeModel>Labst}"/>
+					<Text text="{oLeadTimeModel>Lead}"/>
+				
+					<Text text="{oLeadTimeModel>SoCount}"/>
+						<Text text="{oLeadTimeModel>Buffer}"/>
+							<!--<Text text="{oLeadTimeModel>Date}"/>-->
+					<Text
+					
+					
+					text="{ path: 'oLeadTimeModel>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' },style: 'long' }"/>
+					<!--<ObjectIdentifier title="{oSkuModel2>Vbeln}"/>-->
+					<!--<Text text="{ path: 'oSkuModel2>Audat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>-->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

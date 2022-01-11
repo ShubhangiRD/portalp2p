@@ -41,8 +41,8 @@
 				<f:actions>
 					<ToolbarSpacer/>
 					<Button icon="sap-icon://navigation-left-arrow" type="Emphasized" press="onNavBack"/>
-					<Button icon="sap-icon://add" type="Emphasized" tooltip="PO"  press="onCreatePurchaseOrder"/>
-						<Button icon="sap-icon://add" type="Emphasized" tooltip="PR" press="onPurchaseRequisition"/>
+					<Button icon="sap-icon://add" type="Emphasized" tooltip="Purchase Order"  press="onCreatePurchaseOrder"/>
+						<!--<Button icon="sap-icon://add" type="Emphasized" tooltip="PR" press="onPurchaseRequisition"/>-->
 				
 					<Button type="Transparent" text="Cancel" press="OnCancelPOList" tooltip="decline"/>
 				</f:actions>
@@ -54,10 +54,10 @@
 				<f:content>
 					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="false">
 						<fb:filterItems>
-							<fb:FilterItem name="Lifnr" label="Vendor Number">
+							<fb:FilterItem name="Lifnr" label="Vendor Number" >
 								<fb:control>
-									<Select id="vnumber" forceSelection="true" change="onSelectChange" items="{ path: 'VendorListM>/' }">
-										<core:Item key="{VendorListM>Lifnr}" text="{VendorListM>Lifnr}"/>
+									<Select id="vnumber"  forceSelection="true" change="onSelectChange" items="{ path: 'VendorListM>/' }">
+										<core:ListItem  key="{VendorListM>Lifnr}" text="{VendorListM>Lifnr}" />
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
@@ -72,10 +72,28 @@
 							<fb:FilterItem name="Bukrs" label="Company Code">
 								<fb:control>
 									<Select id="cc" change="onSelectChange" forceSelection="true" items="{ path: 'compMode>/' }">
-										<core:Item key="{compMode>Bukrs}" text="{compMode>Bukrs}"/>
+										<core:ListItem  key="{compMode>Bukrs}" text="{compMode>Bukrs}" />
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
+							
+									<fb:FilterItem name="Ekorg" label="Purchase Org">
+								<fb:control>
+									<Select id="PoOrg" change="onSelectChange" forceSelection="true" items="{ path: 'PurchaseORg>/' }">
+										<core:ListItem  key="{PurchaseORg>Ekorg}" text="{PurchaseORg>Ekorg}" />
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							
+									<fb:FilterItem name="Ekgrp" label="Purchase Group ">
+								<fb:control>
+									<Select id="PoGrp" change="onSelectChange" forceSelection="true" items="{ path: 'PurchaseGrp>/' }">
+										<core:ListItem  key="{PurchaseGrp>Ekgrp}" text="{PurchaseGrp>Ekgrp}" />
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							
+							
 						</fb:filterItems>
 					</fb:FilterBar>
 				</f:content>

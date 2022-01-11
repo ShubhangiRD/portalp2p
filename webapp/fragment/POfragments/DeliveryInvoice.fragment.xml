@@ -11,7 +11,7 @@
 						<f:FormElement label="Payment Terms">
 							<f:fields>
 								<Input id="Pmnttrms" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-									value="{PurchaseModel>/TempContract/Pmnttrms}" valueHelpRequest="handlePaymentTermsH"
+								width="40%"	value="{PurchaseModel>/TempContract/Pmnttrms}" valueHelpRequest="handlePaymentTermsH"
 									suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="suggestionPaymentTermsH" editable="{EditModel>/isEditable}">
 									<suggestionItems>
 										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
@@ -21,17 +21,17 @@
 						</f:FormElement>
 						<f:FormElement label="Payment In">
 							<f:fields>
-								<Input id="Dscnt1To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt1To}" textFormatMode="KeyValue"/>
+								<Input id="Dscnt1To" editable="{EditModel>/isEditable}" width="40%" value="{PurchaseModel>/TempContract/Dscnt1To}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Payment In">
 							<f:fields>
-								<Input id="Dscnt2To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt2To}" textFormatMode="KeyValue"/>
+								<Input id="Dscnt2To" editable="{EditModel>/isEditable}"  width="40%" value="{PurchaseModel>/TempContract/Dscnt2To}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Payment In">
 							<f:fields>
-								<Input id="Dscnt3To" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Dscnt3To}" textFormatMode="KeyValue"/>
+								<Input id="Dscnt3To" editable="{EditModel>/isEditable}"  width="40%" value="{PurchaseModel>/TempContract/Dscnt3To}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>
@@ -43,7 +43,7 @@
 						<f:FormElement label="Currency">
 							<f:fields>
 								<Input id="Currency1" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-									value="{PurchaseModel>/TempContract/Currency}" valueHelpRequest="handleCurrencyHeader"
+								 width="40%"	value="{PurchaseModel>/TempContract/Currency}" valueHelpRequest="handleCurrencyHeader"
 									suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="suggestionCurrencyHeader" editable="{EditModel>/isEditable}">
 									<suggestionItems>
 										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>

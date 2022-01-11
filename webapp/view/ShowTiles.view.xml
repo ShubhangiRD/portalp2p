@@ -37,7 +37,7 @@
 		</Switch>
 	</tnt:ToolHeader>
 	<f:GridContainer id="grid12" borderReached=".onBorderReached">
-		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout casTiles" header="Vendor Master" press="pressGenericTile">
+		<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout casTiles" header="Vendor Master" press="pressGenericTileVendor">
 			<layoutData>
 				<f:GridContainerItemLayoutData minRows="2" columns="2"/>
 			</layoutData>

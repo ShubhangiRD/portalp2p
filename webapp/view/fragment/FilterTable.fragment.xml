@@ -5,7 +5,7 @@
 			filter="filterPrice" ariaLabelledBy="title">
 			<extension>
 				<m:OverflowToolbar >
-					<m:Title id="title" text="Products"/>
+					<m:Title id="title" text="Open Purchase Order"/>
 					<m:ToolbarSpacer/>
 					<m:Select id="select" items="{modes>/items}" selectedKey="Navigation" change="onBehaviourModeChange">
 						<core:Item key="{modes>key}" text="{modes>text}"/>
@@ -521,5 +521,9 @@
 				<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
 			</footer>
 		</Table>
+
+
+
+
 	</m:ScrollContainer>
 </core:FragmentDefinition>

@@ -196,7 +196,10 @@ sap.ui.define([
 			});
 			this.getView().setModel(MaterialModel, "MaterialModel");
 		},
-
+onPressPoDecision : function(){
+		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("PoDecision");
+},
 		// getStockDetailList1: function() {
 		// 	var oModel = this.getOwnerComponent().getModel("StockModel");
 		// 	BusyIndicator.show(true);

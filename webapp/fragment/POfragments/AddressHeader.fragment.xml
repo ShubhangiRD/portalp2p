@@ -6,17 +6,17 @@
 			<form:content>
 				<!--<core:Title text=" "/>-->
 				<Label text="Street/House no"/>
-				<Input maxLength="35" value=" " editable="{EditModel>/isEditable}" id="idStreetHeader" placeholder=" Your Street">
+				<Input maxLength="35" editable="{EditModel>/isEditable}" id="idStreetHeader" placeholder=" Your Street">
 					<layoutData>
 						<l:GridData span="XL2 L3 M4 S4"/>
 					</layoutData>
 				</Input>
-				<Input maxLength="10" id="AddressNum" editable="{EditModel>/isEditable}" type="Text" placeholder="Address Number"></Input>
+				<Input maxLength="10" id="AddressNum" editable="{EditModel>/isEditable}"  width="60%"  type="Text" placeholder="Address Number"></Input>
 				<Label text="Postal Code" required="true"/>
-				<Input maxLength="10" editable="{EditModel>/isEditable}" change="changePostalCode" id="PostalCode" placeholder=" Postal Code "/>
-				<Input maxLength="35" id="idCityHeader" editable="{EditModel>/isEditable}" placeholder=" City "/>
+				<Input maxLength="10" editable="{EditModel>/isEditable}" change="changePostalCode"   id="PostalCode" placeholder=" Postal Code "/>
+				<Input maxLength="35" id="idCityHeader" editable="{EditModel>/isEditable}" width="50%" placeholder=" City "/>
 				<Label text="Country Code" required="true"/>
-				<Input maxLength="3" id="idCountryCodeHeader" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" placeholder=" Country Code "
+				<Input maxLength="3" id="idCountryCodeHeader" editable="{EditModel>/isEditable}" width="50%" textFormatMode="KeyValue" placeholder=" Country Code "
 					showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpCountryCode"
 					suggestionItems="{ path: 'Lookup>/CountryCodeRegion' }" suggestionItemSelected="onSuggest">
 					<suggestionItems>
@@ -24,15 +24,15 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Telphone"/>
-				<Input maxLength="16" editable="{EditModel>/isEditable}" id="Telephone1"/>
+				<Input maxLength="16" editable="{EditModel>/isEditable}" width="50%"  id="Telephone1"/>
 				<Label text="Fax"/>
-				<Input maxLength="31" id="idfaxHeader" editable="{EditModel>/isEditable}"/>
+				<Input maxLength="31" id="idfaxHeader" width="50%" editable="{EditModel>/isEditable}"/>
 				<core:Title text=" "/>
 				<Label text="Extension"/>
-				<Input maxLength="31" id="Extension" editable="{EditModel>/isEditable}"/>
+				<Input maxLength="31" id="Extension" width="50%"  editable="{EditModel>/isEditable}"/>
 				<Label text="Extension"/>
-				<Input maxLength="31" id="Extension2" editable="{EditModel>/isEditable}"/>
-				<Button id="AddnrDetailsHeader" text="Address Details"/>
+				<Input maxLength="31" id="Extension2" width="50%" editable="{EditModel>/isEditable}"/>
+				<!--<Button id="AddnrDetailsHeader" width="50%" text="Address Details"/>-->
 			</form:content>
 		</form:SimpleForm>
 	</VBox>
