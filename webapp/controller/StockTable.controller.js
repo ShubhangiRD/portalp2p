@@ -81,7 +81,7 @@ sap.ui.define([
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
 
-			///	this.getMainGroupList();
+				this.getMainGroupList();
 			//oController.getTableStockDetails();
 			var oProductListMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(oProductListMode, "oProductListMode");
@@ -100,7 +100,7 @@ sap.ui.define([
 
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
-              this.getStockDetailListNew();
+			this.getStockDetailListNew();
 			// this.getStockDetailList();
 			// this.getStockDetailList3();
 
@@ -501,7 +501,7 @@ sap.ui.define([
 		// 		}
 		// 	});
 		// },
-		
+
 		getStockDetailListNew: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -517,9 +517,14 @@ sap.ui.define([
 					var InnerinnerChild = [];
 					var UniqueMatnr = [];
 					var UniqueWerks = [];
-					var UniqueStrLoc = [];
+
 					StockList = oData.results;
-                    var filterObj = {  plant:[], cc:[], stloc:[] };
+					var filterObj = {
+						plant: [],
+						cc: [],
+						stloc: []
+					};
+
 					function userExists(Bukrs) {
 						return childarray.some(function(el) {
 							return el.Bukrs === Bukrs;
@@ -646,6 +651,7 @@ sap.ui.define([
 
 						if (!UniqueMatnr.includes(Matnr)) {
 							UniqueMatnr.push(Matnr);
+							UniqueMatnrGlobal.push(Matnr);
 							ListofSrs.push({
 								Cbtlv: Cbtlv,
 								Cgtlv: Cgtlv,
@@ -691,21 +697,22 @@ sap.ui.define([
 											var Werks2 = stock.Werks;
 											var Matnr2 = stock.Matnr;
 											if (Matnr === Matnr2) {
-
+												var UniqueStrLoc = [];
 												if (PlantExits(Werks2)) {
+													// if (UniqueStrLoc.includes(Lgort2)) {
+													// 												InnerinnerChild.push({
+													// 															//	Bukrs: Bukrs,
+													// 															Labst: Labst2,
+													// 															Material: 'SLoc' + " " + Lgort2,
+													// 															Crtlv: "crtlv",
+													// 															Cytlv: "cytlv",
+													// 															Cgtlv: "cgtlv",
+													// 															Cbtlv: "cbtlv",
+													// 															OsalesOrder: "So",
+													// 															Lgort: Lgort2
 
-															InnerinnerChild.push({
-																		//	Bukrs: Bukrs,
-																		Labst: Labst2,
-																		Material: 'SLoc' + " " + Lgort2,
-																		Crtlv: "crtlv",
-																		Cytlv: "cytlv",
-																		Cgtlv: "cgtlv",
-																		Cbtlv: "cbtlv",
-																		OsalesOrder: "So",
-																		Lgort: Lgort2
-
-																	});
+													// 														});
+													// }
 
 													// for (var j = 0; j < StockList.length; j++) {
 													// 	var stock = StockList[j];
@@ -718,9 +725,6 @@ sap.ui.define([
 													// 	if (Matnr === Matnr3) {
 
 													// 		if (StorageExits(Lgort3)) {
-
-														
-													
 
 													// 		}else{
 													// 						InnerinnerChild.push({
@@ -755,20 +759,21 @@ sap.ui.define([
 														RunRate: sRunRate
 
 													});
-												
-														InnerinnerChild.push({
-															//	Bukrs: Bukrs,
-															Labst: Labst2,
-															Material: 'SLoc' + " " + Lgort2,
-															Crtlv: "crtlv",
-															Cytlv: "cytlv",
-															Cgtlv: "cgtlv",
-															Cbtlv: "cbtlv",
-															OsalesOrder: "So",
-															Lgort: Lgort2
 
-														});
-												
+													//if (!UniqueStrLoc.includes(Lgort2)) {
+													InnerinnerChild.push({
+														//	Bukrs: Bukrs,
+														Labst: Labst2,
+														Material: 'SLoc' + " " + Lgort2,
+														Crtlv: "crtlv",
+														Cytlv: "cytlv",
+														Cgtlv: "cgtlv",
+														Cbtlv: "cbtlv",
+														OsalesOrder: "So",
+														Lgort: Lgort2
+
+													});
+													//}
 												}
 											}
 											//PlantExits(Plant)
@@ -1914,10 +1919,10 @@ sap.ui.define([
 		getMaterialList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			// BusyIndicator.show(true);
+			BusyIndicator.show(true);
 			oModel.read("/MaterialmasterSet", {
 				success: function(oData) {
-					// BusyIndicator.hide();
+					BusyIndicator.hide();
 					oMaterialList = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
@@ -2806,6 +2811,7 @@ sap.ui.define([
 		},
 
 		onSaveThreshold: function() {
+
 			var oModel = oView.getModel("oStockDataModel");
 			var oModelService = this.getOwnerComponent().getModel("StockModel");
 			var oTabSelectModel = oView.getModel("oSelectedTabdata");
@@ -2936,14 +2942,11 @@ sap.ui.define([
 			var isUnique = true;
 			var oModel = sap.ui.getCore().getModel("ThresholdModel");
 			console.log(oModel);
-
 			for (var i = 0; i < UniqueMatnrGlobal.length; i++) {
 				if (oModel.oData.Matnr === UniqueMatnrGlobal[i]) {
 					isUnique = false;
-
 				}
 			}
-
 			var oModelService = this.getOwnerComponent().getModel("StockModel");
 			var oEntry1 = {};
 			var oContract = oModel.oData;
@@ -2952,7 +2955,6 @@ sap.ui.define([
 			if (!length > 0) {
 				MessageBox.information("Please Enter the details");
 				sap.ui.getCore().byId("updateDialog").destroy(null);
-
 			}
 			if (isUnique === false) {
 				oModel.setData({
@@ -2962,11 +2964,35 @@ sap.ui.define([
 
 				this.UpdateCard.close();
 				this.UpdateCard.destroy();
-			} else {
+			}
+			var oInputRed = sap.ui.getCore().byId("idCrtVal");
+			var oInputYellow = sap.ui.getCore().byId("idWarVal");
+			var oInputGreen = sap.ui.getCore().byId("idGrnVal");
+			var oInputExcess = sap.ui.getCore().byId("idExcVal");
+			var aTestValue = [oInputRed, oInputYellow, oInputGreen, oInputExcess];
+			for (i = 0; i < aTestValue.length; i++) {
+				var flagValid = true;
+				var pattern = /[^\d]/;
+				var value = aTestValue[i].getValue();
+				if (value === "") {
+					flagValid = false;
+					break;
+				} else if (pattern.test(value)) {
+					if (aTestValue[i].getValueState() === "Error" || value === "")
+						flagValid = false;
+					break;
+				}
+			}
+			if (flagValid === false) {
+				MessageBox.error("Enter Numeric Threshold Values Only");
+				oModel.setData({
+					oData: {}
+				});
+				this.UpdateCard.close();
+				this.UpdateCard.destroy();
+			} else if (flagValid === true) {
 				var Matnr = oContract.Matnr;
-
 				var zero = "";
-
 				if ($.isNumeric((Matnr)) === true) {
 					var len = Matnr.length;
 					if (len !== undefined) {
@@ -3024,6 +3050,7 @@ sap.ui.define([
 				oModelService.create(relPath, oEntry1, mParameters);
 
 			}
+
 		},
 
 		onSaveProductsQuantity: function() {
@@ -3364,7 +3391,34 @@ sap.ui.define([
 
 				//	sap.ui.getCore().byId("idAddHierarchyitem").close();
 
-			} else {
+			}
+				var oInputRed = sap.ui.getCore().byId("idCrtValp");
+			var oInputYellow = sap.ui.getCore().byId("idWarValp");
+			var oInputGreen = sap.ui.getCore().byId("idGrnValp");
+			var oInputExcess = sap.ui.getCore().byId("idExcValp");
+			var aTestValue = [oInputRed, oInputYellow, oInputGreen, oInputExcess];
+			for (var i = 0; i < aTestValue.length; i++) {
+				var flagValid = true;
+				var pattern = /[^\d]/;
+				var value = aTestValue[i].getValue();
+				if (value === "") {
+					flagValid = false;
+					break;
+				} else if (pattern.test(value)) {
+					if (aTestValue[i].getValueState() === "Error" || value === "")
+						flagValid = false;
+					break;
+				}
+			}
+			if (flagValid === false) {
+				MessageBox.error("Enter Numeric Threshold Values Only");
+				oContractModel.setData({
+					oData: {}
+				});
+				this.UpdateCard.close();
+				this.UpdateCard.destroy();
+			}
+			else if (flagValid === true){
 				var Grpid = oContract.Grpid;
 				var Maingrpid = oContract.Maingrpid;
 				var Prodid = oContract.Prodid;
@@ -4639,8 +4693,10 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
 			oModel.read("/SalesOrdersSet ", {
+
 				success: function(oData) {
 					BusyIndicator.hide();
+					console.log(oData);
 					var iItem = oData.results.length;
 					var aListofVendoritem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -4667,7 +4723,7 @@ sap.ui.define([
 							result.push(newEntry);
 						}
 					});
-					//	console.log(result);
+					console.log(result);
 					result.sort(function(a, b) {
 						return b.count - a.count;
 					});
@@ -4677,11 +4733,18 @@ sap.ui.define([
 					var data = oData.results;
 
 					for (var x = 0; x < result.length; x++) {
+
 						var orderCount = 0;
 						for (var j = 0; j < data.length; j++) {
 							if (result[x].Matnr === data[j].Matnr) {
 								orderCount = orderCount + parseInt(data[j].Kwmeng);
+								// if(result[x].Matnr==='50065573'){
+								// 		console.log(data[x].Kwmeng );
+								// }
+
 								result[x].Kwmeng = orderCount.toString();
+								// result[x].Kwmeng = orderCount;
+								// console.log(result[5].Kwmeng);
 							}
 
 						}
