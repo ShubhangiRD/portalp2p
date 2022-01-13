@@ -36,24 +36,23 @@ sap.ui.define([
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
 
-			var oEditModel = new JSONModel({
-				isEditable: true
-			});
+			// var oEditModel = new JSONModel({
+			// 	isEditable: true
+			// });
 
-			this.getView().setModel(oEditModel, "EditModel");
-			var oVisibleModel = new JSONModel({
-				isVisible: false
-			});
+			// this.getView().setModel(oEditModel, "EditModel");
+			// var oVisibleModel = new JSONModel({
+			// 	isVisible: false
+			// });
 
-			this.getView().setModel(oVisibleModel, "VisibleModel");
-			var oScreenModel = new JSONModel({
-				isScreen: "Create Vendor"
-			});
+			// this.getView().setModel(oVisibleModel, "VisibleModel");
+			// var oScreenModel = new JSONModel({
+			// 	isScreen: "Create Vendor"
+			// });
 
-			this.getView().setModel(oScreenModel, "ScreenName");
+			// this.getView().setModel(oScreenModel, "ScreenName");
 
 			this.oRouter = this.getOwnerComponent().getRouter();
-		//	this.oRouter.getRoute("VendorDetail").attachPatternMatched(this._onRouteMatched2, this);
 			this.oRouter.getRoute("VendorDetail").attachPatternMatched(this._onRouteMatched1, this);
 
 		},

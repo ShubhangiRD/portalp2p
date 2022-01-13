@@ -127,6 +127,29 @@ var std = {
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
 			
+			
+				var oEditModel = new JSONModel({
+				isEditable: true
+			});
+
+			this.setModel(oEditModel, "EditModel");
+			var oVisibleModel = new JSONModel({
+				isVisible: false
+			});
+
+			this.setModel(oVisibleModel, "VisibleModel");
+			
+			
+			var oScreenModel = new JSONModel({
+				isScreen: "Create Vendor"
+			});
+
+			this.setModel(oScreenModel, "ScreenName");
+			
+			
+			
+			
+			
 		
 	var SOModel = new JSONModel([]);
 			this.setModel(SOModel,"SOModel");

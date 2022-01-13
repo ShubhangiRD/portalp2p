@@ -12,7 +12,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="Title" showHeader="false">
+			<Page title="" showHeader="false" navButtonPress="onNavBack">
 				<content>
 	<!--					<Table id="leadtimeTable" busyIndicatorDelay="0" inset="false" items="{ path: 'oLeadTimeModel>/' }" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiLargeMarginEnd tileLayout">-->
 	<!--	<columns>-->
@@ -68,7 +68,7 @@
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>
-					<Title text="List" level="H2"/>
+					<Title text="Suggestions Of Purchasing Decisions" level="H2"/>
 					<ToolbarSpacer/>
 				
 					<!--<Label text="Select Hours/Month:"/>-->
@@ -80,7 +80,9 @@
 					<!--<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>-->
 				
 					<!--<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>-->
-				
+				<Button icon="sap-icon://nav-back" press="onNavBack"/>
+					<Button icon="sap-icon://download" press="onExport"/>
+						<SearchField placeholder="Filter"  search="onSearchMaterial" width="15rem"/>
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>
@@ -92,10 +94,10 @@
 				<Text text="Description"/>
 			</Column>
 			<Column width="8em" hAlign="Center">
-				<Text text="Quantity Inhand"/>
+				<Text text="Quantity In-hand"/>
 			</Column>
 				<Column width="8em" hAlign="Center">
-				<Text text="Sales Consume in 1 Day"/>
+				<Text text="Average Sales Consumed in 1 Day"/>
 			</Column>
 			<Column width="7em" hAlign="Center">
 				<Text text="Lead Time"/>
@@ -104,10 +106,10 @@
 		
 			
 			<Column width="7em" hAlign="Center">
-				<Text text="Buffer in %"/>
+				<Text text="Buffer"/>
 			</Column>
 			<Column width="7em" hAlign="Center">
-				<Text text="Order Date"/>
+				<Text text="Order By Date"/>
 			</Column>
 		
 			<!--		<Column
@@ -120,7 +122,7 @@
 				<cells>
 					<Text text="{oLeadTimeModel>Matnr}"/>
 					<Text text="{oLeadTimeModel>Description}"/>
-					<Text text="{oLeadTimeModel>Labst}"/>
+					<Text text="{oLeadTimeModel>AvailableQuantity}"/>
 				
 					<Text text="{oLeadTimeModel>Sale}"/>
 						<Text text="{oLeadTimeModel>Lead}"/>

@@ -43,7 +43,7 @@ sap.ui.define([
 			oView.setModel(oAdvanceAnalytics, "oAdvanceAnalytics");
 
 
-	var oMonitoringData = new JSONModel();
+			var oMonitoringData = new JSONModel();
 			oView.setModel(oMonitoringData, "oMonitoringData");
 
 
