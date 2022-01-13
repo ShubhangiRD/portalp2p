@@ -4931,6 +4931,14 @@ sap.ui.define([
 			//	var selected = event.getSource().getSelectedItem();
 			//		console.log(selected);
 
+		},
+		onSkuList:function(){
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("SkuList");
+		},
+		onMenuButtonPress:function(){
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("ShowTiles");
 		}
 
 	});

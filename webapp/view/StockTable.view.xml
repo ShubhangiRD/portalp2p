@@ -3,7 +3,7 @@
 	xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core" xmlns:mycassini="com.vSimpleApp.controls">
 	<Page showHeader="false">
 	<tnt:ToolHeader>
-		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+		<Button icon="sap-icon://nav-back" type="Transparent" press="onMenuButtonPress">
 			<layoutData>
 				<FlexItemData growFactor="1"/>
 			</layoutData>
@@ -32,22 +32,22 @@
 			</layoutData>
 		</Switch>
 	</tnt:ToolHeader>
-	<form:SimpleForm id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
-		labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
-		class="sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
-		<form:content>
-			<!--	//	<Button text="Allq" id="idAll2" visible="false" press="onFilterSelect"/>
-	-->
-			<Button text="All" id="idAll" type="Default" press="onFilterSelect"/>
-			<Button text="Critical" id="idRedb" type="Reject" class="redClassButton" press="onFilterSelect"/>
-			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect"/>
-			<Button text="Green" type="Accept" id="idGreenb" class="GreenClassButton" press="onFilterSelect"/>
-			<Button text="Excess" id="idBlueb" class="BlueClassButton" press="onFilterSelect"/>
+	<!--<form:SimpleForm id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"-->
+	<!--	labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"-->
+	<!--	class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">-->
+	<!--	<form:content>-->
+<HBox class="sapUiSmallMarginTop sapUiLargeMarginBeginEnd ">
+			<Button text="All" id="idAll" type="Default" press="onFilterSelect" class="sapUiSmallLargeBegin" width="70%"/>
+			<Button text="Critical" id="idRedb" type="Reject"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
+			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect" class="sapUiSmallMarginBegin"/>
+			<Button text="Green" type="Accept" id="idGreenb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
+			<Button text="Excess" id="idBlueb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
 			
-		<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem"/>
-		
-		</form:content>
-	</form:SimpleForm>
+		<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>
+		<Button text="SKU List" id="idGOsKULIST"  press="onSkuList"  class="sapUiSmallMarginBegin"/>
+		</HBox>
+	<!--	</form:content>-->
+	<!--</form:SimpleForm>-->
 	<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
 		visible="false" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"
 		columnsL="2" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">
