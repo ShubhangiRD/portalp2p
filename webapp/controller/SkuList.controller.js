@@ -1160,14 +1160,17 @@ sap.ui.define([
 
 			var mParameters = {
 				success: function(oResponse, object) {
-
+	if(oResponse.OrderItemsInSet !== null && oResponse.OrderConditionsInSet !== null ){
 					var Podata = new StockStandards(oResponse);
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
-
+				
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
 					sap.ui.getCore().getModel("SOitemDetailModel").setProperty("/Soitems", Podata.OrderItemsInSet.results[0]);
+				}else{
+				MessageBox.information("No Data Available for this Material");
+				}
 					var Partnr = oResponse.SoPartnersSet.results[0].PartnNumb;
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/PartnNumb", Partnr);
 

@@ -12,7 +12,7 @@ sap.ui.define([
 	var matLabData = [];
 	var resultSetSO = [];
 	var aLeadTime = [];
-
+	var oOneDaySale = [];
 	var TotalLabst = [];
 	var oMaterialList = [];
 
@@ -30,7 +30,8 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			this._getMaterialAndDescriptionData();
+				this.getSaleData();
+		//	this._getMaterialAndDescriptionData();
 			this.getMaterialstockSet();
 			//	this.getMaterialList();
 			var oLeadTimeModel = new JSONModel();
@@ -41,7 +42,11 @@ sap.ui.define([
 			var oData = new JSONModel();
 			oView.setModel(oData, "oCheckModel");
 
-			this.getAllPoData();
+		//	this.getAllPoData();
+		
+		this.getAllMaterialData();
+		
+	
 
 			//	this._getLabst_matlab();
 		},
@@ -1005,6 +1010,241 @@ console.log(oNwLe);
 			//	BusyIndicator.show(true);
 
 		},
+		getAllMaterialData : function (){
+			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
+var oAllPoData = [];
+
+
+ function percentage (percent, total) {
+    return ((percent/ 100) * total).toFixed(2);
+}
+			BusyIndicator.show(true);
+			oModel.read("/get_po_decisionSet", {
+			
+				success: function(oData) {
+					BusyIndicator.hide();
+				//	console.log(oData);
+					var odata = oData.results;
+	var sTotalLabst;
+					var len = oData.results.length;
+					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
+						var createddate = odata[iRowIndex].Prdat;
+						var deliverycompleteddate = odata[iRowIndex].Eindt;
+
+						var Matnr = odata[iRowIndex].Matnr;
+							if (Matnr !== "" || Matnr !== undefined) {
+							for (var z = 0; z < TotalLabst.length; z++) {
+								if (Matnr === TotalLabst[z].Matnr) {
+							 sTotalLabst = TotalLabst[z].Labst;
+
+								}
+							}
+						}
+						
+						
+			var sMatDescription = odata[iRowIndex].Maktx;
+					
+						var Ebeln = odata[iRowIndex].Ebeln;
+						//var Vbeln = odata[iRowIndex].Vbeln;
+					
+
+						var date1 = new Date(createddate);
+						var date2 = new Date(deliverycompleteddate);
+						var diffTime = Math.abs(date2 - date1);
+						var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+//||sTotalLabst !== "" || sTotalLabst !== undefined ||  Matnr !== "" || Ebeln !== ""
+				if (sTotalLabst !== "0" && Matnr && Ebeln) {
+						oAllPoData.push({
+								Matnr: Matnr,
+								Description: sMatDescription,
+								LeadTime: diffDays,
+							//	Vbeln: Vbeln,
+								Ebeln: Ebeln,
+								sTotalLabst : sTotalLabst
+							});	
+				}
+
+					}
+			//	console.log(oAllPoData);
+					var index = {};
+					var result = [];
+					var soindex = {};
+
+					oAllPoData.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+					
+
+						if (key in index) {
+
+							index[key].MatCount++;
+
+						} else {
+							var newEntry = {
+
+								Matnr: point.Matnr,
+
+								//	Name1 : vendorname,
+								MatCount: 1
+
+							};
+							index[key] = newEntry;
+							//	soindex[so] = newEntry;
+							result.push(newEntry);
+
+						}
+					});
+					
+					
+				//	console.log(result);
+					
+				var Sale ;
+						var oNwLe = [];
+					for (var iRow = 0; iRow < result.length; iRow++) {
+						var Material = result[iRow].Matnr;
+						var PoCount = result[iRow].MatCount;
+
+					
+						if (Material !== "" || Material !== undefined) {
+							for (var z1 = 0; z1 < oOneDaySale.length; z1++) {
+								if (Material === oOneDaySale[z1].Matnr) {
+								Sale = oOneDaySale[z1].SaleCount;
+									
+
+								}
+							}
+						}
+						var Leadtime = 0;
+					//	var Ebeln = 1;
+						var Description;
+					
+						for (var i = 0; i < oAllPoData.length; i++) {
+
+							if (oAllPoData[i].Matnr == Material) {
+								Description = oAllPoData[i].Description;
+								sTotalLabst = oAllPoData[i].sTotalLabst;
+							//	Ebeln++;
+								Leadtime = Leadtime + oAllPoData[i].LeadTime;
+
+							}
+						}
+						
+							if (Sale == "" || Sale == undefined) {
+				
+							Sale = 0;	
+						}else{
+								Sale= Sale;
+						}
+						
+						oNwLe.push({
+							Matnr: Material,
+							Description: Description,
+							Labst: parseInt(sTotalLabst),
+							Leadtime: Leadtime,
+							Ebeln: PoCount,
+							Lead: Math.round((Leadtime / PoCount)) + " Days",
+							LeadBuffer : Math.round((Leadtime / PoCount)),
+							Sale: Sale,
+					
+							//RunoutofStock : Math.round(parseInt(sTotalLabst)/Sale)
+
+						});
+							Sale = "";
+						if(oNwLe[iRow].Sale !== 0){
+						oNwLe[iRow].RunoutofStock =  (oNwLe[iRow].Labst)/oNwLe[iRow].Sale;	
+						}else{
+							oNwLe[iRow].RunoutofStock = oNwLe[iRow].Labst;
+						}
+							oNwLe[iRow].Buffer =  Math.round(percentage(50, oNwLe[iRow].Leadtime));
+							var orderdate = oNwLe[iRow].RunoutofStock - (oNwLe[iRow].Buffer);
+					
+								var currentDate = new Date();
+						currentDate.setDate(currentDate.getDate() + orderdate);
+				
+						oNwLe[iRow].Date = currentDate;
+					}
+					
+					console.log(oNwLe);
+
+						oView.getModel("oLeadTimeModel").setSizeLimit(oNwLe.length);
+					oView.getModel("oLeadTimeModel").setData(oNwLe);
+				
+					
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					MessageBox.error(oError);
+				}
+
+			});
+		},
+		
+		
+
+   
+		getSaleData : function(oEvnt){
+					var oModel = this.getOwnerComponent().getModel("StockModel");
+			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
+		
+			
+			var s2 = "2022-01-12T12:04:39";
+			var d = new Date();
+			d.setDate(d.getDate() - 1);
+				var ss = d.toISOString();
+			var s = ss.slice(0, -5);
+
+	
+
+			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s2);
+			
+			BusyIndicator.show(true);
+			oModel.read("/getposo_dataSet", {
+				filters: [oFilter1],
+				success: function(oData) {
+					BusyIndicator.hide();
+				
+				
+					var index = {};
+					var result = [];
+				
+
+					oData.results.forEach(function(point) {
+						var key = "" + point.Matnr + " ";
+					
+
+						if (key in index) {
+
+							index[key].SaleCount++;
+
+						} else {
+							var newEntry = {
+
+								Matnr: point.Matnr,
+
+								//	Name1 : vendorname,
+								SaleCount: 1
+
+							};
+							index[key] = newEntry;
+						
+							result.push(newEntry);
+
+						}
+					});
+					
+					
+			oOneDaySale =result  ;
+				console.log(oOneDaySale)
+				
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					MessageBox.error(oError);
+				}
+
+			});
+		}
+		
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

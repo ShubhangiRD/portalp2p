@@ -64,36 +64,23 @@
 
 
 
-	<Table id="leadtimeTable" inset="false" items="{oLeadTimeModel>/}" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiLargeMarginEnd tileLayout" >
+	<Table id="leadtimeTable" inset="false" items="{oLeadTimeModel>/}" class="sapUiSmallMarginBegin  sapUiLargeMarginEnd tileLayout" >
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>
 					<Title text="List" level="H2"/>
 					<ToolbarSpacer/>
-					<!--	<ComboBox id="idPopinLayout"
-						placeholder="Popin layout options"
-						change="onPopinLayoutChanged">
-						<items>
-							<core:Item  text="Block"
-								key="Block"/>
-							<core:Item  text="Grid Large"
-								key="GridLarge"/>
-							<core:Item  text="Grid Small"
-								key="GridSmall"/>
-						</items>
-					</ComboBox>-->
-					<Label text="Select Hours/Month:"/>
+				
+					<!--<Label text="Select Hours/Month:"/>-->
 					<!--<RadioButton text="24 Hours" selected="{oCheckModel>/H24}" select="OnSelectRButton"/>-->
-					<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectRButton"/>
-					<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectRButton"/>
-					<RadioButton text="Last 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectRButton"/>
-					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>
-					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>
-					<!--	<ToggleButton id="toggleInfoToolbar"
-						text="Hide/Show InfoToolbar"
-						press="onToggleInfoToolbar" />-->
-					<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>
-					<Button id="idCall" press="getPo_decision"  text="Call"/>
+					<!--<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectRButton"/>-->
+					<!--<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectRButton"/>-->
+					<!--<RadioButton text="Last 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectRButton"/>-->
+					<!--<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>-->
+					<!--<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>-->
+				
+					<!--<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>-->
+				
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>
@@ -107,16 +94,17 @@
 			<Column width="8em" hAlign="Center">
 				<Text text="Quantity Inhand"/>
 			</Column>
+				<Column width="8em" hAlign="Center">
+				<Text text="Sales Consume in 1 Day"/>
+			</Column>
 			<Column width="7em" hAlign="Center">
 				<Text text="Lead Time"/>
 			</Column>
 				
-			<Column width="8em" hAlign="Center">
-				<Text text="Sales"/>
-			</Column>
+		
 			
 			<Column width="7em" hAlign="Center">
-				<Text text="Buffer"/>
+				<Text text="Buffer in %"/>
 			</Column>
 			<Column width="7em" hAlign="Center">
 				<Text text="Order Date"/>
@@ -133,9 +121,10 @@
 					<Text text="{oLeadTimeModel>Matnr}"/>
 					<Text text="{oLeadTimeModel>Description}"/>
 					<Text text="{oLeadTimeModel>Labst}"/>
-					<Text text="{oLeadTimeModel>Lead}"/>
 				
-					<Text text="{oLeadTimeModel>SoCount}"/>
+					<Text text="{oLeadTimeModel>Sale}"/>
+						<Text text="{oLeadTimeModel>Lead}"/>
+				
 						<Text text="{oLeadTimeModel>Buffer}"/>
 							<!--<Text text="{oLeadTimeModel>Date}"/>-->
 					<Text
