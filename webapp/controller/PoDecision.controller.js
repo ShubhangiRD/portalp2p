@@ -13,6 +13,7 @@ sap.ui.define([
 	var resultSetSO = [];
 	var aLeadTime = [];
 	var oOneDaySale = [];
+	
 	var TotalLabst = [];
 	var oMaterialList = [];
 
