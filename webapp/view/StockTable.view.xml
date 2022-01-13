@@ -36,11 +36,11 @@
 	<!--	labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"-->
 	<!--	class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">-->
 	<!--	<form:content>-->
-<HBox class="sapUiSmallMarginTop sapUiLargeMarginBeginEnd ">
+<HBox class="sapUiSmallMarginTop sapUiLargeMarginBeginEnd " id="idButtonForm">
 			<Button text="All" id="idAll" type="Default" press="onFilterSelect" class="sapUiSmallLargeBegin" width="70%"/>
 			<Button text="Critical" id="idRedb" type="Reject"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
 			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect" class="sapUiSmallMarginBegin"/>
-			<Button text="Green" type="Accept" id="idGreenb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
+			<Button text="Green" type="Accept" id="idGreenb"  press="onFilterSelect"  class="sapUiSmallMarginBegin" />
 			<Button text="Excess" id="idBlueb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
 			
 		<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>
