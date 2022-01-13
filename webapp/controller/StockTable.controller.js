@@ -81,7 +81,7 @@ sap.ui.define([
 			var collectionItemMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(collectionItemMode, "collectionItemMode");
 
-				this.getMainGroupList();
+			this.getMainGroupList();
 			//oController.getTableStockDetails();
 			var oProductListMode = new sap.ui.model.json.JSONModel();
 			sap.ui.getCore().setModel(oProductListMode, "oProductListMode");
@@ -196,10 +196,10 @@ sap.ui.define([
 			});
 			this.getView().setModel(MaterialModel, "MaterialModel");
 		},
-onPressPoDecision : function(){
-		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+		onPressPoDecision: function() {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("PoDecision");
-},
+		},
 		// getStockDetailList1: function() {
 		// 	var oModel = this.getOwnerComponent().getModel("StockModel");
 		// 	BusyIndicator.show(true);
@@ -1943,7 +1943,7 @@ onPressPoDecision : function(){
 		handlePOMaterialHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			this.inputId = oEvent.getSource().getId();
+			sap.ui.getCore().StockTabMat = oEvent.getSource().getId();
 			//eate value help dialog
 			if (!this._valueHelpDialogph) {
 				this._valueHelpDialogph = sap.ui.xmlfragment(
@@ -1986,15 +1986,12 @@ onPressPoDecision : function(){
 			var oSelectedItem = evt.getParameter("selectedItem");
 
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
-				productInput.setValue(oSelectedItem.getTitle());
-				var sTitle = oSelectedItem.getTitle();
-				var sDescription = oSelectedItem.getInfo();
-				productInput.setSelectedKey(sDescription);
+				var productInput = sap.ui.getCore().byId(sap.ui.getCore().StockTabMat),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				var div = oSelectedItem.getDescription();
 				productInput.setValue(sTitle);
-
 			}
-			evt.getSource().getBinding("items").filter([]);
 
 		},
 
@@ -3395,7 +3392,7 @@ onPressPoDecision : function(){
 				//	sap.ui.getCore().byId("idAddHierarchyitem").close();
 
 			}
-				var oInputRed = sap.ui.getCore().byId("idCrtValp");
+			var oInputRed = sap.ui.getCore().byId("idCrtValp");
 			var oInputYellow = sap.ui.getCore().byId("idWarValp");
 			var oInputGreen = sap.ui.getCore().byId("idGrnValp");
 			var oInputExcess = sap.ui.getCore().byId("idExcValp");
@@ -3420,8 +3417,7 @@ onPressPoDecision : function(){
 				});
 				this.UpdateCard.close();
 				this.UpdateCard.destroy();
-			}
-			else if (flagValid === true){
+			} else if (flagValid === true) {
 				var Grpid = oContract.Grpid;
 				var Maingrpid = oContract.Maingrpid;
 				var Prodid = oContract.Prodid;

@@ -4,11 +4,11 @@
 		<headerToolbar>
 			<OverflowToolbar height="50px">
 				<content>
-					<Title text="SKU List" level="H2"/>
+					<Title text="SKU List With No Movements" level="H2"/>
 					<ToolbarSpacer/>
 					<Label text="Select Hours/Month:"/>
-					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>
-					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>
+					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"/>
+					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd"/>
 					<Button id="idSearchSku" text="Show" press="onSkuListFetch" class="sapUiSmallMarginBegin" type="Emphasized"/>
 				</content>
 			</OverflowToolbar>

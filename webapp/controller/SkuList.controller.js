@@ -8,8 +8,8 @@ sap.ui.define([
 	"sap/ui/export/library",
 	"sap/ui/table/library",
 	"sap/ui/model/Sorter",
-		"com/vSimpleApp/Classes/StockStandards",
-], function(Controller, JSONModel, Filter, FilterOperator, MessageBox, BusyIndicator, exportLibrary, library, Sorter,StockStandards) {
+	"com/vSimpleApp/Classes/StockStandards",
+], function(Controller, JSONModel, Filter, FilterOperator, MessageBox, BusyIndicator, exportLibrary, library, Sorter, StockStandards) {
 	"use strict";
 	var oView;
 	var sPathThreshold;
@@ -27,6 +27,7 @@ sap.ui.define([
 	var Totalsaleset = [];
 	var sCustomer = [];
 	var result = [];
+
 	var sKunnr, sSalesorg;
 	return Controller.extend("com.vSimpleApp.controller.SkuList", {
 		onInit: function() {
@@ -157,35 +158,121 @@ sap.ui.define([
 			}
 
 		},
+		MergeValues: function(List) {
 
-		onSkuListFetch: function() {
-			var that = this;
-			var oModelService = this.getOwnerComponent().getModel("StockModel");
-			var oModel = this.getView().getModel("oSkuModel");
-			var FirstDate = oModel.oData.FirstDate;
-			var EndDate = oModel.oData.EndDate;
-			console.log(FirstDate);
-			console.log(EndDate);
-			var oFilter1 = new sap.ui.model.Filter('Currdate', sap.ui.model.FilterOperator.EQ, FirstDate);
-			var oFilter2 = new sap.ui.model.Filter('Prvdate', sap.ui.model.FilterOperator.EQ, EndDate);
-			BusyIndicator.show(true);
-			oModelService.read("/getSkuListSet", {
-				filters: [oFilter1, oFilter2],
-				success: function(oData) {
-					BusyIndicator.hide();
-					var List = oData.results;
-					console.log(List);
-					that.getView().getModel("oSkuModel2").setData(List);
-					oView.getModel("oExcessDataModel").setData(List);
+			var TabData = [];
+			var Duplicate_matnr = [];
+			var array = [];
+			var NewArray = [];
+			for (var i = 0; i < List.length; i++) {
+				if (!array.includes(List[i].Matnr)) {
+					array.push({
+						Matnr: List[i].Matnr
+					});
+				}
+			}
+			var index = {};
+			array.forEach(function(point) {
+				var key = "" + point.Matnr + " ";
+				if (key in index) {
+					index[key].count++;
+				} else {
+					var newEntry = {
+						Matnr: point.Matnr,
+						count: 1
+					};
+					index[key] = newEntry;
+					NewArray.push(newEntry);
+				}
+			});
+			NewArray.sort(function(a, b) {
+				return b.count - a.count;
+			});
 
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+			console.log(NewArray);
+			for (var k = 0; k < NewArray.length; k++) {
+				if (NewArray[k].count > 1) {
+
+					var DupData = {
+						Matnr: NewArray[k].Matnr
+					};
+					Duplicate_matnr.push(DupData);
+				}
+			}
+			for (var z = 0; z < Duplicate_matnr.length; z++) {
+				for (var y = 0; y < List.length; y++) {
+					if (Duplicate_matnr[z].Matnr === List[y].Matnr) {
+						if (List[y].Vbeln === "" && List[y].Audat === null) {
+
+							var Ebeln = List[y].Ebeln;
+							var Bedat = List[y].Bedat;
+
+						}
+						if (List[y].Ebeln === "" && List[y].Bedat === null) {
+
+							var Vbeln = List[y].Vbeln;
+
+							var Audat = List[y].Audat;
+						}
+						var Matnr = List[y].Matnr;
+						var Maktx = List[y].Maktx;
+						var Werks = List[y].Werks;
+
+					}
 				}
 
-			});
+				TabData.push({
+					Matnr: Matnr,
+					Maktx: Maktx,
+					Werks: Werks,
+					Ebeln: Ebeln,
+					Bedat: Bedat,
+					Vbeln: Vbeln,
+
+					Audat: Audat
+				});
+				console.log(TabData);
+			}
+			return TabData;
+		},
+		onSkuListFetch: function() {
+			var that = this;
+			var rd1 = this.getView().byId("id3mnthRd").getSelected();
+			var rd2 = this.getView().byId("id6mnthRd").getSelected();
+
+		if (rd1 === false && rd2 === false) {
+				MessageBox.error("Please Select Month");
+			} else {
+				var oModelService = this.getOwnerComponent().getModel("StockModel");
+				var oModel = this.getView().getModel("oSkuModel");
+				var FirstDate = oModel.oData.FirstDate;
+				var EndDate = oModel.oData.EndDate;
+				console.log(FirstDate);
+				console.log(EndDate);
+				var oFilter1 = new sap.ui.model.Filter('Currdate', sap.ui.model.FilterOperator.EQ, FirstDate);
+				var oFilter2 = new sap.ui.model.Filter('Prvdate', sap.ui.model.FilterOperator.EQ, EndDate);
+				BusyIndicator.show(true);
+				oModelService.read("/getSkuListSet", {
+					filters: [oFilter1, oFilter2],
+					success: function(oData) {
+						BusyIndicator.hide();
+						var List = oData.results;
+						console.log(List);
+
+						var TabData = that.MergeValues(List);
+
+						that.getView().getModel("oSkuModel2").setData(TabData);
+						oView.getModel("oExcessDataModel").setData(TabData);
+
+					},
+					error: function(oError) {
+						BusyIndicator.hide();
+						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageBox.show(errorMsg);
+					}
+
+				});
+			}
 		},
 
 		onProcessOrder: function(event) {
@@ -414,7 +501,12 @@ sap.ui.define([
 
 			var table = this.byId("idSkuTable");
 			table.removeSelections();
-			this.getView().getModel("oskuFilterModel").setData({oData:{}});
+			this.getView().getModel("oskuFilterModel").setData({
+				oData: {}
+			});
+			// this.onSkuListFetch();
+			this.getView().byId("id3mnthRd").setSelected(false);
+			this.getView().byId("id6mnthRd").setSelected(false);
 			// this.getView().getModel("oSkuModel2").setData({oData:{}});
 		},
 
@@ -719,32 +811,34 @@ sap.ui.define([
 				filters: [oFilter1, oFilter2, oFilter3],
 				success: function(oData) {
 					BusyIndicator.hide();
-					var List = oData.results;
-	/*				var List2 = oData.results;
-					console.log(List);
-					that.getView().getModel("oSkuModel2").setData(List);
-					for (var i = 0; i < List.length; i++) {
-						var Material = List[i].Matnr;
-						var ShortText = List[i].Maktx;
-						var Ebeln = List[i].Ebeln;
-						var Vbeln = List[i].Vbeln;
-						var Currdate = List[i].Currdate;
-						var Prvdate = List[i].Prvdate;
-						var Audat = List[i].Audat;
-						var Bedat = List[i].Bedat;
-						List2.push({
-							Material: Material,
-							ShortText: ShortText,
-							Ebeln: Ebeln,
-							Vbeln: Vbeln,
-							Currdate: Currdate,
-							Prvdate: Prvdate,
-							Audat: Audat,
-							Bedat: Bedat
-						});
-					}
-					oView.getModel("oExcessDataModel").setData(List2);*/
-						that.getView().getModel("oSkuModel2").setData(List);
+					var List2 = oData.results;
+					/*				var List2 = oData.results;
+									console.log(List);
+									that.getView().getModel("oSkuModel2").setData(List);
+									for (var i = 0; i < List.length; i++) {
+										var Material = List[i].Matnr;
+										var ShortText = List[i].Maktx;
+										var Ebeln = List[i].Ebeln;
+										var Vbeln = List[i].Vbeln;
+										var Currdate = List[i].Currdate;
+										var Prvdate = List[i].Prvdate;
+										var Audat = List[i].Audat;
+										var Bedat = List[i].Bedat;
+										List2.push({
+											Material: Material,
+											ShortText: ShortText,
+											Ebeln: Ebeln,
+											Vbeln: Vbeln,
+											Currdate: Currdate,
+											Prvdate: Prvdate,
+											Audat: Audat,
+											Bedat: Bedat
+										});
+									}
+									oView.getModel("oExcessDataModel").setData(List2);*/
+
+					var TabData = that.MergeValues(List2);
+					that.getView().getModel("oSkuModel2").setData(TabData);
 
 				},
 				error: function(oError) {
@@ -862,25 +956,25 @@ sap.ui.define([
 		},
 
 		onCancelSales: function() {
-				var SO = sap.ui.getCore().getModel("SOSalesModel");
-				var SOContract = SO.getProperty("/SalesContract");
+			var SO = sap.ui.getCore().getModel("SOSalesModel");
+			var SOContract = SO.getProperty("/SalesContract");
 			//	SO.oData.SalesContract = [];
-				SOContract.OrderItemsInSet = [];
-				SOContract.OrderItemsInSet.length = 0;
-				SOContract.OrderConditionsInSet.length = 0;
-				SOContract.OrderSchedulesInSet = [];
-				var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-				 SalesOrder.oData.SOItem.length=0;
-				SalesOrder.oData.SOItem = [];
-				//	window.location.reload();
-				// SO.setData({
-				// 	oData: {}
-				// });
+			SOContract.OrderItemsInSet = [];
+			SOContract.OrderItemsInSet.length = 0;
+			SOContract.OrderConditionsInSet.length = 0;
+			SOContract.OrderSchedulesInSet = [];
+			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
+			SalesOrder.oData.SOItem.length = 0;
+			SalesOrder.oData.SOItem = [];
+			//	window.location.reload();
+			// SO.setData({
+			// 	oData: {}
+			// });
 
-				SalesOrder.refresh(true);
+			SalesOrder.refresh(true);
 
-				var table = this.byId("idSkuTable");
-				table.removeSelections();
+			var table = this.byId("idSkuTable");
+			table.removeSelections();
 			this.UpdateSale.close();
 			this.UpdateSale.destroy();
 		},
@@ -1048,7 +1142,7 @@ sap.ui.define([
 			});
 
 		},
-			_getSimulateData: function(oEvent) {
+		_getSimulateData: function(oEvent) {
 			var ConditionItem = [],
 				ScheduleItem = [];
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
@@ -1091,25 +1185,22 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 			oModel.create(relPath, getRequestPayload, mParameters);
 
-
 		},
-			onSaveSalesorder: function(oEvent) {
+		onSaveSalesorder: function(oEvent) {
 			var ConditionItem = [],
 				ScheduleItem = [];
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 			var soldtoparty = sap.ui.getCore().byId("idsoldtopt");
-	var idSaleorg = sap.ui.getCore().byId("idSaleorg");
+			var idSaleorg = sap.ui.getCore().byId("idSaleorg");
 
 			if (soldtoparty.getValue() == "") {
-			
-					soldtoparty.setValueState("Error");
+
+				soldtoparty.setValueState("Error");
 				soldtoparty.setValueStateText("Sold-To-Party is required");
-			}else if(idSaleorg.getValue() == ""){
-					idSaleorg.setValueState("Error");
+			} else if (idSaleorg.getValue() == "") {
+				idSaleorg.setValueState("Error");
 				idSaleorg.setValueStateText("Sales Organization is required");
-			}
-			
-			else {
+			} else {
 				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 				var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
 				var SOSalesModel = oSalesModel.getProperty("/SalesContract");

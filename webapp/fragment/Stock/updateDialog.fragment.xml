@@ -62,7 +62,7 @@
 					<HBox class="sapUiMediumMarginBegin">
 						<Label text="Material" required="true" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
 						<Input id="MaterialAdd" placeholder="Material No" width="80%" showSuggestion="true" showValueHelp="true"
-						valueHelpRequest="handleMaterialHelp" Change="Validate" value="{ThresholdModel>/Matnr}"  suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						valueHelpRequest="handlePOMaterialHelp" value="{ThresholdModel>/Matnr}"  suggestionItems="{ path: 'Lookup>/MaterialList' }"
 						suggestionItemSelected="onSuggest" liveChange="Validate">
 						<suggestionItems>
 							<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
@@ -70,7 +70,7 @@
 					</Input>
 						<Label text="Plant" required="true" class="sapUiTinyMarginTop sapUiSmallMarginEnd"/>
 							<Input id="PlantAdd" placeholder=" Enter Plant No" width="80%" showSuggestion="true" showValueHelp="true"
-						valueHelpRequest="handleValueHelpAddPlant" Change="Validate" value="{ThresholdModel>/Werks}" change="StockDetails" suggestionItems="{ path: 'Lookup>/POPlant' }"
+						valueHelpRequest="handleValueHelpAddPlant" value="{ThresholdModel>/Werks}" change="StockDetails" suggestionItems="{ path: 'Lookup>/POPlant' }"
 						suggestionItemSelected="onSuggest" liveChange="Validate">
 						<suggestionItems>
 							<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
@@ -83,19 +83,19 @@
 					<HBox class="sapUiMediumMarginTop sapUiMediumMarginBegin">
 						<VBox>
 							<Label text="Critical Threshold" class="sapUiMediumMarginEnd"/>
-							<Input placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Crtlv}" width="70%"  class="sapUiMediumMarginEnd"/>
+							<Input id="idCrtVal" placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Crtlv}" width="70%"  class="sapUiMediumMarginEnd"/>
 						</VBox>
 						<VBox>
 							<Label text="Warning Threshold" class="sapUiMediumMarginEnd"/>
-							<Input placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cytlv}" width="70%" class="sapUiMediumMarginEnd"/>
+							<Input id ="idWarVal" placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cytlv}" width="70%" class="sapUiMediumMarginEnd"/>
 						</VBox>
 						<VBox>
 							<Label text="Green Threshold" class="sapUiMediumMarginEnd"/>
-							<Input placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cgtlv}" width="70%" class="sapUiMediumMarginEnd" />
+							<Input id ="idGrnVal" placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cgtlv}" width="70%" class="sapUiMediumMarginEnd" />
 						</VBox>
 						<VBox>
 							<Label text="Excess Threshold" class="sapUiMediumMarginEnd"/>
-							<Input placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cbtlv}" width="70%" class="sapUiMediumMarginEnd"/>
+							<Input id="idExcVal" placeholder="Enter Value" liveChange="numValidate" value="{ThresholdModel>/Cbtlv}" width="70%" class="sapUiMediumMarginEnd"/>
 						</VBox>
 					</HBox>
 					</VBox>
