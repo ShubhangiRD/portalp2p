@@ -134,7 +134,12 @@ var std = {
 
 			this.setModel(oEditModel, "EditModel");
 			var oVisibleModel = new JSONModel({
-				isVisible: false
+				isVisible: false,
+				isButtonEdit : true,
+				isButtonDisplay : true,
+				isButtonCancel : true,
+				isButtonSave : true
+				
 			});
 
 			this.setModel(oVisibleModel, "VisibleModel");
@@ -146,6 +151,9 @@ var std = {
 
 			this.setModel(oScreenModel, "ScreenName");
 			
+			
+				var ColorStateModel = new sap.ui.model.json.JSONModel([]);
+			this.setModel(ColorStateModel, "ColorStateModel");
 			
 			
 			

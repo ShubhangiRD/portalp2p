@@ -82,7 +82,7 @@
 					<!--<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>-->
 				<Button icon="sap-icon://nav-back" press="onNavBack"/>
 					<Button icon="sap-icon://download" press="onExport"/>
-						<SearchField placeholder="Filter"  search="onSearchMaterial" width="15rem"/>
+						<SearchField placeholder="Filter"  id="idpoMaterial" search="onSearchMaterial" width="15rem"/>
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>
@@ -122,17 +122,18 @@
 				<cells>
 					<Text text="{oLeadTimeModel>Matnr}"/>
 					<Text text="{oLeadTimeModel>Description}"/>
-					<Text text="{oLeadTimeModel>AvailableQuantity}"/>
+					<!--<Text text="{oLeadTimeModel>AvailableQuantity}"/>-->
+					<ObjectNumber number='{oLeadTimeModel>AvailableQuantity}'
+						state="{ parts: [ {path: 'oLeadTimeModel>Color'}, {path: 'oLeadTimeModel>AvailableQuantity'} ], formatter: '.formatter.onColorStatePoDecision'}"></ObjectNumber>
 				
 					<Text text="{oLeadTimeModel>Sale}"/>
 						<Text text="{oLeadTimeModel>Lead}"/>
 				
 						<Text text="{oLeadTimeModel>Buffer}"/>
 							<!--<Text text="{oLeadTimeModel>Date}"/>-->
-					<Text
-					
-					
-					text="{ path: 'oLeadTimeModel>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' },style: 'long' }"/>
+						<Text text="{oLeadTimeModel>Date}"/>
+							
+							<!--<Text	text="{ path: 'oLeadTimeModel>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' },style: 'long' }"/>-->
 					<!--<ObjectIdentifier title="{oSkuModel2>Vbeln}"/>-->
 					<!--<Text text="{ path: 'oSkuModel2>Audat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>-->
 				</cells>

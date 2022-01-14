@@ -75,8 +75,8 @@ sap.ui.define([
 			this.getView().setModel(oScreenModel, "ScreenName");
 
 			//calling function through init
-		//	this.getVendorList();
-		//	this.getTopProductsFirst();
+				this.getVendorList();
+				this.getTopProductsFirst();
 
 			//	this.getPurchaseOrderList();
 
@@ -120,7 +120,7 @@ sap.ui.define([
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
-		//	this.getVendorCountListByPO();
+				this.getVendorCountListByPO();
 
 		},
 
@@ -177,10 +177,10 @@ sap.ui.define([
 		},
 		pressGenericTileVendor: function(evt) {
 
-			this.pressDialogExcessDiscard = oView.byId("IdVendorLinks");
-			if (!this.pressDialogExcessDiscard) {
-				this.pressDialogExcessDiscard = sap.ui.xmlfragment("com.vSimpleApp.fragment.VendorDisplay.VendorLinks", this);
-				this.pressDialogExcessDiscard.open();
+			this.pressDialogIV = oView.byId("IdVendorLinks");
+			if (!this.pressDialogIV) {
+				this.pressDialogIV = sap.ui.xmlfragment("com.vSimpleApp.fragment.VendorDisplay.VendorLinks", this);
+				this.pressDialogIV.open();
 
 			}
 
@@ -188,43 +188,41 @@ sap.ui.define([
 		handleLinkPress: function(evt) {
 			if (evt.getSource().getProperty("text") === "Create Vendor") {
 
-				// 	oComponent.getRouter().navTo("VendorDetail", {
-				// 	StageId : "1"
-				// });
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
-			} else if (evt.getSource().getProperty("text") === "Edit Vendor") {
-			
-				// 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				// oRouter.navTo("VendorDetail",{
-				// StageId : 2
-				// });
 
-						var sVendor = "Edit Vendor";
+			} else if (evt.getSource().getProperty("text") === "Edit Vendor") {
+
+				var sVendor = "Edit Vendor";
 				//setting property to models
 				this.getOwnerComponent().getModel("ScreenName").setProperty("/isScreen", sVendor);
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isVisible", true);
 
-			//	oView.byId("iddEditt").setVisible(false);
+				//	oView.byId("iddEditt").setVisible(false);
+
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+
 				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditable", true);
-					this.pressDialogExcessDiscard.close();
-			this.pressDialogExcessDiscard.destroy();
-			oComponent.getRouter().navTo("VendorDetail");
-
-			} else if (evt.getSource().getProperty("text") === "Display Vendor") {
-				
-					var sVendor = "Display Vendor";
-			//setting property to models
-			this.getOwnerComponent().getModel("ScreenName").setProperty("/isScreen", sVendor);
-
-			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isVisible", true);
-		//	oView.byId("btn_display").setVisible(false);
-		//	oView.byId("iddEditt").setVisible(true);
-			this.getOwnerComponent().getModel("EditModel").setProperty("/isEditable", false);
-				this.pressDialogExcessDiscard.close();
-			this.pressDialogExcessDiscard.destroy();
+				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
 
-				
+			} else if (evt.getSource().getProperty("text") === "Display Vendor") {
+
+				var sVendor = "Display Vendor";
+				//setting property to models
+				this.getOwnerComponent().getModel("ScreenName").setProperty("/isScreen", sVendor);
+
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isVisible", true);
+				//	oView.byId("btn_display").setVisible(false);
+				//	oView.byId("iddEditt").setVisible(true);
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", true);
+
+				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditable", false);
+				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
+				oComponent.getRouter().navTo("VendorDetail");
+
 			}
 		},
 		closeLinkbox: function(evt) {

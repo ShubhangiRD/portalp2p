@@ -383,6 +383,17 @@ sap.ui.define([
 				return "Error";
 			}
 		},
-		oCreatePurchaseOrder: function(color, material, plant, text) {}
+		oCreatePurchaseOrder: function(color, material, plant, text) {},
+		onColorStatePoDecision : function(Color,AvailableQuantity){
+				if (Color == "blue") {
+				return "Information";
+			} else if (Color == "green") {
+				return "Success";
+			} else if (Color == "yellow") {
+				return "Warning";
+			} else if (Color == "red") {
+				return "Error";
+			} 
+		}
 	};
 }, true);

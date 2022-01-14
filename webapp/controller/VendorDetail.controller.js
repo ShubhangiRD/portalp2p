@@ -32,7 +32,9 @@ sap.ui.define([
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 
-			oView.byId("iddEditt").setVisible(false);
+		//	oView.byId("iddEditt").setVisible(false);
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
 
@@ -3392,8 +3394,11 @@ sap.ui.define([
 			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
-			oView.byId("btn_display").setVisible(false);
-			oView.byId("iddEditt").setVisible(true);
+		//	oView.byId("btn_display").setVisible(false);
+	//		oView.byId("iddEditt").setVisible(true);
+		this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
+			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", true);
+
 			oView.getModel("EditModel").setProperty("/isEditable", false);
 
 		},
@@ -3403,8 +3408,9 @@ sap.ui.define([
 			//setting property to models
 			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
+	this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
 
-			oView.byId("iddEditt").setVisible(false);
+		//	oView.byId("iddEditt").setVisible(false);
 			oView.getModel("EditModel").setProperty("/isEditable", true);
 
 		},

@@ -10,10 +10,11 @@ sap.ui.define([
 	"sap/ui/table/library",
 	'sap/suite/ui/commons/ChartContainerContent',
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
+	"sap/ui/model/FilterOperator",
+		"com/vSimpleApp/model/formatter"
 ], function(Controller, MessageToast, MessageBox, History, BusyIndicator, JSONModel, Spreadsheet, exportLibrary, library,
 	ChartContainerContent,
-	Filter, FilterOperator) {
+	Filter, FilterOperator,formatter) {
 	"use strict";
 	var oController, oView, oComponent;
 	var SortOrder = library.SortOrder;
@@ -34,6 +35,8 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf com.vSimpleApp.view.PoDecision
 		 */
+		 		formatter: formatter,
+
 		onInit: function() {
 			oController = this;
 			oView = this.getView();
@@ -60,7 +63,21 @@ sap.ui.define([
 			//	this._getLabst_matlab();
 		},
 		onNavBack: function() {
+				oView.byId("idpoMaterial").setValue("");
+			var aFilter = [];
+			
+			var sQuery = "";
+			if (sQuery) {
+				aFilter.push(
+					new Filter("Matnr", FilterOperator.EQ, sQuery));
+
+			}
+			// update list binding
+			var slist = this.getView().byId("leadtimeTable");
+			var binding = slist.getBinding("items");
+			binding.filter(aFilter, "Application");
 			this.getOwnerComponent().getRouter().navTo("StockTable");
+		
 		},
 		_get_po_decision: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
@@ -743,6 +760,9 @@ sap.ui.define([
 		getAllMaterialData: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
+			var colorState = this.getOwnerComponent().getModel("ColorStateModel");
+			console.log(colorState);
+			var odatacolor = colorState.oData;
 			var oAllPoData = [];
 
 			function percentage(percent, total) {
@@ -859,16 +879,27 @@ sap.ui.define([
 							Sale = Sale;
 						}
 
+					if (Material !== "" || Material !== undefined) {
+							for (var z1 = 0; z1 < odatacolor.length; z1++) {
+								if (Material === odatacolor[z1].Material) {
+									var colorS = odatacolor[z1].Color;
+							
+
+								}
+							}
+						}
+
 						oNwLe.push({
 							Matnr: Material,
+							Color : colorS,
 							Description: Description,
 							Labst: parseInt(sTotalLabst),
-							AvailableQuantity: parseInt(sTotalLabst) + " Unit",
+							AvailableQuantity: parseInt(sTotalLabst) + " Units",
 							Leadtime: Leadtime,
 							Ebeln: PoCount,
 							Lead: Math.round((Leadtime / PoCount)) + " Days",
 							LeadBuffer: Math.round((Leadtime / PoCount)),
-							Sale: Sale,
+							Sale: Sale
 
 							//RunoutofStock : Math.round(parseInt(sTotalLabst)/Sale)
 
@@ -876,18 +907,22 @@ sap.ui.define([
 						Sale = "";
 						if (oNwLe[iRow].Sale !== 0) {
 							oNwLe[iRow].RunoutofStock = (oNwLe[iRow].Labst) / oNwLe[iRow].Sale;
+							oNwLe[iRow].Sale = oNwLe[iRow].Sale + " Units";
+							oNwLe[iRow].Buffer = Math.round(percentage(50, oNwLe[iRow].Leadtime));
+							var orderdate = oNwLe[iRow].RunoutofStock - (oNwLe[iRow].Buffer + oNwLe[iRow].LeadBuffer);
+							oNwLe[iRow].Buffer = oNwLe[iRow].Buffer + " Days";
+							var currentDate = new Date();
+							currentDate.setDate(currentDate.getDate() + orderdate);
+							var cuDate = currentDate.toDateString();
+							oNwLe[iRow].Date = cuDate;
+							
 						} else {
-							oNwLe[iRow].RunoutofStock = oNwLe[iRow].Labst;
+								oNwLe[iRow].Date = "NA";
+								oNwLe[iRow].Sale = oNwLe[iRow].Sale + " Units";
+								oNwLe[iRow].Buffer = Math.round(percentage(50, oNwLe[iRow].Leadtime));
+								oNwLe[iRow].Buffer = oNwLe[iRow].Buffer + " Days";
 						}
-						oNwLe[iRow].Buffer = Math.round(percentage(50, oNwLe[iRow].Leadtime));
-
-						var orderdate = oNwLe[iRow].RunoutofStock - (oNwLe[iRow].Buffer + oNwLe[iRow].LeadBuffer);
-
-						oNwLe[iRow].Buffer = oNwLe[iRow].Buffer + " Days";
-						var currentDate = new Date();
-						currentDate.setDate(currentDate.getDate() + orderdate);
-
-						oNwLe[iRow].Date = currentDate;
+					
 					}
 
 					oView.getModel("oLeadTimeModel").setSizeLimit(oNwLe.length);
@@ -914,7 +949,7 @@ sap.ui.define([
 			var s = ss.slice(0, -5);
 			console.log(s);
 
-			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s);
+			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s2);
 
 			BusyIndicator.show(true);
 			oModel.read("/getposo_dataSet", {

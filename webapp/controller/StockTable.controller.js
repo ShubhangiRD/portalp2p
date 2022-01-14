@@ -200,313 +200,12 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("PoDecision");
 		},
-		// getStockDetailList1: function() {
-		// 	var oModel = this.getOwnerComponent().getModel("StockModel");
-		// 	BusyIndicator.show(true);
-		// 	oModel.read("/STOCK_DATASet", {
-		// 		success: function(oData) {
-		// 			BusyIndicator.hide();
-		// 			var ListofSrs = [];
-
-		// 			var len = oData.results.length;
-		// 			var childarray = [];
-		// 			var InnerChild = [];
-		// 			var InnerinnerChild = [];
-		// 			var UniqueMatnr = [];
-		// 			var UniqueWerks = [];
-		// 			var UniqueStrLoc = [];
-
-		// 			StockList = oData.results;
-
-		// 			var iItem = oData.results.length;
-		// 			var ListItem = [];
-		// 			for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-
-		// 				var Matnr = oData.results[iRowIndex].Matnr;
-		// 				ListItem.push({
-		// 					Matnr: Matnr
-
-		// 				});
-		// 			}
-		// 			var index = {};
-
-		// 			ListItem.forEach(function(point) {
-		// 				var key = "" + point.Matnr + " ";
-		// 				if (key in index) {
-		// 					index[key].count++;
-		// 				} else {
-		// 					var newEntry = {
-		// 						Matnr: point.Matnr,
-		// 						Labst: "",
-		// 						count: 1
-		// 					};
-		// 					index[key] = newEntry;
-		// 					TotalLabst.push(newEntry);
-		// 				}
-		// 			});
-
-		// 			TotalLabst.sort(function(a, b) {
-		// 				return b.count - a.count;
-		// 			});
-
-		// 			var data = oData.results;
-
-		// 			for (var x = 0; x < TotalLabst.length; x++) {
-		// 				var orderCount = 0;
-		// 				for (var j = 0; j < data.length; j++) {
-		// 					if (TotalLabst[x].Matnr === data[j].Matnr) {
-		// 						orderCount = orderCount + parseInt(data[j].Labst);
-		// 						TotalLabst[x].Labst = orderCount.toString();
-		// 					}
-
-		// 				}
-
-		// 			}
-		// 			console.log(TotalLabst);
-
-		// 			function userExists(Bukrs) {
-		// 				return childarray.some(function(el) {
-		// 					return el.Bukrs === Bukrs;
-		// 				});
-		// 			}
-
-		// 			for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-
-		// 				var odataset = oData.results[iRowIndex];
-		// 				var Werks = odataset.Werks;
-
-		// 				var Cbtlv = odataset.Cbtlv;
-		// 				var Cgtlv = odataset.Cgtlv;
-		// 				var Cytlv = odataset.Cytlv;
-		// 				var Changedon = odataset.Changedon;
-		// 				var Crtlv = odataset.Crtlv;
-		// 				var Labst = odataset.Labst;
-
-		// 					var Description = odataset.Maktx;
-		// 				//var openpo = PoDocumentNumber[iRowIndex].Bedat;
-		// 				var Matnr = odataset.Matnr;
-
-		// 					var Bukrs = odataset.Bukrs;
-
-		// 				var Lbkum = odataset.Lbkum;
-		// 				var Lgort = odataset.Lgort;
-
-		// 					if (Matnr !== "" || Matnr !== undefined) {
-		// 						for (var z = 0; z < TotalLabst.length; z++) {
-		// 							if (Matnr === TotalLabst[z].Matnr) {
-		// 								var sTotalLabst = TotalLabst[z].Labst;
-
-		// 							}
-		// 						}
-		// 					}
-
-		// 				if (Matnr !== "" || Matnr !== undefined) {
-		// 					for (var x1 = 0; x1 <= result.length - 1; x1++) {
-
-		// 						if (Matnr === result[x1].Matnr) {
-		// 							var sOpenSalesOrder = result[x1].Kwmeng;
-
-		// 						}
-		// 					}
-		// 				}
-		// 				if (Matnr !== "" || Matnr !== undefined) {
-		// 					for (var x2 = 0; x2 < PoQuantity.length; x2++) {
-
-		// 						if (Matnr === PoQuantity[x2].Matnr) {
-		// 							var sOpenPoQuantity = PoQuantity[x2].Menge;
-		// 							var sOpenPoDate = PoQuantity[x2].Prdat;
-		// 							var sDocDate = PoQuantity[x2].Bedat;
-
-		// 						}
-		// 					}
-		// 				}
-
-		// 				if (Matnr !== "" || Matnr !== undefined) {
-		// 					for (var j = 0; j < Totalsaleset.length; j++) {
-
-		// 						if (Matnr === Totalsaleset[j].Matnr) {
-		// 							var sRunRate = Totalsaleset[j].Kwmeng;
-
-		// 						}
-		// 					}
-		// 				}
-
-		// 				// if (!UniqueMatnr.includes(Matnr)) {
-		// 				// 	UniqueMatnr.push(Matnr);
-		// 				// 	UniqueMatnrGlobal.push(Matnr);
-		// 					ListofSrs.push({
-		// 						Cbtlv: Cbtlv,
-		// 						Cgtlv: Cgtlv,
-		// 						Cytlv: Cytlv,
-		// 						Changedon: Changedon,
-		// 						Crtlv: Crtlv,
-
-		// 						Labst: parseInt(sTotalLabst),
-		// 						// Labst: parseInt(Labst),
-		// 						ALabst: parseInt(Labst-sOpenSalesOrder),
-		// 					//	ALabst :parseInt(sTotalLabst),
-		// 						Material: Matnr,
-		// 						ShortText: Description,
-		// 						Plant: Werks,
-		// 						Color: "",
-		// 						MultipleIt: childarray,
-		// 						OsalesOrder: sOpenSalesOrder,
-		// 						OpenPODate: sOpenPoDate,
-		// 						OpenPOQty: sOpenPoQuantity,
-		// 						DocDate: sDocDate,
-		// 						RunRate: sRunRate
-		// 					});
-
-		//                                //console.log(StockList[j]);
-
-		// 							//	console.log(sum);
-
-		// 							if (userExists(Bukrs)) {
-
-		// 								if (!UniqueWerks.includes(Werks)) {
-		// 									UniqueWerks.push(Werks);
-
-		// 									if (!UniqueStrLoc.includes({Werks:Lgort})) {
-		// 										UniqueStrLoc.push({Werks1:Lgort});
-
-		// 										InnerChild.push({
-
-		// 											Material: 'Plant' + " " + Werks,
-		// 											Plant: Werks,
-		// 											MultipleIt: InnerinnerChild,
-		// 											OpenPOQty: sOpenPoQuantity,
-		// 											OsalesOrder: "So",
-		// 											Crtlv: "crtlv",
-		// 											Cytlv: "cytlv",
-		// 											Cgtlv: "cgtlv",
-		// 											Cbtlv: "cbtlv",
-		// 											RunRate: sRunRate
-
-		// 										});
-
-		// 										InnerinnerChild.push({
-
-		// 											Labst: Labst,
-		// 											Material: 'SLoc' + " " + Lgort,
-		// 											Crtlv: "crtlv",
-		// 											Cytlv: "cytlv",
-		// 											Cgtlv: "cgtlv",
-		// 											Cbtlv: "cbtlv",
-		// 											OsalesOrder: "So",
-		// 											Lgort: Lgort
-
-		// 										});
-
-		// 									}
-		// 							         //}
-		// 								} else {
-
-		// 									// if (!InnerinnerChild.includes(Lgort)) {
-		// 									InnerinnerChild.push({
-		// 										//	Bukrs: Bukrs,
-		// 										Labst: Labst,
-		// 										Material: 'SLoc' + " " + Lgort,
-		// 										Crtlv: "crtlv",
-		// 										Cytlv: "cytlv",
-		// 										Cgtlv: "cgtlv",
-		// 										Cbtlv: "cbtlv",
-		// 										OsalesOrder: "So",
-		// 										Lgort: Lgort
-
-		// 									});
-
-		// 									// }
-		// 								}
-
-		// 							} else {
-		// 								childarray.push({
-		// 									Bukrs: Bukrs,
-		// 									BLabst: "AL",
-		// 									ALabst: " ",
-		// 									Labst: Labst,
-		// 									Material: 'Company Level' + " " + Bukrs,
-		// 									Crtlv: "crtlv",
-		// 									Cytlv: "cytlv",
-		// 									Cgtlv: "cgtlv",
-		// 									Cbtlv: "cbtlv",
-		// 									OsalesOrder: sOpenSalesOrder,
-
-		// 									//	Lgort: Lgort,
-		// 									//	Werks: Werks,
-		// 									MultipleIt: InnerChild,
-		// 									OpenPODate: sOpenPoDate,
-		// 									 OpenPOQty:sOpenPoQuantity,
-		// 									DocDate: sDocDate
-
-		// 								});
-		// 								sOpenSalesOrder = "";
-		// 								sOpenPoDate = "";
-
-		// 								sDocDate = "";
-		// 								var uniquewa=[];
-		//                                  if (!uniquewa.includes(Werks)) {
-		// 									uniquewa.push(Werks);
-		// 								InnerChild.push({
-		// 									//	Bukrs: Bukrs,
-		// 									// Labst: Labst,
-		// 									//	Lgort: Lgort,
-		// 									Material: 'Plant' + " " + Werks,
-		// 									Crtlv: "crtlv",
-		// 									Cytlv: "cytlv",
-		// 									Cgtlv: "cgtlv",
-		// 									Cbtlv: "cbtlv",
-		// 									Plant: Werks,
-		// 									MultipleIt: InnerinnerChild,
-		// 									OpenPOQty: sOpenPoQuantity,
-		// 									OsalesOrder: "So",
-		// 									RunRate: sRunRate
-
-		// 								});
-		// 								sOpenPoQuantity = "";
-		// 								sRunRate = "";
-
-		// 								// if (InnerinnerChild.includes(Lgort)) {
-		// 								InnerinnerChild.push({
-		// 									//	Bukrs: Bukrs,
-		// 									Labst: Labst,
-		// 									Crtlv: "crtlv",
-		// 									Cytlv: "cytlv",
-		// 									Cgtlv: "cgtlv",
-		// 									Cbtlv: "cbtlv",
-
-		// 									Material: 'SLoc' + " " + Lgort,
-		// 									OsalesOrder: "So",
-		// 									Lgort: Lgort
-
-		// 								});
-
-		// 								}
-
-		// 						}
-
-		// 					InnerChild = [];
-		// 					InnerinnerChild = [];
-		// 					childarray = [];
-
-		// 				}
-
-		// 		//	}
-
-		// 			oView.getModel("oStockDataModel").setData(ListofSrs);
-
-		// 			Massupload = ListofSrs;
-		// 			this.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
-		// 		},
-		// 		error: function(oError) {
-		// 			BusyIndicator.hide();
-		// 			var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-		// 			MessageToast.show(errorMsg);
-		// 		}
-		// 	});
-		// },
-
+	
 		getStockDetailListNew: function() {
+		
+		
 			var oModel = this.getOwnerComponent().getModel("StockModel");
+			var that = this;
 			BusyIndicator.show(true);
 			oModel.read("/STOCK_DATASet", {
 				success: function(oData) {
@@ -855,8 +554,13 @@ sap.ui.define([
 
 					oView.getModel("oStockDataModel").setData(ListofSrs);
 					console.log(ListofSrs);
+			
+					that.getOwnerComponent().getModel("ColorStateModel").setData(ListofSrs);
+				
 					Massupload = ListofSrs;
-					this.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
+					that.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
+					
+				
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -1155,6 +859,7 @@ sap.ui.define([
 					console.log(ListofSrs);
 					Massupload = ListofSrs;
 					this.getOwnerComponent().getModel("oTransferMod").setData(ListofSrs);
+					
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
