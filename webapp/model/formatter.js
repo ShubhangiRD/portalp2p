@@ -209,7 +209,7 @@ sap.ui.define([
 			blue = blue;
 			var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 			var oModel = oBinding1.oModel.oData;
-			console.log(oModel);
+		//	console.log(oModel);
 			var slength = oBinding1.oModel.oData.length;
 			var sColumnlength = slength - (slength - 1);
 			var model= this.getView().getModel("oStockDataModel").oData;
@@ -221,7 +221,7 @@ sap.ui.define([
 				});
 			}
 			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Material !== null) {
-				console.log(Material);
+				//console.log(Material);
 		      for(i=0;i<oModel.length;i++){
 		      	if(oModel[i].Material === Material && oModel[i].Color===""){
 		      	if(countt>=oModel.length){
@@ -230,7 +230,7 @@ sap.ui.define([
 		      		if(countt<=oModel.length){
 				if (quantity > green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
-					console.log(countt)
+				//	console.log(countt)
 					countt++;
 					
 					// oExcess.push({
@@ -243,17 +243,17 @@ sap.ui.define([
 					return "Information";
 				} else if (quantity > yellow && quantity < green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "green");
-					console.log(countt);
+				//	console.log(countt);
 					countt++;
 					return "Success";
 				} else if (quantity > red && quantity <= yellow) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "yellow");
-					console.log(countt);
+				//	console.log(countt);
 					countt++;
 					return "Warning";
 				} else if (quantity < yellow) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "red");
-					console.log(countt);
+				//	console.log(countt);
 					countt++;
 					return "Error";
 				}

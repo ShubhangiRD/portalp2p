@@ -198,7 +198,10 @@ sap.ui.define([
 		},
 		onPressPoDecision: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			
 			oRouter.navTo("PoDecision");
+				var table = this.byId("TreeTableBasic2");
+			table.clearSelection();
 		},
 	
 		getStockDetailListNew: function() {
@@ -1498,11 +1501,15 @@ sap.ui.define([
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Analytics");
+				var table = this.byId("TreeTableBasic2");
+			table.clearSelection();
 		},
 		BuyerSheetChat: function(oEvent) {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("BuyerSheet");
+				var table = this.byId("TreeTableBasic2");
+			table.clearSelection();
 		},
 		onFilterSelect: function(oEvent) {
 			var oBinding = this.byId("TreeTableBasic2").getBinding("rows"),
@@ -3968,7 +3975,10 @@ sap.ui.define([
 
 			if (splantt !== "" && splantt !== undefined && ItemPlant !== "" && ItemPlant !== undefined) {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				
 				oRouter.navTo('StockTransfer');
+					var table = this.byId("TreeTableBasic2");
+			table.clearSelection();
 			} else {
 				MessageBox.error("Please select Plant");
 			}
@@ -4010,6 +4020,8 @@ sap.ui.define([
 		onExcessMaterial: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ExcessData");
+				var table = this.byId("TreeTableBasic2");
+			table.clearSelection();
 			window.location.reload();
 			//     	this.pressDialogExcessMaterial = oView.byId("idExcessDataMaterial");
 			// if (!this.pressDialogExcessMaterial) {
