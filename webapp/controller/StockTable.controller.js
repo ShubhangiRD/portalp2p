@@ -1396,7 +1396,7 @@ sap.ui.define([
 				}
 			});
 		},
-
+	
 		getPodetailsset: function(evt) {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
@@ -1516,8 +1516,7 @@ sap.ui.define([
 				//	var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 				sText = oEvent.getSource();
 			var sKey = sText.mProperties.text;
-			//	sKey = oEvent.getParameter("text"),
-
+			
 			var aFilters = [],
 				ShowColor;
 
@@ -1533,15 +1532,16 @@ sap.ui.define([
 				ShowColor = new sap.ui.model.Filter('Color', sap.ui.model.FilterOperator.EQ, "yellow");
 			}
 			aFilters.push(new Filter([ShowColor], false));
-			oBinding.filter(aFilters, null);
-			//	oBinding.filter('Color', null);
+			oBinding.filter(aFilters);
+		//	oBinding.filter('Color', null);
 		},
+		
 		onFilterSelectHierarchy: function(oEvent) {
 			var oBinding = this.byId("awaitingTable2").getBinding("items"),
-				sText = oEvent.getSource();
+			sText = oEvent.getSource();
 			var sKey = sText.mProperties.text,
-				//	sKey = oEvent.getParameter("text"),
-
+				sKey = oEvent.getParameter("text"),
+ 
 				aFilters = [],
 				ShowColor;
 
@@ -1558,6 +1558,13 @@ sap.ui.define([
 			}
 			aFilters.push(new Filter([ShowColor], false));
 			oBinding.filter(aFilters);
+			
+			
+			
+			
+			
+			
+			
 
 		},
 		OnclearFilterHierarchy: function(oEvent) {
@@ -1580,10 +1587,11 @@ sap.ui.define([
 				oData: {}
 			});
 			oMatModel.updateBindings(true);
-			var tbl = oView.byId("TreeTableBasic2");
-			tbl.setBusy(true);
-			this.getStockDetailListNew();
-			tbl.setBusy(false);
+			// var tbl = oView.byId("TreeTableBasic2");
+			// tbl.setBusy(true);
+			// this.getStockDetailListNew();
+			// tbl.setBusy(false);
+				window.location.reload();
 		},
 
 		//	return new Promise ( function(ee,we){
