@@ -209,8 +209,11 @@ sap.ui.define([
 			blue = blue;
 			var oBinding1 = this.getView().byId("TreeTableBasic2").getBinding("rows");
 			var oModel = oBinding1.oModel.oData;
+			console.log(oModel);
 			var slength = oBinding1.oModel.oData.length;
 			var sColumnlength = slength - (slength - 1);
+			var model= this.getView().getModel("oStockDataModel").oData;
+		
 
 			function PlantExists(quantity) {
 				return oExcess.some(function(edl) {
@@ -218,9 +221,16 @@ sap.ui.define([
 				});
 			}
 			if (quantity !== null && red !== null && yellow !== null && green !== null && blue !== null && Material !== null) {
+				console.log(Material);
+		      for(i=0;i<oModel.length;i++){
+		      	if(oModel[i].Material === Material && oModel[i].Color===""){
+		      	
+		      		if(countt<=oModel.length){
 				if (quantity > green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
+					console.log(countt)
 					countt++;
+					
 					// oExcess.push({
 					// 	quantity: quantity,
 					// 	Matnr: Matnr
@@ -231,20 +241,43 @@ sap.ui.define([
 					return "Information";
 				} else if (quantity > yellow && quantity < green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "green");
+					console.log(countt);
 					countt++;
 					return "Success";
 				} else if (quantity > red && quantity <= yellow) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "yellow");
+					console.log(countt);
 					countt++;
 					return "Warning";
 				} else if (quantity < yellow) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "red");
+					console.log(countt);
 					countt++;
 					return "Error";
 				}
-
+		      	}
+		      	}
 			}
-
+			}
+			
+			  for(i=0;i<oModel.length;i++){
+				if(oModel[i].Material === Material && oModel[i].Color!==""){
+					if(oModel[i].Color ==='blue'){
+							return "Information";
+					}
+						else if(oModel[i].Color ==='green'){
+							return "Success";
+					}
+						else if(oModel[i].Color ==='yellow'){
+							return "Warning";
+					}
+							else if(oModel[i].Color ==='red'){
+							return "Error";
+					}
+				}
+			  }
+ 
+ 
 			var ostock = this.getView().getModel("oStockDataModel");
 			var odata = ostock.oData.length;
 			var unique = [];
