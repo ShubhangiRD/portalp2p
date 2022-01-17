@@ -9,7 +9,7 @@
 		confirm="_handleAddPlantClose"
 		cancel="_handleAddPlantClose">
 		<StandardListItem
-			title="{Lookup>Bwkey}"
-			info="{Lookup>Bwkey}" />
+			title="{Lookup>Werks}"
+			info="{Lookup>Name1}" />
 	</SelectDialog>
 </core:FragmentDefinition>

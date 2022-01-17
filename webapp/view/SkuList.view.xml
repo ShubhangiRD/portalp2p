@@ -1,9 +1,11 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.vSimpleApp.controller.SkuList"
 	xmlns:html="http://www.w3.org/1999/xhtml" class="sapUiSizeCompact">
-	<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem" width="auto" class="sapUiMediumMarginBeginEnd">
+
+<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem" width="auto" class="sapUiMediumMarginBeginEnd">
 		<headerToolbar>
 			<OverflowToolbar height="50px">
 				<content>
+					<Button icon="sap-icon://nav-back"  press="onSkuBack"/>
 					<Title text="SKU List With No Movements" level="H2"/>
 					<ToolbarSpacer/>
 					<Label text="Select Hours/Month:"/>

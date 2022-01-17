@@ -40,7 +40,8 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 				<template>
 					<m:ObjectNumber
 						number="{= ${oStockDataModel>OsalesOrder} === 'So' ||  ${oStockDataModel>BLabst} === 'AL' || ${oStockDataModel>OsalesOrder} === undefined ? ${oStockDataModel>ALabst} : ${oStockDataModel>ALabst}- ${oStockDataModel>OsalesOrder}}"
-						state="{ parts: [ {path: 'oStockDataModel>Labst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>
+						state="{ parts: [ {path: 'oStockDataModel>ALabst'},{path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor'}"/>
+					<!--		state="{ parts: [ {path: 'oStockDataModel>ALabst'}, {path: 'oStockDataModel>Crtlv'}, {path: 'oStockDataModel>Cytlv'}, {path: 'oStockDataModel>Cgtlv'}, {path: 'oStockDataModel>Cbtlv'}, {path: 'oStockDataModel>Material'} ], formatter: '.formatter.statusColor' }"/>-->
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>
@@ -172,7 +173,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 			<!--			wrapping="false"/>-->
 			<!--	</template>-->
 			<!--</Column>-->
-			<Column width="13rem" sorted="true" visible="false">
+			<Column width="13rem" sorted="true" visible="true">
 				<m:Label text="Color"/>
 				<template>
 					<m:ObjectIdentifier title="{path: 'oStockDataModel>Color'}"/>

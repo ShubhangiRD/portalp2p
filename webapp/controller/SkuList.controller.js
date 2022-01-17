@@ -1326,6 +1326,10 @@ sap.ui.define([
 			}
 
 		},
+		onSkuBack:function(){
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("StockTable");
+		}
 
 	});
 

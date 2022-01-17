@@ -2376,10 +2376,10 @@ sap.ui.define([
 
 			// create a filter for the binding
 			this._valueHelpDialogp.getBinding("items").filter(new Filter([new Filter(
-				"Bwkey",
+				"Werks",
 				FilterOperator.Contains, sInputValue
 			), new Filter(
-				"Bwkey",
+				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
 			this.getPOPlant();
@@ -2390,10 +2390,10 @@ sap.ui.define([
 		_handlePlantSearch: function(evt) {
 			var sValue = evt.getParameter("value");
 			var oFilter = new Filter([new Filter(
-				"Bwkey",
+				"Werks",
 				FilterOperator.Contains, sValue
 			), new Filter(
-				"Bwkey",
+				"Name1",
 				FilterOperator.Contains, sValue
 			)]);
 			evt.getSource().getBinding("items").filter(oFilter);
@@ -2430,10 +2430,10 @@ sap.ui.define([
 
 			// create a filter for the binding
 			this._valueHelpDialogpp.getBinding("items").filter(new Filter([new Filter(
-				"Bwkey",
+				"Werks",
 				FilterOperator.Contains, sInputValue
 			), new Filter(
-				"Bwkey",
+				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
 			this.getPOPlant();
@@ -2444,10 +2444,10 @@ sap.ui.define([
 		_handlePlantAddSearch: function(evt) {
 			var sValue = evt.getParameter("value");
 			var oFilter = new Filter([new Filter(
-				"Bwkey",
+				"Werks",
 				FilterOperator.Contains, sValue
 			), new Filter(
-				"Bwkey",
+				"Name1",
 				FilterOperator.Contains, sValue
 			)]);
 			evt.getSource().getBinding("items").filter(oFilter);
