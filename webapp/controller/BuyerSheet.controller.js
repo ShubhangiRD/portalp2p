@@ -642,7 +642,9 @@ sap.ui.define([
 					success: function(oData) {
 						var item = oData.results.length;
 						var odata = oData.results;
-
+                        if(odata.length === 0){
+                        		MessageBox.error("No Data Exist For This Month/Hrs");
+                        }else{
 						//	console.log(succ);
 						// oView.getModel("oMonthlydataModel").setData(oData.results);
 
@@ -666,7 +668,7 @@ sap.ui.define([
 
 						}
 								oView.getModel("oMonthlydataModel").setData(oData.results);
-
+                        }
 					},
 					error: function(err) {
 
