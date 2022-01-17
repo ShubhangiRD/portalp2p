@@ -767,7 +767,7 @@ oModel.read("/getBuyer_cheatsheetSet", {
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
 					oLookupModel.refresh(true);
-					that.getStockDetailList();
+					// that.getStockDetailList();
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -1103,7 +1103,7 @@ oModel.read("/getBuyer_cheatsheetSet", {
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogDisplayV.open(sInputValue);
-			this.getVendorList();
+			// this.getVendorList();
 		},
 
 		_handleValueVendorHelpSearch: function(evt) {
@@ -1481,6 +1481,10 @@ oModel.read("/getBuyer_cheatsheetSet", {
 			
 
 
+		},
+				onMenuButtonPress:function(){
+					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("StockTable");
 		}
 
 	});

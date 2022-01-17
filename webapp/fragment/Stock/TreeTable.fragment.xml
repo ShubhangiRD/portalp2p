@@ -56,7 +56,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 				<Column width="9rem" hAlign="Center">
 				<m:Label text="RunRate(13 Weeks)"/>
 				<template>
-					<m:Text text="{oStockDataModel>RunRate}"/>
+					<m:Text text="{= ${oStockDataModel>RunRate} === '' ? 'NA'  : ${oStockDataModel>RunRate}}"/>
 				</template>
 			</Column>
 			
@@ -74,7 +74,8 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 			<Column width="6rem" hAlign="Center">
 				<m:Label text=" Open SO"/>
 				<template>
-					<m:Text text="{= ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} }"/>
+					<m:Text text="{=  ${oStockDataModel>OsalesOrder} === '' ? 'NA'  : ${oStockDataModel>OsalesOrder} }"/>
+					<!--<m:Text text="{=  ${oStockDataModel>OsalesOrder} === 'So' ? ' ' : ${oStockDataModel>OsalesOrder} || }"/>-->
 					<!--<m:Text text="{oStockDataModel>Labst}" wrapping="false"/>-->
 				</template>
 			</Column>

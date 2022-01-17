@@ -13,14 +13,17 @@
 			<ff:title>
 				<ff:DynamicPageTitle>
 					<ff:heading>
-						<Title text="BuyerCheatsheet"/>
+						<Title text="BuyerCheatsheet" />
+				
 					</ff:heading>
 						<ff:expandedContent>
 						<Label text="Select Fields"/>
 					</ff:expandedContent>
 			<ff:actions>
-			<Button id="idfilter" text="Filter" press="ongetMaterialandVendor" class="sapUiTinyMarginBeginEnd"/>
-				<Button id="iddownload" text="Download" press="onDownloadExcess"  class="sapUiTinyMarginBeginEnd" />
+          
+		
+				<Button id="iddownload" icon="sap-icon://download"   press="onDownloadExcess"  class="sapUiTinyMarginBeginEnd" />
+				  		<Button icon="sap-icon://nav-back" press="onMenuButtonPress" />
 					</ff:actions>
 					
 			</ff:DynamicPageTitle>
@@ -28,7 +31,7 @@
 					<ff:header>	
 						<ff:DynamicPageHeader>
 		
-						<form:SimpleForm id="idButtonForm3" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12"
+						<form:SimpleForm id="idButtonForm3" editable="true" layout="ResponsiveGridLayout" labelSpanXL="" labelSpanL="12" labelSpanM="12"
 						labelSpanS="12" title="" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1"
 						columnsL="1" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginEnd"
 						singleContainerFullSize="false">
@@ -85,22 +88,7 @@
 										</suggestionItems>
 									</Input>
 								</layout:VerticalLayout>
-							
-								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisiblePurOrg}">
-									<Label text="Purchase Org:" design="Bold"/>
-									<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" width="50%"
-										suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
-										<suggestionItems>
-											<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
-										</suggestionItems>
-									</Input>
-								</layout:VerticalLayout>
-						</HBox>
-						
-						<HBox>
-							
-							
-								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleCBy}">
+									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleCBy}">
 									<Label text="Created By:" design="Bold"/>
 									<Input id="CBy" value="{oDataModel>/CBy}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleCreatedBy"
 										suggestionItems="{ path: 'Lookup>/CreatedBy' }" suggestionItemSelected="onSuggest">
@@ -109,6 +97,18 @@
 										</suggestionItems>
 									</Input>
 								</layout:VerticalLayout>
+
+								
+									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<Button id="idfilter" text="Filter" press="ongetMaterialandVendor"  type="Emphasized" class="sapUiSmallMarginTop"/>
+										</layout:VerticalLayout>
+						</HBox>
+						
+						<HBox>
+														
+						
+							
+							
 								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleProdH}">
 									<Label text="ProductHierarchy:" design="Bold"/>
 									<Input id="Product_Hierarchy" value="{oDataModel>/ProdH}" showSuggestion="true" showValueHelp="true"
@@ -119,9 +119,19 @@
 									</Input>
 								</layout:VerticalLayout>
 								
+										<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisiblePurOrg}">
+									<Label text="Purchase Org:" design="Bold"/>
+									<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
+										suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
+										<suggestionItems>
+											<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
+										</suggestionItems>
+									</Input>
+								</layout:VerticalLayout>
+								
 									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleMatGrp}">
 									<Label text="Material Group:" design="Bold"/>
-									<Input id="MatGrp" value="{oDataModel>/MatGrp}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleMatGrp" width="50%"
+									<Input id="MatGrp" value="{oDataModel>/MatGrp}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleMatGrp" 
 										suggestionItems="{ path: 'Lookup>/MaterialGrp' }" suggestionItemSelected="onSuggest">
 										<suggestionItems>
 											<core:ListItem key="{Lookup>Matkl}" text="{Lookup>Matkl}" additionalText="{Lookup>Matkl}"/>
