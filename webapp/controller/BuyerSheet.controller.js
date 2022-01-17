@@ -34,6 +34,7 @@ sap.ui.define([
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
 
+
 	return Controller.extend("com.vSimpleApp.controller.BuyerSheet", {
 
 		/**
@@ -197,11 +198,21 @@ sap.ui.define([
 			var ocheckModel = oView.getModel("oCheckModel");
 			var checkBoxSelected = oEvent.getParameter("selected");
 
-			var oselecttab = oEvent.oSource.mProperties.text;
+		  var oselecttab = oEvent.oSource.mProperties.text;
 			console.log(oselecttab)
 			var CurrentD = new Date();
 
 			if (oselecttab === "48 Hours") {
+					var NextDay = new Date(new Date(CurrentD).getTime() - 60 * 60 * 48 * 1000);
+				var first = CurrentD.toISOString().slice(0, 19);
+				var last = NextDay.toISOString().slice(0, 19);
+
+				console.log(first);
+				console.log(last);
+				this.getView().getModel("oDataModel").setProperty("/FirstDate", first);
+				this.getView().getModel("oDataModel").setProperty("/Message", oselecttab);
+
+				this.getView().getModel("oDataModel").setProperty("/EndDate", last);
 
 			} else if (oselecttab === "Current Month") {
 
@@ -211,6 +222,8 @@ sap.ui.define([
 
 				var last1mon = firstDay.toISOString().slice(0, 19);
 				var endo1mon = lastDay.toISOString().slice(0, 19);
+				console.log(last1mon);
+				console.log(endo1mon);
 				// var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
 				// 	":" + firstDay.getUTCMinutes() +
 				// 	":" + firstDay.getUTCSeconds();
@@ -219,9 +232,9 @@ sap.ui.define([
 				// 	":" + lastDay.getUTCMinutes() +
 				// 	":" + lastDay.getUTCSeconds();
 				// console.log(endo1mon);
-
+               
 				oView.getModel("oDataModel").setProperty("/FirstDate", last1mon);
-
+           	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 				oView.getModel("oDataModel").setProperty("/EndDate", endo1mon);
 
 			} else if (oselecttab === "Previous 1 Month") {
@@ -237,6 +250,7 @@ sap.ui.define([
 				var lastmonth = CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", Prevmonthstart);
 				oView.getModel("oDataModel").setProperty("/EndDate", lastmonth);
+				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			} else if (oselecttab === "Last 3 Months") {
 				// var dateString1 = this.datatime(CurrentD);
@@ -252,6 +266,7 @@ sap.ui.define([
 				var Last3Month = CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString1);
 				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month);
+				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			} else if (oselecttab === "Last 6 Months") {
 				// var dateString2 = this.datatime(CurrentD);
@@ -267,6 +282,7 @@ sap.ui.define([
 				var Last3Month2 = CurrentD.toISOString().slice(0, 19);
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString2);
 				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month2);
+				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			}
 
@@ -577,6 +593,7 @@ sap.ui.define([
 		},
 
 		ongetMaterialandVendor: function() {
+			 var msg =	oView.getModel("oDataModel").getProperty("/Message");
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oDataModel");
 			var FirstDate = oDataModel.oData.FirstDate;
@@ -640,10 +657,12 @@ sap.ui.define([
 					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
 
 					success: function(oData) {
+					   var that = this;
 						var item = oData.results.length;
 						var odata = oData.results;
+						
                         if(odata.length === 0){
-                        		MessageBox.error("No Data Exist For This Month/Hrs");
+                        		MessageBox.error("No Data Exist For The " + msg);
                         }else{
 						//	console.log(succ);
 						// oView.getModel("oMonthlydataModel").setData(oData.results);
