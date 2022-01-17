@@ -224,7 +224,9 @@ sap.ui.define([
 				console.log(Material);
 		      for(i=0;i<oModel.length;i++){
 		      	if(oModel[i].Material === Material && oModel[i].Color===""){
-		      	
+		      	if(countt>=oModel.length){
+					countt = 0;
+			}
 		      		if(countt<=oModel.length){
 				if (quantity > green) {
 					this.getView().getModel("oStockDataModel").setProperty("/" + countt + "/Color", "blue");
@@ -305,6 +307,9 @@ sap.ui.define([
 			this.getView().getModel("count").setProperty("/count", length);
 
 	//		console.log(ostock);
+
+
+
 
 		},
 		
