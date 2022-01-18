@@ -64,7 +64,7 @@ sap.ui.define([
 			oView.setModel(oMonthlyData, "oMonthlydataModel");
 			var oCheckedModel = new sap.ui.model.json.JSONModel({
 				H48: false,
-				Current: true,
+				Current: false,
 				Previous1Month: false,
 				Last3: false,
 				Last6: false
@@ -233,9 +233,9 @@ sap.ui.define([
 				// 	":" + lastDay.getUTCSeconds();
 				// console.log(endo1mon);
                
-				oView.getModel("oDataModel").setProperty("/FirstDate", last1mon);
+				oView.getModel("oDataModel").setProperty("/FirstDate", endo1mon);
            	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
-				oView.getModel("oDataModel").setProperty("/EndDate", endo1mon);
+				oView.getModel("oDataModel").setProperty("/EndDate", last1mon);
 
 			} else if (oselecttab === "Previous 1 Month") {
 				// var prevMonthEnd = new Date();
