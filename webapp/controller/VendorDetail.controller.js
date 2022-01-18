@@ -10,13 +10,14 @@ sap.ui.define([
 	"com/vSimpleApp/model/VendorP2P",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/BusyIndicator",
-	"com/vSimpleApp/model/BankConditionItem"
+	"com/vSimpleApp/model/BankConditionItem",
+	"com/vSimpleApp/Classes/ServiceF4"
 
 ], function(Controller, Filter, JSONModel, MessageBox, FilterOperator, Fragment, MessageToast, VendorP2P,
 	History,
-	BusyIndicator, BankConditionItem) {
+	BusyIndicator, BankConditionItem, ServiceF4) {
 	"use strict";
-	var oView, oComponent;
+	var oView, oComponent, oController;
 	return Controller.extend("com.vSimpleApp.controller.VendorDetail", {
 
 		/**
@@ -28,12 +29,12 @@ sap.ui.define([
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-
+			oController = this;
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 
-		//	oView.byId("iddEditt").setVisible(false);
-				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+			//	oView.byId("iddEditt").setVisible(false);
+			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
 
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
@@ -136,54 +137,54 @@ sap.ui.define([
 				}*/
 			}
 		},
-		
-		_onRouteMatched2 : function(){
-			
+
+		_onRouteMatched2: function() {
+
 		},
-		
-		onAlphabetnumericValidation : function(oEvent){
-		var sValue= oEvent.mParameters.value;
-		var sInput = oEvent.getSource().sId;
-	    var oinputbox = sap.ui.getCore().byId(sInput)
-	    var pattern = /[^\w]/;
-		if (pattern.test(sValue)){
+
+		onAlphabetnumericValidation: function(oEvent) {
+			var sValue = oEvent.mParameters.value;
+			var sInput = oEvent.getSource().sId;
+			var oinputbox = sap.ui.getCore().byId(sInput)
+			var pattern = /[^\w]/;
+			if (pattern.test(sValue)) {
 				oinputbox.setValueState("Error");
 				oinputbox.setValueStateText("Enter Valid Value");
-		}else{
+			} else {
 				oinputbox.setValueState("None");
-					oinputbox.setValueStateText("");
-				
-		}
+				oinputbox.setValueStateText("");
+
+			}
 		},
-		onalphabeticValidation:function(oEvent){
-		var sValue= oEvent.mParameters.value;
-		var sInput = oEvent.getSource().sId;
-	    var oinputbox = sap.ui.getCore().byId(sInput)
-	    var pattern = /[^A-Za-z]/;
-		if (pattern.test(sValue)){
+		onalphabeticValidation: function(oEvent) {
+			var sValue = oEvent.mParameters.value;
+			var sInput = oEvent.getSource().sId;
+			var oinputbox = sap.ui.getCore().byId(sInput)
+			var pattern = /[^A-Za-z]/;
+			if (pattern.test(sValue)) {
 				oinputbox.setValueState("Error");
 				oinputbox.setValueStateText("Enter Valid Value");
-		}else{
+			} else {
 				oinputbox.setValueState("None");
-					oinputbox.setValueStateText("");
-				
-		}
-	
+				oinputbox.setValueStateText("");
+
+			}
+
 		},
-			onnumValidate:function(oEvent){
-		var sValue= oEvent.mParameters.value;
-		var sInput = oEvent.getSource().sId;
-	    var oinputbox = sap.ui.getCore().byId(sInput)
-	    var pattern = /[^\d]/;
-		if (pattern.test(sValue)){
+		onnumValidate: function(oEvent) {
+			var sValue = oEvent.mParameters.value;
+			var sInput = oEvent.getSource().sId;
+			var oinputbox = sap.ui.getCore().byId(sInput)
+			var pattern = /[^\d]/;
+			if (pattern.test(sValue)) {
 				oinputbox.setValueState("Error");
 				oinputbox.setValueStateText("Enter Valid Value");
-		}else{
+			} else {
 				oinputbox.setValueState("None");
-					oinputbox.setValueStateText("");
-				
-		}
-	
+				oinputbox.setValueStateText("");
+
+			}
+
 		},
 		onCancelPress: function() {
 			//calling the function which cancel the existing values or clear the data from input field 
@@ -333,7 +334,7 @@ sap.ui.define([
 						value1: sDescription
 					})
 				];
-					BusyIndicator.show(true);
+				BusyIndicator.show(true);
 
 				oModelV.read("/VendorRSet", {
 					filters: aFilter,
@@ -348,10 +349,10 @@ sap.ui.define([
 						//	oComponent.getModel("VendorModel").setData(oVendorr);
 						oView.byId("Ktokka").setValue(sKtokk);
 						oView.byId("Ekorgc").setValue(sEkorg);
-						console.log(oVendorModel);
+
 					},
 					error: function(oError) {
-							BusyIndicator.hide();
+						BusyIndicator.hide();
 
 					}
 				});
@@ -363,28 +364,7 @@ sap.ui.define([
 		/*Vendor Details f4 functionality end here*/
 
 		/*Po Search*/
-		getPurchaseOrgList: function() {
-			var that = this;
-			//get all data from odata model
-			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			//get entity set
-			BusyIndicator.show(true);
-			oModel.read("/get_purchaseorg_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/PurchaseOrganization", oData.results);
-					oLookupModel.refresh(true);
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(sErrorMsg);
-				}
-			});
-		},
 		handlePurchaseOrgVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -413,7 +393,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogporg.open(sInputValue);
-			this.getPurchaseOrgList();
+			var Service = new ServiceF4();
+			Service.getPurchaseOrgList(this);
+
 		},
 		_handlePOrganiVendorSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -517,29 +499,6 @@ sap.ui.define([
 
 		/*Comp Search start*/
 
-		getCompanyList: function() {
-			var that = this;
-			//get all data from odata model
-
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-
-			//get entity set
-			BusyIndicator.show(true);
-			oModel.read("/get_companycode_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/CountryCode", oData.results);
-					oLookupModel.refresh(true);
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(sErrorMsg);
-				}
-			});
-		},
 		handleCompanyCodeVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -567,7 +526,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogcomp.open(sInputValue);
-			this.getCompanyList();
+
+			var Service = new ServiceF4();
+			Service.getCompanyList(this);
 		},
 		_handlevendorCompSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -596,29 +557,7 @@ sap.ui.define([
 		/*Company SEarch end*/
 
 		/*Account Group Search Start*/
-		getAccountList: function() {
-			var that = this;
-			//get all data from odata model
-			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			BusyIndicator.show(true);
-			//get entity set
-			oModel.read("/get_accountgrp_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/AccountGroup", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(sErrorMsg);
-				}
-			});
-		},
 		handleAccountCodeVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -647,7 +586,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogAccCode.open(sInputValue);
-			this.getAccountList();
+
+			var Service = new ServiceF4();
+			Service.getAccountList(this);
 		},
 		_handlevendorAccountGSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -742,7 +683,7 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handlecountryVendorClose: function(oEvent) {
-				var that = this;
+			var that = this;
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdContry);
@@ -758,14 +699,14 @@ sap.ui.define([
 				oModel.read("/region_keySet?$filter=(Land1 eq '" + sItemTitle + "')", {
 					filters: [oFilter],
 					success: function(oData) {
-					/*	var VendorData = new JSONModel();
-						VendorData.setData(oData.results);
-						oView.setModel(VendorData);
-						oView.getModel("hierarchy").setData(oData);*/
-							var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/RegionList", oData.results);
-					oLookupModel.refresh(true);
+						/*	var VendorData = new JSONModel();
+							VendorData.setData(oData.results);
+							oView.setModel(VendorData);
+							oView.getModel("hierarchy").setData(oData);*/
+						var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+						//set the odata to model property
+						oLookupModel.setProperty("/RegionList", oData.results);
+						oLookupModel.refresh(true);
 
 					},
 					error: function(oError) {
@@ -783,8 +724,7 @@ sap.ui.define([
 
 		/*Region Code start*/
 
-		
-	handleValueHelpCust: function(oEvent) {
+		handleValueHelpCust: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
 			this.inputIdCust = oEvent.getSource().getId();
@@ -812,7 +752,7 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpRegion.open(sInputValue);
-			
+
 		},
 		_handleValueHelpSearchCust: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -833,7 +773,7 @@ sap.ui.define([
 					sTitle = oSelectedItem.getTitle();
 				productInput.setSelectedKey(sTitle);
 				productInput.setValue(sDescription);
-	oView.byId("Ort02a").setValue(sTitle);
+				oView.byId("Ort02a").setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -1025,7 +965,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogtradingpartners.open(sInputValue);
-			this.getCompanyList();
+
+			var Service = new ServiceF4();
+			Service.getCompanyList(this);
 		},
 		_handleValueTPHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
@@ -3394,9 +3336,9 @@ sap.ui.define([
 			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
-		//	oView.byId("btn_display").setVisible(false);
-	//		oView.byId("iddEditt").setVisible(true);
-		this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
+			//	oView.byId("btn_display").setVisible(false);
+			//		oView.byId("iddEditt").setVisible(true);
+			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
 			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", true);
 
 			oView.getModel("EditModel").setProperty("/isEditable", false);
@@ -3408,9 +3350,9 @@ sap.ui.define([
 			//setting property to models
 			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
-	this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
 
-		//	oView.byId("iddEditt").setVisible(false);
+			//	oView.byId("iddEditt").setVisible(false);
 			oView.getModel("EditModel").setProperty("/isEditable", true);
 
 		},
@@ -3507,22 +3449,22 @@ sap.ui.define([
 					}.bind(this)
 				});
 			} else {*/
-				sap.m.MessageBox.show(sMessage, {
-					icon: sap.m.MessageBox.Icon.INFORMATION,
+			sap.m.MessageBox.show(sMessage, {
+				icon: sap.m.MessageBox.Icon.INFORMATION,
 
-					actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
-					onClose: function(oAction) {
-						if (oAction === "OK") {
-							oVendorModel.setData({
-								oData: {}
-							});
-							oVendorModel.updateBindings(true);
-							oVendorModel.refresh(true);
-							window.location.reload();
-						}
-					}.bind(this)
-				});
-		//	}
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
+				onClose: function(oAction) {
+					if (oAction === "OK") {
+						oVendorModel.setData({
+							oData: {}
+						});
+						oVendorModel.updateBindings(true);
+						oVendorModel.refresh(true);
+						window.location.reload();
+					}
+				}.bind(this)
+			});
+			//	}
 
 		},
 		_onCreateEntryError: function(oError) {
