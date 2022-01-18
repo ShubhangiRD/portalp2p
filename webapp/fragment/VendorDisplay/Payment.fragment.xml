@@ -8,9 +8,7 @@
 					<OverflowToolbar>
 						<Title text="Bank Details"/>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://add" type="Transparent" id="idAddbutton" class="remove-attr" tooltip="Add Row" press="onAddNewItemBnk"/>
-						<Button icon="sap-icon://delete" enabled="{=${Vendor>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
-							tooltip="Delete Row" press="onDeleteItemBank"/>
+					
 					</OverflowToolbar>
 				</t:extension>
 				<t:columns>
@@ -93,17 +91,17 @@
 				<core:Title text=" "/>
 				<Label text="Alternate Pay" fieldGroupIds="Lnrzaa"  />
 				<Input id="Lnrzaa" maxLength="10" fieldGroupIds="Lnrzaa"   change="changeVenodr" type="Text" value="{VendorModel>/Lnrzaa}"  editable="{EditModel>/isEditable}"
-					class="searchBox" placeholder="Alternate Pay" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleAlternatePayee"
+				width="80%"	class="searchBox" placeholder="Alternate Pay" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleAlternatePayee"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestAlternatePay">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="ISR Number" fieldGroupIds="Esrnra"/>
-				<Input id="Esrnra" maxLength="11" value="{VendorModel>/Esrnra}" fieldGroupIds="Esrnra" class="InputBoxContainer" placeholder="ISR Number" editable="{EditModel>/isEditable}"/>
+				<Input id="Esrnra" width="70%" maxLength="11" value="{VendorModel>/Esrnra}" fieldGroupIds="Esrnra" class="InputBoxContainer" placeholder="ISR Number" editable="{EditModel>/isEditable}"/>
 				<Label text="DME indicator" fieldGroupIds="Dtamsa"/>
 				<Input id="Dtamsa" maxLength="1" value="{VendorModel>/DMEIndicator}"  fieldGroupIds="Dtamsa"  change="changeVenodr" type="Text" editable="{EditModel>/isEditable}"
-					class="searchBox" placeholder="DME indicator" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleDMEindicator"
+				width="20%"	class="searchBox" placeholder="DME indicator" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleDMEindicator"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestDMEindicator">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -111,7 +109,7 @@
 				</Input>
 				<Label text="Instruction Key" fieldGroupIds="Dtawsa"/>
 				<Input id="Dtawsa"  value="{VendorModel>/Dtawsa}" fieldGroupIds="Dtawsa"  maxLength="4"  change="changeVenodr" type="Text" editable="{EditModel>/isEditable}"
-					class="searchBox" placeholder="InstructionKey" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleInstructionKey"
+				width="40%"	class="searchBox" placeholder="InstructionKey" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleInstructionKey"
 					suggestionItems="{ path: 'Lookup>/InstructionKeyList' }" suggestionItemSelected="onSuggestidInstructionKey">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>

@@ -2,38 +2,40 @@
 	xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:card="sap.f.cards" class="sapUiSizeCompact" xmlns:mvc="sap.ui.core.mvc" height="100%"
 	controllerName="com.vSimpleApp.controller.VendorDetail">
 	<m:Page showNavButton="true" navButtonPress="onNavBack">
-		<ObjectPageLayout id="POHeader" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
- isChildPage="true" upperCaseAnchorBar="false">
+		<ObjectPageLayout id="POHeader" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false" isChildPage="true"
+			upperCaseAnchorBar="false">
 			<headerTitle>
 				<ObjectPageDynamicHeaderTitle>
 					<expandedHeading>
-							<m:HBox>
-							<m:Title text="{ScreenName>/isScreen}" id="idvndorscreen" />
+						<m:HBox>
+							<m:Title text="{ScreenName>/isScreen}" id="idvndorscreen"/>
 							<m:ObjectMarker type="Favorite" class="sapUiTinyMarginBegin"/>
 						</m:HBox>
-					
 					</expandedHeading>
 					<snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center">
 							<m:Avatar src="sap-icon://picture" class="sapUiTinyMarginEnd"/>
-							<m:Title text="{ScreenName>/isScreen}" />
+							<m:Title text="{ScreenName>/isScreen}"/>
 						</m:FlexBox>
 					</snappedHeading>
 					<actions>
-						<ObjectPageHeaderActionButton text="Edit" id="iddEditt"  visible="{VisibleModel>/isButtonEdit}"  type="Transparent" hideText="false" tooltip="edit" press="onEditPress"/>
-						<ObjectPageHeaderActionButton id="btn_display" type="Transparent"  visible="{VisibleModel>/isButtonDisplay}"  hideText="false" text="Display" press="onDisplayPress" tooltip="display"/>
-						<ObjectPageHeaderActionButton hideText="false" type="Transparent"  visible="{VisibleModel>/isButtonCancel}"  text="Cancel" tooltip="decline" press="onCancelPress"/>
-						<ObjectPageHeaderActionButton hideText="false" type="Emphasized"   visible="{VisibleModel>/isButtonSave}" text="Save" tooltip="save" press="onSaveContract"/>
+						<ObjectPageHeaderActionButton text="Edit" id="iddEditt" visible="{VisibleModel>/isButtonEdit}" type="Transparent" hideText="false"
+							tooltip="edit" press="onEditPress"/>
+						<ObjectPageHeaderActionButton id="btn_display" type="Transparent" visible="{VisibleModel>/isButtonDisplay}" hideText="false" text="Display"
+							press="onDisplayPress" tooltip="display"/>
+						<ObjectPageHeaderActionButton hideText="false" type="Transparent" visible="{VisibleModel>/isButtonCancel}" text="Cancel" tooltip="decline"
+							press="onCancelPress"/>
+						<ObjectPageHeaderActionButton hideText="false" type="Emphasized" visible="{VisibleModel>/isButtonSave}" text="Save" tooltip="save"
+							press="onSaveContract"/>
 					</actions>
 				</ObjectPageDynamicHeaderTitle>
 			</headerTitle>
 			<headerContent>
 				<m:FlexBox wrap="Wrap" fitContainer="true">
-	
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Lifnra">
 						<m:Label text="Vendor : " required="true" visible="{VisibleModel>/isVisible}"/>
-						<m:Input id="Lifnra" value="{VendorModel>/TempData/Lifnra}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
-							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
+						<m:Input id="Lifnra" value="{VendorModel>/TempData/Lifnra}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue"
+							placeholder="Vendor Number" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -54,7 +56,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">
 						<m:Label text="Company Code:" required="true" fieldGroupIds="Bukrsb"/>
 						<m:Input id="Bukrsb" value="{VendorModel>/TempData/Bukrsb}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
-						fieldGroupIds="Bukrsb"	showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
+							fieldGroupIds="Bukrsb" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>

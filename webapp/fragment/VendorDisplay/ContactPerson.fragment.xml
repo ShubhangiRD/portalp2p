@@ -77,8 +77,8 @@
 				</t:columns>
 			</t:Table>
 			<Label class="myFormMargin" text="Name:" fieldGroupIds=" "/>
-			<Input id="contnameperson" width="30%" fieldGroupIds=" " maxLength="35" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true"
-				showValueHelp="true" valueHelpRequest="handleContPersonValueHelp" editable="{EditModel>/isEditable}"
+			<Input id="contnameperson" width="20%" fieldGroupIds=" " maxLength="35" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true"
+		showValueHelp="true" valueHelpRequest="handleContPersonValueHelp" editable="{EditModel>/isEditable}"
 				suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestcontnameperson">
 				<suggestionItems>
 					<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
