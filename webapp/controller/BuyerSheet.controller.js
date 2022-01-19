@@ -660,12 +660,14 @@ sap.ui.define([
 					   var that = this;
 						var item = oData.results.length;
 						var odata = oData.results;
-						
-                        if(odata.length === 0){
+						   if(odata.length === 0){
+				   		if( msg===undefined){
+                        			MessageBox.error("Please Select Time Zone");
+                        	}else{
                         		MessageBox.error("No Data Exist For The " + msg);
+                        	}
                         }else{
-						//	console.log(succ);
-						// oView.getModel("oMonthlydataModel").setData(oData.results);
+               
 
 						if (Material !== "" || Material !== undefined) {
 							for (var x = 0; x < SalesOrder.length; x++) {
@@ -705,7 +707,14 @@ oModel.read("/getBuyer_cheatsheetSet", {
 						console.log(oData);
 						var item = oData.results.length;
 						var odata = oData.results;
-						var oBuyerCheetsheet = [];
+					
+									   if(odata.length === 0){
+				   		if( msg===undefined){
+                        			MessageBox.error("Please Select Time Zone");
+                        	}else{
+                        		MessageBox.error("No Data Exist For The " + msg);
+                        	}
+                        }else{
 
 						if (Material !== "" || Material !== undefined) {
 							for (var x = 0; x < SalesOrder.length; x++) {
@@ -729,7 +738,7 @@ oModel.read("/getBuyer_cheatsheetSet", {
 						console.log(oData.results);
 
 						oView.getModel("oMonthlydataModel").setData(oData.results);
-
+}
 					},
 					error: function(err) {
 						MessageBox.error(err);
