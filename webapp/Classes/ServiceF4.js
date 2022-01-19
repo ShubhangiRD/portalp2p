@@ -83,7 +83,65 @@ sap.ui.define([
 					MessageToast.show(sErrorMsg);
 				}
 			});
-		}
+		},
+				getSpecialStockList: function(oController) {
+		//	var that = this;
+			var oModel = oController.getOwnerComponent().getModel("StockModel");
+
+			oModel.read("/get_movementTypef4Set", {
+				success: function(oData) {
+
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/SplStock", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+			getPOPlant: function(oController) {
+		//	var that = this;
+			var oModel = oController.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/get_plant_f4helpSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/POPlant", oData.results);
+					oLookupModel.refresh(true);
+					//that.getMaterialList();
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+			getMaterialList: function(oController) {
+		//	var that = this;
+			var oModel = oController.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/MaterialmasterSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oMaterialList = oData.results;
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/MaterialList", oMaterialList);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+					//	BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
 	
 
 	});
