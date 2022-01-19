@@ -50,6 +50,7 @@ sap.ui.define([
 		},
 
 		onBackStock: function() {
+			//clear model and navigate to another page
 			var StockTransferModel = this.getView().getModel("StockTransferModel");
 			StockTransferModel.setData({
 				oData: {}
@@ -60,13 +61,10 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("StockTable");
 			window.location.reload();
 		},
-		onStockCancel: function(event) {
+			onStockCancel: function(event) {
 			//cancel the all selected values and data
-
 			var onStockTransferModel = this.getOwnerComponent().getModel("StockTransferModel");
-
 			onStockTransferModel.setData();
-
 			onStockTransferModel.refresh(true);
 
 			//redirect the page	frot view
@@ -100,7 +98,6 @@ sap.ui.define([
 		handleDoctypevalue: function(oEvent) {
 
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIddoct = oEvent.getSource().getId();
 
 			// create value help dialog
@@ -218,26 +215,7 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 
-		_handlePOMaterialClose1: function(evt) {
-
-			var oSelectedItem = evt.getParameter("selectedItem");
-
-			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
-				productInput.setValue(oSelectedItem.getTitle());
-				var sTitle = oSelectedItem.getTitle();
-				var sDescription = oSelectedItem.getInfo();
-				productInput.setSelectedKey(sDescription);
-				productInput.setValue(sTitle);
-				this.byId("ShortText1").setValue(sDescription);
-				//	this.byId("ShortText2").setValue(sDescription);
-				//	this.byId("idMaterial1").setValue(sTitle);
-
-			}
-			evt.getSource().getBinding("items").filter([]);
-
-		},
-
+	
 		_handlePOMaterialClose: function(evt) {
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract/PoitemSet");
@@ -262,7 +240,6 @@ sap.ui.define([
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
 				$("#" + id1 + "-inner").val(sUnitb);
 				oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + lenthcount + "/Description", oDiscription);
-
 				oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + lenthcount + "/PoUnit", sUnitb);
 
 			}
@@ -297,35 +274,7 @@ sap.ui.define([
 			]));
 			this._valueHelpDialogStorage.open(sInputValue);
 		},
-		handleStorageLocValue: function(oEvent) {
-			var sInputValue = oEvent.getSource().getValue();
-			sap.ui.getCore().inputIdstg = oEvent.getSource().getId();
-
-			//create value help dialog 
-			if (!this._valueHelpDialogStorage) {
-				this._valueHelpDialogStorage = sap.ui.xmlfragment(
-					"com.vSimpleApp.view.fragment.Vendor.StorageLocation",
-					this
-				);
-				this.getView().addDependent(this._valueHelpDialogStorage);
-			}
-			this.getStorageLocationTo();
-			if (sInputValue.includes(")")) {
-				var sSubstring = sInputValue.split(")")[1];
-				sInputValue = sSubstring.trim();
-			}
-			// ccreate a filter for the binding
-			this._valueHelpDialogStorage.getBinding("items").filter(new Filter([new Filter(
-					"Lgort",
-					FilterOperator.Contains, sInputValue),
-				new Filter(
-					"Lgobe",
-					FilterOperator.Contains, sInputValue
-				)
-			]));
-
-			this._valueHelpDialogStorage.open(sInputValue);
-		},
+	
 
 		_handleStorageLocationSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -353,9 +302,6 @@ sap.ui.define([
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			var StockModel = oView.getModel("StockTransferModel");
-			//	var sPlant = StockModel.oData.PlantFrom;
-
 			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
 			BusyIndicator.show(true);
 			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + sPlant + "')", {
@@ -374,31 +320,7 @@ sap.ui.define([
 				}
 			});
 		},
-		getStorageLocationTo: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			var StockModel = oView.getModel("StockTransferModel");
-			var sPlant = StockModel.oData.PlantTo;
-
-			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
-			BusyIndicator.show(true);
-			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + sPlant + "')", {
-				filters: [oFilter],
-
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/StorageLocationList", oData.results);
-					oLookupModel.refresh(true);
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusCode + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
 		/*Plant search start */
 		getPOPlant: function() {
 			var that = this;
@@ -474,6 +396,7 @@ sap.ui.define([
 		},
 
 		onDeleteConditionItem: function() {
+			//delete added rows using this event
 			var oPurchaseItemTable = this.byId("idTableitem");
 			var aSelectedIndex = oPurchaseItemTable.getSelectedIndices().reverse();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
@@ -486,7 +409,7 @@ sap.ui.define([
 		},
 
 		OnSaveTransferPosting: function() {
-
+			//used function for stock transfer 
 			MessageToast.show("Save TransferPosting");
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
@@ -507,20 +430,18 @@ sap.ui.define([
 			oRequestPayload.DocDate = docDate;
 
 			for (var vlen = 0; vlen < vln; vlen++) {
-				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
-
+			
 				oRequestPayload.GoodsmvtitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 				oRequestPayload.GoodsmvtitemSet[vlen].MoveType = MovmtTypeTP;
 				oRequestPayload.GoodsmvtitemSet[vlen].Plant = PlantTransferTP;
 				oRequestPayload.GoodsmvtitemSet[vlen].StgeLoc = StgeLocTP;
 				oRequestPayload.GoodsmvtitemSet[vlen].PoNumber = successObj;
-				//  oRequestPayload.GoodsmvtitemSet[vlen].Material = Material;
-				//  oRequestPayload.GoodsmvtitemSet[vlen].EntryQnt = EntryQnt;
+				
 			}
 
-			//	console.log(oRequestPayload);
-
-			oModel.create("/GrCrudSet", oRequestPayload, {
+			
+				//passing payload to this entityset
+				oModel.create("/GrCrudSet", oRequestPayload, {
 				success: this._onCreateEntrySuccessTR.bind(this),
 				error: this._onCreateEntryError.bind(this)
 			});
@@ -552,7 +473,7 @@ sap.ui.define([
 
 			}
 
-			//	console.log(oRequestPayload);
+		
 
 			oModel.create("/GrCrudSet", oRequestPayload, {
 				success: this._onCreateEntrySuccessTR.bind(this),
@@ -606,12 +527,10 @@ sap.ui.define([
 
 		},
 		onSavePOConditionRecords: function(evt) {
-
+			//call po condition
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-
-			//	var oRequestPayload = oPurchaseContract.getRequestPayload();
 			var oRequestPayload = oPurchaseContract.getStockTransferPayload();
 
 			//method for creating the prod
@@ -622,8 +541,7 @@ sap.ui.define([
 			oRequestPayload.PoScheduleSet = [];
 			oRequestPayload.Testrun = "X";
 			for (var vlen = 0; vlen < vln; vlen++) {
-				//	delete oRequestPayload.PoitemSet[vlen].Vendor;
-
+			
 				oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 			}
 			oModel.create("/PoDisplaySet", oRequestPayload, {
@@ -637,29 +555,17 @@ sap.ui.define([
 
 		_onEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
-			//	var Podata = new PurchaseHeader(Object);
-			//	oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
-
 			oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", oObject.PoitemSet.results);
-
 			var ResponseData = oObject.PoCondSet.results;
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-
 			oView.getModel("PurchaseModel").setProperty("/TempContract/PoCondSet", oObject.PoCondSet.results);
 			oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", oObject.PoScheduleSet.results);
-
 			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
-
 			var lenthPO = aPurchaseConditionItems.length;
-
 			var netcount = lenthPO - 1;
-
 			var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
-
 			var poitem = aPurchaseConditionItems.length;
-
 			var sMatno = aPurchaseConditionItems[poitem - 1].Material;
-
 			var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[poitem - 1]);
 			var oListModel = new JSONModel();
 			oListModel.setData(sMatList);
@@ -758,29 +664,28 @@ sap.ui.define([
 
 		onSavePurchaseOrder: function(evt) {
 
-			var PurchOrg = oView.byId("PurchOrg");
-			var PurGroup = oView.byId("PurGroup");
-			var CompCode = oView.byId("CompCode");
-			var iddoctype = oView.byId("iddoctype");
-			if (PurchOrg.getValue() == "") {
-				PurchOrg.setValueState("Error");
-				PurchOrg.setValueStateText("Purch Org is required");
+			var sPurchOrg = oView.byId("PurchOrg");
+			var sPurGroup = oView.byId("PurGroup");
+			var sCompCode = oView.byId("CompCode");
+			var sdoctype = oView.byId("iddoctype");
+			if (sPurchOrg.getValue() == "") {
+				sPurchOrg.setValueState("Error");
+				sPurchOrg.setValueStateText("Purch Org is required");
 				
-			} else if (PurGroup.getValue() == "") {
-				PurGroup.setValueState("Error");
-				PurGroup.setValueStateText("Purchase Group is required");
-			} else if (CompCode.getValue() == "") {
-				CompCode.setValueState("Error");
-				CompCode.setValueStateText("Company Code is required");
-			} else if (iddoctype.getValue() == "") {
-				iddoctype.setValueState("Error");
-				iddoctype.setValueStateText("Document Type is required");
+			} else if (sPurGroup.getValue() == "") {
+				sPurGroup.setValueState("Error");
+				sPurGroup.setValueStateText("Purchase Group is required");
+			} else if (sCompCode.getValue() == "") {
+				sCompCode.setValueState("Error");
+				sCompCode.setValueStateText("Company Code is required");
+			} else if (sdoctype.getValue() == "") {
+				sdoctype.setValueState("Error");
+				sdoctype.setValueStateText("Document Type is required");
 			} else {
 				var oPurchaseModel = this.getView().getModel("PurchaseModel");
 				var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
-				//	var oRequestPayload = oPurchaseContract.getRequestPayload();
 				var oRequestPayload = oPurchaseContract.getStockTransferPayload();
 
 				//method for creating the prod
@@ -789,8 +694,6 @@ sap.ui.define([
 				var vln = oRequestPayload.PoitemSet.length;
 
 				for (var vlen = 0; vlen < vln; vlen++) {
-					//	delete oRequestPayload.PoitemSet[vlen].Vendor;
-
 					oRequestPayload.PoitemSet[vlen].PoItem = this.LeadingZeros(vlen + 1, 5);
 				}
 				oModel.create("/PoDisplaySet", oRequestPayload, {
@@ -821,9 +724,7 @@ sap.ui.define([
 
 						BusyIndicator.hide();
 						this.onSaveAutoTRP(oPurchaseModel);
-						//var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						//	oRouter.navTo('StockTable');
-						//window.location.reload();
+					
 					} else {
 
 						this.transferdialog = oView.byId("transferdialog");
@@ -995,7 +896,6 @@ sap.ui.define([
 
 			oModel.read("/get_ReasonforMovmentf4Set", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/ReasonForMvt", oData.results);
 					oLookupModel.refresh(true);
@@ -1008,7 +908,7 @@ sap.ui.define([
 				}
 			});
 		},
-		/* end reason for movment      */
+		/* end reason for movment */
 		/*Special stock*/
 		handleValueSplStock: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -1080,7 +980,7 @@ sap.ui.define([
 
 			}
 
-		},
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

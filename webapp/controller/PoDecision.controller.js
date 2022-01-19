@@ -11,10 +11,10 @@ sap.ui.define([
 	'sap/suite/ui/commons/ChartContainerContent',
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-		"com/vSimpleApp/model/formatter"
+	"com/vSimpleApp/model/formatter"
 ], function(Controller, MessageToast, MessageBox, History, BusyIndicator, JSONModel, Spreadsheet, exportLibrary, library,
 	ChartContainerContent,
-	Filter, FilterOperator,formatter) {
+	Filter, FilterOperator, formatter) {
 	"use strict";
 	var oController, oView, oComponent;
 	var SortOrder = library.SortOrder;
@@ -35,7 +35,7 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf com.vSimpleApp.view.PoDecision
 		 */
-		 		formatter: formatter,
+		formatter: formatter,
 
 		onInit: function() {
 			oController = this;
@@ -51,8 +51,7 @@ sap.ui.define([
 			var oLeadTimeModel = new JSONModel();
 			oView.setModel(oLeadTimeModel, "oLeadTimeModel");
 
-			//	this._get_po_decision();
-			//	this._getpo_so_data();
+			
 			var oData = new JSONModel();
 			oView.setModel(oData, "oCheckModel");
 
@@ -63,9 +62,9 @@ sap.ui.define([
 			//	this._getLabst_matlab();
 		},
 		onNavBack: function() {
-				oView.byId("idpoMaterial").setValue("");
+			oView.byId("idpoMaterial").setValue("");
 			var aFilter = [];
-			
+
 			var sQuery = "";
 			if (sQuery) {
 				aFilter.push(
@@ -77,240 +76,10 @@ sap.ui.define([
 			var binding = slist.getBinding("items");
 			binding.filter(aFilter, "Application");
 			this.getOwnerComponent().getRouter().navTo("StockTable");
-		
+
 		},
-		_get_po_decision: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
-			var aLeadTime = [];
-			var s1 = "2021-06-30T12:04:39";
-			var s2 = "2022-01-17T12:04:39";
-
-			//	var a ="2021-02-17T12:04:39";
-			//	var b = "2021-12-19T8:38:23";
-			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s1);
-			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, s2);
-
-			BusyIndicator.show(true);
-			oModel.read("/get_po_decisionSet", {
-				filters: [oFilter1, oFilter2],
-				success: function(oData) {
-					BusyIndicator.hide();
-					var odata = oData.results;
-					oGlobalData = oData.results;
-					console.log(odata);
-					var len = oData.results.length;
-					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-						var createddate = odata[iRowIndex].Prdat;
-						var deliverycompleteddate = odata[iRowIndex].Eindt;
-
-						var Matnr = odata[iRowIndex].Matnr;
-						var Labst = odata[iRowIndex].Labst;
-						var Wemng = odata[iRowIndex].Wemng;
-						var Vbeln = odata[iRowIndex].Vbeln;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
-
-						var date1 = new Date(createddate);
-						var date2 = new Date(deliverycompleteddate);
-						var diffTime = Math.abs(date2 - date1);
-						var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-						aLeadTime.push({
-							Matnr: Matnr,
-							LeadTime: diffDays,
-							Quantity: Wemng,
-							Labst: Labst
-						});
-
-					}
-					console.log(aLeadTime);
-					var index = {};
-					var result = [];
-
-					aLeadTime.forEach(function(point) {
-						var key = "" + point.Matnr + " ";
-
-						if (key in index) {
-							index[key].count++;
-						} else {
-							var newEntry = {
-
-								Matnr: point.Matnr,
-								//	Vbeln : point.Vbeln,
-								//	Name1 : vendorname,
-								count: 1
-							};
-							index[key] = newEntry;
-							result.push(newEntry);
-
-						}
-					});
-					console.log(result)
-					oLeadTimeModel.setData(aLeadTime);
-					oLeadTimeModel.setSizeLimit(100);
-					//	oLeadTimeModel.setData(oData.results);
-					oLeadTimeModel.refresh(true);
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					MessageBox.error(oError);
-				}
-
-			});
-		},
-
-		_getpo_so_data1: function(event) {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
-			var aLeadTime = [];
-			var oFinalLead = [];
-			var newLeadArr = [];
-			var s1 = "2021-06-30T12:04:39";
-			var s2 = "2022-01-17T12:04:39";
-
-			//	var a ="2021-02-17T12:04:39";
-			//	var b = "2021-12-19T8:38:23";
-			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s1);
-			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, s2);
-
-			BusyIndicator.show(true);
-			oModel.read("/getposo_dataSet", {
-				filters: [oFilter1, oFilter2],
-				success: function(oData) {
-					BusyIndicator.hide();
-					var odata = oData.results;
-					oGlobalData = oData.results;
-					//	console.log(odata);
-					var len = oData.results.length;
-					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-						var createddate = odata[iRowIndex].Prdat;
-						var deliverycompleteddate = odata[iRowIndex].Eindt;
-
-						var Matnr = odata[iRowIndex].Matnr;
-						var Labst = odata[iRowIndex].Labst;
-						var Wemng = odata[iRowIndex].Wemng;
-						var Vbeln = odata[iRowIndex].Vbeln;
-
-						var date1 = new Date(createddate);
-						var date2 = new Date(deliverycompleteddate);
-						var diffTime = Math.abs(date2 - date1);
-						var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-						aLeadTime.push({
-							Matnr: Matnr,
-							LeadTime: diffDays,
-							Quantity: Wemng,
-							Labst: Labst,
-							Vbeln: Vbeln
-						});
-						var index = {};
-						var result = [];
-
-						aLeadTime.forEach(function(point) {
-							var key = "" + point.Matnr + " ";
-
-							if (key in index) {
-								index[key].SalesCount++;
-							} else {
-								var newEntry = {
-
-									Matnr: point.Matnr,
-									//	Vbeln : point.Vbeln,
-									//	Name1 : vendorname,
-									SalesCount: 1
-								};
-								index[key] = newEntry;
-								result.push(newEntry);
-
-							}
-						});
-						//	console.log(result)
-
-					}
-					console.log(aLeadTime);
-					for (var v = 0; v < aLeadTime.length; v++) {
-						var Matnr3 = aLeadTime[v].Matnr;
-						var LeadTime = aLeadTime[v].LeadTime;
-						var Labst3 = aLeadTime[v].Labst;
-
-						if (Matnr3 !== "" || Matnr3 !== undefined) {
-							for (var x = 0; x < result.length; x++) {
-								if (Matnr3 === result[x].Matnr) {
-									var SalesCount = result[x].SalesCount;
-
-								}
-							}
-						}
-
-						newLeadArr.push({
-							Matnr: Matnr3,
-							LeadTime: LeadTime,
-
-							Labst: Labst3,
-							SalesCount: SalesCount
-						});
-
-					}
-					console.log(newLeadArr);
-
-					// for (var v = 0; v < result.length; v++) {
-
-					// 	var MatnrSO = result[v].Matnr;
-					// 		var count = result[v].count;
-					// 	var len2 = aLeadTime.length;
-					// 	for (var i = 0; i < len2; i++) {
-
-					// 	var le =aLeadTime[i].LeadTime ;
-					// 		if (aLeadTime[i].Matnr == Matnr) {
-					// 			aLeadTime[i].SalesCount = count;
-					// 		}else{
-					// 		aLeadTime[i].SalesCount = 0;
-					// 		}
-					// 	}
-					// 	oFinalLead.push({
-					// 		Matnr: MatnrSO,
-					// 		LeadTime :le,
-
-					// 		SalesCount: count
-					// 	});
-
-					// }
-
-					// var index = {};
-					// var result = [];
-
-					// aLeadTime.forEach(function(point) {
-					// 	var key = "" + point.Matnr + " ";
-
-					// 	if (key in index) {
-					// 		index[key].count++;
-					// 	} else {
-					// 		var newEntry = {
-
-					// 			Matnr: point.Matnr,
-					// 			//	Vbeln : point.Vbeln,
-					// 			//	Name1 : vendorname,
-					// 			count: 1
-					// 		};
-					// 		index[key] = newEntry;
-					// 		result.push(newEntry);
-
-					// 	}
-					// });
-					// console.log(result)
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					MessageBox.error(oError);
-				}
-
-			});
-		},
-
+	
+	
 		getMaterialstockSet: function() {
 			BusyIndicator.show(true);
 			var oModel = this.getOwnerComponent().getModel("StockModel");
@@ -319,18 +88,18 @@ sap.ui.define([
 				success: function(odata) {
 
 					var iItem = odata.results.length;
-					var ListItem = [];
+					var oListItem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 
 						var Matnr = odata.results[iRowIndex].Matnr;
-						ListItem.push({
+						oListItem.push({
 							Matnr: Matnr
 
 						});
 					}
 					var index = {};
-
-					ListItem.forEach(function(point) {
+				//list down all unique materials
+					oListItem.forEach(function(point) {
 						var key = "" + point.Matnr + " ";
 						if (key in index) {
 							index[key].count++;
@@ -350,7 +119,7 @@ sap.ui.define([
 					});
 
 					var data = odata.results;
-
+				//get quantity from another array
 					for (var x = 0; x < TotalLabst.length; x++) {
 						var orderCount = 0;
 						for (var j = 0; j < data.length; j++) {
@@ -362,7 +131,7 @@ sap.ui.define([
 						}
 
 					}
-					//	console.log(TotalLabst);
+				
 
 				},
 				error: function(oerror) {
@@ -404,42 +173,38 @@ sap.ui.define([
 					BusyIndicator.hide();
 					var odata = oData.results;
 
-					console.log(odata);
-					var len = oData.results.length;
-					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-						var createddate = odata[iRowIndex].Prdat;
-						var deliverycompleteddate = odata[iRowIndex].Eindt;
+					var ilen = oData.results.length;
+					for (var iRowIndex = 0; iRowIndex < ilen; iRowIndex++) {
+						var screateddate = odata[iRowIndex].Prdat;
+						var sdeliverycompleteddate = odata[iRowIndex].Eindt;
 
-						var Matnr = odata[iRowIndex].Matnr;
+						var sMatnr = odata[iRowIndex].Matnr;
 
-						if (Matnr !== "" || Matnr !== undefined) {
+						if (sMatnr !== "" || sMatnr !== undefined) {
 							for (var x = 0; x < matLabData.length; x++) {
-								if (Matnr === matLabData[x].Matnr) {
+								if (sMatnr === matLabData[x].Matnr) {
 									var sMatDescription = matLabData[x].Maktx;
 
 								}
 							}
 						}
 
-						var Ebeln = odata[iRowIndex].Ebeln;
-						var Vbeln = odata[iRowIndex].Vbeln;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
+						var sEbeln = odata[iRowIndex].Ebeln;
+						var sVbeln = odata[iRowIndex].Vbeln;
+					
+						var sdate1 = new Date(screateddate);
+						var sdate2 = new Date(sdeliverycompleteddate);
+						var sdiffTime = Math.abs(sdate2 - sdate1);
+						var sdiffDays = Math.ceil(sdiffTime / (1000 * 60 * 60 * 24));
 
-						var date1 = new Date(createddate);
-						var date2 = new Date(deliverycompleteddate);
-						var diffTime = Math.abs(date2 - date1);
-						var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-						if (Ebeln !== "" && Matnr !== "") {
+						if (sEbeln !== "" && sMatnr !== "") {
 
 							oAllPoData.push({
-								Matnr: Matnr,
+								Matnr: sMatnr,
 								Description: sMatDescription,
-								LeadTime: diffDays,
-								Vbeln: Vbeln,
-								Ebeln: Ebeln
+								LeadTime: sdiffDays,
+								Vbeln: sVbeln,
+								Ebeln: sEbeln
 							});
 
 						}
@@ -552,20 +317,13 @@ sap.ui.define([
 				oView.getModel("oCheckModel").setProperty("/FirstDate", first);
 				oView.getModel("oCheckModel").setProperty("/EndDate", last);
 			}
-			/*else if (oselecttab === "Current Month") {
-				var firstDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth(), 1);
-				var lastDay = new Date(CurrentD.getFullYear(), CurrentD.getMonth() + 1, 0);
-				var last1mon = firstDay.toISOString().slice(0, 19);
-				var endo1mon = lastDay.toISOString().slice(0, 19);
-				this.getView().getModel("oSkuModel").setProperty("/FirstDate", last1mon);
-				this.getView().getModel("oSkuModel").setProperty("/EndDate", endo1mon);
-			}*/
+	
 			else if (oselecttab === "Last 1 Month") {
-				var LastMonth = new Date().toISOString().slice(0, 19);
+				var sLastMonth = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 1);
-				var CurrentDate = CurrentD.toISOString().slice(0, 19);
-				oView.getModel("oCheckModel").setProperty("/FirstDate", LastMonth);
-				oView.getModel("oCheckModel").setProperty("/EndDate", CurrentDate);
+				var sCurrentDate = CurrentD.toISOString().slice(0, 19);
+				oView.getModel("oCheckModel").setProperty("/FirstDate", sLastMonth);
+				oView.getModel("oCheckModel").setProperty("/EndDate", sCurrentDate);
 
 			} else if (oselecttab === "Last 3 Months") {
 				var dateString1 = new Date().toISOString().slice(0, 19);
@@ -575,11 +333,11 @@ sap.ui.define([
 				oView.getModel("oCheckModel").setProperty("/EndDate", Last3Month);
 
 			} else if (oselecttab === "Last 6 Months") {
-				var dateString2 = new Date().toISOString().slice(0, 19);
+				var sdateString2 = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 6);
-				var Last3Month2 = CurrentD.toISOString().slice(0, 19);
-				oView.getModel("oCheckModel").setProperty("/FirstDate", dateString2);
-				oView.getModel("oCheckModel").setProperty("/EndDate", Last3Month2);
+				var sLast3Month2 = CurrentD.toISOString().slice(0, 19);
+				oView.getModel("oCheckModel").setProperty("/FirstDate", sdateString2);
+				oView.getModel("oCheckModel").setProperty("/EndDate", sLast3Month2);
 
 			}
 		},
@@ -587,19 +345,17 @@ sap.ui.define([
 		onFetchDecision: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oCheckModel");
-			var FirstDate = oDataModel.oData.FirstDate;
-			var EndDate = oDataModel.oData.EndDate;
+			var dFirstDate = oDataModel.oData.FirstDate;
+			var dEndDate = oDataModel.oData.EndDate;
 
-			console.log(oDataModel);
+		
 			var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-			var firstDate = new Date(FirstDate);
-			var secondDate = new Date(EndDate);
-
+			var firstDate = new Date(dFirstDate);
+			var secondDate = new Date(dEndDate);
 			var diffDaysCount = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-			console.log(diffDaysCount);
-
-			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, EndDate);
-			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
+			//passing the filter to service
+			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, dEndDate);
+			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, dFirstDate);
 			var oAllPoData = [];
 			BusyIndicator.show(true);
 			oModel.read("/get_po_decisionSet", {
@@ -609,8 +365,8 @@ sap.ui.define([
 					BusyIndicator.hide();
 					var odata = oData.results;
 
-					//var currentDate = new Date();
-					console.log(odata);
+				
+				
 					var len = oData.results.length;
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
 						var createddate = odata[iRowIndex].Prdat;
@@ -629,10 +385,6 @@ sap.ui.define([
 
 						var Ebeln = odata[iRowIndex].Ebeln;
 						var Vbeln = odata[iRowIndex].Vbeln;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
-						// var createddate = odata[iRowIndex].Prdat;
-
 						var date1 = new Date(createddate);
 						var date2 = new Date(deliverycompleteddate);
 						var diffTime = Math.abs(date2 - date1);
@@ -655,7 +407,7 @@ sap.ui.define([
 					var index = {};
 					var result = [];
 					var soindex = {};
-
+				//sales count  for perticular materials
 					oAllPoData.forEach(function(point) {
 						var key = "" + point.Matnr + " ";
 						var so = "" + point.Vbeln + " ";
@@ -683,7 +435,7 @@ sap.ui.define([
 					});
 
 					console.log(result);
-					var oNwLe = [];
+					var oPODecisionfinal = [];
 					for (var iRow = 0; iRow < result.length; iRow++) {
 						var Material = result[iRow].Matnr;
 						var SoCount = result[iRow].MatCount;
@@ -709,7 +461,7 @@ sap.ui.define([
 
 							}
 						}
-						oNwLe.push({
+						oPODecisionfinal.push({
 							Matnr: Material,
 							Description: Description,
 							Labst: parseInt(sTotalLabst),
@@ -717,39 +469,32 @@ sap.ui.define([
 							Ebeln: Ebeln,
 							Lead: Math.trunc((Leadtime / Ebeln)) + " Days",
 							SoCount: SoCount,
-
 							Buffer: Math.trunc((Leadtime / Ebeln)) + 2,
 							SalesConsumeOnday: SoCount / diffDaysCount,
-							//	finishStockDay : (parseInt(sTotalLabst)/(SoCount/diffDaysCount)),
-							//	orderWillbeDay : Math.trunc((parseInt(sTotalLabst)/(SoCount/diffDaysCount))-(Leadtime+2)),
-							//	Date: new Date(Date.now() - (Math.trunc((Leadtime / Ebeln)) + 2) * 24 * 60 * 60 * 1000),
-							//	Date1: tomorrow.setDate(today.getDate()+ Math.trunc((parseInt(sTotalLabst)/(SoCount/diffDaysCount))-(Leadtime+2))),
 							currentDate: new Date()
-								//	Date : currentDate.setDate(currentDate.getDate() + 100)
-								//var currentDate = new Date();
-								//currentDate.setDate(currentDate.getDate() + 10000);
+							
 
 						});
 
-						var finishStockDay = oNwLe[iRow].SalesConsumeOnday;
-						var newst = oNwLe[iRow].Labst / finishStockDay;
-						oNwLe[iRow].finishStockDay = newst;
-						var orderWillbeDay = newst - oNwLe[iRow].Leadtime + 2;
+						var finishStockDay = oPODecisionfinal[iRow].SalesConsumeOnday;
+						var newst = oPODecisionfinal[iRow].Labst / finishStockDay;
+						oPODecisionfinal[iRow].finishStockDay = newst;
+						var orderWillbeDay = newst - oPODecisionfinal[iRow].Leadtime + 2;
 						var currentDate = new Date();
 						currentDate.setDate(currentDate.getDate() + orderWillbeDay);
-						console.log(currentDate);
-						oNwLe[iRow].Date = currentDate;
+					
+						oPODecisionfinal[iRow].Date = currentDate;
 
 					}
-
-					console.log(oNwLe);
-
-					oView.getModel("oLeadTimeModel").setData(oNwLe);
-					oView.getModel("oLeadTimeModel").setSizeLimit(1326);
+					//put array data into model
+					oView.getModel("oLeadTimeModel").setSizeLimit(oPODecisionfinal.length);
+					oView.getModel("oLeadTimeModel").setData(oPODecisionfinal);
+				
 
 				},
 				error: function(err) {
-					console.log(err);
+					MessageBox.error(err);
+				
 				}
 
 			});
@@ -760,9 +505,9 @@ sap.ui.define([
 		getAllMaterialData: function() {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oLeadTimeModel = oView.getModel("oLeadTimeModel");
-			var colorState = this.getOwnerComponent().getModel("ColorStateModel");
-			console.log(colorState);
-			var odatacolor = colorState.oData;
+			var oColorState = this.getOwnerComponent().getModel("ColorStateModel");
+		
+			var odatacolor = oColorState.oData;
 			var oAllPoData = [];
 
 			function percentage(percent, total) {
@@ -778,8 +523,8 @@ sap.ui.define([
 					var sTotalLabst;
 					var len = oData.results.length;
 					for (var iRowIndex = 0; iRowIndex < len; iRowIndex++) {
-						var createddate = odata[iRowIndex].Prdat;
-						var deliverycompleteddate = odata[iRowIndex].Eindt;
+						var dcreateddate = odata[iRowIndex].Prdat;
+						var ddeliverycompleteddate = odata[iRowIndex].Eindt;
 
 						var Matnr = odata[iRowIndex].Matnr;
 						if (Matnr !== "" || Matnr !== undefined) {
@@ -794,13 +539,12 @@ sap.ui.define([
 						var sMatDescription = odata[iRowIndex].Maktx;
 
 						var Ebeln = odata[iRowIndex].Ebeln;
-						//var Vbeln = odata[iRowIndex].Vbeln;
-
-						var date1 = new Date(createddate);
-						var date2 = new Date(deliverycompleteddate);
+						
+						var date1 = new Date(dcreateddate);
+						var date2 = new Date(ddeliverycompleteddate);
 						var diffTime = Math.abs(date2 - date1);
 						var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-						//||sTotalLabst !== "" || sTotalLabst !== undefined ||  Matnr !== "" || Ebeln !== ""
+					
 						if (sTotalLabst !== "0" && Matnr && Ebeln) {
 							oAllPoData.push({
 								Matnr: Matnr,
@@ -813,7 +557,7 @@ sap.ui.define([
 						}
 
 					}
-					//	console.log(oAllPoData);
+				
 					var index = {};
 					var result = [];
 					var soindex = {};
@@ -826,25 +570,22 @@ sap.ui.define([
 							index[key].MatCount++;
 
 						} else {
-							var newEntry = {
-
-								Matnr: point.Matnr,
-
-								//	Name1 : vendorname,
-								MatCount: 1
+							var anewEntry = {
+							Matnr: point.Matnr,
+							MatCount: 1
 
 							};
-							index[key] = newEntry;
+							index[key] = anewEntry;
 							//	soindex[so] = newEntry;
-							result.push(newEntry);
+							result.push(anewEntry);
 
 						}
 					});
 
 					//	console.log(result);
 
-					var Sale;
-					var oNwLe = [];
+					var sSale;
+					var oPODecisionfinal = [];
 					for (var iRow = 0; iRow < result.length; iRow++) {
 						var Material = result[iRow].Matnr;
 						var PoCount = result[iRow].MatCount;
@@ -852,7 +593,7 @@ sap.ui.define([
 						if (Material !== "" || Material !== undefined) {
 							for (var z1 = 0; z1 < oOneDaySale.length; z1++) {
 								if (Material === oOneDaySale[z1].Matnr) {
-									Sale = oOneDaySale[z1].SaleCount;
+									sSale = oOneDaySale[z1].SaleCount;
 
 								}
 							}
@@ -872,26 +613,25 @@ sap.ui.define([
 							}
 						}
 
-						if (Sale == "" || Sale == undefined) {
+						if (sSale == "" || sSale == undefined) {
 
-							Sale = 0;
+							sSale = 0;
 						} else {
-							Sale = Sale;
+							sSale = sSale;
 						}
 
-					if (Material !== "" || Material !== undefined) {
+						if (Material !== "" || Material !== undefined) {
 							for (var z1 = 0; z1 < odatacolor.length; z1++) {
 								if (Material === odatacolor[z1].Material) {
 									var colorS = odatacolor[z1].Color;
-							
 
 								}
 							}
 						}
 
-						oNwLe.push({
+						oPODecisionfinal.push({
 							Matnr: Material,
-							Color : colorS,
+							Color: colorS,
 							Description: Description,
 							Labst: parseInt(sTotalLabst),
 							AvailableQuantity: parseInt(sTotalLabst) + " Units",
@@ -899,34 +639,34 @@ sap.ui.define([
 							Ebeln: PoCount,
 							Lead: Math.round((Leadtime / PoCount)) + " Days",
 							LeadBuffer: Math.round((Leadtime / PoCount)),
-							Sale: Sale
+							Sale: sSale
 
 							//RunoutofStock : Math.round(parseInt(sTotalLabst)/Sale)
 
 						});
-						Sale = "";
-						if (oNwLe[iRow].Sale !== 0) {
-							oNwLe[iRow].RunoutofStock = (oNwLe[iRow].Labst) / oNwLe[iRow].Sale;
-							oNwLe[iRow].Sale = oNwLe[iRow].Sale + " Units";
-							oNwLe[iRow].Buffer = Math.round(percentage(50, oNwLe[iRow].Leadtime));
-							var orderdate = oNwLe[iRow].RunoutofStock - (oNwLe[iRow].Buffer + oNwLe[iRow].LeadBuffer);
-							oNwLe[iRow].Buffer = oNwLe[iRow].Buffer + " Days";
+						sSale = "";
+						if (oPODecisionfinal[iRow].Sale !== 0) {
+							oPODecisionfinal[iRow].RunoutofStock = (oPODecisionfinal[iRow].Labst) / oPODecisionfinal[iRow].Sale;
+							oPODecisionfinal[iRow].Sale = oPODecisionfinal[iRow].Sale + " Units";
+							oPODecisionfinal[iRow].Buffer = Math.round(percentage(50, oPODecisionfinal[iRow].Leadtime));
+							var orderdate = oPODecisionfinal[iRow].RunoutofStock - (oPODecisionfinal[iRow].Buffer + oPODecisionfinal[iRow].LeadBuffer);
+							oPODecisionfinal[iRow].Buffer = oPODecisionfinal[iRow].Buffer + " Days";
 							var currentDate = new Date();
 							currentDate.setDate(currentDate.getDate() + orderdate);
 							var cuDate = currentDate.toDateString();
-							oNwLe[iRow].Date = cuDate;
-							
+							oPODecisionfinal[iRow].Date = cuDate;
+
 						} else {
-								oNwLe[iRow].Date = "NA";
-								oNwLe[iRow].Sale = oNwLe[iRow].Sale + " Units";
-								oNwLe[iRow].Buffer = Math.round(percentage(50, oNwLe[iRow].Leadtime));
-								oNwLe[iRow].Buffer = oNwLe[iRow].Buffer + " Days";
+							oPODecisionfinal[iRow].Date = "NA";
+							oPODecisionfinal[iRow].Sale = oPODecisionfinal[iRow].Sale + " Units";
+							oPODecisionfinal[iRow].Buffer = Math.round(percentage(50, oPODecisionfinal[iRow].Leadtime));
+							oPODecisionfinal[iRow].Buffer = oPODecisionfinal[iRow].Buffer + " Days";
 						}
-					
+
 					}
 
-					oView.getModel("oLeadTimeModel").setSizeLimit(oNwLe.length);
-					oView.getModel("oLeadTimeModel").setData(oNwLe);
+					oView.getModel("oLeadTimeModel").setSizeLimit(oPODecisionfinal.length);
+					oView.getModel("oLeadTimeModel").setData(oPODecisionfinal);
 
 				},
 				error: function(oError) {
@@ -939,16 +679,15 @@ sap.ui.define([
 
 		getSaleData: function(oEvnt) {
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-		
+
 			var s2 = "2022-01-12T09:14:42";
 			//	var s2 = "2022-01-12T12:04:39";
-			var s3 = "2022-01-12T09:14:42";
-			var d = new Date();
-			d.setDate(d.getDate() - 1);
-			var ss = d.toISOString();
-			var s = ss.slice(0, -5);
-			console.log(s);
-
+		
+			var sTodaysDate = new Date();
+			sTodaysDate.setDate(sTodaysDate.getDate() - 1);
+			var ss = sTodaysDate.toISOString();
+			var sCurrentDate = ss.slice(0, -5);
+			
 			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, s2);
 
 			BusyIndicator.show(true);
@@ -959,7 +698,7 @@ sap.ui.define([
 
 					var index = {};
 					var result = [];
-
+					//sale count for 24 hours
 					oData.results.forEach(function(point) {
 						var key = "" + point.Matnr + " ";
 
@@ -984,8 +723,7 @@ sap.ui.define([
 					});
 
 					oOneDaySale = result;
-					console.log(oOneDaySale)
-
+			
 				},
 				error: function(oError) {
 					BusyIndicator.hide();

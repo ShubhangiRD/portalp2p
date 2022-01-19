@@ -83,7 +83,7 @@ sap.ui.define([
 					MessageToast.show(sErrorMsg);
 				}
 			});
-		},
+		}
 	
 
 	});
