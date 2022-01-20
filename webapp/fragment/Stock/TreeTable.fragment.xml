@@ -174,7 +174,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 			<!--			wrapping="false"/>-->
 			<!--	</template>-->
 			<!--</Column>-->
-			<Column width="13rem" sorted="true" visible="true">
+			<Column width="13rem" sorted="true" visible="false">
 				<m:Label text="Color"/>
 				<template>
 					<m:ObjectIdentifier title="{path: 'oStockDataModel>Color'}"/>

@@ -40,17 +40,16 @@
 				<form:SimpleForm id="FormHeaderContent1" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 					<form:content>
-						<m:Label text=" "/>
+						<m:Label text="Purchase Order"/>
 						<m:Input id="idPD" textFormatMode="KeyValue" placeholder="Purchase Document" showSuggestion="true" showValueHelp="true" valueHelpOnly="true"
-							width="100%" valueHelpRequest="handlePursOrderValueHelp" suggestionItems="{ path: 'Lookup>/PoDocumentNumber'}"
+							width="50%" valueHelpRequest="handlePursOrderValueHelp" suggestionItems="{ path: 'Lookup>/PoDocumentNumber'}"
 							suggestionItemSelected="suggestionItemSelectedPOrder" liveChange="numValidate">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ebeln}" text="{Lookup>Lifnr}" additionalText="{Lookup>Ebeln}"/>
 							</m:suggestionItems>
 						</m:Input>
-						<!--		<m:Input id="MatDoc" width="100%" value="{MatData>/MatDocument}" placeholder="Material Document" change="PressMaterialDoc"/>
-						<m:Input id="DocYear" placeholder="Year" value="{MatData>/MatDocYear}" width="30%" change="PressMaterialDoc"/>
-				-->
+				
+				<!--<m:Label text="Plant"/>-->
 						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true" width="30%"
 							showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
 							suggestionItemSelected="onSuggest" liveChange="Validate">
@@ -82,25 +81,25 @@
 									<form:content>
 										<core:Title text=""/>
 										<m:Label text="Bill of Lading"/>
-										<m:Input type="Text" id="BillOfLading" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/BillOfLading}"/>
+										<m:Input type="Text" width="80%" id="BillOfLading" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/BillOfLading}"/>
 										<m:Label text="GR Slip No"/>
-										<m:Input type="Text" id="GrGiSlipNo" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/GrGiSlipNo}"></m:Input>
+										<m:Input type="Text" id="GrGiSlipNo" width="80%" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/GrGiSlipNo}"></m:Input>
 										<m:Label text="Reference"/>
 										<m:Input id="RefDocNo"
-											value="{PurchaseModel>/TempContract/RefDocNo}"
+											value="{PurchaseModel>/TempContract/RefDocNo}" width="80%"
 											editable="{EditModel>/isEditable}" textFormatMode="KeyValue"></m:Input>
 										<core:Title text=" "/>
 										<m:Label text="Document Date"/>
-										<m:DateTimePicker id="DocDate" editable="{EditModel>/isEditable}" 
+										<m:DateTimePicker id="DocDate" width="80%" editable="{EditModel>/isEditable}" 
 										
 										value="{PurchaseModel>/TempContract/DocDate}"/>
 										<m:Label text="Posting Date"/>
-										<m:DateTimePicker id="PstngDate" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/CreatDate}"/>
+										<m:DateTimePicker id="PstngDate" width="80%"  editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/CreatDate}"/>
 										<core:Title text=" "/>
 										<m:Label text="Header text"/>
-										<m:Input type="Text" id="HeaderTxt" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/HeaderTxt}"></m:Input>
+										<m:Input type="Text" width="80%" id="HeaderTxt" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/HeaderTxt}"></m:Input>
 										<m:Label text="Vendor"/>
-										<m:Input type="Text" id="Vendor" value="{PurchaseModel>/TempContract/Vendor}" editable="{EditModel>/isEditable}"></m:Input>
+										<m:Input type="Text" width="80%" id="Vendor" value="{PurchaseModel>/TempContract/Vendor}" editable="{EditModel>/isEditable}"></m:Input>
 									</form:content>
 								</form:SimpleForm>
 							</blocks>

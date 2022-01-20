@@ -10,9 +10,10 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/RebateConditionItemPO",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+		"com/vSimpleApp/Classes/ServiceF4"
 ], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast, PurchaseHeader,
-	RebateConditionItemPO, MessageBox) {
+	RebateConditionItemPO, MessageBox,ServiceF4) {
 	"use strict";
 	var oView, sPlant, oComponent, successObj;
 
@@ -153,26 +154,7 @@ sap.ui.define([
 		/*Document type end*/
 
 		/*Material Number Search start*/
-		getMaterialList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/MaterialmasterSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oMaterialList = oData.results;
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/MaterialList", oMaterialList);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					//	BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+	
 
 		handlePOMaterialHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -199,7 +181,10 @@ sap.ui.define([
 				"Description",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getMaterialList();
+		
+			
+	var Service = new ServiceF4();
+			Service.getMaterialList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogph.open(sInputValue);
 		},
@@ -322,25 +307,7 @@ sap.ui.define([
 		},
 
 		/*Plant search start */
-		getPOPlant: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_plant_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/POPlant", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+	
 		handleValueHelpPlant: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -366,7 +333,10 @@ sap.ui.define([
 				"Bwkey",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getPOPlant();
+		
+			
+	var Service = new ServiceF4();
+			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
 
@@ -760,25 +730,7 @@ sap.ui.define([
 			window.location.reload();
 
 		},
-		getSpecialStockList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-
-			oModel.read("/get_movementTypef4Set", {
-				success: function(oData) {
-
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/SplStock", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+	
 
 		/* movement type    */
 
@@ -808,7 +760,10 @@ sap.ui.define([
 				"Btext",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getSpecialStockList();
+		//	this.getSpecialStockList();
+			
+	var Service = new ServiceF4();
+			Service.getSpecialStockList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogMvtType.open(sInputValue);
 
@@ -936,7 +891,9 @@ sap.ui.define([
 				"Btext",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getSpecialStockList();
+			
+	var Service = new ServiceF4();
+			Service.getSpecialStockList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogSplStock.open(sInputValue);
 

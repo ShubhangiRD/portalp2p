@@ -43,7 +43,7 @@
 			<Button text="Green" type="Accept" id="idGreenb"  press="onFilterSelect"  class="sapUiSmallMarginBegin" />
 			<Button text="Excess" id="idBlueb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
 			<FlexBox justifyContent="End" alignContent="Start">
-					<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>
+			<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>
 		<Button text="SKU List" id="idGOsKULIST"  press="onSkuList"  class="sapUiSmallMarginBegin"/>	
 			</FlexBox>
 		<!--<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
@@ -62,7 +62,7 @@
 			<Button text="Excess" id="idBlueb1" press="onFilterSelectHierarchy"/>
 			<Button text="Allq" id="idAll3" visible="false" press="onFilterSelect"/>
 	
-			<!--	<Button text="Clear" width="20%"   	visible="true"	 press="OnclearFilterHierarchy"/>-->
+		
 		</form:content>
 	</form:SimpleForm>
 	<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckModel>/Material}" select="onShowTable"/>
@@ -100,8 +100,8 @@
 	
 	<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Tablehirarchy" type="XML"/>
 		<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.TreeTable" type="XML"/>
-	<!--<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.Mstock" type="XML"/>-->
+
 </VBox>
-	<!--<core:Fragment fragmentName="com.vSimpleApp.fragment.Stock.tablestock" type="XML"/>-->
+
 	</Page>
 </mvc:View>

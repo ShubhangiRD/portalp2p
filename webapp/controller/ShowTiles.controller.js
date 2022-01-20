@@ -226,8 +226,8 @@ sap.ui.define([
 			}
 		},
 		closeLinkbox: function(evt) {
-			this.pressDialogExcessDiscard.close();
-			this.pressDialogExcessDiscard.destroy();
+			this.pressDialogIV.close();
+			this.pressDialogIV.destroy();
 		},
 		pressGenericTile: function(evt) {
 			//navigate the property is selected subheader.

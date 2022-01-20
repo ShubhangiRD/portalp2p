@@ -91,8 +91,7 @@
 										<m:OverflowToolbar >
 											<m:Title id="title" text="PO Items"/>
 											<m:ToolbarSpacer/>
-												<m:Button icon="sap-icon://display" text="Retrieve Data" type="Transparent" tooltip="Retrieve Data" press="onAddConditions"/>
-										
+											<m:Button icon="sap-icon://display" text="Retrieve Data" type="Transparent" tooltip="Retrieve Data" press="onAddConditions"/>
 											<m:Button icon="sap-icon://add" type="Transparent" tooltip="Add Row" press="onAddNewConditionItem"/>
 											<m:Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
 												tooltip="Delete Row" press="onDeleteConditionItem"/>
@@ -123,19 +122,19 @@
 												</m:Input>
 											</t:template>
 										</t:Column>
-										<t:Column width="11rem" hAlign="Center">
+										<t:Column width="7rem" hAlign="Center">
 											<m:Label text="PO Quantity"/>
 											<t:template>
 												<m:Input id="Quantity" value="{PurchaseModel>Quantity}" textAlign="End" placeholder="Enter PO Quantity"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="11rem" hAlign="Center">
+										<t:Column width="5rem" hAlign="Center">
 											<m:Label text="Unit of Measure"/>
 											<t:template>
 												<m:Input id="PoUnit" value="{PurchaseModel>PoUnit}" class="measure1"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="7rem" hAlign="Center">
 											<m:Label text="Plant"/>
 											<t:template>
 												<m:Input id="Plant" textFormatMode="KeyValue" placeholder=" Enter Plant No" showSuggestion="true" showValueHelp="true"
@@ -147,15 +146,14 @@
 												</m:Input>
 											</t:template>
 										</t:Column>
-										<t:Column width="11rem" hAlign="Center">
+										<t:Column width="10rem" hAlign="Center">
 											<m:Label text="Price"/>
 											<t:template>
 												<!--    <m:Input id="NetPrice" editable="{EditModel>/isEditable}" value="{PurchaseModel>NetPrice}" class="price1"/>
                -->
-											<m:Input id="NetPrice" editable="{EditModel>/isEditable}" class="price1"
+												<m:Input id="NetPrice" editable="{EditModel>/isEditable}" class="price1"
 													value="{ path: 'PurchaseModel>NetPrice', type: 'sap.ui.model.type.Float', formatOptions: { maxIntegerDigits: 18, maxFractionDigits: 2, minFractionDigits: 2, parseAsString: true } }"/>
-								
-										</t:template>
+											</t:template>
 										</t:Column>
 										<t:Column width="9rem" hAlign="Center">
 											<m:Label text="Status"/>
@@ -163,13 +161,13 @@
 												<m:Input id="idstatuss" editable="{EditModel>/isEditable}"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="6rem" hAlign="Center">
 											<m:Label text="Item"/>
 											<t:template>
 												<m:Input id="PoItem" value="{PurchaseModel>PoItem}" editable="{EditModel>/isEditable}"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="5rem" hAlign="Center">
 											<m:Label text="A"/>
 											<t:template>
 												<m:Input id="Acctasscat" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Acctasscat}"></m:Input>
@@ -193,25 +191,20 @@
 												<m:DateTimePicker id="iddelivDate" editable="{EditModel>/isEditable}"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="7rem" hAlign="Center">
 											<m:Label text="Order Unit"/>
 											<t:template>
 												<m:Input id="PoUnit3" class="ClassOU" textFormatMode="KeyValue" value="{PurchaseModel>PoUnit}"></m:Input>
 											</t:template>
 										</t:Column>
-										<!--	<t:Column  width="9rem" hAlign="Center">
-                    <m:Label text="Currency"/>
-                    <t:template>
-                      <m:Input id="idCurrencyPO"  class="price1"/>
-                    </t:template>
-                  </t:Column>-->
+									
 										<t:Column width="9rem" hAlign="Center">
 											<m:Label text="Per"/>
 											<t:template>
 												<m:Input id="idPer"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="7rem" hAlign="Center">
 											<m:Label text="Store Location"/>
 											<t:template>
 												<m:Input id="StgeLoc" textFormatMode="KeyValue" value="{PurchaseModel>StgeLoc}"></m:Input>
@@ -325,13 +318,13 @@
 												<m:Input id="idPurchasingDocument"></m:Input>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="5rem" hAlign="Center">
 											<m:Label text="PO Document Item"/>
 											<t:template>
 												<m:Input id="idpodocumentitem"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="9rem" hAlign="Center">
+										<t:Column width="5rem" hAlign="Center">
 											<m:Label text="ISS Store Location "/>
 											<t:template>
 												<m:Input id="idissStorLoc"></m:Input>

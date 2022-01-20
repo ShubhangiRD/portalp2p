@@ -10,7 +10,6 @@ sap.ui.define([
 	"com/vSimpleApp/model/VendorRebateCondition",
 	"com/vSimpleApp/model/CreateContract",
 	"com/vSimpleApp/model/GetPODetails",
-
 	"sap/m/ColumnListItem",
 	"jquery.sap.global",
 	"sap/m/MessageToast",
@@ -18,11 +17,12 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	'sap/ui/core/BusyIndicator',
 	"com/vSimpleApp/model/POItem",
-	"com/vSimpleApp/model/PurchaseHeader"
+	"com/vSimpleApp/model/PurchaseHeader",
+	"com/vSimpleApp/Classes/ServiceF4"
 
 ], function(Controller, JSONModel, library, Input, Fragment, Filter, FilterOperator, RebateConditionItemPO,
 	VendorRebateCondition, CreateContract, GetPODetails, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator,
-	POItem, PurchaseHeader) {
+	POItem, PurchaseHeader, ServiceF4) {
 	"use strict";
 
 	//global variable
@@ -311,11 +311,10 @@ sap.ui.define([
 										Vendor: sVendor,
 										Vendorname: sVendorname
 									});
-									console.log(Partner);
-
+								
 									oView.getModel("ParterDetails").setData(Partner);
 
-									console.log(oParterDetails);
+								
 								}
 							}
 						}
@@ -980,25 +979,7 @@ sap.ui.define([
 
 		},
 		/*Material Number Search start*/
-		getMaterialList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/MaterialmasterSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/MaterialList", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+	
 
 		handlePOMaterialHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -1025,7 +1006,9 @@ sap.ui.define([
 				"Description",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getMaterialList();
+		//	this.getMaterialList();
+				var Service = new ServiceF4();
+			Service.getMaterialList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogph.open(sInputValue);
 		},
@@ -1079,25 +1062,6 @@ sap.ui.define([
 		/*Material SEarch end*/
 
 		/*Plant search start */
-		getPOPlant: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_plant_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/POPlant", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
 
 		_handlePlantClose: function(evt) {
 			var zero = "";
@@ -1220,7 +1184,9 @@ sap.ui.define([
 				"Bwkey",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getPOPlant();
+
+			var Service = new ServiceF4();
+			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
 
@@ -1245,7 +1211,7 @@ sap.ui.define([
 			//get odata model with the data
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-		
+
 			var oRequestPayload = oPurchaseContract.getRequestPayload();
 			console.log(PurchaseOno);
 			oRequestPayload.Purchaseorder = PurchaseOno;

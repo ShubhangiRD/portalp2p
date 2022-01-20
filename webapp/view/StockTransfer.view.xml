@@ -25,10 +25,9 @@
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 					<form:content>
 						<m:Label text="Supplying Plant"/>
-					
 						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" showSuggestion="true" width="20%"
-					placeholder ="Supplying Plant"			liveChange="onChangeValue"	value="{PurchaseModel>/TempContract/SupplPlnt}" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
-							suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest" >
+							placeholder="Supplying Plant" liveChange="onChangeValue" value="{PurchaseModel>/TempContract/SupplPlnt}" showValueHelp="true"
+							valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 							</m:suggestionItems>
@@ -37,9 +36,7 @@
 				</form:SimpleForm>
 				<form:SimpleForm id="FormHeaderContent2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="12"
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
-					<form:content>
-					
-					</form:content>
+					<form:content></form:content>
 				</form:SimpleForm>
 			</headerContent>
 			<sections>
@@ -54,32 +51,32 @@
 										<core:Title text=""/>
 										<m:Label text="Purchase Org " required="true"/>
 										<m:Input id="PurchOrg" textFormatMode="KeyValue" showSuggestion="true" width="50%" value="{PurchaseModel>/TempContract/PurchOrg}"
-									liveChange="onChangeValue"	placeholder="Purchase Organization"	showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }"
-											suggestionItemSelected="onSuggest">
+											liveChange="onChangeValue" placeholder="Purchase Organization" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
+											suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Purchase Group" required="true"/>
 										<m:Input id="PurGroup" textFormatMode="KeyValue" showSuggestion="true" width="40%" value="{PurchaseModel>/TempContract/PurGroup}"
-										placeholder="Purchase Group" 		liveChange="onChangeValue"	editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor" suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }"
-											suggestionItemSelected="onSuggest">
+											placeholder="Purchase Group" liveChange="onChangeValue" editable="true" showValueHelp="true" valueHelpRequest="handlePurchaseGroupVendor"
+											suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Ekgrp}" text="{Lookup>Eknam}" additionalText="{Lookup>Ekgrp}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Company Code" required="true"/>
 										<m:Input id="CompCode" textFormatMode="KeyValue" showSuggestion="true" width="50%" value="{PurchaseModel>/TempContract/CompCode}"
-										placeholder="Company Code" 		liveChange="onChangeValue"	showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" suggestionItems="{ path: 'Lookup>/CountryCode' }"
-											suggestionItemSelected="onSuggest">
+											placeholder="Company Code" liveChange="onChangeValue" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
+											suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>
 											</m:suggestionItems>
 										</m:Input>
 										<m:Label text="Document Type" required="true"/>
-										<m:Input id="iddoctype" textFormatMode="KeyValue" showSuggestion="true"  value="{PurchaseModel>/TempContract/DocumentType}"
-									placeholder="Document Type"			liveChange="onChangeValue"	showValueHelp="true" valueHelpRequest="handleDoctypevalue" width="30%" suggestionItems="{ path: 'Lookup>/documentType' }"
-											suggestionItemSelected="onSuggest">
+										<m:Input id="iddoctype" textFormatMode="KeyValue" showSuggestion="true" value="{PurchaseModel>/TempContract/DocumentType}"
+											placeholder="Document Type" liveChange="onChangeValue" showValueHelp="true" valueHelpRequest="handleDoctypevalue" width="30%"
+											suggestionItems="{ path: 'Lookup>/documentType' }" suggestionItemSelected="onSuggest">
 											<m:suggestionItems>
 												<core:ListItem key="{Lookup>Auart}" text="{Lookup>Auart}" additionalText="{Lookup>Auart}"/>
 											</m:suggestionItems>
@@ -101,9 +98,7 @@
 											<m:ToolbarSpacer/>
 											<!--<m:Button icon="sap-icon://display" text="Retrieve Data" type="Transparent" tooltip="Retrieve Data" press="onAddConditions"/>-->
 											<!--<m:Button icon="sap-icon://add" type="Transparent" tooltip="Add Row" press="onAddNewConditionItem"/>-->
-										
-											<m:Button id= "idsocond" type="Transparent" text="Simulate" tooltip="Simulate Condition" press="onSavePOConditionRecords"/>
-										
+											<m:Button id="idsocond" type="Transparent" text="Simulate" tooltip="Simulate Condition" press="onSavePOConditionRecords"/>
 											<m:Button icon="sap-icon://delete" enabled="{=${PurchaseModel>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"
 												tooltip="Delete Row" press="onDeleteConditionItem"/>
 										</m:OverflowToolbar>
@@ -219,12 +214,7 @@
 												<m:Input id="PoUnit3" class="ClassOU" textFormatMode="KeyValue" value="{PurchaseModel>PoUnit}"></m:Input>
 											</t:template>
 										</t:Column>
-										<!--	<t:Column  width="9rem" hAlign="Center">
-                    <m:Label text="Currency"/>
-                    <t:template>
-                      <m:Input id="idCurrencyPO"  class="price1"/>
-                    </t:template>
-                  </t:Column>-->
+									
 										<t:Column width="9rem" hAlign="Center">
 											<m:Label text="Per"/>
 											<t:template>

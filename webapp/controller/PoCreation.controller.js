@@ -20,11 +20,12 @@ sap.ui.define([
 	"sap/ui/model/FilterType",
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/routing/History",
-	"com/vSimpleApp/model/PurchaseHeader"
+	"com/vSimpleApp/model/PurchaseHeader",
+		"com/vSimpleApp/Classes/ServiceF4"
 
 ], function(Formatter, Controller, JSONModel, mobileLibrary, Input, Fragment, Filter, FilterOperator, RebateConditionItemPO,
 	VendorRebateCondition, CreateContract, ColumnListItem, jQuery, MessageToast, MessageBox, Text, TextArea, DatePicker, FilterType,
-	BusyIndicator, History, PurchaseHeader) {
+	BusyIndicator, History, PurchaseHeader,ServiceF4) {
 	"use strict";
 	var oView, sMaterialRows;
 	var oComponent;
@@ -549,25 +550,7 @@ sap.ui.define([
 
 		/*plant search start*/
 
-		getPOPlant: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_plant_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/POPlant", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+
 		handleValueHelpPlant: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -593,7 +576,10 @@ sap.ui.define([
 				"Bwkey",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getPOPlant();
+		
+			
+			var Service = new ServiceF4();
+			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
 
@@ -974,28 +960,7 @@ sap.ui.define([
 		},
 
 		/*Material Number Search start*/
-		getMaterialList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/MaterialmasterSet", {
-				success: function(oData) {
-
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/MaterialList", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
-
+	
 		handlePOMaterialHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -1021,7 +986,10 @@ sap.ui.define([
 				"Description",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getMaterialList();
+		
+			
+			var Service = new ServiceF4();
+			Service.getMaterialList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogph.open(sInputValue);
 		},
