@@ -37,9 +37,8 @@ sap.ui.define([
 			// process order model
 
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-		
+
 			oView = this.getView();
-		
 
 			this.getSalesOrderDetails();
 			var oSalesModel = new sap.ui.model.json.JSONModel();
@@ -394,9 +393,12 @@ sap.ui.define([
 					});
 
 				},
-				error: function(error) {
-					MessageBox.error(error);
+				error: function(oError) {
+					//error handler code
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageBox.show(errorMsg);
 					BusyIndicator.hide();
+
 				},
 				merge: false
 			};
@@ -409,16 +411,17 @@ sap.ui.define([
 			this.pressDialogExcessDiscount.destroy();
 
 			var table = this.byId("idSkuTable");
-
+			//remove selected materials
 			table.removeSelections();
 		},
 		onCancelDiscount: function() {
 			var stable = this.byId("idSkuTable");
 			var oModel = sap.ui.getCore().getModel("SingleNoMvtData");
-
+               //clear model data
 			oModel.setData({
 				oData: {}
 			});
+			  //remove selected materials
 			stable.removeSelections();
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
@@ -601,14 +604,14 @@ sap.ui.define([
 		},
 		getSalesOrgforCondition: function() {
 			var that = this;
-			//set the odata to model property
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			//get entity set
 			oModel.read("/get_salesorgf4Set", {
 				success: function(oData) {
 
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
+
 					oLookupModel.setProperty("/SalesOrg1", oData.results);
 					oLookupModel.refresh(true);
 

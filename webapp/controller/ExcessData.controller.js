@@ -74,7 +74,7 @@ sap.ui.define([
 			sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/DocType", value2);
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			//	this.getExcess();
+
 			this.getCustomer();
 
 			this.getStock();
@@ -82,8 +82,10 @@ sap.ui.define([
 		},
 
 		getStock: function() {
+			//get all data from odata model
 			var oModel2 = this.getOwnerComponent().getModel("StockModel");
 			var Excesss = [];
+			//get entity set
 			oModel2.read("/STOCK_DATASet", {
 				success: function(oData) {
 
@@ -153,11 +155,12 @@ sap.ui.define([
 						}
 
 					}
-
+					//set the odata to model 
 					oView.getModel("oExcessDataModel").setData(Excesss);
 
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
@@ -166,16 +169,16 @@ sap.ui.define([
 
 		},
 		getSalesOrderDetails: function() {
-
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+			//get entity set
 			oModel.read("/SalesOrdersSet", {
 				success: function(oData) {
 
 					var iItem = oData.results.length;
 					var aListofVendoritem = [];
 					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
-						//		console.log(iRowIndex);
+
 						var Matnr = oData.results[iRowIndex].Matnr;
 						aListofVendoritem.push({
 							Matnr: Matnr
@@ -198,11 +201,11 @@ sap.ui.define([
 							result.push(newEntry);
 						}
 					});
-					//	console.log(result);
+
 					result.sort(function(a, b) {
 						return b.count - a.count;
 					});
-					//		console.log(result);
+
 					var sResultlengrh = result.length;
 
 					var data = oData.results;
@@ -230,21 +233,18 @@ sap.ui.define([
 		},
 
 		OnNaveBack: function() {
-			var StockTransferModel = this.getOwnerComponent().getModel("oExcessDataModel");
+
+			//navigate back to the stock table
 
 			this.getOwnerComponent().getRouter().navTo("StockTable");
 		},
 
-		getPath: function() {
-			var oPurchaseItemTable = this.byId("excesstable");
-			var sPathSingle = oPurchaseItemTable.getSelectedContextPaths();
-		},
 		onExcessSelectionItem: function() {
 			var oPurchaseItemTable = this.byId("excesstable");
 			var aSelectedIndex = oPurchaseItemTable._aSelectedPaths;
 			var oExcessModel = this.getOwnerComponent().getModel("oExcessDataModel");
 			var Excess = [];
-			//	var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+
 			for (var i = 0; i < aSelectedIndex.length; i++) {
 
 				var odata = aSelectedIndex[i];
@@ -255,160 +255,24 @@ sap.ui.define([
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 			var sSoItem = SalesOrder.setProperty("/SOItem", Excess);
 
-			console.log(sSoItem);
-
 			var tableItems = this.byId("excesstable");
 			sPathThreshold = tableItems.getSelectedContextPaths();
-			console.log(sPathThreshold);
 
 		},
-		// onDiscountMaterial: function() {
-		// 	var table = this.byId("excesstable");
 
-		// 	if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
-		// 		var model = sap.ui.getCore().getModel("SingleExcessData");
-		// 		model.setData({
-		// 			oData: {}
-		// 		});
-		// 		model.Matnr = "";
-		// 		model.Descrption = "";
-		// 		MessageBox.error("Please Select Material for Discount");
-
-		// 	} else {
-		// 		// var oExcessmodelInfo = oView.getModel("oExcessDataModel");
-		// 		var oExcessmodelInfo = this.getOwnerComponent().getModel("oExcessDataModel");
-
-		// 		var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
-		// 		oSelectedRecord.DiscAmt = "";
-		// 		oSelectedRecord.DistriChnl = "";
-		// 		oSelectedRecord.SalesOrg1 = "";
-		// 		oSelectedRecord.ValidFrom = "";
-		// 		oSelectedRecord.ValidTo = "";
-		// 		console.log(oSelectedRecord.Matnr);
-
-		// 		sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
-
-		// 		this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
-		// 		if (!this.pressDialogExcessDiscount) {
-		// 			this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
-		// 			this.pressDialogExcessDiscount.open();
-		// 		}
-		// 	}
-
-		// },
-		// onSaveDiscount: function() {
-
-		// 	/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
-		// 	var oModelService = this.getOwnerComponent().getModel("StockModel");
-
-		// 	var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
-		// 	// console.log(oPostData);
-		// 	var matnr = oPostData.Material;
-		// 	var Amt = oPostData.DiscAmt;
-		// 	var ValidTo = oPostData.ValidTo;
-		// 	// .toISOString();
-		// 	// ValidTo.slice(0, -5);
-		// 	var ValidFrom = oPostData.ValidFrom;
-		// 	// .toISOString();
-		// 	// ValidDate.slice(0, -5);
-		// 	var salesorg = oPostData.SalesOrg1;
-		// 	var distriChnl = oPostData.DistriChnl;
-		// 	var caltype = "A";
-		// 	var Unit = "%";
-		// 	var oEntry = {};
-
-		// 	oEntry.Vkorg = salesorg;
-		// 	oEntry.Vtweg = distriChnl;
-		// 	oEntry.Matnr = matnr;
-		// 	oEntry.Kbetr = Amt;
-		// 	oEntry.Konwa = Unit;
-
-		// 	// var ValidFromDate = new Date(ValidFrom);
-		// 	// var Date1 = ValidFromDate.toISOString();
-		// 	// Date1 = Date1.slice(0, -5)
-		// 	// var ValidToDate = new Date(ValidTo);
-		// 	// var Date2 = ValidToDate.toISOString();
-		// 	// Date2 = Date2.slice(0, -5)
-
-		// 	var Date1 = new Date(ValidFrom);
-		// 	Date1 = Date1.setDate(Date1.getDate() + 1);
-
-		// 	var Date2 = new Date(ValidTo);
-		// 	Date2 = Date2.setDate(Date2.getDate() + 1);
-
-		// 	var Date3 = new Date(Date1).toISOString();
-		// 	var Date4 = new Date(Date2).toISOString();
-		// 	Date3 = Date3.slice(0, -5)
-		// 	Date4 = Date4.slice(0, -5)
-
-		// 	console.log(Date3);
-		// 	console.log(Date4);
-
-		// 	console.log(Date1);
-		// 	console.log(Date2);
-		// 	oEntry.Datab = Date3;
-		// 	oEntry.Datbi = Date4;
-		// 	console.log(oEntry);
-		// 	var that = this;
-
-		// 	var mParameters = {
-		// 		success: function(oResponse, object) {
-
-		// 			MessageBox.show("Discount Added Sucessfully.");
-		// 			BusyIndicator.hide();
-
-		// 			var oModel = sap.ui.getCore().getModel("SingleExcessData");
-		// 			var oModel2 = sap.ui.getCore().getModel("oExcessDataModel");
-
-		// 			oModel.setData({
-		// 				oData: {}
-		// 			});
-
-		// 		},
-		// 		error: function(error) {
-		// 			MessageBox.error(error);
-		// 			BusyIndicator.hide();
-		// 		},
-		// 		merge: false
-		// 	};
-		// 	var relPath = "/CreateDiscountConditionSet";
-		// 	BusyIndicator.show(true);
-		// 	oModelService.create(relPath, oEntry, mParameters);
-
-		// 	this.pressDialogExcessDiscount.close();
-		// 	this.pressDialogExcessDiscount.destroy();
-
-		// 	//this.pressDialogExcessDiscount.close();
-		// 	//	this.pressDialogExcessDiscount.destroy();
-		// },
-		// onCancelDiscount: function() {
-		// 	var table = this.byId("excesstable");
-		// 	var oModel = sap.ui.getCore().getModel("SingleExcessData");
-
-		// 	oModel.setData({
-		// 		oData: {}
-		// 	});
-		// 	table.removeSelections();
-		// 	this.pressDialogExcessDiscount.close();
-		// 	this.pressDialogExcessDiscount.destroy();
-		// },
 		onDiscountMaterial: function() {
 			var table = this.byId("excesstable");
+			// validation to select one material only
 			if (table.getSelectedItems().length > 1) {
 				MessageBox.error("Please Select only one Material for Discount");
 				table.removeSelections();
-
+				//material must be selected 
 			} else if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
-				/*		var model = sap.ui.getCore().getModel("SingleExcessData");
-						model.setData({
-							oData: {}
-						});
-						model.Matnr = "";
-						model.Descrption = "";*/
+
 				MessageBox.error("Please Select Material for Discount");
 
 			} else {
-				// var oExcessmodelInfo = oView.getModel("oExcessDataModel");
+
 				var oExcessmodelInfo = this.getOwnerComponent().getModel("oExcessDataModel");
 
 				var oSelectedRecord = oExcessmodelInfo.getProperty(sPathThreshold[0]);
@@ -417,10 +281,10 @@ sap.ui.define([
 				oSelectedRecord.SalesOrg1 = "";
 				oSelectedRecord.ValidFrom = "";
 				oSelectedRecord.ValidTo = "";
-				console.log(oSelectedRecord.Matnr);
+			
 
 				sap.ui.getCore().getModel("SingleExcessData").setData(oSelectedRecord);
-
+				//open fragment
 				this.pressDialogExcessDiscount = oView.byId("idExcessDiscountDialog");
 				if (!this.pressDialogExcessDiscount) {
 					this.pressDialogExcessDiscount = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscountMaterial", this);
@@ -430,20 +294,17 @@ sap.ui.define([
 
 		},
 		onSaveDiscount: function() {
-
-			/*	var oExcessDataModel = this.getOwnerComponent().getModel("oExcessDataModel");*/
+			//get all data from odata model
 			var oModelService = this.getOwnerComponent().getModel("StockModel");
 
 			var oPostData = sap.ui.getCore().getModel("SingleExcessData").oData;
-			// console.log(oPostData);
+
 			var matnr = oPostData.Material;
 			var Amt = oPostData.DiscAmt;
 			var ValidTo = oPostData.ValidTo;
-			// .toISOString();
-			// ValidTo.slice(0, -5);
+
 			var ValidFrom = oPostData.ValidFrom;
-			// .toISOString();
-			// ValidDate.slice(0, -5);
+
 			var salesorg = oPostData.SalesOrg1;
 			var distriChnl = oPostData.DistriChnl;
 			var caltype = "A";
@@ -456,13 +317,6 @@ sap.ui.define([
 			oEntry.Kbetr = Amt;
 			oEntry.Konwa = Unit;
 
-			// var ValidFromDate = new Date(ValidFrom);
-			// var Date1 = ValidFromDate.toISOString();
-			// Date1 = Date1.slice(0, -5)
-			// var ValidToDate = new Date(ValidTo);
-			// var Date2 = ValidToDate.toISOString();
-			// Date2 = Date2.slice(0, -5)
-
 			var Date1 = new Date(ValidFrom);
 			Date1 = Date1.setDate(Date1.getDate() + 1);
 
@@ -474,14 +328,9 @@ sap.ui.define([
 			Date3 = Date3.slice(0, -5)
 			Date4 = Date4.slice(0, -5)
 
-			console.log(Date3);
-			console.log(Date4);
-
-			console.log(Date1);
-			console.log(Date2);
 			oEntry.Datab = Date3;
 			oEntry.Datbi = Date4;
-			console.log(oEntry);
+
 			var that = this;
 
 			var mParameters = {
@@ -498,8 +347,10 @@ sap.ui.define([
 					});
 
 				},
-				error: function(error) {
-					MessageBox.error(error);
+				error: function(oError) {
+					//error handler code
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
 					BusyIndicator.hide();
 				},
 				merge: false
@@ -511,25 +362,24 @@ sap.ui.define([
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
 
-			//this.pressDialogExcessDiscount.close();
-			//	this.pressDialogExcessDiscount.destroy();
-
 			var table = this.byId("excesstable");
-
+			//remove selected materials
 			table.removeSelections();
 		},
 		onCancelDiscount: function() {
 			var table = this.byId("excesstable");
 			var oModel = sap.ui.getCore().getModel("SingleExcessData");
-
+			//clear model data
 			oModel.setData({
 				oData: {}
 			});
+			//remove selected materials
 			table.removeSelections();
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
 		},
 		onDescardMaterial: function() {
+			//open fargment
 			this.pressDialogExcessDiscard = oView.byId("idExcessDiscardDialog");
 			if (!this.pressDialogExcessDiscard) {
 				this.pressDialogExcessDiscard = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.DiscardMaterial", this);
@@ -546,6 +396,7 @@ sap.ui.define([
 			this.pressDialogExcessDiscard.destroy();
 		},
 		onDownloadExcess: function() {
+			//dowanload excess table data
 			var aCols, oRowBinding, oSettings, oSheet, oTable;
 			if (!this._oTable) {
 				this._oTable = this.byId('excesstable');
@@ -605,16 +456,19 @@ sap.ui.define([
 
 		getCustomer: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
+			//get entity set
 			oModel.read("/getCustomerSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					sCustomer = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
 					oLookupModel.setProperty("/CustomerDetails", oData.results);
 					oLookupModel.refresh(true);
-					//this.getShipmentDetails();
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -681,10 +535,12 @@ sap.ui.define([
 		},
 		getShipmentDetails: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 
 			BusyIndicator.show(true);
+			//get entity set
 			oModel.read("/getShipDetailsSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
@@ -693,12 +549,12 @@ sap.ui.define([
 
 					var itemPO = oData.results.length;
 					var ListofShipDetails = [];
+					//set the odata to model property
 					oLookupModel.setProperty("/shipdetails", oData.results);
-
-					// 				//	
 
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
@@ -708,6 +564,7 @@ sap.ui.define([
 
 		getSalesOrg: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 
@@ -729,7 +586,7 @@ sap.ui.define([
 
 			var oFilter = new sap.ui.model.Filter('Kunnr', sap.ui.model.FilterOperator.EQ, sKunnr);
 
-			//	oModel.read("/getShipDetailsSet?$filter=(Kunnr  eq '" + sKunnr + "')", {
+			//get entity set
 			oModel.read("/getShipDetailsSet", {
 				filters: [oFilter],
 				success: function(oData) {
@@ -739,6 +596,7 @@ sap.ui.define([
 
 					var itemPO = oData.results.length;
 					var ListofShipDetails = [];
+					//set the odata to model property
 					oLookupModel.setProperty("/shipdetails", oData.results);
 				},
 				error: function(oError) {
@@ -798,7 +656,7 @@ sap.ui.define([
 
 				productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
-
+				//set data tp the model
 				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/SalesOrg", sTitle);
 				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/DistrChan", sDescription);
 				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/Division", div);
@@ -809,18 +667,22 @@ sap.ui.define([
 
 		getdocumenttypeSet: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			BusyIndicator.show(true);
+			//get entity set
 			oModel.read("/getdocumenttypeSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					sCustomer = oData.results;
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
 					oLookupModel.setProperty("/documentType", oData.results);
 					oLookupModel.refresh(true);
 
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
@@ -885,7 +747,7 @@ sap.ui.define([
 
 		onProcessOrder: function(event) {
 			var table = this.byId("excesstable");
-			// table.removeSelections();
+			//validation to select material
 			if (table.getSelectedItems() === [] || table.getSelectedItem() === null) {
 
 				MessageBox.error("Please Select Material To Process Order");
@@ -894,14 +756,15 @@ sap.ui.define([
 
 				var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 				var odata = SalesOrder.oData.SOItem;
-				for(var i=0;i<odata.length ; i++){
-				 odata[i].TargetQty = "";
+				for (var i = 0; i < odata.length; i++) {
+					odata[i].TargetQty = "";
 				}
-				console.log(odata);
+			
 				var SO = sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", odata);
 
 				this.UpdateSale = this.getView().byId("helloDialog");
 				if (!this.UpdateSale) {
+					//open fragment 
 					this.UpdateSale = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.SOCreation", this);
 
 					this.UpdateSale.open();
@@ -909,6 +772,7 @@ sap.ui.define([
 			}
 		},
 		onCloseDialog: function() {
+			//close fragment 
 			this.UpdateCard.close();
 			this.UpdateCard.destroy();
 
@@ -1001,7 +865,7 @@ sap.ui.define([
 				});
 
 			}
-
+			//create payload to pass the data to te backend
 			var Payload = {
 				Vbeln: "",
 				Auart: Auart,
@@ -1013,8 +877,6 @@ sap.ui.define([
 				sitem_To_header: SOItem
 			};
 
-			console.log(Payload);
-
 			var mParameters = {
 				success: function(oResponse, object) {
 					var so = object.data.Vbeln;
@@ -1024,31 +886,21 @@ sap.ui.define([
 					this.getOwnerComponent().getRouter().navTo("StockTable");
 				},
 				error: function(error) {
-					//MessageBox.error(error);
+
 					console.log(error);
 				},
 				merge: false
 			};
 			var relPath = "/SOHeaderSet";
-			//	BusyIndicator.show(true);
+
 			oModel.create(relPath, Payload, mParameters);
-
-			// oModel.create("/SOHeaderSet", Payload, {
-			// 	sucess : function(oRes, obj){
-			// 		console.log(oRes);
-
-			// 	},
-			// 	error : function(oError){
-			// 		MessageBox.show(oError);
-			// 	}
-			// });
 
 		},
 
 		onBackNav: function() {
 			var StockTransferModel = this.getView().getModel("SOModel");
 			var sItem = StockTransferModel.SOItem;
-			//	window.location.reload();
+			//clear the model data
 			StockTransferModel.setData({
 				oData: {}
 			});
@@ -1056,7 +908,6 @@ sap.ui.define([
 			StockTransferModel.refresh(true);
 
 			this.getOwnerComponent().getRouter().navTo("StockTable");
-			// this.getOwnerComponent().getRouter().navTo("ExcessData");
 
 		},
 
@@ -1108,14 +959,6 @@ sap.ui.define([
 		_handleSalesOrg1Close: function(evt) {
 
 			var oSelectedItem = evt.getParameter("selectedItem");
-			// 		if (oSelectedItem) {
-			// 			var productInput = this.byId(sap.ui.getCore().siddhikasalesorg);
-			// /*			productInput.setValue(oSelectedItem.getTitle());*/
-			// 			productInput.setValue(oSelectedItem.getTitle());
-			// 		// productInput.setValue(oSelectedItem);
-
-			// 			evt.getSource().getBinding("items").filter([]);
-			// 		}
 
 			if (oSelectedItem) {
 				var productInput = sap.ui.getCore().byId(sap.ui.getCore().salesorg1),
@@ -1123,24 +966,25 @@ sap.ui.define([
 					sTitle = oSelectedItem.getTitle();
 				var div = oSelectedItem.getDescription();
 
-				// productInput.setSelectedKey(sDescription);
 				productInput.setValue(sTitle);
 			}
 		},
 		getSalesOrgforCondition: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+			//get entity set
 			oModel.read("/get_salesorgf4Set", {
 				success: function(oData) {
 
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
 					oLookupModel.setProperty("/SalesOrg1", oData.results);
 					oLookupModel.refresh(true);
 
 				},
 				error: function(oError) {
-
+					//error handler code
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
@@ -1208,25 +1052,28 @@ sap.ui.define([
 		},
 		getDistributionChannelforCondition: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 
+			//get entity set
 			oModel.read("/get_DistributionChannelf4Set", {
 				success: function(oData) {
 
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
 					oLookupModel.setProperty("/DistributionChnl", oData.results);
 					oLookupModel.refresh(true);
 
 				},
 				error: function(oError) {
-
+					//error handler code
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
 			});
 		},
 		onRefreshTable: function() {
-
+            //clear the selected material
 			var table = this.byId("excesstable");
 			table.removeSelections();
 		},
@@ -1235,18 +1082,16 @@ sap.ui.define([
 				ScheduleItem = [];
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
 			var soldtoparty = sap.ui.getCore().byId("idsoldtopt");
-	var idSaleorg = sap.ui.getCore().byId("idSaleorg");
+			var idSaleorg = sap.ui.getCore().byId("idSaleorg");
 
 			if (soldtoparty.getValue() == "") {
-			
-					soldtoparty.setValueState("Error");
+
+				soldtoparty.setValueState("Error");
 				soldtoparty.setValueStateText("Sold-To-Party is required");
-			}else if(idSaleorg.getValue() == ""){
-					idSaleorg.setValueState("Error");
+			} else if (idSaleorg.getValue() == "") {
+				idSaleorg.setValueState("Error");
 				idSaleorg.setValueStateText("Sales Organization is required");
-			}
-			
-			else {
+			} else {
 				var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 				var oSalesModel = sap.ui.getCore().getModel("SOSalesModel");
 				var SOSalesModel = oSalesModel.getProperty("/SalesContract");
@@ -1254,49 +1099,7 @@ sap.ui.define([
 				var getRequestPayload = Stock.getRequestPayload();
 				getRequestPayload.Testrun = "";
 
-				// var len =  SOSalesModel.OrderItemsInSet.length;
-				//  for(var v=0 ; v< len ; v++){
-				//  		var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
-				//  	var ItmNumber = SOSalesModel.OrderItemsInSet[v].NetPrice;	
-				// 	 getRequestPayload.OrderConditionsInSet.push({
-				// 			ItmNumber : ItmNumber, 
-				//  		CondType: "ZMA1",
-				// 	CondValue: oCondition
-				// 	 });
-
-				//  }
-
 				var len = SOSalesModel.OrderItemsInSet.length;
-				// for(var v=0 ; v< len ; v++){
-				// 	getRequestPayload.OrderItemsInSet[v].ItmNumber = LeadingZeros(v + 1, 6);
-				// }
-
-				// var len =  SOSalesModel.OrderItemsInSet.length;
-				// 	 for(var v=0 ; v< len ; v++){
-				// 	 		var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
-				// 	 	var ItmNumber = SOSalesModel.OrderItemsInSet[v].NetPrice;	
-				// 		 getRequestPayload.OrderConditionsInSet.push({
-				//				ItmNumber : ItmNumber, 
-				// 	 		CondType: "ZMA1",
-				// 		CondValue: oCondition
-				// 		 });
-
-				// 	 }
-
-				// 	 for(var vv=0 ; vv< len ; vv++){
-				// 	 	var condType = SOSalesModel.OrderItemsInSet[vv].CondType;
-				// 	 	if(condType == "ZNET"){
-				// 	 		var oCondition1 = SOSalesModel.OrderItemsInSet[vv].NetPrice;
-
-				// 			getRequestPayload.OrderConditionsInSet.push({
-				//				ItmNumber : ItmNumber, 
-				// 	 		CondType: "ZNET",
-				// 			CondValue: oCondition1
-				// 		 });
-
-				// 	 	}
-
-				// 	 }
 
 				for (var v = 0; v < len; v++) {
 					var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
@@ -1315,7 +1118,6 @@ sap.ui.define([
 
 				}
 
-				// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
 				var mParameters = {
 					success: function(oResponse, object) {
 						var so = object.data.Salesdocument;
@@ -1335,19 +1137,10 @@ sap.ui.define([
 									var SOitemDetailModel = sap.ui.getCore().getModel("SOitemDetailModel");
 									SOitemDetailModel.oData = [];
 
-									//		SO.oData = [];
-
-									// 
-									// SO.oData = [];
-									// SO.oData.SalesContract = [];
-									//	 window.location.reload();
-
-									//	var odata = SalesOrder.oData.SOItem;
-
 									SalesOrder.refresh(true);
 
 									sap.ui.getCore().byId("histroyDialog").destroy(null);
-									//sap.ui.getCore().byId("histroyDialog").close();
+
 								}
 							}.bind(this)
 						});
@@ -1360,7 +1153,7 @@ sap.ui.define([
 					merge: false
 				};
 				var relPath = "/sales_orderSet";
-				//	BusyIndicator.show(true);
+
 				oModel.create(relPath, getRequestPayload, mParameters);
 
 				var table = this.byId("excesstable");
@@ -1372,25 +1165,17 @@ sap.ui.define([
 		onCancelSales: function() {
 			var SO = sap.ui.getCore().getModel("SOSalesModel");
 			var SOContract = SO.getProperty("/SalesContract");
-		//	SO.oData.SalesContract = [];
+
 			SOContract.OrderItemsInSet = [];
 			SOContract.OrderItemsInSet.length = 0;
 			SOContract.OrderConditionsInSet.length = 0;
 			SOContract.OrderSchedulesInSet = [];
 			var SalesOrder = this.getOwnerComponent().getModel("SOModel");
-			 SalesOrder.oData.SOItem.length=0;
+			SalesOrder.oData.SOItem.length = 0;
 			SalesOrder.oData.SOItem = [];
-			//	window.location.reload();
-			// SO.setData({
-			// 	oData: {}
-			// });
 
-		
-			
-				
-			
 			SalesOrder.refresh(true);
-			
+
 			var table = this.byId("excesstable");
 			table.removeSelections();
 			this.UpdateSale.close();
@@ -1405,8 +1190,6 @@ sap.ui.define([
 			var Price = SOSalesModel.OrderItemsInSet[0].NetPrice;
 
 			var getRequestPayload;
-
-			//	if(Price === "" || Price === undefined){
 
 			var Stock = new StockStandards(SOSalesModel);
 			getRequestPayload = Stock.getRequestPayload();
@@ -1425,9 +1208,6 @@ sap.ui.define([
 					var Partnr = oResponse.SoPartnersSet.results[0].PartnNumb;
 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/PartnNumb", Partnr);
 
-					//	sap.ui.getCore().byId("histroyDialog").destroy(null);
-					//	sap.ui.getCore().byId("histroyDialog").close();
-					//	this.getOwnerComponent().getRouter().navTo("StockTable");
 				},
 				error: function(error) {
 					MessageBox.error(error);
@@ -1439,76 +1219,8 @@ sap.ui.define([
 			//	BusyIndicator.show(true);
 			oModel.create(relPath, getRequestPayload, mParameters);
 
-			//}
-
-			// else{
-			// 	var Stocks = new StockStandards(SOSalesModel);
-			// 		var getRequestPayload1 = Stocks.getRequestPayload();
-			// 		var len =  SOSalesModel.OrderItemsInSet.length;
-			// 			 for(var v=0 ; v< len ; v++){
-			// 			 		var oCondition = SOSalesModel.OrderItemsInSet[v].NetPrice;
-
-			// 				 getRequestPayload1.OrderConditionsInSet.push({
-			// 	 				ItmNumber : this.LeadingZeros(v + 1, 6),
-			// 			 		CondType: "ZMA1",
-			// 				CondValue: oCondition
-			// 				 });
-
-			// 			 }
-			// 					 for(var vv=0 ; vv< len ; vv++){
-			// 			 		var oCondition1 = SOSalesModel.OrderItemsInSet[vv].NetPrice;
-
-			// 					getRequestPayload.OrderConditionsInSet.push({
-			// 	 				ItmNumber : this.LeadingZeros(v + 1, 6),
-			// 			 		CondType: "ZNET",
-			// 				CondValue: oCondition1
-			// 				 });
-
-			// 			 }
-
-			// 			getRequestPayload1.Testrun = "X";
-
-			// 					var mParameters = {
-			// 				success: function(oResponse, object) {
-
-			// 					var Podata = new StockStandards(oResponse);
-			// 				sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract", oResponse);
-
-			// 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderItemsInSet", Podata.OrderItemsInSet.results);
-			// 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderConditionsInSet", Podata.OrderConditionsInSet.results);
-			// 					sap.ui.getCore().getModel("SOSalesModel").setProperty("/SalesContract/OrderSchedulesInSet", Podata.OrderSchedulesInSet.results);
-			// 					sap.ui.getCore().getModel("SOitemDetailModel").setProperty("/Soitems", Podata.OrderItemsInSet.results[0]);
-			// 				//	sap.ui.getCore().byId("histroyDialog").destroy(null);
-			// 				//	sap.ui.getCore().byId("histroyDialog").close();
-			// 				//	this.getOwnerComponent().getRouter().navTo("StockTable");
-			// 				},
-			// 				error: function(error) {
-			// 					MessageBox.error(error);
-
-			// 				},
-			// 				merge: false
-			// 			};
-			// 			var relPath1 = "/sales_orderSet";
-			// 			//	BusyIndicator.show(true);
-			// 			oModel.create(relPath1, getRequestPayload1, mParameters);
-			// } 
-
-			// ConditionItem.push({
-			// 	ItmNumber: "000010",
-			// 	CondType: "Z004",
-			// 	CondValue: "9000"
-			// });
-
-			// ScheduleItem.push({
-			// 	ItmNumber: "000010",
-			// 	ReqQty: "11"
-			// });
-
-			// getRequestPayload.OrderConditionsInSet = ConditionItem;
-			// getRequestPayload.OrderSchedulesInSet = ScheduleItem;
-
 		},
-			//validation function//
+		//validation function//
 		Validate: function(evt) {
 			var sValue = evt.mParameters.value;
 			var sInput = evt.getSource().sId;
@@ -1526,13 +1238,12 @@ sap.ui.define([
 		},
 
 		//numeric validation
-onChangeValue : function(oEvent){
-		var oControl = oEvent.getSource();
+		onChangeValue: function(oEvent) {
+			var oControl = oEvent.getSource();
 			var sPlaceholder = oControl.getProperty("placeholder");
 			var sValue = oControl.getValue();
-			 
-				
-		if(sValue === "") {
+
+			if (sValue === "") {
 				oControl.setValueState("Error");
 				oControl.setValueStateText(sPlaceholder + "is required");
 			} else {
@@ -1540,10 +1251,8 @@ onChangeValue : function(oEvent){
 				oControl.setValueStateText("");
 
 			}
- 	
-			
-		
-},
+
+		},
 
 		numValidate: function(evt) {
 			var sValue = evt.mParameters.value;

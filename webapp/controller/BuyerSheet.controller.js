@@ -33,7 +33,7 @@ sap.ui.define([
 
 	var SortOrder = library.SortOrder;
 	var EdmType = exportLibrary.EdmType;
-
+	var oData2;
 
 	return Controller.extend("com.vSimpleApp.controller.BuyerSheet", {
 
@@ -171,7 +171,7 @@ sap.ui.define([
 				Advance: false
 			});
 			oView.setModel(oCheckBox, "oCheckBox");
-
+			//create visible model to show visible data only
 			var oVisibleModel = new JSONModel({
 				isVisibleMat: true,
 				isVisibleVen: true,
@@ -181,12 +181,12 @@ sap.ui.define([
 				isVisibleProdH: false
 
 			});
-
+			//data is ste to the visible model
 			this.getView().setModel(oVisibleModel, "VisibleModel");
 
 		},
 		datatime: function(dDate) {
-			//	2021-10-04T08:54:57
+			//returns complete date after calling this function
 			var m = new Date(dDate);
 			var dateString = m.getUTCFullYear() + "-" + (m.getUTCMonth() + 1) + "-" + m.getUTCDate() + "T" + m.getUTCHours() + ":" + m.getUTCMinutes() +
 				":" + m.getUTCSeconds();
@@ -198,17 +198,16 @@ sap.ui.define([
 			var ocheckModel = oView.getModel("oCheckModel");
 			var checkBoxSelected = oEvent.getParameter("selected");
 
-		  var oselecttab = oEvent.oSource.mProperties.text;
-			console.log(oselecttab)
+			var oselecttab = oEvent.oSource.mProperties.text;
+
 			var CurrentD = new Date();
 
 			if (oselecttab === "48 Hours") {
-					var NextDay = new Date(new Date(CurrentD).getTime() - 60 * 60 * 48 * 1000);
+				var NextDay = new Date(new Date(CurrentD).getTime() - 60 * 60 * 48 * 1000);
 				var first = CurrentD.toISOString().slice(0, 19);
 				var last = NextDay.toISOString().slice(0, 19);
 
-				console.log(first);
-				console.log(last);
+				//propery set to the model
 				this.getView().getModel("oDataModel").setProperty("/FirstDate", first);
 				this.getView().getModel("oDataModel").setProperty("/Message", oselecttab);
 
@@ -222,67 +221,44 @@ sap.ui.define([
 
 				var last1mon = firstDay.toISOString().slice(0, 19);
 				var endo1mon = lastDay.toISOString().slice(0, 19);
-				console.log(last1mon);
-				console.log(endo1mon);
-				// var last1mon = firstDay.getUTCFullYear() + "-" + (firstDay.getUTCMonth() + 1) + "-" + firstDay.getUTCDate() + "T" + firstDay.getUTCHours() +
-				// 	":" + firstDay.getUTCMinutes() +
-				// 	":" + firstDay.getUTCSeconds();
-				// console.log(last1mon);
-				// var endo1mon = lastDay.getUTCFullYear() + "-" + (lastDay.getUTCMonth() + 1) + "-" + lastDay.getUTCDate() + "T" + lastDay.getUTCHours() +
-				// 	":" + lastDay.getUTCMinutes() +
-				// 	":" + lastDay.getUTCSeconds();
-				// console.log(endo1mon);
-               
+
+				//propery set to the model
 				oView.getModel("oDataModel").setProperty("/FirstDate", endo1mon);
-           	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
+				oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 				oView.getModel("oDataModel").setProperty("/EndDate", last1mon);
 
 			} else if (oselecttab === "Previous 1 Month") {
-				// var prevMonthEnd = new Date();
-				// CurrentD.setDate(0);
-				// var beginLastMonth = new Date(CurrentD);
-				// beginLastMonth.setDate(1);
-				// var Prevmonthstart = this.datatime(beginLastMonth);
 
-				// var lastmonth = this.datatime(prevMonthEnd);
 				var Prevmonthstart = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 1);
 				var lastmonth = CurrentD.toISOString().slice(0, 19);
+				//propery set to the model
 				oView.getModel("oDataModel").setProperty("/FirstDate", Prevmonthstart);
 				oView.getModel("oDataModel").setProperty("/EndDate", lastmonth);
-				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
+				oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			} else if (oselecttab === "Last 3 Months") {
-				// var dateString1 = this.datatime(CurrentD);
-
-				// CurrentD.setMonth(CurrentD.getMonth() - 3);
-
-				// var Last3Month = this.datatime(CurrentD);
 
 				var dateString1 = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 3);
 
 				//var Last3Month = CurrentD.toISOString();
 				var Last3Month = CurrentD.toISOString().slice(0, 19);
+				//propery set to the model
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString1);
 				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month);
-				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
+				oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			} else if (oselecttab === "Last 6 Months") {
-				// var dateString2 = this.datatime(CurrentD);
-
-				// CurrentD.setMonth(CurrentD.getMonth() - 6);
-
-				// var Last6Month = this.datatime(CurrentD);
 
 				var dateString2 = new Date().toISOString().slice(0, 19);
 				CurrentD.setMonth(CurrentD.getMonth() - 6);
-				//	var Last3Month = CurrentD.toISOString();
-				//	var Last3Month2 = 	CurrentD.format("isoDateTime");
+
 				var Last3Month2 = CurrentD.toISOString().slice(0, 19);
+				//propery set to the model
 				oView.getModel("oDataModel").setProperty("/FirstDate", dateString2);
 				oView.getModel("oDataModel").setProperty("/EndDate", Last3Month2);
-				 	oView.getModel("oDataModel").setProperty("/Message", oselecttab);
+				oView.getModel("oDataModel").setProperty("/Message", oselecttab);
 
 			}
 
@@ -365,8 +341,12 @@ sap.ui.define([
 		},
 
 		/*PO Search end*/
+
+		/* Sales order details f4 starts*/
 		getSalesOrderDetails: function() {
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
+			//get entity set
 			oModel.read("/SalesOrdersSet ", {
 				success: function(oData) {
 					console.log(oData);
@@ -419,38 +399,34 @@ sap.ui.define([
 						}
 
 					}
-
+					//set the odata to model 
 					oView.getModel("oSaleModel").setData(result);
 
 					console.log(result);
 				},
 
 				error: function(oError) {
-
+					//error handler code
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
 				}
 			});
 		},
 		getTableStockDetails: function() {
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-			//			var oModels = this.getOwnerComponent().getModel("PurchaseSet");
 
 			var ListofSrs = [];
-			var CriticleState = [];
+
 			BusyIndicator.show(true);
+			//get entity set
 			oModel.read("/STOCK_DATASet", {
 				success: function(oData) {
 					BusyIndicator.hide();
-					console.log(oData);
-					var listOfMat = [];
 
 					zStockMaterial = oData.results;
-					//	console.log(oMaterialList);
-					//		var MaterialList = [];
+
 					var itemPO = oData.results.length;
-					//	oView.getModel("oStockDataModel").setData(oData.results);
-					var arr = [];
 
 					for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
 
@@ -518,12 +494,9 @@ sap.ui.define([
 							Color: ""
 
 						});
-						//	console.log(ListofSrs);
 
+						//set the odata to model 
 						oView.getModel("oStockDataModel").setData(ListofSrs);
-
-						//sOpenSalesOrder = "";
-						//	console.log(ListofSrs);
 
 						var len = ListofSrs.length;
 						var ls = len - 1;
@@ -537,6 +510,7 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
@@ -546,56 +520,11 @@ sap.ui.define([
 
 		},
 
-		OnGetfiltersale: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oDataModel = oView.getModel("oDataModel");
-			var FirstDate = oDataModel.oData.FirstDate;
-			var EndDate = oDataModel.oData.EndDate;
-			var Matnr = oDataModel.oData.Material;
-			console.log(oDataModel);
-
-			var zero = "";
-
-			if ($.isNumeric((Matnr)) === true) {
-				var len = Matnr.length;
-				if (len !== undefined) {
-					var z = 18 - len;
-					for (var i = 0; i < z; i++) {
-						zero += "0";
-					}
-				}
-
-				Matnr = zero + Matnr;
-			}
-
-			var d1 = "2021-03-17T12:04:39";
-			var d2 = "2021-11-11T13:19:55";
-			var mat = "000000000050065555";
-			var oFilter1 = new sap.ui.model.Filter('Erdat', sap.ui.model.FilterOperator.EQ, EndDate);
-			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
-			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-			oModel.read("/StockvsSales2Set", {
-					filters: [oFilter1, oFilter2, oFilter3],
-
-					success: function(oData) {
-							console.log(oData);
-						oView.getModel("oMonthlydataModel").setData(oData.results);
-
-					},
-					error: function(err) {
-						console.log(err);
-					}
-
-				});
-			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
-			//	BusyIndicator.show(true);
-
-		},
-
 		ongetMaterialandVendor: function() {
-			 var msg =	oView.getModel("oDataModel").getProperty("/Message");
+			var msg = oView.getModel("oDataModel").getProperty("/Message");
 			var oModel = this.getOwnerComponent().getModel("StockModel");
 			var oDataModel = oView.getModel("oDataModel");
+			//assiging model data to the variables
 			var FirstDate = oDataModel.oData.FirstDate;
 			var EndDate = oDataModel.oData.EndDate;
 			var Matnr = oDataModel.oData.Material;
@@ -606,9 +535,6 @@ sap.ui.define([
 			var CreatedBy = oDataModel.oData.CBy;
 			var ProdHierarchy = oDataModel.oData.ProdH;
 
-			var s1 = "2020-03-17T12:04:39";
-			var s2 = "2021-03-17T12:04:39";
-
 			var zero = "";
 			if ($.isNumeric((Matnr)) === true) {
 				var len = Matnr.length;
@@ -621,7 +547,7 @@ sap.ui.define([
 
 				Matnr = zero + Matnr;
 			}
-
+			//create filters
 			var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, EndDate);
 			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, FirstDate);
 			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
@@ -632,174 +558,120 @@ sap.ui.define([
 			var oFilter8 = new sap.ui.model.Filter('Prodh', sap.ui.model.FilterOperator.EQ, ProdHierarchy);
 
 			if (PurchaseOrg === undefined) {
-				//	var oVendor = "DE-V0001";
-				// if (oVendor !== "" || oVendor !== undefined) {
-				// 	//	var oVendor = "DE-V0001";
-				// 	var zero2 = "";
 
-				// 	if ($.isNumeric((oVendor)) === true) {
-				// 		var len2 = oVendor.length;
-				// 		if (len2 !== undefined) {
-				// 			var zr = 10 - len2;
-				// 			for (var ri = 0; ri < zr; ri++) {
-				// 				zero2 += "0";
-				// 			}
-				// 		}
+				//pass filters to the backend 
+				oModel.read("/getBuyer_cheatsheetSet", {
 
-				// 		oVendor = zero2 + oVendor;
-				// 	}
-
-				// getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'2019-03-04T8:38:23' and Erdat2 eq datetime'2021-11-19T8:38:23' and Matnr eq '000000000050065555' and Lifnr eq 'DE-V0001')
-				// 
-                 	oModel.read("/getBuyer_cheatsheetSet", {
-					// oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + oFilter1 + "' and Erdat2 eq datetime'" + oFilter2 +
-					// 	"'and Matnr eq '" + oFilter3 + "'and Lifnr eq'"+ oFilter4 +"')", {
 					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
 
 					success: function(oData) {
-					   var that = this;
+						var that = this;
 						var item = oData.results.length;
 						var odata = oData.results;
-						   if(odata.length === 0){
-				   		if( msg===undefined){
-                        			MessageBox.error("Please Select Time Zone");
-                        	}else{
-                        		MessageBox.error("No Data Exist For The " + msg);
-                        	}
-                        }else{
-               
+						if (odata.length === 0) {
+							if (msg === undefined) {
+								MessageBox.error("Please Select Time Zone");
+							} else {
+								MessageBox.error("No Data Exist For The " + msg);
+							}
+						} else {
 
-						if (Material !== "" || Material !== undefined) {
-							for (var x = 0; x < SalesOrder.length; x++) {
-								if (Material === SalesOrder[x].Matnr) {
-									var Vbeln = SalesOrder[x].Vbeln;
-									var Posnr = SalesOrder[x].Posnr;
-									var Prodh = SalesOrder[x].Prodh;
-									var SalesOrderQuant = SalesOrder[x].Lsmeng;
+							if (Material !== "" || Material !== undefined) {
+								for (var x = 0; x < SalesOrder.length; x++) {
+									if (Material === SalesOrder[x].Matnr) {
+										var Vbeln = SalesOrder[x].Vbeln;
+										var Posnr = SalesOrder[x].Posnr;
+										var Prodh = SalesOrder[x].Prodh;
+										var SalesOrderQuant = SalesOrder[x].Lsmeng;
 
+									}
 								}
 							}
-						}
 
-						for (var itex = 0; itex < item; itex++) {
-							odata[itex].Vbeln = Vbeln;
-							odata[itex].Posnr = Posnr;
-							odata[itex].Prodh = Prodh;
-							odata[itex].SalesOrderQuant = SalesOrderQuant;
+							for (var itex = 0; itex < item; itex++) {
+								odata[itex].Vbeln = Vbeln;
+								odata[itex].Posnr = Posnr;
+								odata[itex].Prodh = Prodh;
+								odata[itex].SalesOrderQuant = SalesOrderQuant;
 
+							}
+							oView.getModel("oMonthlydataModel").setData(oData.results);
 						}
-								oView.getModel("oMonthlydataModel").setData(oData.results);
-                        }
 					},
 					error: function(err) {
 
 					}
 
 				});
-				
 
 			} else {
-oModel.read("/getBuyer_cheatsheetSet", {
+				//pass filters to the backend 
+				oModel.read("/getBuyer_cheatsheetSet", {
 					filters: [oFilter1, oFilter2, oFilter3, oFilter4, oFilter5, oFilter6, oFilter7, oFilter8],
-					// oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime2021-11-19T8:38:23 and Erdat2 eq datetime2021-11-22T8:38:23 and Matnr eq 000000000050065555 and Lifnr eq V400031543 and Ekorg eq 0001 and Matkl eq FIOMRP1 and Ernam eq BKALYANI and Prodh eq 001700010000000110)",{
 
 					success: function(oData) {
-						console.log(oData);
+
 						var item = oData.results.length;
 						var odata = oData.results;
-					
-									   if(odata.length === 0){
-				   		if( msg===undefined){
-                        			MessageBox.error("Please Select Time Zone");
-                        	}else{
-                        		MessageBox.error("No Data Exist For The " + msg);
-                        	}
-                        }else{
 
-						if (Material !== "" || Material !== undefined) {
-							for (var x = 0; x < SalesOrder.length; x++) {
-								if (Material === SalesOrder[x].Matnr) {
-									var Vbeln = SalesOrder[x].Vbeln;
-									var Posnr = SalesOrder[x].Posnr;
-									var Prodh = SalesOrder[x].Prodh;
-									var SalesOrderQuant = SalesOrder[x].Lsmeng;
+						if (odata.length === 0) {
+							if (msg === undefined) {
+								MessageBox.error("Please Select Time Zone");
+							} else {
+								MessageBox.error("No Data Exist For The " + msg);
+							}
+						} else {
 
+							if (Material !== "" || Material !== undefined) {
+								for (var x = 0; x < SalesOrder.length; x++) {
+									if (Material === SalesOrder[x].Matnr) {
+										var Vbeln = SalesOrder[x].Vbeln;
+										var Posnr = SalesOrder[x].Posnr;
+										var Prodh = SalesOrder[x].Prodh;
+										var SalesOrderQuant = SalesOrder[x].Lsmeng;
+
+									}
 								}
 							}
+
+							for (var itex = 0; itex < item; itex++) {
+								odata[itex].Vbeln = Vbeln;
+								odata[itex].Posnr = Posnr;
+								odata[itex].Prodh = Prodh;
+								odata[itex].SalesOrderQuant = SalesOrderQuant;
+							}
+
+							oView.getModel("oMonthlydataModel").setData(oData.results);
 						}
-
-						for (var itex = 0; itex < item; itex++) {
-							odata[itex].Vbeln = Vbeln;
-							odata[itex].Posnr = Posnr;
-							odata[itex].Prodh = Prodh;
-							odata[itex].SalesOrderQuant = SalesOrderQuant;
-						}
-
-						console.log(oData.results);
-
-						oView.getModel("oMonthlydataModel").setData(oData.results);
-}
 					},
 					error: function(err) {
 						MessageBox.error(err);
 					}
 
 				});
-			
+
 			}
 
 		},
-		ongetMaterialandVendor3: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oDataModel = oView.getModel("oDataModel");
-			var FirstDate = oDataModel.oData.FirstDate;
-			var EndDate = oDataModel.oData.EndDate;
-			var Matnr = oDataModel.oData.Material;
 
-			var d1 = "2020-03-04T8:38:23";
-			var d2 = "2021-11-19T8:38:23";
-			//	var EndDate = "2020-05-22T05:38:08";
-			//var FirstDate = "2021-11-22T05:38:08";
-
-			var mat = "000000000050065555";
-			var oVendor = "V400031543";
-			var oFilter1 = new sap.ui.model.Filter('Aedat', sap.ui.model.FilterOperator.EQ, "2019-03-04T8:38:23");
-			var oFilter2 = new sap.ui.model.Filter('Erdat2', sap.ui.model.FilterOperator.EQ, "2021-11-19T8:38:23");
-			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, mat);
-			var oFilter4 = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, oVendor);
-
-			oModel.read("/getBuyer_cheatsheetSet?$filter=(Aedat eq datetime'" + d1 + "' and Erdat2 eq datetime'" + d2 +
-				"'and Matnr eq '" +
-				mat + "'and Lifnr'" + oVendor + "')", {
-					//	oModel.read("/getBuyer_cheatsheetSet",{
-					filters: [oFilter1, oFilter2, oFilter3, oFilter4],
-
-					success: function(oData) {
-						//	console.log(succ);
-						oView.getModel("oMonthlydataModel").setData(oData.results);
-
-					},
-					error: function(err) {
-						MessageBox.error(err);
-					}
-
-				});
-
-		},
 		getMaterialList: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			BusyIndicator.show(true);
+			//get entity set
 			oModel.read("/MaterialmasterSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					var oMaterialList = oData.results;
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup")
+						//set the odata to model property
 					oLookupModel.setProperty("/MaterialList", oMaterialList);
 					oLookupModel.refresh(true);
 					// that.getStockDetailList();
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(errorMsg);
@@ -920,14 +792,14 @@ oModel.read("/getBuyer_cheatsheetSet", {
 				property: 'Bedat'
 
 			});
-			
-					aCols.push({
+
+			aCols.push({
 				label: 'Purchase Org',
 
 				property: 'Ekorg'
 
 			});
-			
+
 			aCols.push({
 				label: 'GR Delivered Date',
 
@@ -966,13 +838,13 @@ oModel.read("/getBuyer_cheatsheetSet", {
 				property: 'Posnr'
 
 			});
-					aCols.push({
+			aCols.push({
 				label: 'Created By',
 				property: 'Ernam'
 
 			});
-			
-				aCols.push({
+
+			aCols.push({
 				label: 'Material Group',
 				property: 'Matkl'
 
@@ -982,11 +854,12 @@ oModel.read("/getBuyer_cheatsheetSet", {
 		}
 
 		,
-
+		//function to download chart data into excel file
 		onDownloadExcess: function() {
 			var aCols, aProducts, oSettings, oSheet;
 
 			aCols = this.createColumnConfig();
+			//get property of the model
 			aProducts = this.getView().getModel("oMonthlydataModel").getProperty('/');
 
 			oSettings = {
@@ -997,113 +870,12 @@ oModel.read("/getBuyer_cheatsheetSet", {
 			};
 
 			oSheet = new sap.ui.export.Spreadsheet(oSettings);
+			//success message after the data download
 			oSheet.build()
 				.then(function() {
 					MessageToast.show('Spreadsheet export has finished');
 				})
 				.finally(oSheet.destroy);
-		},
-
-		OnDeliveryPattern: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oDataModel = oView.getModel("oDataModel");
-
-			var Matnr = oDataModel.oData.DeliveryMaterial;
-			//	var Matnr  = "50065579";
-			console.log(oDataModel);
-
-			var zero = "";
-
-			if ($.isNumeric((Matnr)) === true) {
-				var len = Matnr.length;
-				if (len !== undefined) {
-					var z = 18 - len;
-					for (var i = 0; i < z; i++) {
-						zero += "0";
-					}
-				}
-
-				Matnr = zero + Matnr;
-			}
-
-			//getAnalyticaldataSet?$filter=(Matnr eq ')
-			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-			///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-
-			oModel.read("/deliveryPatternSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
-				filters: [oFilter3],
-
-				success: function(oData) {
-					//	console.log(succ);
-					oView.getModel("oDeliveryPattern").setData(oData.results);
-
-					var oFilter4 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-					///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-					oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter4 + "' )", {
-						filters: [oFilter3],
-
-						success: function(oData) {
-							//	console.log(succ);
-
-							oView.getModel("onRejectedData").setData(oData.results);
-
-						},
-						error: function(err) {
-							console.log(err);
-						}
-
-					});
-
-				},
-				error: function(err) {
-					console.log(err);
-				}
-
-			});
-			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
-			//	BusyIndicator.show(true);
-
-		},
-		OnRejectedMaterial: function() {
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			var oDataModel = oView.getModel("oDataModel");
-
-			var Matnr = oDataModel.oData.Material;
-			console.log(oDataModel);
-
-			var zero = "";
-
-			if ($.isNumeric((Matnr)) === true) {
-				var len = Matnr.length;
-				if (len !== undefined) {
-					var z = 18 - len;
-					for (var i = 0; i < z; i++) {
-						zero += "0";
-					}
-				}
-
-				Matnr = zero + Matnr;
-			}
-			var mat = "CPB60200";
-			//getAnalyticaldataSet?$filter=(Matnr eq ')
-			var oFilter3 = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Matnr);
-			///zdeliveryPatternVendorSet?$filter=(Matnr eq 'P-109') 
-			oModel.read("/getAnalyticaldataSet?$filter=(Matnr eq'" + oFilter3 + "' )", {
-				filters: [oFilter3],
-
-				success: function(oData) {
-					//	console.log(succ);
-					oView.getModel("onRejectedData").setData(oData.results);
-
-				},
-				error: function(err) {
-					console.log(err);
-				}
-
-			});
-			//	var sVendorCreate = "/StockvsSales2Set?$filter=(Erdat eq datetime'2021-03-17T12:04:39' and Erdat2 eq datetime'2021-11-11T13:19:55' and Matnr eq '000000000050065555' )";
-			//	BusyIndicator.show(true);
-
 		},
 
 		handleVendorValueHelpBox: function(oEvent) {
@@ -1165,46 +937,23 @@ oModel.read("/getBuyer_cheatsheetSet", {
 
 		},
 
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf com.vSimpleApp.view.BuyerSheet
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf com.vSimpleApp.view.BuyerSheet
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf com.vSimpleApp.view.BuyerSheet
-		 */
-		//	onExit: function() {
-		//
-		//	}
 		/* material group start */
 		getMatGrpList: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+			//get entity set
 			oModel.read("/get_Matgrpf4listSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-
+					//set the odata to model property
 					oLookupModel.setProperty("/MaterialGrp", oData.results);
 					oLookupModel.refresh(true);
 					console.log(oData);
 				},
 				error: function(oError) {
+					//error handler code
 					BusyIndicator.hide();
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMsg);
@@ -1273,18 +1022,20 @@ oModel.read("/getBuyer_cheatsheetSet", {
 
 		getCreatedByList: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+			//get entity set
 			oModel.read("/get_CreatedByf4listSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-
+					//set the odata to model property
 					oLookupModel.setProperty("/CreatedBy", oData.results);
 					oLookupModel.refresh(true);
 					console.log(oData);
 				},
 				error: function(oError) {
+					//error handle code
 					BusyIndicator.hide();
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMsg);
@@ -1352,18 +1103,20 @@ oModel.read("/getBuyer_cheatsheetSet", {
 
 		getProductHierarchyList: function() {
 			var that = this;
+			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("StockModel");
-
+			//get entity set
 			oModel.read("/get_ProductHierarachyf4listSet", {
 				success: function(oData) {
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-
+					//set the odata to model property
 					oLookupModel.setProperty("/ProductHierarchy", oData.results);
 					oLookupModel.refresh(true);
-					console.log(oData);
+
 				},
 				error: function(oError) {
+					//error handle code
 					BusyIndicator.hide();
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMsg);
@@ -1490,30 +1243,47 @@ oModel.read("/getBuyer_cheatsheetSet", {
 				VisModel.setProperty("/isVisibleMat", true);
 				VisModel.setProperty("/isVisibleVen", true);
 				ocheckModel.setProperty("/Advance", false);
-					ocheckModel.setProperty("/Basic", true);
+				ocheckModel.setProperty("/Basic", true);
 				VisModel.setProperty("/isVisiblePurOrg", false);
 				VisModel.setProperty("/isVisibleMatGrp", false);
 				VisModel.setProperty("/isVisibleCBy", false);
 				VisModel.setProperty("/isVisibleProdH", false);
+				var oModel = oView.getModel("oDataModel");
+              
+				var oData = oModel.getData();
+				
+		
+				oModel.setData({
+					CBy: "",
+					EndDate: oData.EndDate,
+					FirstDate: oData.FirstDate,
+					MatGrp: "",
+					Material: oData.Material,
+					Message: oData.Message,
+					ProdH: "",
+					PurchaseOrg: "",
+					Vendor: oData.Vendor
+				});
 
+			
 			} else if (oselecttab === "Advance Filter") {
 
 				ocheckModel.setProperty("/Basic", false);
-					ocheckModel.setProperty("/Advance", true);
-					VisModel.setProperty("/isVisibleMat", true);
+				ocheckModel.setProperty("/Advance", true);
+				VisModel.setProperty("/isVisibleMat", true);
 				VisModel.setProperty("/isVisibleVen", true);
 				VisModel.setProperty("/isVisiblePurOrg", true);
 				VisModel.setProperty("/isVisibleMatGrp", true);
 				VisModel.setProperty("/isVisibleCBy", true);
 				VisModel.setProperty("/isVisibleProdH", true);
-
+	
 			}
-			
-
+		
 
 		},
-				onMenuButtonPress:function(){
-					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+		onMenuButtonPress: function() {
+			//navigate to stock table screen
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("StockTable");
 		}
 
