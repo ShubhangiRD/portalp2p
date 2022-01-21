@@ -1,12 +1,12 @@
 <core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout"
 	xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" displayBlock="true" xmlns:tnt="sap.tnt">
 	<tnt:ToolHeader>
-		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+		<Button  class="sapUiTinyMarginTop" icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
 			<layoutData>
 				<FlexItemData growFactor="1"/>
 			</layoutData>
 		</Button>
-		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+		<Image   class="logo" src="./images/Cassini-logo.png" densityAware="false" width="9rem">
 			<layoutData>
 				<FlexItemData growFactor="1"/>
 			</layoutData>
@@ -33,4 +33,7 @@
 			</layoutData>
 		</Switch>
 	</tnt:ToolHeader>
+	
+	
+	
 </core:FragmentDefinition>

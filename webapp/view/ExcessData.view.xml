@@ -2,36 +2,36 @@
 	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" displayBlock="true" xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core"
 	controllerName="com.vSimpleApp.controller.ExcessData">
 	<Page title="Title" showHeader="false" navButtonPress="OnNaveBack">
-		<tnt:ToolHeader>
-			<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
-				<layoutData>
-					<FlexItemData growFactor="1"/>
-				</layoutData>
-			</Button>
-			<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
-				<layoutData>
-					<FlexItemData growFactor="1"/>
-				</layoutData>
-			</Image>
-			<FlexBox direction="Column" alignItems="Start">
-				<items></items>
-			</FlexBox>
-			<ToolbarSpacer/>
-			<FlexBox class="logoContent" direction="Column" alignItems="Start">
-				<items></items>
-			</FlexBox>
-			<ToolbarSpacer/>
-			<Button icon="sap-icon://comment" type="Transparent">
-				<layoutData>
-					<OverflowToolbarLayoutData priority="NeverOverflow"/>
-				</layoutData>
-			</Button>
-			<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
-				<layoutData>
-					<FlexItemData growFactor="1"/>
-				</layoutData>
-			</Switch>
-		</tnt:ToolHeader>
+		<!--<tnt:ToolHeader>-->
+		<!--	<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">-->
+		<!--		<layoutData>-->
+		<!--			<FlexItemData growFactor="1"/>-->
+		<!--		</layoutData>-->
+		<!--	</Button>-->
+		<!--	<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">-->
+		<!--		<layoutData>-->
+		<!--			<FlexItemData growFactor="1"/>-->
+		<!--		</layoutData>-->
+		<!--	</Image>-->
+		<!--	<FlexBox direction="Column" alignItems="Start">-->
+		<!--		<items></items>-->
+		<!--	</FlexBox>-->
+		<!--	<ToolbarSpacer/>-->
+		<!--	<FlexBox class="logoContent" direction="Column" alignItems="Start">-->
+		<!--		<items></items>-->
+		<!--	</FlexBox>-->
+		<!--	<ToolbarSpacer/>-->
+		<!--	<Button icon="sap-icon://comment" type="Transparent">-->
+		<!--		<layoutData>-->
+		<!--			<OverflowToolbarLayoutData priority="NeverOverflow"/>-->
+		<!--		</layoutData>-->
+		<!--	</Button>-->
+		<!--	<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">-->
+		<!--		<layoutData>-->
+		<!--			<FlexItemData growFactor="1"/>-->
+		<!--		</layoutData>-->
+		<!--	</Switch>-->
+		<!--</tnt:ToolHeader>-->
 		<content>
 			<Table id="excesstable" mode="MultiSelect" class="sapUiLargeMarginBeginEnd" width="1200px" selectionChange="onExcessSelectionItem"
 				items="{ path: 'oExcessDataModel>/'}">

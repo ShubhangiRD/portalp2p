@@ -49,7 +49,10 @@ sap.ui.define([
 			}
 
 		},
-
+	goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		onBackStock: function() {
 			//clear model and navigate to another page
 			var StockTransferModel = this.getView().getModel("StockTransferModel");

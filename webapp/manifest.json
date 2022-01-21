@@ -510,13 +510,16 @@
 					"controlId": "idApp"
 				},
 				"BuyerSheet": {
-					"viewName": "BuyerSheet"
+					"viewName": "BuyerSheet",
+						"controlId": "idApp"
 				},
 				"Analytics": {
-					"viewName": "Analytics"
+					"viewName": "Analytics",
+						"controlId": "idApp"
 				},
 				"StockTransfer": {
-					"viewName": "StockTransfer"
+					"viewName": "StockTransfer",
+						"controlId": "idApp"
 				},
 				"TileDashboard": {
 					"viewName": "TileDashboard"
@@ -627,7 +630,8 @@
 				},
 				"DisplayVendor": {
 					"viewType": "XML",
-					"viewName": "DisplayVendor"
+					"viewName": "DisplayVendor",
+						"controlId": "idApp"
 				},
 				"PurchaseOrderTable": {
 					"viewType": "XML",
