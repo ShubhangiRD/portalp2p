@@ -2,6 +2,7 @@
 	xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" class="sapUiSizeCompact" xmlns:fb="sap.ui.comp.filterbar" xmlns:tnt="sap.tnt"
 	xmlns:vm="sap.ui.comp.variants">
 
+
 	<f:DynamicPage id="dynamicPageId" >
 		<!-- DynamicPage Title -->
 		<f:title>
