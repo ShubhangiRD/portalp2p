@@ -163,6 +163,10 @@ sap.ui.define([
 			var oPoData = new JSONModel();
 			oView.setModel(oPoData, "oPoData");
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
 				if selected level is this then return true  otherwise return false

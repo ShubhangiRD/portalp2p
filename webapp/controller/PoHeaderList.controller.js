@@ -122,7 +122,10 @@ sap.ui.define([
 			
 
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
 		
+		},
 			switchState: function(sKey) {
 			var oTable = this.byId("PurchaseTableDisplay");
 			var iCount = 0;

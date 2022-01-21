@@ -172,6 +172,10 @@ sap.ui.define([
 				}
 			}*/
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		onNavBack: function(oevt) {
 			oView.byId("VendorName").setValue(" ");
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");

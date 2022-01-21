@@ -10,57 +10,38 @@
 	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiSizeCompact"
 	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" controllerName="com.vSimpleApp.controller.PoDecision"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<App>
-		<pages>
+	<tnt:ToolHeader>
+		<Button icon="sap-icon://menu2" type="Transparent" press="goHome">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Button>
+		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Image>
+		<FlexBox direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<FlexBox class="logoContent" direction="Column" alignItems="Start">
+			<items></items>
+		</FlexBox>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://comment" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</layoutData>
+		</Button>
+		<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+			<layoutData>
+				<FlexItemData growFactor="1"/>
+			</layoutData>
+		</Switch>
+	</tnt:ToolHeader>
 			<Page title="" showHeader="false" navButtonPress="onNavBack">
 				<content>
-	<!--					<Table id="leadtimeTable" busyIndicatorDelay="0" inset="false" items="{ path: 'oLeadTimeModel>/' }" class="sapUiSmallMarginBegin sapUiMediumMarginTop sapUiLargeMarginEnd tileLayout">-->
-	<!--	<columns>-->
-	<!--		<Column minScreenWidth="Tablet" demandPopin="true">-->
-	<!--			<Text text="Material"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Material Description"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Quantity Inhand"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="48 Last Hour"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="This Month"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Last 3Month"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Last 6 Month"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Buffer"/>-->
-	<!--		</Column>-->
-	<!--		<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">-->
-	<!--			<Text text="Sales Consume"/>-->
-	<!--		</Column>-->
-	<!--	</columns>-->
-	<!--	<items>-->
-	<!--		<ColumnListItem vAlign="Middle" type="Navigation" custom:uniqueId="{oLeadTimeModel>uniqueId}" press="onSelectDocument">-->
-	<!--			<cells>-->
-	<!--				<ObjectIdentifier title="{oLeadTimeModel>uniqueId}"/>-->
-	<!--				<ObjectIdentifier title="{oLeadTimeModel>vendorName}" text="{oLeadTimeModel>vendorNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>referenceNo}"/>-->
-	<!--				<Text text="{oLeadTimeModel>poNumber}"/>-->
-	<!--				<Text text="{ path: 'oLeadTimeModel>documentDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"-->
-	<!--					wrapping="false"/>-->
-	<!--			</cells>-->
-	<!--		</ColumnListItem>-->
-	<!--	</items>-->
-	<!--</Table>-->
 
 
 
@@ -143,6 +124,5 @@
 
 				</content>
 			</Page>
-		</pages>
-	</App>
+	
 </mvc:View>

@@ -75,6 +75,10 @@ sap.ui.define([
 			oView.byId("idaddCondition").setVisible(false);
 
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		getOpenPOS: function() {
 
 			var oModel = this.getOwnerComponent().getModel("VHeader");

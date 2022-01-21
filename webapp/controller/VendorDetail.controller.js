@@ -59,6 +59,10 @@ sap.ui.define([
 			this.oRouter.getRoute("VendorDetail").attachPatternMatched(this._onRouteMatched1, this);
 
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		_onRouteMatched1: function() {
 			//******************** customization code **********************************
 			var $inputs = $('html :input');
@@ -3425,6 +3429,10 @@ sap.ui.define([
 				var sVendorCreate = "/Vendor_crudSet(Lifnra='" + oVendor + "')";
 				BusyIndicator.show(true);
 				oModel.update(sVendorCreate, oContract, mParameters);
+				
+				
+				
+				
 			}
 
 		},

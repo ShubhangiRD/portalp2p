@@ -61,6 +61,10 @@ sap.ui.define([
 
 			//	this._getLabst_matlab();
 		},
+			goHome: function(oEvent) {
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+		
+		},
 		onNavBack: function() {
 			oView.byId("idpoMaterial").setValue("");
 			var aFilter = [];
