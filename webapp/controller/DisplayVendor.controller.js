@@ -39,7 +39,7 @@ sap.ui.define([
 			oView.setModel(oBankmodel, "BankModel");
 
 			var oEditModel = new JSONModel({
-				isEditable: false
+				isEditableVendor: false
 			});
 
 			this.getView().setModel(oEditModel, "EditModel");
@@ -135,7 +135,7 @@ sap.ui.define([
 
 			oVendorModel.refresh(true);
 			//setting property to models
-			oView.getModel("EditModel").setProperty("/isEditable", true);
+			oView.getModel("EditModel").setProperty("/isEditableVendor", true);
 
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
 
@@ -3237,13 +3237,13 @@ sap.ui.define([
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
 			oView.byId("btn_display").setVisible(false);
 			oView.byId("iddEditt").setVisible(true);
-			oView.getModel("EditModel").setProperty("/isEditable", false);
+			oView.getModel("EditModel").setProperty("/isEditableVendor", false);
 
 		},
 		onEditPress: function(oEvent) {
 			//calling the function to display all fields in edit mode
 			//setting property to model
-			oView.getModel("EditModel").setProperty("/isEditable", true);
+			oView.getModel("EditModel").setProperty("/isEditableVendor", true);
 			oView.byId("iddEditt").setVisible(false);
 			oView.byId("idSave").setVisible(true);
 

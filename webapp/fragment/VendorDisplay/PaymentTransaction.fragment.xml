@@ -8,32 +8,32 @@
 				<Label text="Payment Terms" fieldGroupIds="Ztermb" required="true"/>
 				<Input id="Ztermb" fieldGroupIds="Ztermb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/TempData/Ztermb}"
 				width="50%"	showValueHelp="true" valueHelpRequest="handlePaymenttermsHelp" suggestionItems="{ path: 'Lookup>/PaymentTermsList' }"
-					suggestionItemSelected="onSuggestpaymentterms" editable="{EditModel>/isEditable}" >
+					suggestionItemSelected="onSuggestpaymentterms" editable="{EditModel>/isEditableVendor}" >
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Cr Memo Terms" fieldGroupIds="Guzteb"/>
 				<Input id="Guzteb" fieldGroupIds="Guzteb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-				width="40%"	editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Guzteb}" valueHelpRequest="handlePaymenttermsHelp"
+				width="40%"	editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Guzteb}" valueHelpRequest="handlePaymenttermsHelp"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestmemoterms">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Chk Cashing time" fieldGroupIds="Kultgb"/>
-				<Input id="Kultgb" value="{VendorModel>/TempData/Kultgb}" width="40%" fieldGroupIds="Kultgb" editable="{EditModel>/isEditable}"/>
+				<Input id="Kultgb" value="{VendorModel>/TempData/Kultgb}" width="40%" fieldGroupIds="Kultgb" editable="{EditModel>/isEditableVendor}"/>
 				<core:Title text=""/>
 				<Label text="Tolerance Group" fieldGroupIds="Togrub"/>
 				<Input id="Togrub" fieldGroupIds="Togrub" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-				width="30%"	editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Togrub}" valueHelpRequest="handleToleranceGrpValueHelp"
+				width="30%"	editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Togrub}" valueHelpRequest="handleToleranceGrpValueHelp"
 					suggestionItems="{ path: 'Lookup>/ToleranceGroupList' }" suggestionItemSelected="onSuggestTolerence">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text=""/>
-				<CheckBox id="checkdouble" text="Check Double inv" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="checkdouble" text="Check Double inv" editable="{EditModel>/isEditableVendor}"/>
 			</form:content>
 		</form:SimpleForm>
 		<form:SimpleForm id="FormChange3payment" editable="true" layout="ResponsiveGridLayout" title="Automatic Payment Transaction "
@@ -42,7 +42,7 @@
 			<form:content>
 				<core:Title text=""/>
 				<Label text="Payment Methods" required="true" fieldGroupIds="Zwelsb"/>
-				<Input id="Zwelsb" maxLength="2" fieldGroupIds="Zwelsb" editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Zwelsb}"
+				<Input id="Zwelsb" maxLength="2" fieldGroupIds="Zwelsb" editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Zwelsb}"
 				width="30%"	showValueHelp="true" class="sapUiSmallMarginTop" valueHelpRequest="handlePaymentmethod"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestPaymentMethod" >
 					<suggestionItems>
@@ -51,20 +51,20 @@
 				</Input>
 				<Label text="Alternate.Payee" fieldGroupIds="Lnrzbb"/>
 				<Input id="Lnrzbb" fieldGroupIds="Lnrzbb" maxLength="10" value="{VendorModel>/TempData/Lnrzbb}" showValueHelp="true"
-			width="80%"		editable="{EditModel>/isEditable}" valueHelpRequest="handleAlternatePayee" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+			width="80%"		editable="{EditModel>/isEditableVendor}" valueHelpRequest="handleAlternatePayee" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestAlternatePayee">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="B/Exch/Limit" fieldGroupIds="Webtrb"/>
-				<Input id="Webtrb" maxLength="13" fieldGroupIds="Webtrb" value="{VendorModel>/TempData/Webtrb}" editable="{EditModel>/isEditable}"/>
+				<Input id="Webtrb" maxLength="13" fieldGroupIds="Webtrb" value="{VendorModel>/TempData/Webtrb}" editable="{EditModel>/isEditableVendor}"/>
 				<Label text=""/>
-				<CheckBox id="idindividualpmnt" fieldGroupIds="Xporeb" text="Individual Pmnt" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="idindividualpmnt" fieldGroupIds="Xporeb" text="Individual Pmnt" editable="{EditModel>/isEditableVendor}"/>
 				<core:Title text=""/>
 				<Label text="Payment Block" fieldGroupIds="Zahlsb"/>
 				<Input id="Zahlsb" maxLength="1" fieldGroupIds="Zahlsb" showValueHelp="true" valueHelpRequest="handlePaymentBlock"
-				width="20%"	editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Zahlsb}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+				width="20%"	editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Zahlsb}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestPaymentBlock">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -72,7 +72,7 @@
 				</Input>
 				<Label text="House Bank " fieldGroupIds="Hbkidb"/>
 				<Input id="Hbkidb" maxLength="5" fieldGroupIds="Hbkidb" showValueHelp="true" valueHelpRequest="handleHousebank"
-				width="50%"	editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Hbkidb}" suggestionItems="{ path: 'Lookup>/HouseBankList' }"
+				width="50%"	editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Hbkidb}" suggestionItems="{ path: 'Lookup>/HouseBankList' }"
 					suggestionItemSelected="onSuggesthousebank">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -80,7 +80,7 @@
 				</Input>
 				<Label text="Grouping Keyk " fieldGroupIds="Mgrupb"/>
 				<Input id="Mgrupb" maxLength="2" fieldGroupIds="Mgrupb" showValueHelp="true" valueHelpRequest="handleGrouping"
-			width="30%"		editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Mgrupb}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+			width="30%"		editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Mgrupb}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestGrouping">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -88,14 +88,14 @@
 				</Input>
 				<Label text="Tolerence Group" fieldGroupIds="Togrrb"/>
 				<Input id="Togrrb" fieldGroupIds="Togrrb" maxLength="4" textFormatMode="KeyValue" showSuggestion="true"
-					editable="{EditModel>/isEditable}" value="{VendorModel>/TempData/Togrrb}" showValueHelp="true" valueHelpRequest="handleToleranceGrpValueHelp"
+					editable="{EditModel>/isEditableVendor}" value="{VendorModel>/TempData/Togrrb}" showValueHelp="true" valueHelpRequest="handleToleranceGrpValueHelp"
 				width="70%"	suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestTolerence">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text=""/>
-				<CheckBox id="Xlfzaa" fieldGroupIds="Xlfzaa" text="AltPayDoc" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="Xlfzaa" fieldGroupIds="Xlfzaa" text="AltPayDoc" editable="{EditModel>/isEditableVendor}"/>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>
