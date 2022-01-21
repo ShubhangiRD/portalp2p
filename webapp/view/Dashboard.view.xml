@@ -14,7 +14,7 @@ xmlns:mvc="sap.ui.core.mvc"
 	xmlns:cassini="com.vSimpleApp.controls"
 	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1">
-	<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>
+	<!--<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>-->
 
 	<l:Grid class="sapUiSmallMarginTop" containerQuery="true" vSpacing="0" defaultSpan="XL2 L3">
 		<cassini:Tile id="tileSuccessfullyScanned" titleLevel="H1" height="259px" title="{= ${successfullyScannedDocuments>/}.length }"

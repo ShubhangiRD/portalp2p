@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout"
 	xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" displayBlock="true" xmlns:tnt="sap.tnt">
 	<tnt:ToolHeader>
-		<Button  class="sapUiTinyMarginTop" icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+		<Button  class="sapUiTinyMarginTop" icon="sap-icon://home" type="Transparent" press="onMenuButtonPress">
 			<layoutData>
 				<FlexItemData growFactor="1"/>
 			</layoutData>

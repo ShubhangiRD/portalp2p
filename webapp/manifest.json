@@ -431,11 +431,7 @@
 					"name": "GoodReceipt",
 					"pattern": "GoodReceipt",
 					"target": ["GoodReceipt"]
-				}, {
-					"name": "VendorDetails",
-					"pattern": "VendorDetails",
-					"target": ["VendorDetails"]
-				}, {
+				},  {
 					"pattern": "POForm-screen",
 					"name": "POForm",
 					"target": "POForm"
@@ -485,7 +481,8 @@
 					"viewName": "Sample"
 				},
 				"LoginPage": {
-					"viewName": "LoginPage"
+					"viewName": "LoginPage",
+						"controlId": "idApp"
 				},
 				"SalesCreation": {
 					"viewName": "SalesCreation"
@@ -525,7 +522,8 @@
 					"viewName": "TileDashboard"
 				},
 				"StockTable": {
-					"viewName": "StockTable"
+					"viewName": "StockTable",
+						"controlId": "idApp"
 				},
 				"CreateContractVendor": {
 					"viewName": "CreateContractVendor"
@@ -542,10 +540,7 @@
 				"Home": {
 					"viewName": "Home"
 				},
-				"VendorDetails": {
-					"viewName": "VendorDetails",
-					"controlId": "idApp"
-				},
+			
 				"CreateContract": {
 					"viewName": "CreateContract"
 				},
@@ -571,7 +566,8 @@
 					"viewName": "BookInvoice"
 				},
 				"Dashboard": {
-					"viewName": "Dashboard"
+					"viewName": "Dashboard",
+						"controlId": "idApp"
 				},
 				"Dashboard2": {
 					"viewName": "Dashboard2"
