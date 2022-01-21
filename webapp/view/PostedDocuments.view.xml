@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.vSimpleApp.controller.PostedDocuments" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 	xmlns:core="sap.ui.core"
 	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-		<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>
+		<!--<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>-->
 
 	<Page title="{= 'Documents Posted (' + ${postedDocuments>/}.length + ')' }" class="sapUiSizeCompact" showNavButton="true"
 		navButtonPress="onNavBack">

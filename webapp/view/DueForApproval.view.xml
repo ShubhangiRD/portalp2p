@@ -9,7 +9,7 @@
 	xmlns:u="sap.ui.unified"
 	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1">
-		<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>
+		<!--<core:Fragment fragmentName="com.vSimpleApp.view.OCRfragment.Header" type="XML"/>-->
 
 	<Page
 		title="{=
