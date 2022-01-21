@@ -202,8 +202,9 @@ sap.ui.define([
 				//	oView.byId("iddEditt").setVisible(false);
 
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", true);
 
-				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditable", true);
+				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditableVendor", true);
 				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
 
@@ -219,7 +220,7 @@ sap.ui.define([
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", true);
 
-				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditable", false);
+				this.getOwnerComponent().getModel("EditModel").setProperty("/isEditableVendor", false);
 				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
 

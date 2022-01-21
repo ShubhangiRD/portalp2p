@@ -41,7 +41,7 @@
 				<form:content>
 					<core:Title text=" "/>
 					<Label text="Vendor" design="Bold"></Label>
-					<Input id="Lifnra" value="{oVendorModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+					<Input id="Lifnra" value="{oVendorModel>/Vendor}" visible="{oVisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
 						showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 						suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 						<suggestionItems>

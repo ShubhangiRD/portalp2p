@@ -40,7 +40,7 @@ sap.ui.define([
 			oView.setModel(oHierarchyModel, "hierarchy");
 
 			// var oEditModel = new JSONModel({
-			// 	isEditable: true
+			// 	isEditableVendor: true
 			// });
 
 			// this.getView().setModel(oEditModel, "EditModel");
@@ -199,8 +199,13 @@ sap.ui.define([
 			var sVendor = "Create Vendor";
 
 			//setting property to models
-			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
-			oView.getModel("EditModel").setProperty("/isEditable", true);
+	
+		this.getOwnerComponent().getModel("ScreenName").setProperty("/isScreen", sVendor);
+		this.getOwnerComponent().getModel("EditModel").setProperty("/isEditableVendor", true);
+		this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
+
+		
+			
 			oView.byId("iddEditt").setVisible(false);
 			oVendorModel.refresh(true);
 			oView.byId("Lifnra").setValue("");
@@ -3341,7 +3346,7 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonDisplay", false);
 			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", true);
 
-			oView.getModel("EditModel").setProperty("/isEditable", false);
+			oView.getModel("EditModel").setProperty("/isEditableVendor", false);
 
 		},
 		onEditPress: function(oEvent) {
@@ -3353,7 +3358,7 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
 
 			//	oView.byId("iddEditt").setVisible(false);
-			oView.getModel("EditModel").setProperty("/isEditable", true);
+			oView.getModel("EditModel").setProperty("/isEditableVendor", true);
 
 		},
 

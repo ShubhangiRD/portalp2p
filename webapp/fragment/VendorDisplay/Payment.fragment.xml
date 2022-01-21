@@ -15,7 +15,7 @@
 					<t:Column width="5rem" hAlign="Center">
 						<Label text="Country " fieldGroupIds="Banksd"/>
 						<t:template>
-							<Input id="Banksd" fieldGroupIds="Banksd"  textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" EnterCtry" showSuggestion="true" showValueHelp="true"
+							<Input id="Banksd" fieldGroupIds="Banksd"  textFormatMode="KeyValue" editable="{EditModel>/isEditableVendor}" placeholder=" EnterCtry" showSuggestion="true" showValueHelp="true"
 								value="{VendorModel>Banksd}" valueHelpRequest="handleValueHelpCountryCode" suggestionItems="{ path: 'Lookup>/CountryCodeRegion' }"
 								suggestionItemSelected="onSuggestCtry" >
 								<suggestionItems>
@@ -27,7 +27,7 @@
 					<t:Column hAlign="Center" width="9rem">
 						<Label text="Bank Key " fieldGroupIds="Bankld"/>
 						<t:template>
-							<Input  id="Bankld" textFormatMode="KeyValue" editable="{EditModel>/isEditable}"  placeholder="Enter Bank Key" showSuggestion="true" showValueHelp="true"
+							<Input  id="Bankld" textFormatMode="KeyValue" editable="{EditModel>/isEditableVendor}"  placeholder="Enter Bank Key" showSuggestion="true" showValueHelp="true"
 								valueHelpRequest="handleBankKey" suggestionItems="{ path: 'Lookup>/BankKeyList' }" value="{VendorModel>Bankld}"
 								suggestionItemSelected="onSuggestBankKey">
 								<suggestionItems>
@@ -39,19 +39,19 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Bank Account " fieldGroupIds="Banknd"/>
 						<t:template>
-							<Input id="Banknd" fieldGroupIds="Banknd" value="{VendorModel>Banknd}" editable="{EditModel>/isEditable}" placeholder="Enter Bank Account"/>
+							<Input id="Banknd" fieldGroupIds="Banknd" value="{VendorModel>Banknd}" editable="{EditModel>/isEditableVendor}" placeholder="Enter Bank Account"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Account Holder" fieldGroupIds="Koinhd"/>
 						<t:template>
-							<Input id="Koinhd"  fieldGroupIds="Koinhd"  value="{VendorModel>Koinhd}" editable="{EditModel>/isEditable}"/>
+							<Input id="Koinhd"  fieldGroupIds="Koinhd"  value="{VendorModel>Koinhd}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="AK"/>
 						<t:template>
-							<Input id="Bkontd" editable="{EditModel>/isEditable}"  value="{VendorModel>Bkontd}"
+							<Input id="Bkontd" editable="{EditModel>/isEditableVendor}"  value="{VendorModel>Bkontd}"
 							 >
 							
 							</Input>
@@ -60,25 +60,25 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="IBAN Value"/>
 						<t:template>
-							<Input id="IBANValue"  value="{VendorModel>bankname}" editable="{EditModel>/isEditable}"/>
+							<Input id="IBANValue"  value="{VendorModel>bankname}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Bank Type"/>
 						<t:template>
-							<Input id="Bvtypd"  value="{VendorModel>Bvtypd}" editable="{EditModel>/isEditable}"/>
+							<Input id="Bvtypd"  value="{VendorModel>Bvtypd}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Reference Details" fieldGroupIds="Bkrefd"/>
 						<t:template>
-							<Input id="Bkrefd" fieldGroupIds="Bkrefd"  value="{VendorModel>Bkrefd}" editable="{EditModel>/isEditable}"/>
+							<Input id="Bkrefd" fieldGroupIds="Bkrefd"  value="{VendorModel>Bkrefd}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Bank Name "/>
 						<t:template>
-							<Input id="bankname"  value="{VendorModel>Referencedetails}" editable="{EditModel>/isEditable}"/>
+							<Input id="bankname"  value="{VendorModel>Referencedetails}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 				</t:columns>
@@ -90,7 +90,7 @@
 			<form:content>
 				<core:Title text=" "/>
 				<Label text="Alternate Pay" fieldGroupIds="Lnrzaa"  />
-				<Input id="Lnrzaa" maxLength="10" fieldGroupIds="Lnrzaa"   change="changeVenodr" type="Text" value="{VendorModel>/Lnrzaa}"  editable="{EditModel>/isEditable}"
+				<Input id="Lnrzaa" maxLength="10" fieldGroupIds="Lnrzaa"   change="changeVenodr" type="Text" value="{VendorModel>/Lnrzaa}"  editable="{EditModel>/isEditableVendor}"
 				width="80%"	class="searchBox" placeholder="Alternate Pay" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleAlternatePayee"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestAlternatePay">
 					<suggestionItems>
@@ -98,9 +98,9 @@
 					</suggestionItems>
 				</Input>
 				<Label text="ISR Number" fieldGroupIds="Esrnra"/>
-				<Input id="Esrnra" width="70%" maxLength="11" value="{VendorModel>/Esrnra}" fieldGroupIds="Esrnra" class="InputBoxContainer" placeholder="ISR Number" editable="{EditModel>/isEditable}"/>
+				<Input id="Esrnra" width="70%" maxLength="11" value="{VendorModel>/Esrnra}" fieldGroupIds="Esrnra" class="InputBoxContainer" placeholder="ISR Number" editable="{EditModel>/isEditableVendor}"/>
 				<Label text="DME indicator" fieldGroupIds="Dtamsa"/>
-				<Input id="Dtamsa" maxLength="1" value="{VendorModel>/DMEIndicator}"  fieldGroupIds="Dtamsa"  change="changeVenodr" type="Text" editable="{EditModel>/isEditable}"
+				<Input id="Dtamsa" maxLength="1" value="{VendorModel>/DMEIndicator}"  fieldGroupIds="Dtamsa"  change="changeVenodr" type="Text" editable="{EditModel>/isEditableVendor}"
 				width="20%"	class="searchBox" placeholder="DME indicator" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleDMEindicator"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestDMEindicator">
 					<suggestionItems>
@@ -108,7 +108,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Instruction Key" fieldGroupIds="Dtawsa"/>
-				<Input id="Dtawsa"  value="{VendorModel>/Dtawsa}" fieldGroupIds="Dtawsa"  maxLength="4"  change="changeVenodr" type="Text" editable="{EditModel>/isEditable}"
+				<Input id="Dtawsa"  value="{VendorModel>/Dtawsa}" fieldGroupIds="Dtawsa"  maxLength="4"  change="changeVenodr" type="Text" editable="{EditModel>/isEditableVendor}"
 				width="40%"	class="searchBox" placeholder="InstructionKey" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleInstructionKey"
 					suggestionItems="{ path: 'Lookup>/InstructionKeyList' }" suggestionItemSelected="onSuggestidInstructionKey">
 					<suggestionItems>
@@ -117,9 +117,9 @@
 				</Input>
 				<core:Title text=" "/>
 				
-				<CheckBox id="IndividualEntries"  fieldGroupIds=" " text="Individual Entries" editable="{EditModel>/isEditable}">
+				<CheckBox id="IndividualEntries"  fieldGroupIds=" " text="Individual Entries" editable="{EditModel>/isEditableVendor}">
 				</CheckBox>
-				<CheckBox id="ReferenceEntries" fieldGroupIds=" " text="Entries for Reference." editable="{EditModel>/isEditable}">
+				<CheckBox id="ReferenceEntries" fieldGroupIds=" " text="Entries for Reference." editable="{EditModel>/isEditableVendor}">
 				
 				</CheckBox>
 				<!--<CheckBox text="Individual Entries"></CheckBox>-->

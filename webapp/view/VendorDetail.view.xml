@@ -46,7 +46,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc">
 						<m:Label text="Purchase Org :" required="true"/>
 						<m:Input id="Ekorgc" value="{VendorModel>/TempData/Ekorgc}" textFormatMode="KeyValue" placeholder=" Purchase Org" showSuggestion="true"
-							showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" editable="{EditModel>/isEditable}"
+							showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" editable="{EditModel>/isEditableVendor}"
 							suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
@@ -56,7 +56,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Bukrsb">
 						<m:Label text="Company Code:" required="true" fieldGroupIds="Bukrsb"/>
 						<m:Input id="Bukrsb" value="{VendorModel>/TempData/Bukrsb}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
-							fieldGroupIds="Bukrsb" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
+							fieldGroupIds="Bukrsb" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditableVendor}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bukrs}" text="{Lookup>Butxt}" additionalText="{Lookup>Bukrs}"/>
@@ -66,7 +66,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ktokka">
 						<m:Label text="Account Group:" required="true"/>
 						<m:Input id="Ktokka" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
-							value="{VendorModel>/TempData/Ktokka}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
+							value="{VendorModel>/TempData/Ktokka}" editable="{EditModel>/isEditableVendor}" valueHelpRequest="handleAccountCodeVendor"
 							suggestionItems="{ path: 'Lookup>/AccountGroup' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ktokk}" text="{Lookup>Ktokk}" additionalText="{Lookup>Ktokk}"/>

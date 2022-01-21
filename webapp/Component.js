@@ -129,7 +129,7 @@ var std = {
 			
 			
 				var oEditModel = new JSONModel({
-				isEditable: true
+				isEditableVendor: true
 			});
 
 			this.setModel(oEditModel, "EditModel");

@@ -16,33 +16,33 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Form Of Address " fieldGroupIds=" "/>
 						<t:template>
-							<Input id="formofaddcontp" fieldGroupIds=" " textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{VendorModel>/Formofaddr}"></Input>
+							<Input id="formofaddcontp" fieldGroupIds=" " textFormatMode="KeyValue" editable="{EditModel>/isEditableVendor}" value="{VendorModel>/Formofaddr}"></Input>
 						</t:template>
 					</t:Column>
 					<t:Column hAlign="Center" width="9rem">
 						<Label text="First Name" fieldGroupIds=" "/>
 						<t:template>
-							<Input id="Name4a" fieldGroupIds=" " textFormatMode="KeyValue" editable="{EditModel>/isEditable}"
+							<Input id="Name4a" fieldGroupIds=" " textFormatMode="KeyValue" editable="{EditModel>/isEditableVendor}"
 							value="{VendorModel>Name3a}"></Input>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Name" fieldGroupIds=" "/>
 						<t:template>
-							<Input id="Name4a1" fieldGroupIds="Name4a" value="{VendorModel>Name4a}" editable="{EditModel>/isEditable}"/>
+							<Input id="Name4a1" fieldGroupIds="Name4a" value="{VendorModel>Name4a}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<!--<t:Column width="9rem" hAlign="Center">
 						<Label text="Telephone1" fieldGroupIds="Telf1a"/>
 						<t:template>
-							<Input id="Telf1a2" fieldGroupIds="Telf1a" class="measure1" value="{VendorModel>Telf1a}" editable="{EditModel>/isEditable}"/>
+							<Input id="Telf1a2" fieldGroupIds="Telf1a" class="measure1" value="{VendorModel>Telf1a}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>-->
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Department" fieldGroupIds=" "/>
 						<t:template>
 							<Input id="iddeptcp" fieldGroupIds=" " textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-								valueHelpRequest="handleValueHelpiddeptcp" editable="{EditModel>/isEditable}" suggestionItems="{ path: 'Lookup>/POPlant' }"
+								valueHelpRequest="handleValueHelpiddeptcp" editable="{EditModel>/isEditableVendor}" suggestionItems="{ path: 'Lookup>/POPlant' }"
 								suggestionItemSelected="onSuggestiddeptcp">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
@@ -53,14 +53,14 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Description" fieldGroupIds=" "/>
 						<t:template>
-							<Input id="iddescrptn2" fieldGroupIds=" " value="{VendorModel>Descrptn2}" editable="{EditModel>/isEditable}"/>
+							<Input id="iddescrptn2" fieldGroupIds=" " value="{VendorModel>Descrptn2}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Function" fieldGroupIds=" "/>
 						<t:template>
 							<Input id="idfunctn" fieldGroupIds=" " textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-								valueHelpRequest="handleValueHelpidfunctn" editable="{EditModel>/isEditable}" suggestionItems="{ path: 'Lookup>/POPlant' }"
+								valueHelpRequest="handleValueHelpidfunctn" editable="{EditModel>/isEditableVendor}" suggestionItems="{ path: 'Lookup>/POPlant' }"
 								suggestionItemSelected="onSuggestidfunctn">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
@@ -71,14 +71,14 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Description" fieldGroupIds=" "/>
 						<t:template>
-							<Input id="iddescriptionF" fieldGroupIds=" " value="{VendorModel>DescriptionF}" editable="{EditModel>/isEditable}"/>
+							<Input id="iddescriptionF" fieldGroupIds=" " value="{VendorModel>DescriptionF}" editable="{EditModel>/isEditableVendor}"/>
 						</t:template>
 					</t:Column>
 				</t:columns>
 			</t:Table>
 			<Label class="myFormMargin" text="Name:" fieldGroupIds=" "/>
 			<Input id="contnameperson" width="20%" fieldGroupIds=" " maxLength="35" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true"
-		showValueHelp="true" valueHelpRequest="handleContPersonValueHelp" editable="{EditModel>/isEditable}"
+		showValueHelp="true" valueHelpRequest="handleContPersonValueHelp" editable="{EditModel>/isEditableVendor}"
 				suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestcontnameperson">
 				<suggestionItems>
 					<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
