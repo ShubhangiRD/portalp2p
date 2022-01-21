@@ -27,16 +27,20 @@
 						<core:Title text=""/>
 						<HBox class="sapUiSmallMarginBottom">
 							<VBox class="sapUiLargeMarginEnd">
+								<Label text="Select Filter" design="Bold"/>
 								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Basic Filter" selected="{oCheckBox>/Basic}" select="onShowInput"/>
 								<CheckBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Advance Filter" selected="{oCheckBox>/Advance}" select="onShowInput"/>
 							</VBox>
 							<VBox class="sapUiLargeMarginEnd">
-								<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
-								<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
-								<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
-								<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
-								<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
-								<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
+								<Label text="Select Time Zone" labelFor="idRdZone" design="Bold" required="true"/>
+								<RadioButtonGroup id="idRdZone">
+									<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectMonths"/>
+									<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectMonths"/>
+									<RadioButton text="Previous 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectMonths"/>
+									<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectMonths"/>
+									<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectMonths"/>
+									<RadioButton visible="false" text="Last 6 Months" selected="{oCheckModel>/Material}" select="OnSelectMonths"/>
+								</RadioButtonGroup>
 							</VBox>
 							<VBox class="sapUiLargeMarginBegin">
 								<HBox width="80%" class="sapUiLargeMarginBegin">
@@ -75,10 +79,10 @@
 								</HBox>
 								<HBox width="70%" class="sapUiLargeMarginBegin">
 									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleProdH}">
-										<Label text="ProductHierarchy:" design="Bold" required="true"/>
-										<Input id="Product_Hierarchy" value="{oDataModel>/ProdH}" showSuggestion="true" showValueHelp="true" 
-											valueHelpRequest="handleProductHierarchy" suggestionItems="{ path: 'Lookup>/ProductHierarchy' }"
-									   placeholder="Hierarchy" suggestionItemSelected="onSuggest">
+										<Label text="Product Hierarchy:" design="Bold" required="true"/>
+										<Input id="Product_Hierarchy" value="{oDataModel>/ProdH}" showSuggestion="true" showValueHelp="true"
+											valueHelpRequest="handleProductHierarchy" suggestionItems="{ path: 'Lookup>/ProductHierarchy' }" placeholder="Hierarchy"
+											suggestionItemSelected="onSuggest">
 											<suggestionItems>
 												<core:ListItem key="{Lookup>Prodh}" text="{Lookup>Vtext}" additionalText="{Lookup>Prodh}"/>
 											</suggestionItems>
@@ -87,7 +91,7 @@
 									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisiblePurOrg}">
 										<Label text="Purchase Org:" design="Bold" required="true"/>
 										<Input id="Ekorgc" value="{oDataModel>/PurchaseOrg}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
-											suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest" placeholder="Purchase Org" >
+											suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest" placeholder="Purchase Org">
 											<suggestionItems>
 												<core:ListItem key="{Lookup>Ekorg}" text="{Lookup>Ekotx}" additionalText="{Lookup>Ekorg}"/>
 											</suggestionItems>
@@ -96,13 +100,13 @@
 									<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" fieldGroupIds="Ekorgc" visible="{VisibleModel>/isVisibleMatGrp}">
 										<Label text="Material Group:" design="Bold" required="true"/>
 										<Input id="MatGrp" value="{oDataModel>/MatGrp}" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleMatGrp"
-											suggestionItems="{ path: 'Lookup>/MaterialGrp' }" suggestionItemSelected="onSuggest" placeholder="Material Group" >
+											suggestionItems="{ path: 'Lookup>/MaterialGrp' }" suggestionItemSelected="onSuggest" placeholder="Material Group">
 											<suggestionItems>
 												<core:ListItem key="{Lookup>Matkl}" text="{Lookup>Matkl}" additionalText="{Lookup>Matkl}"/>
 											</suggestionItems>
 										</Input>
 									</layout:VerticalLayout >
-								<!--				<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="false">
+									<!--				<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="false">
 										<Button text="Filter" press="ongetMaterialandVendor" type="Emphasized" class="sapUiSmallMarginTop"/>
 									</layout:VerticalLayout>-->
 								</HBox>
