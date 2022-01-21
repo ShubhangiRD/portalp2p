@@ -196,6 +196,10 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/PaymentMethods.json"
 			},
+				"VendorTileModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "data/VendorTileName.json"
+			},
 			"": {
 				"dataSource": "mainService",
 				"preload": true

@@ -55,6 +55,21 @@ sap.ui.define([
 
 			var oCountModel = new JSONModel();
 			oView.setModel(oCountModel, "CountModel");
+			
+			var oTileMod = new JSONModel([sRootPath, "data/VendorTileName.json"].join("/"));
+			sap.ui.getCore().setModel(oTileMod, "oTileModel");
+	// 		oTileMod.setData({
+	// 			results: [
+	// 	{
+	// 		LinkName: "Create Vendor"
+	// 	}, {
+	// 		LinkName: "Display Vendor"
+	// 	}, {
+	// 		LinkName: "Edit Vendor"
+	// 	}
+
+	// ]	
+	// 		});
 
 			var oInputModel = new JSONModel({
 				expression: ""
@@ -186,13 +201,14 @@ sap.ui.define([
 
 		},
 		handleLinkPress: function(evt) {
-			if (evt.getSource().getProperty("text") === "Create Vendor") {
+	
+			if (evt.getSource().getProperty("title") === "Create Vendor") {
 
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);
 				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
 
-			} else if (evt.getSource().getProperty("text") === "Edit Vendor") {
+			} else if (evt.getSource().getProperty("title") === "Edit Vendor") {
 
 				var sVendor = "Edit Vendor";
 				//setting property to models
@@ -208,7 +224,7 @@ sap.ui.define([
 				sap.ui.getCore().byId("IdVendorLinks2").destroy(null);
 				oComponent.getRouter().navTo("VendorDetail");
 
-			} else if (evt.getSource().getProperty("text") === "Display Vendor") {
+			} else if (evt.getSource().getProperty("title") === "Display Vendor") {
 
 				var sVendor = "Display Vendor";
 				//setting property to models
