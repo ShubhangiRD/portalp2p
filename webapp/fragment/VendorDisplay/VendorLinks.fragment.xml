@@ -6,11 +6,9 @@
 				<!--<Button text="Create Vendor" press="handleLinkPress" width="100%"/>-->
 				<!--<Button text="Display Vendor" press="handleLinkPress" width="100%"/>-->
 				<!--	<Button text="Edit Vendor" press="handleLinkPress" width="100%"/>-->
-
-				<List id="ShortProductList" headerText="Select Options" items="{oTileModel>/results}">
+				<List id="ShortProductList" headerText="Select Options" items="{VendorTileModel>/results}">
 					<items>
-						<StandardListItem title="{oTileModel>LinkName}" icon="{oTileModel>Icon}" press="handleLinkPress" type="Active"
-					/>
+						<StandardListItem title="{VendorTileModel>LinkName}" icon="{VendorTileModel>Icon}" press="handleLinkPress" type="Active"/>
 					</items>
 				</List>
 			</l:content>

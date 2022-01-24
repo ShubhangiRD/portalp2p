@@ -196,7 +196,7 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/PaymentMethods.json"
 			},
-				"VendorTileModel": {
+			"VendorTileModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/VendorTileName.json"
 			},
@@ -435,7 +435,7 @@
 					"name": "GoodReceipt",
 					"pattern": "GoodReceipt",
 					"target": ["GoodReceipt"]
-				},  {
+				}, {
 					"pattern": "POForm-screen",
 					"name": "POForm",
 					"target": "POForm"
@@ -486,7 +486,7 @@
 				},
 				"LoginPage": {
 					"viewName": "LoginPage",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"SalesCreation": {
 					"viewName": "SalesCreation"
@@ -512,22 +512,22 @@
 				},
 				"BuyerSheet": {
 					"viewName": "BuyerSheet",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"Analytics": {
 					"viewName": "Analytics",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"StockTransfer": {
 					"viewName": "StockTransfer",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"TileDashboard": {
 					"viewName": "TileDashboard"
 				},
 				"StockTable": {
 					"viewName": "StockTable",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"CreateContractVendor": {
 					"viewName": "CreateContractVendor"
@@ -544,7 +544,7 @@
 				"Home": {
 					"viewName": "Home"
 				},
-			
+
 				"CreateContract": {
 					"viewName": "CreateContract"
 				},
@@ -571,7 +571,7 @@
 				},
 				"Dashboard": {
 					"viewName": "Dashboard",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"Dashboard2": {
 					"viewName": "Dashboard2"
@@ -631,7 +631,7 @@
 				"DisplayVendor": {
 					"viewType": "XML",
 					"viewName": "DisplayVendor",
-						"controlId": "idApp"
+					"controlId": "idApp"
 				},
 				"PurchaseOrderTable": {
 					"viewType": "XML",

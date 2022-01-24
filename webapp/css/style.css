@@ -18,16 +18,24 @@
 .customLabel{
 	margin-top: -8px !important;
 }
-.loginPage {
-		background-color: #ffffff;
-/*	background-color: white;
-*/	/*background-image: url(../images/LoginBackground.png);
-    background-size: 100% 100%;*/
-}
+
+/*.loginPage{*/
+
+/*  background: url("/webapp/images/galaxy.jpg") no-repeat ;*/
+/*    background-size: cover ;*/
+/*	background-position: top;*/
+/*	 animation: pagemove 3s infinite;*/
+/*}*/
+
+
 .sapUxAPObjectPageHeaderDetails .sapMObjectNumberEmph.sapMObjectNumber>.sapMObjectNumberText {
     font-family: "72fallback","72","72full",Arial,Helvetica,sans-serif;
     font-size: 0.9rem;
     font-weight: normal;
+}
+
+@keyframes mymove {
+  50% {background-position: bottom;}
 }
 
 .ClassQuantity{

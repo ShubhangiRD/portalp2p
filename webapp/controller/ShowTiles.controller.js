@@ -55,21 +55,23 @@ sap.ui.define([
 
 			var oCountModel = new JSONModel();
 			oView.setModel(oCountModel, "CountModel");
-			
-			var oTileMod = new JSONModel([sRootPath, "data/VendorTileName.json"].join("/"));
-			sap.ui.getCore().setModel(oTileMod, "oTileModel");
-	// 		oTileMod.setData({
-	// 			results: [
-	// 	{
-	// 		LinkName: "Create Vendor"
-	// 	}, {
-	// 		LinkName: "Display Vendor"
-	// 	}, {
-	// 		LinkName: "Edit Vendor"
-	// 	}
 
-	// ]	
-	// 		});
+			//var VendorTileModel = oComponent.getModel("VendorTileModel");
+
+			/*	var oTileMod = new JSONModel([sRootPath, "data/VendorTileName.json"].join("/"));
+				sap.ui.getCore().setModel(oTileMod, "oTileModel");*/
+			// 		oTileMod.setData({
+			// 			results: [
+			// 	{
+			// 		LinkName: "Create Vendor"
+			// 	}, {
+			// 		LinkName: "Display Vendor"
+			// 	}, {
+			// 		LinkName: "Edit Vendor"
+			// 	}
+
+			// ]	
+			// 		});
 
 			var oInputModel = new JSONModel({
 				expression: ""
@@ -90,8 +92,8 @@ sap.ui.define([
 			this.getView().setModel(oScreenModel, "ScreenName");
 
 			//calling function through init
-				this.getVendorList();
-				this.getTopProductsFirst();
+			this.getVendorList();
+			this.getTopProductsFirst();
 
 			//	this.getPurchaseOrderList();
 
@@ -135,7 +137,7 @@ sap.ui.define([
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
-				this.getVendorCountListByPO();
+			this.getVendorCountListByPO();
 
 		},
 
@@ -195,13 +197,14 @@ sap.ui.define([
 			this.pressDialogIV = oView.byId("IdVendorLinks");
 			if (!this.pressDialogIV) {
 				this.pressDialogIV = sap.ui.xmlfragment("com.vSimpleApp.fragment.VendorDisplay.VendorLinks", this);
+				this.getView().addDependent(this.pressDialogIV);
 				this.pressDialogIV.open();
 
 			}
 
 		},
 		handleLinkPress: function(evt) {
-	
+
 			if (evt.getSource().getProperty("title") === "Create Vendor") {
 
 				this.getOwnerComponent().getModel("VisibleModel").setProperty("/isButtonEdit", false);

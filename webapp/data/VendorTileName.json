@@ -1,14 +1,13 @@
 {
-	"results": [
-		{
+	"results": [{
 			"LinkName": "Create Vendor",
-			"Icon":"sap-icon://add"
+			"Icon": "sap-icon://add"
 		}, {
 			"LinkName": "Display Vendor",
-				"Icon":"sap-icon://show"
+			"Icon": "sap-icon://show"
 		}, {
 			"LinkName": "Edit Vendor",
-				"Icon":"sap-icon://edit"
+			"Icon": "sap-icon://edit"
 		}
 
 	]
