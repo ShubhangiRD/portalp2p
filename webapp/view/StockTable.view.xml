@@ -39,19 +39,25 @@
 	<!--	labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"-->
 	<!--	class="sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">-->
 	<!--	<form:content>-->
-<HBox class="sapUiSmallMarginTop sapUiLargeMarginBeginEnd " id="idButtonForm" width="100%">
+		<form:SimpleForm  id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
+		visible="true" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"
+		columnsL="2" columnsM="1" class="sapUiSmallMarginEnd " singleContainerFullSize="false">
+		<form:content>
+<HBox class="sapUiSmallMarginTop sapUiLargeMarginBeginEnd " width="100%" wrap="Wrap">
 			<Button text="All" id="idAll" type="Default" press="onFilterSelect" class="sapUiSmallLargeBegin" width="70%"/>
 			<Button text="Critical" id="idRedb" type="Reject"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
 			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect" class="sapUiSmallMarginBegin"/>
 			<Button text="Green" type="Accept" id="idGreenb"  press="onFilterSelect"  class="sapUiSmallMarginBegin" />
 			<Button text="Excess" id="idBlueb"  press="onFilterSelect"  class="sapUiSmallMarginBegin"/>
-			<FlexBox justifyContent="End" alignContent="Start">
+	
 			<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>
 		<Button text="SKU List" id="idGOsKULIST"  press="onSkuList"  class="sapUiSmallMarginBegin"/>	
-			</FlexBox>
+	</HBox>
+			</form:content>
+			</form:SimpleForm>
 		<!--<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
 		<!--<Button text="SKU List" id="idGOsKULIST"  press="onSkuList"  class="sapUiSmallMarginBegin"/>-->
-		</HBox>
+	
 	<!--	</form:content>-->
 	<!--</form:SimpleForm>-->
 	<form:SimpleForm id="idButtonForm2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"
@@ -76,13 +82,14 @@
 	/>
 
 	<form:SimpleForm id="SimpleFor" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12"
-		adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="1"
+		adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="4" emptySpanS="4" columnsXL="4" columnsL="4" columnsM="4"
 		class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiSmallMarginEnd" singleContainerFullSize="false">
 		<form:content>
 			<core:Title text=" "/>
 			<Label text="Material" required="true"/>
 			<Input id="Material" placeholder="Material No" showSuggestion="true" showValueHelp="true" valueHelpRequest="handlePOMaterialHelp"
-				value="{MatData>/Material}" liveChange="Validate"  suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+				value="{MatData>/Material}" liveChange="Validate"  suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest"
+				>
 				<suggestionItems>
 					<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
 				</suggestionItems>
