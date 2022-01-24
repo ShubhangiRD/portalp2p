@@ -1,12 +1,5 @@
-<mvc:View 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:l="sap.ui.layout"
-	xmlns:t="sap.ui.table"
-	xmlns:unified="sap.ui.unified"
-	xmlns:core="sap.ui.core"
-	xmlns="sap.m"
-	xmlns:tnt="sap.tnt"
-	xmlns:u="sap.ui.unified"
-	controllerName="com.vSimpleApp.controller.SkuList"
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns:unified="sap.ui.unified" xmlns:core="sap.ui.core"
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" controllerName="com.vSimpleApp.controller.SkuList"
 	xmlns:html="http://www.w3.org/1999/xhtml" class="sapUiSizeCompact">
 	<!--<tnt:ToolHeader>-->
 	<!--	<Button icon="sap-icon://menu2" type="Transparent" press="goHome">-->
@@ -38,26 +31,25 @@
 	<!--		</layoutData>-->
 	<!--	</Switch>-->
 	<!--</tnt:ToolHeader>-->
-<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem" width="auto" class="sapUiMediumMarginBeginEnd">
+	<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem"
+		class="sapUiSmallMarginBegin sapUiLargeMarginEnd sapUiMediumMarginEnd tileLayout">
 		<headerToolbar>
-			<OverflowToolbar height="50px">
-				<content>
-					<Button icon="sap-icon://nav-back"  press="onSkuBack"/>
-					<Title text="SKU List With No Movements" level="H2"/>
-					<ToolbarSpacer/>
-					<Label text="Select Hours/Month:"/>
-					<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"/>
-					<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd"/>
-					<Button id="idSearchSku" text="Show" press="onSkuListFetch" class="sapUiSmallMarginBegin" type="Emphasized"/>
-				</content>
+			<OverflowToolbar >
+				<Title text="SKU List With No Movements" level="H2"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<!--<Button icon="sap-icon://nav-back"  press="onSkuBack"/>-->
+				<Label text="Select Hours/Month:"/>
+				<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"/>
+				<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd"/>
+				<Button id="idSearchSku" text="Show" press="onSkuListFetch" type="Emphasized"/>
 			</OverflowToolbar>
 		</headerToolbar>
 		<infoToolbar>
 			<OverflowToolbar>
 				<Label text="Material" required="true"/>
 				<Input id="idSkuMaterial" placeholder="Material No" width="15%" showSuggestion="true" showValueHelp="true"
-					valueHelpRequest="handlePOMaterialHelp" value="{oskuFilterModel>/Material}" liveChange="Validate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-					suggestionItemSelected="onSuggest">
+					valueHelpRequest="handlePOMaterialHelp" value="{oskuFilterModel>/Material}" liveChange="Validate"
+					suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
 					</suggestionItems>
@@ -70,32 +62,31 @@
 				<ToolbarSpacer/>
 				<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh"/>
 				<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder"/>
-				<Button tooltip="{i18n>addItem}" text="Discount" press="onDiscountMaterial"/>
+				<Button tooltip="{i18n>addItem}" text="Discount" class="sapUiTinyMarginEnd" press="onDiscountMaterial"/>
 			</OverflowToolbar>
 		</infoToolbar>
 		<columns>
-			<Column width="5em" hAlign="Center">
+			<Column width="5em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Material"/>
 			</Column>
-			<Column width="12em" hAlign="Center">
+			<Column width="12em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Description"/>
 			</Column>
-					<Column width="4em" hAlign="Center">
+			<Column width="4em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Plant"/>
 			</Column>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="PO Number"/>
 			</Column>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Last Purchase Order Date"/>
 			</Column>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="SO Number"/>
 			</Column>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Last Sales Order Date"/>
 			</Column>
-	
 			<!--		<Column
 				hAlign="End">
 				<Text text="Price" />
@@ -106,12 +97,11 @@
 				<cells>
 					<ObjectIdentifier title="{oSkuModel2>Matnr}"/>
 					<ObjectIdentifier title="{oSkuModel2>Maktx}"/>
-						<ObjectIdentifier title="{oSkuModel2>Werks}"/>
+					<ObjectIdentifier title="{oSkuModel2>Werks}"/>
 					<ObjectIdentifier title="{oSkuModel2>Ebeln}"/>
 					<ObjectIdentifier title="{ path: 'oSkuModel2>Bedat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
 					<ObjectIdentifier title="{oSkuModel2>Vbeln}"/>
 					<ObjectIdentifier title="{ path: 'oSkuModel2>Audat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>
-				
 				</cells>
 			</ColumnListItem>
 		</items>
