@@ -42,15 +42,19 @@ sap.ui.define([
 				
 				var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
-			if(sPreviousHash == undefined){
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("LoginPage", true);
+			if(sPreviousHash == ""){
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+			
+			}
+			else if(sPreviousHash == undefined){
+					this.getOwnerComponent().getRouter().navTo("LoginPage");
+		
 				}
 			else if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("ShowTiles", true);
+					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+				
 			}
 		}
 		

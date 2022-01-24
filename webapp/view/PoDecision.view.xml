@@ -1,73 +1,47 @@
-<mvc:View 
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:l="sap.ui.layout"
-	xmlns:t="sap.ui.table"
-	xmlns:unified="sap.ui.unified"
-	xmlns:core="sap.ui.core"
-	xmlns="sap.m"
-	xmlns:tnt="sap.tnt"
-	xmlns:u="sap.ui.unified"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" class="sapUiSizeCompact"
-	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" controllerName="com.vSimpleApp.controller.PoDecision"
-	xmlns:html="http://www.w3.org/1999/xhtml">
-
-			<Page title="" showHeader="false" navButtonPress="onNavBack">
-				<content>
-
-
-
-	<Table id="leadtimeTable" inset="false" items="{oLeadTimeModel>/}" class="sapUiSmallMarginBegin  sapUiLargeMarginEnd tileLayout" >
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table" xmlns:unified="sap.ui.unified" xmlns:core="sap.ui.core"
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	class="sapUiSizeCompact" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	controllerName="com.vSimpleApp.controller.PoDecision" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Table id="leadtimeTable" inset="false" items="{oLeadTimeModel>/}" class="sapUiSmallMarginBegin sapUiLargeMarginEnd">
 		<headerToolbar>
 			<OverflowToolbar>
-				<content>
-					<Title text="Suggestions Of Purchasing Decisions" level="H2"/>
-					<ToolbarSpacer/>
-				
-					<!--<Label text="Select Hours/Month:"/>-->
-					<!--<RadioButton text="24 Hours" selected="{oCheckModel>/H24}" select="OnSelectRButton"/>-->
-					<!--<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectRButton"/>-->
-					<!--<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectRButton"/>-->
-					<!--<RadioButton text="Last 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectRButton"/>-->
-					<!--<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>-->
-					<!--<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>-->
-				
-					<!--<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>-->
-				<Button icon="sap-icon://nav-back" press="onNavBack"/>
-					<Button icon="sap-icon://download" press="onExport"/>
-						<SearchField placeholder="Filter"  id="idpoMaterial" search="onSearchMaterial" width="15rem"/>
-				</content>
+				<Title text="Suggestions Of Purchasing Decisions" level="H2"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<!--<Label text="Select Hours/Month:"/>-->
+				<!--<RadioButton text="24 Hours" selected="{oCheckModel>/H24}" select="OnSelectRButton"/>-->
+				<!--<RadioButton text="48 Hours" selected="{oCheckModel>/H48}" select="OnSelectRButton"/>-->
+				<!--<RadioButton text="Current Month" selected="{oCheckModel>/Current}" select="OnSelectRButton"/>-->
+				<!--<RadioButton text="Last 1 Month" selected="{oCheckModel>/Previous1Month}" select="OnSelectRButton"/>-->
+				<!--<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton"/>-->
+				<!--<RadioButton text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton"/>-->
+				<!--<Button id="idSearchSku" text="Show" press="onFetchDecision" class="sapUiSmallMarginBegin" type="Emphasized"/>-->
+				<!--<Button icon="sap-icon://nav-back" press="onNavBack"/>-->
+				<Button icon="sap-icon://download" press="onExport"/>
+				<SearchField placeholder="Filter" id="idpoMaterial" search="onSearchMaterial" width="15rem"/>
 			</OverflowToolbar>
 		</headerToolbar>
 		<columns>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Material"/>
 			</Column>
-			<Column width="12em" hAlign="Center">
+			<Column width="12em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Description"/>
 			</Column>
-			<Column width="8em" hAlign="Center">
+			<Column width="8em" id="dimensionsCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Quantity In-hand"/>
 			</Column>
-				<Column width="8em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Average Sales Consumed in 1 Day"/>
 			</Column>
-			<Column width="7em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Lead Time"/>
 			</Column>
-				
-		
-			
-			<Column width="7em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Buffer"/>
 			</Column>
-			<Column width="7em" hAlign="Center">
+			<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Order By Date"/>
 			</Column>
-		
-			<!--		<Column
-				hAlign="End">
-				<Text text="Price" />
-			</Column>-->
 		</columns>
 		<items>
 			<ColumnListItem vAlign="Middle">
@@ -77,23 +51,16 @@
 					<!--<Text text="{oLeadTimeModel>AvailableQuantity}"/>-->
 					<ObjectNumber number='{oLeadTimeModel>AvailableQuantity}'
 						state="{ parts: [ {path: 'oLeadTimeModel>Color'}, {path: 'oLeadTimeModel>AvailableQuantity'} ], formatter: '.formatter.onColorStatePoDecision'}"></ObjectNumber>
-				
 					<Text text="{oLeadTimeModel>Sale}"/>
-						<Text text="{oLeadTimeModel>Lead}"/>
-				
-						<Text text="{oLeadTimeModel>Buffer}"/>
-							<!--<Text text="{oLeadTimeModel>Date}"/>-->
-						<Text text="{oLeadTimeModel>Date}"/>
-							
-							<!--<Text	text="{ path: 'oLeadTimeModel>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' },style: 'long' }"/>-->
+					<Text text="{oLeadTimeModel>Lead}"/>
+					<Text text="{oLeadTimeModel>Buffer}"/>
+					<!--<Text text="{oLeadTimeModel>Date}"/>-->
+					<Text text="{oLeadTimeModel>Date}"/>
+					<!--<Text	text="{ path: 'oLeadTimeModel>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' },style: 'long' }"/>-->
 					<!--<ObjectIdentifier title="{oSkuModel2>Vbeln}"/>-->
 					<!--<Text text="{ path: 'oSkuModel2>Audat', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' } }"/>-->
 				</cells>
 			</ColumnListItem>
 		</items>
 	</Table>
-
-				</content>
-			</Page>
-	
 </mvc:View>
