@@ -60,18 +60,7 @@ sap.ui.define([
 
 			/*	var oTileMod = new JSONModel([sRootPath, "data/VendorTileName.json"].join("/"));
 				sap.ui.getCore().setModel(oTileMod, "oTileModel");*/
-			// 		oTileMod.setData({
-			// 			results: [
-			// 	{
-			// 		LinkName: "Create Vendor"
-			// 	}, {
-			// 		LinkName: "Display Vendor"
-			// 	}, {
-			// 		LinkName: "Edit Vendor"
-			// 	}
 
-			// ]	
-			// 		});
 
 			var oInputModel = new JSONModel({
 				expression: ""
