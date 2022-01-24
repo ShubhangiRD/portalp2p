@@ -19,13 +19,13 @@
 	margin-top: -8px !important;
 }
 
-/*.loginPage{*/
+.loginPage{
 
-/*  background: url("/webapp/images/galaxy.jpg") no-repeat ;*/
-/*    background-size: cover ;*/
-/*	background-position: top;*/
-/*	 animation: pagemove 3s infinite;*/
-/*}*/
+  background: url("/webapp/images/loginpg2.jpg") no-repeat ;
+    background-size: cover ;
+	background-position: top left;
+	 animation: pagemove 5s infinite;
+}
 
 
 .sapUxAPObjectPageHeaderDetails .sapMObjectNumberEmph.sapMObjectNumber>.sapMObjectNumberText {
