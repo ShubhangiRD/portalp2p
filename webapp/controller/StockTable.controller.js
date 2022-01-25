@@ -58,6 +58,7 @@ sap.ui.define([
 	var Totalsaleset = [];
 	var EventArray = [];
 	var UniqueMatnrGlobal = [];
+		var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.controller.StockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -985,7 +986,7 @@ sap.ui.define([
 				FilterOperator.Contains, sInputValue
 			)]));
 		//	this.getPOPlant();
-				var Service = new ServiceF4();
+			//	var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogp.open(sInputValue);
@@ -1041,7 +1042,7 @@ sap.ui.define([
 				FilterOperator.Contains, sInputValue
 			)]));
 		//	this.getPOPlant();
-			var Service = new ServiceF4();
+			//var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);

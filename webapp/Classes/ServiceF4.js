@@ -16,6 +16,26 @@ sap.ui.define([
 		
 
 		},
+			getVendorList: function(oController) {
+	//		var that = this;
+			var oModel = oController.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/Fetch_Vendor_DetailsSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/DisplyaVendorList", oData.results);
+					oLookupModel.refresh(true);
+					//that.getMaterialList();
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+
 			getPurchaseOrgList: function(oController) {
 	//		var that = this;
 			//get all data from odata model
@@ -142,6 +162,67 @@ sap.ui.define([
 				}
 			});
 		},
+			getPurchaseGroupList: function(oController) {
+		//	var that = this;
+			var oModel = oController.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/get_purgrp_f4helpSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/PurchaseGroupList", oData.results);
+					oLookupModel.refresh(true);
+					//that.getMaterialList();
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+			getMaterialDisList: function(oController) {
+		//	var that = this;
+			var oModel = oController.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/MaterialmasterSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/MaterialDiscription", oData.results);
+					oLookupModel.refresh(true);
+					//that.getMaterialList();
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+				getSalesOrgforCondition: function(oController) {
+			var that = this;
+			//get all data from odata model
+			var oModel = oController.getOwnerComponent().getModel("StockModel");
+			//get entity set
+			oModel.read("/get_salesorgf4Set", {
+				success: function(oData) {
+
+					var oLookupModel = oController.getOwnerComponent().getModel("Lookup");
+					//set the odata to model property
+					oLookupModel.setProperty("/SalesOrg1", oData.results);
+					oLookupModel.refresh(true);
+
+				},
+				error: function(oError) {
+					//error handler code
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+
+
 	
 
 	});
