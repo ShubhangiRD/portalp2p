@@ -31,83 +31,91 @@
 	<!--		</layoutData>-->
 	<!--	</Switch>-->
 	<!--</tnt:ToolHeader>-->
-	<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem"
-		class="tileLayout">
+	<Table id="idSkuTable" inset="false" items="{oSkuModel2>/}" mode="MultiSelect" selectionChange="onExcessSelectionItem" class="tileLayout">
 		<headerToolbar>
-			<OverflowToolbar>
+			<OverflowToolbar width="">
 				<!--<HBox width="50%">-->
-					
-			
-					<Button icon="sap-icon://nav-back" visible="{range>/isNoPhone}"  press="onSkuBack"/>
-				<Title text="No Movement SKU" tooltip="sku with no movements" >
+				<Button icon="sap-icon://nav-back" visible="{range>/isNoPhone}" press="onSkuBack"/>
+				<Title text="SKU List With No Movement" tooltip="sku with no movements">
 					<layoutData>
 						<ToolbarLayoutData shrinkable="false"/>
 					</layoutData>
 				</Title>
-					<!--</HBox>-->
-				
+				<!--</HBox>-->
 				<ToolbarSpacer></ToolbarSpacer>
-			
-				<Label visible="{range>/isNoPhone}" text="Select Hours/Month:"/>
-		
-				<RadioButton text="Last 3 Months"  selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd">
-		
-				</RadioButton>
-				<RadioButton tooltip="Last 6 Months" text="Last 6 Months"  selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd">
-	
-				</RadioButton>
-				<Button id="idSearchSku" text="Show" press="onSkuListFetch" type="Emphasized">
+				<Label text="Filter Material" design="Bold">
 					<layoutData>
-				<OverflowToolbarLayoutData priority="AlwaysOverflow"/>
-			</layoutData>
-				</Button>
-		
+						<OverflowToolbarLayoutData priority="AlwaysOverflow"/>
+					</layoutData>
+				</Label>
+				<Label text="Material" required="true">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow" />
+					</layoutData>
+				</Label>
+				<Input id="idSkuMaterial" placeholder="Material No" width="2%" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handlePOMaterialHelp" value="{oskuFilterModel>/Material}" liveChange="Validate"
+					suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest">
+					<suggestionItems>
+						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
+					</suggestionItems>
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow" shrinkable="true" minWidth="100px"/>
+					</layoutData>
+				</Input>
+				<Label text="From" required="true" class="sapUiTinyMarginBegin">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow"/>
+					</layoutData>
+				</Label>
+				<DatePicker id="idSkuDateRange1" width="5%" placeholder="Enter Date" valueFormat="yyyy.MM.dd" value="{oskuFilterModel>/Range1}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow" shrinkable="true" minWidth="130px"/>
+					</layoutData>
+				</DatePicker>
+				<Label text="To" required="true" class=" sapUiTinyMarginBegin">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow"/>
+					</layoutData>
+				</Label>
+				<DatePicker id="idSkuDateRange2" width="5%" placeholder="Enter Date" change="handleChangeDate" valueFormat="yyyy.MM.dd"
+					value="{oskuFilterModel>/Range2}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="AlwaysOverflow" shrinkable="true" minWidth="130px"/>
+					</layoutData>
+				</DatePicker>
+				<!--</HBox>-->
 			</OverflowToolbar>
 		</headerToolbar>
 		<infoToolbar>
 			<OverflowToolbar>
 				<!--<HBox id="idHBoxAddPrp">-->
-				<Label text="Material" required="true"  />
-				<Input id="idSkuMaterial" placeholder="Material No" width="12%" showSuggestion="true" showValueHelp="true" 
-					valueHelpRequest="handlePOMaterialHelp" value="{oskuFilterModel>/Material}" liveChange="Validate"
-					suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggest" >
-					<suggestionItems>
-						<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
-					</suggestionItems>
-					<layoutData>
-								<OverflowToolbarLayoutData
-					shrinkable="true"
-					minWidth = "200px"/>
-			</layoutData>
-				</Input>
-				<Label text="From" required="true"  class="sapUiTinyMarginBegin"/>
-				<DatePicker id="idSkuDateRange1" width="15%" placeholder="Enter Date" valueFormat="yyyy.MM.dd" value="{oskuFilterModel>/Range1}">
-						<layoutData>
-								<OverflowToolbarLayoutData
-					shrinkable="true"
-					minWidth = "200px"/>
-	
-			</layoutData>
-					</DatePicker>
-				<Label text="To" required="true"  class=" sapUiTinyMarginBegin"/>
-				<DatePicker id="idSkuDateRange2" width="15%" placeholder="Enter Date" change="handleChangeDate" valueFormat="yyyy.MM.dd"
-					value="{oskuFilterModel>/Range2}" >
-					<layoutData>
-								<OverflowToolbarLayoutData
-					shrinkable="true"
-					minWidth = "200px"/>
-			</layoutData>
-		
-	
-					</DatePicker>
 			
-				<!--</HBox>-->
-					<ToolbarSpacer/>
-
-				<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh"/>
-				<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder"/>
-				<Button tooltip="{i18n>addItem}" text="Discount" class="sapUiTinyMarginEnd" press="onDiscountMaterial"/>
-		
+				<Label visible="{range>/isNoPhone}" text="Select Month:"/>
+				<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"></RadioButton>
+				<RadioButton tooltip="Last 6 Months" text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd"></RadioButton>
+				<Button id="idSearchSku" text="Show" press="onSkuListFetch">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						<!--<OverflowToolbarLayoutData shrinkable="true"/>-->
+					</layoutData>
+				</Button>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh">
+					<!--<layoutData>-->
+					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
+					<!--</layoutData>-->
+				</Button>
+				<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder">
+					<!--<layoutData>-->
+					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
+					<!--</layoutData>-->
+				</Button>
+				<Button tooltip="{i18n>addItem}" text="Discount" class="sapUiTinyMarginEnd" press="onDiscountMaterial">
+					<!--<layoutData>-->
+					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
+					<!--</layoutData>-->
+				</Button>
 			</OverflowToolbar>
 		</infoToolbar>
 		<columns>
