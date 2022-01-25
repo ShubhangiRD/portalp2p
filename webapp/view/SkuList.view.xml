@@ -92,7 +92,7 @@
 				<!--<HBox id="idHBoxAddPrp">-->
 			
 				<Label visible="{range>/isNoPhone}" text="Select Month:"/>
-				<RadioButton text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"></RadioButton>
+				<RadioButton tooltip="Last 3 Months" text="Last 3 Months" selected="{oCheckModel>/Last3}" select="OnSelectRButton" id="id3mnthRd"></RadioButton>
 				<RadioButton tooltip="Last 6 Months" text="Last 6 Months" selected="{oCheckModel>/Last6}" select="OnSelectRButton" id="id6mnthRd"></RadioButton>
 				<Button id="idSearchSku" text="Show" press="onSkuListFetch">
 					<layoutData>
@@ -101,20 +101,14 @@
 					</layoutData>
 				</Button>
 				<ToolbarSpacer></ToolbarSpacer>
-				<Button icon="sap-icon://refresh" press="onRefreshTable" tooltip="Refresh">
-					<!--<layoutData>-->
-					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
-					<!--</layoutData>-->
+				<Button icon="sap-icon://refresh" text="Refresh" press="onRefreshTable" tooltip="Refresh">
+			
 				</Button>
 				<Button tooltip="{i18n>addItem}" text="Process Order" press="onProcessOrder">
-					<!--<layoutData>-->
-					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
-					<!--</layoutData>-->
+			
 				</Button>
 				<Button tooltip="{i18n>addItem}" text="Discount" class="sapUiTinyMarginEnd" press="onDiscountMaterial">
-					<!--<layoutData>-->
-					<!--	<OverflowToolbarLayoutData priority="AlwaysOverflow"/>-->
-					<!--</layoutData>-->
+				
 				</Button>
 			</OverflowToolbar>
 		</infoToolbar>
