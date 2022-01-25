@@ -16,7 +16,7 @@ sap.ui.define([
 	RebateConditionItemPO, MessageBox,ServiceF4) {
 	"use strict";
 	var oView, sPlant, oComponent, successObj;
-
+	var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.controller.StockTransfer", {
 
 		/**
@@ -186,7 +186,7 @@ sap.ui.define([
 			)]));
 		
 			
-	var Service = new ServiceF4();
+//	var Service = new ServiceF4();
 			Service.getMaterialList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogph.open(sInputValue);
@@ -338,7 +338,7 @@ sap.ui.define([
 			)]));
 		
 			
-	var Service = new ServiceF4();
+//	var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
@@ -765,7 +765,7 @@ sap.ui.define([
 			)]));
 		//	this.getSpecialStockList();
 			
-	var Service = new ServiceF4();
+//	var Service = new ServiceF4();
 			Service.getSpecialStockList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogMvtType.open(sInputValue);
@@ -895,7 +895,7 @@ sap.ui.define([
 				FilterOperator.Contains, sInputValue
 			)]));
 			
-	var Service = new ServiceF4();
+//	var Service = new ServiceF4();
 			Service.getSpecialStockList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogSplStock.open(sInputValue);
@@ -940,8 +940,178 @@ sap.ui.define([
 
 			}
 
-		}
+		},
+		/*Purchase Group f4 function start*/
+			handlePurchaseGroupVendor: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
 
+			this.inputId = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogpgrop) {
+				this._valueHelpDialogpgrop = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.PurchaseGroup",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogpgrop);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogpgrop.getBinding("items").filter(new Filter([new Filter(
+				"Ekgrp",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Eknam",
+				FilterOperator.Contains, sInputValue
+			)]));
+			//	var Service = new ServiceF4();
+			Service.getPurchaseGroupList(this);
+		//	this.getPurchaseGroupList();
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogpgrop.open(sInputValue);
+		},
+		_handlePurchaseGroupSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Ekgrp",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Eknam",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handlePurchaseGroupClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputId),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+		/*Purchase Group f4 function end*/
+		
+		
+		/*Company code f4 function start*/
+			handleCompanyCodeVendor: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputId = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogcomp) {
+				this._valueHelpDialogcomp = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.CompCode",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogcomp);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogcomp.getBinding("items").filter(new Filter([new Filter(
+				"Bukrs",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Butxt",
+				FilterOperator.Contains, sInputValue
+			)]));
+		//	this.getCompanyList();
+			//	var Service = new ServiceF4();
+			Service.getCompanyList(this);
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogcomp.open(sInputValue);
+		},
+		_handlevendorCompSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Bukrs",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Butxt",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handlevendorCompClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputId),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+		/*Company code f4 function end*/
+/*Purchase organization f4 function start*/
+	handlePurchaseOrgVendor: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputId = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpDialogporg) {
+				this._valueHelpDialogporg = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.PurchaseOrg",
+					this
+				);
+				this.getView().addDependent(this._valueHelpDialogporg);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpDialogporg.getBinding("items").filter(new Filter([new Filter(
+				"Ekorg",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"Ekotx",
+				FilterOperator.Contains, sInputValue
+			)]));
+		//	this.getPurchaseOrgList();
+			//	var Service = new ServiceF4();
+			Service.getPurchaseOrgList(this);
+			// open value help dialog filtered by the input value
+			this._valueHelpDialogporg.open(sInputValue);
+		},
+		_handlePOrganiVendorSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"Ekorg",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"Ekotx",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		_handlePOrganiVendorClose: function(evt) {
+			var oSelectedItem = evt.getParameter("selectedItem");
+			if (oSelectedItem) {
+				var productInput = this.byId(this.inputId),
+					sDescription = oSelectedItem.getInfo(),
+					sTitle = oSelectedItem.getTitle();
+				productInput.setSelectedKey(sDescription);
+				productInput.setValue(sTitle);
+
+			}
+			evt.getSource().getBinding("items").filter([]);
+		},
+
+/*Purchase organization f4 function end*/
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).

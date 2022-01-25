@@ -30,7 +30,7 @@ sap.ui.define([
 	var oView, sMaterialRows;
 	var oComponent;
 	var sNetPriceId, sNetPrice;
-
+	var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.view.controller.POCreation", {
 
 		/**
@@ -206,26 +206,7 @@ sap.ui.define([
 			//	this.getView().getModel("VHeader").refresh();
 
 		},
-		getVendorList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/Fetch_Vendor_DetailsSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/DisplyaVendorList", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
-
+	
 		handleVendorValuehelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -251,7 +232,9 @@ sap.ui.define([
 				"Lifnr",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getVendorList();
+		
+			
+			Service.getVendorList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialog.open(sInputValue);
 		},
@@ -322,26 +305,7 @@ sap.ui.define([
 		},
 
 		/*Po Search*/
-		getPurchaseOrgList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_purchaseorg_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/PurchaseOrganization", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
-
+	
 		handlePurchaseOrgVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -367,7 +331,9 @@ sap.ui.define([
 				"Ekotx",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getPurchaseOrgList();
+		//	this.getPurchaseOrgList();
+			
+			Service.getPurchaseOrgList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogporg.open(sInputValue);
 		},
@@ -399,26 +365,7 @@ sap.ui.define([
 
 		/*Comp Search start*/
 
-		getCompanyList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_companycode_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/CountryCode", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
-
+	
 		handleCompanyCodeVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -444,7 +391,10 @@ sap.ui.define([
 				"Butxt",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getCompanyList();
+			
+			//	var Service = new ServiceF4();
+			Service.getCompanyList(this);
+		
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogcomp.open(sInputValue);
 		},
@@ -475,25 +425,7 @@ sap.ui.define([
 
 		/*PGRP Search start*/
 
-		getPurchaseGroupList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/get_purgrp_f4helpSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/PurchaseGroupList", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
+
 
 		handlePurchaseGroupVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -520,7 +452,9 @@ sap.ui.define([
 				"Eknam",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getPurchaseGroupList();
+		//	this.getPurchaseGroupList();
+			//	var Service = new ServiceF4();
+			Service.getPurchaseGroupList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpgrop.open(sInputValue);
 		},
@@ -579,7 +513,7 @@ sap.ui.define([
 			)]));
 		
 			
-			var Service = new ServiceF4();
+		//	var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
@@ -601,12 +535,12 @@ sap.ui.define([
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			var oModelPO = this.getOwnerComponent().getModel("PurchaseSet");
 			var lenthss = oPurchaseContract.length;
-			console.log(lenthss);
+	//		console.log(lenthss);
 			var lenthcount = lenthss - 1;
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 
 			var oRequestPayload = oTempContract.getRequestPayloadPlant();
-			console.log(oRequestPayload);
+		
 			//method for creating the prod
 			BusyIndicator.show(true);
 			oModelPO.create("/PoDisplaySet", oRequestPayload, {
@@ -620,9 +554,9 @@ sap.ui.define([
 					oView.getModel("PurchaseModel").setProperty("/TempContract/PoCondSet", Podata.PoCondSet.results);
 					oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", Podata.PoScheduleSet.results);
 					var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
-					console.log(aPurchaseConditionItems);
+				
 					var lenthPO = aPurchaseConditionItems.length;
-					console.log(sNetPriceId);
+				
 					var netcount = lenthPO - 1;
 				//	$(sNetPriceId).val(sNetPrice);
 				//	oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + netcount + "/NetPrice", sNetPrice);
@@ -630,7 +564,7 @@ sap.ui.define([
 					var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
 
 					var poitem = aPurchaseConditionItems.length;
-					console.log(poitem);
+				
 					var sMatno = aPurchaseConditionItems[poitem - 1].Material;
 
 					/*		for (var val = 0; val < iTtem; val++) {
@@ -763,7 +697,7 @@ sap.ui.define([
 			var oModelPO = this.getOwnerComponent().getModel("PurchaseSet");
 
 			var lenthss = oPurchaseContract.length;
-			console.log(lenthss);
+	
 			var lenthcount = lenthss - 1;
 
 			var zero = "";
@@ -1009,7 +943,7 @@ sap.ui.define([
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			var lenthss = oPurchaseContract.length;
-			console.log(lenthss);
+		
 			var lenthcount = lenthss - 1;
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var getPurchase = this.getView().getModel("CreateContract");
@@ -1047,26 +981,7 @@ sap.ui.define([
 
 		/*material discription start*/
 
-		getMaterialDisList: function() {
-			var that = this;
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(true);
-			oModel.read("/MaterialmasterSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/MaterialDiscription", oData.results);
-					oLookupModel.refresh(true);
-					//that.getMaterialList();
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
-		},
-
+	
 		handleMaterialDisVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -1092,7 +1007,9 @@ sap.ui.define([
 				"Materialno",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getMaterialDisList();
+	
+			//	var Service = new ServiceF4();
+			Service.getMaterialDisList(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogMD.open(sInputValue);
 		},

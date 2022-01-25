@@ -19,11 +19,12 @@ sap.ui.define([
 	"sap/ui/export/Spreadsheet",
 	"com/vSimpleApp/Classes/StockStandards",
 	"com/vSimpleApp/Classes/SOConditionItem",
-	"com/vSimpleApp/model/formatter"
+	"com/vSimpleApp/model/formatter",
+		"com/vSimpleApp/Classes/ServiceF4"
 
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, Export, ExportTypeCSV, MessageBox, Sorter,
 	library, jquery, RowAction,
-	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet, StockStandards, SOConditionItem, formatter) {
+	RowActionItem, RowSettings, Fragment, exportLibrary, Spreadsheet, StockStandards, SOConditionItem, formatter,ServiceF4) {
 	"use strict";
 	var oView, oComponent,
 		oController,
@@ -39,7 +40,7 @@ sap.ui.define([
 	var sCustomer = [];
 	var result = [];
 	var sKunnr, sSalesorg;
-
+	var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.controller.ExcessData", {
 		formatter: formatter,
 		/**
@@ -939,7 +940,9 @@ sap.ui.define([
 				"Vtext",
 				FilterOperator.Contains, sInputValue
 			)]));
-			this.getSalesOrgforCondition();
+		
+			
+					Service.getSalesOrgforCondition(this);
 			// open value help dialog filtered by the input value
 			this._valueSalesOrg.open(sInputValue);
 
@@ -968,27 +971,6 @@ sap.ui.define([
 
 				productInput.setValue(sTitle);
 			}
-		},
-		getSalesOrgforCondition: function() {
-			var that = this;
-			//get all data from odata model
-			var oModel = this.getOwnerComponent().getModel("StockModel");
-			//get entity set
-			oModel.read("/get_salesorgf4Set", {
-				success: function(oData) {
-
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/SalesOrg1", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					//error handler code
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
-				}
-			});
 		},
 
 		//*Distribution channel*/

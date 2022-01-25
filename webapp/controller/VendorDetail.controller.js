@@ -18,6 +18,7 @@ sap.ui.define([
 	BusyIndicator, BankConditionItem, ServiceF4) {
 	"use strict";
 	var oView, oComponent, oController;
+		var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.controller.VendorDetail", {
 
 		/**
@@ -241,29 +242,6 @@ sap.ui.define([
 
 		/*Vendor Details f4 functionality start here*/
 
-		getVendorList: function() {
-			var that = this;
-			//get data from odata model
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-
-			//get entity set
-			BusyIndicator.show(true);
-			oModel.read("/Fetch_Vendor_DetailsSet", {
-				success: function(oData) {
-					BusyIndicator.hide();
-					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					//set the odata to model property
-					oLookupModel.setProperty("/DisplyaVendorList", oData.results);
-					oLookupModel.refresh(true);
-
-				},
-				error: function(oError) {
-					BusyIndicator.hide();
-					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(sErrorMsg);
-				}
-			});
-		},
 
 		handleVendorValueHelpBox: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
@@ -292,7 +270,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogDisplayV.open(sInputValue);
-			this.getVendorList();
+			//this.getVendorList();
+		//	var Service = new ServiceF4();
+			Service.getVendorList(this);
 		},
 
 		_handleValueVendorHelpSearch: function(evt) {
@@ -402,7 +382,7 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogporg.open(sInputValue);
-			var Service = new ServiceF4();
+		//	var Service = new ServiceF4();
 			Service.getPurchaseOrgList(this);
 
 		},
@@ -536,7 +516,7 @@ sap.ui.define([
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogcomp.open(sInputValue);
 
-			var Service = new ServiceF4();
+		//	var Service = new ServiceF4();
 			Service.getCompanyList(this);
 		},
 		_handlevendorCompSearch: function(evt) {
@@ -596,7 +576,7 @@ sap.ui.define([
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogAccCode.open(sInputValue);
 
-			var Service = new ServiceF4();
+		//	var Service = new ServiceF4();
 			Service.getAccountList(this);
 		},
 		_handlevendorAccountGSearch: function(evt) {
@@ -975,7 +955,7 @@ sap.ui.define([
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogtradingpartners.open(sInputValue);
 
-			var Service = new ServiceF4();
+	//		var Service = new ServiceF4();
 			Service.getCompanyList(this);
 		},
 		_handleValueTPHelpClose: function(evt) {
@@ -1193,7 +1173,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogFA.open(sInputValue);
-			this.getVendorList();
+		//	this.getVendorList();
+		//	var Service = new ServiceF4();
+			Service.getVendorList(this);
 		},
 		_handleFiscalAddressSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -1304,7 +1286,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogAlternatePayee.open(sInputValue);
-			this.getVendorList();
+		//	var Service = new ServiceF4();
+			Service.getVendorList(this);
+			//this.getVendorList();
 		},
 		_handleAlternatePayeeVendorSearch: function(evt) {
 
@@ -1439,7 +1423,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogHeadOffice.open(sInputValue);
-			this.getVendorList();
+		//	this.getVendorList();
+		//	var Service = new ServiceF4();
+			Service.getVendorList(this);
 		},
 		_handleHeadOfficeVendorSearch: function(evt) {
 			var sValue = evt.getParameter("value");
@@ -1877,7 +1863,9 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogDunnRecipient.open(sInputValue);
-			this.getVendorList();
+		//	var Service = new ServiceF4();
+			Service.getVendorList(this);
+	
 		},
 		_handleDunnRecipientVendorSearch: function(evt) {
 			var sValue = evt.getParameter("value");

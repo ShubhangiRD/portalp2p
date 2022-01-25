@@ -124,6 +124,12 @@
 										</m:OverflowToolbar>
 									</t:extension>
 									<t:columns>
+												<t:Column width="6rem" hAlign="Center">
+											<m:Label text="LineItem"/>
+											<t:template>
+												<m:Input id="PoItem" value="{PurchaseModel>PoItem}" editable="{EditModel>/isEditable}"/>
+											</t:template>
+										</t:Column>
 										<t:Column width="11rem" hAlign="Center">
 											<m:Label text="Material Number"/>
 											<t:template>
@@ -187,12 +193,7 @@
 												<m:Input id="idstatuss" editable="{EditModel>/isEditable}"/>
 											</t:template>
 										</t:Column>
-										<t:Column width="6rem" hAlign="Center">
-											<m:Label text="Item"/>
-											<t:template>
-												<m:Input id="PoItem" value="{PurchaseModel>PoItem}" editable="{EditModel>/isEditable}"/>
-											</t:template>
-										</t:Column>
+								
 										<t:Column width="5rem" hAlign="Center">
 											<m:Label text="A"/>
 											<t:template>
