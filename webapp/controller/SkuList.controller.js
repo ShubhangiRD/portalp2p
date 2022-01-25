@@ -8,8 +8,10 @@ sap.ui.define([
 	"sap/ui/export/library",
 	"sap/ui/table/library",
 	"sap/ui/model/Sorter",
-	"com/vSimpleApp/Classes/StockStandards"
-], function(Controller, JSONModel, Filter, FilterOperator, MessageBox, BusyIndicator, exportLibrary, library, Sorter, StockStandards) {
+	"com/vSimpleApp/Classes/StockStandards",
+	'sap/ui/Device'
+], function(Controller, JSONModel, Filter, FilterOperator, MessageBox, BusyIndicator, exportLibrary, library, Sorter, StockStandards,
+	Device) {
 	"use strict";
 	var oView;
 	var sPathThreshold;
@@ -63,6 +65,16 @@ sap.ui.define([
 			this.getCustomer();
 
 			// this.getStock();
+
+			var oMediaModel = new JSONModel();
+			this.getView().setModel(oMediaModel, "range");
+
+			var oRange = Device.media.getCurrentRange("Std");
+			this._setRangeModel(oRange.name);
+
+			Device.media.attachHandler(function(mParams) {
+				this._setRangeModel(mParams.name);
+			}.bind(this), null, "Std");
 		},
 
 		OnSelectRButton: function(oEvent) {
@@ -417,11 +429,11 @@ sap.ui.define([
 		onCancelDiscount: function() {
 			var stable = this.byId("idSkuTable");
 			var oModel = sap.ui.getCore().getModel("SingleNoMvtData");
-               //clear model data
+			//clear model data
 			oModel.setData({
 				oData: {}
 			});
-			  //remove selected materials
+			//remove selected materials
 			stable.removeSelections();
 			this.pressDialogExcessDiscount.close();
 			this.pressDialogExcessDiscount.destroy();
@@ -1185,7 +1197,52 @@ sap.ui.define([
 			//navigate to stocktable screen
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("StockTable");
-		}
+		},
+				_setRangeModel : function (sRange) {
+			var bIsPhone = sRange === "Phone",
+				bIsTablet = sRange === "Tablet";
+
+			this.getView().getModel("range").setData({
+				isPhoneOrTablet : bIsPhone || bIsTablet,
+				isNotPhoneOrTablet : !(bIsPhone || bIsTablet),
+				isTablet : bIsTablet,
+				isNoTablet : !bIsTablet,
+				isPhone : bIsPhone,
+				isNoPhone : !bIsPhone
+			});
+			var oModel =this.getView().getModel("range").getData();
+			var bPhone= oModel.isPhone;
+			// if(bPhone === true){
+			//   var b = this.getView().byId("idHBoxAddPrp");
+			//   b.setWidth("100%");
+		
+			// }else{
+			// 	var a = this.getView().byId("idHBoxAddPrp");
+			// 	 a.setWidth("50%");
+				
+				
+			// }
+		},
+
+		// onOpen: function (oEvent) {
+		// 	var oButton = oEvent.getSource(),
+		// 		oView = this.getView();
+
+		// 	if (!this._pActionSheet) {
+		// 		this._pActionSheet = Fragment.load({
+		// 			id: oView.getId(),
+		// 			name: "sap.m.sample.ToolbarResponsive.ActionSheet",
+		// 			controller: this
+		// 		}).then(function(oActionSheet){
+		// 			oView.addDependent(oActionSheet);
+		// 			return oActionSheet;
+		// 		});
+		// 	}
+
+		// 	this._pActionSheet.then(function(oActionSheet){
+		// 		oActionSheet.openBy(oButton);
+		// 	});
+		// },
 
 	});
 
