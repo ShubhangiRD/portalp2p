@@ -28,7 +28,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 					</m:Button>
 						<!--<m:Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
 					<l:HorizontalLayout>
-		<m:Button id="openMenu2" visible="false" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>
+		<m:Button id="openMenu2" visible="true" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>
 	</l:HorizontalLayout>
 			</m:OverflowToolbar>
 		</extension>

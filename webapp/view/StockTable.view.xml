@@ -58,7 +58,19 @@
 			</Button>
 			<ToolbarSpacer></ToolbarSpacer>
 			<!---->
-		<l:HorizontalLayout>
+			<!--<MenuButton text="Menu">-->
+			<!--	<menu>-->
+			<!--		<Menu itemSelected="onMenuAction">-->
+			<!--			<MenuItem text="Excess Material"/>-->
+			<!--			<MenuItem text="Stock Transfer" id="StockTrnfer"/>-->
+			<!--			<MenuItem text="BuyerSheet"/>-->
+			<!--			<MenuItem text="Po Decision"/>-->
+			<!--			<MenuItem text="Sku List"/>-->
+			<!--			<MenuItem text="Analyics"/>-->
+			<!--		</Menu>-->
+			<!--	</menu>-->
+			<!--</MenuButton>-->
+				<l:HorizontalLayout>
 		<Button id="openMenu" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>
 	</l:HorizontalLayout>
 			<!--<Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>-->
