@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.ui.table" 	class="sapUiSizeCompact viewPadding"
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<TreeTable id="TreeTableBasic2" rows="{path:'oStockDataModel>/', parameters: {arrayNames:['MultipleIt']}}" selectionMode="MultiToggle"
-toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8"     rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd" enableSelectAll="false"
+toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8"     rowSelectionChange="onRowSelectionChange"  visible="{VisibleModel>/MaterialTable}" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd casTiles sapUiSizeCompact" enableSelectAll="false"
 		ariaLabelledBy="title">
 		<extension>
 			<m:OverflowToolbar>
@@ -28,7 +28,7 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 					</m:Button>
 						<!--<m:Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
 					<l:HorizontalLayout>
-		<m:Button id="openMenu2" visible="true" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>
+	
 	</l:HorizontalLayout>
 			</m:OverflowToolbar>
 		</extension>

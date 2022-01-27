@@ -165,10 +165,14 @@ sap.ui.define([
 
 			var oPoData = new JSONModel();
 			oView.setModel(oPoData, "oPoData");
+			
+			var oMenuModel = new JSONModel([jQuery.sap.getModulePath("com.vSimpleApp"),"data/StockMenuPage.json"].join("/"));
+			this.getView().setModel(oMenuModel,"oMenuModel");    
 		},
 		goHome: function(oEvent) {
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
-
+             
+          
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -751,6 +755,7 @@ sap.ui.define([
 			oMatModel.updateBindings(true);
 			//reload the page using 
 			window.location.reload();
+		
 		},
 
 		//	return new Promise ( function(ee,we){
@@ -2650,7 +2655,7 @@ sap.ui.define([
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-
+         
 			//  (async function loop() {
 			//   for (let criticle = 0; criticle < Massupload.length; criticle++) {
 

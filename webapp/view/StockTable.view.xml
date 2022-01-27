@@ -57,7 +57,11 @@
 				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
 			</Button>
 			<ToolbarSpacer></ToolbarSpacer>
-			
+				<Select
+					items="{oMenuModel>/StockMenuPage}" change="handleMenuItemPress"
+				>
+					<core:Item key="{oMenuModel>PageName}" text="{oMenuModel>PageName}" />
+				</Select>
 			<!---->
 			<!--<MenuButton text="Menu">-->
 			<!--	<menu>-->
@@ -71,9 +75,9 @@
 			<!--		</Menu>-->
 			<!--	</menu>-->
 			<!--</MenuButton>-->
-				<l:HorizontalLayout>
-		<Button id="openMenu" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>
-	</l:HorizontalLayout>
+	<!--			<l:HorizontalLayout>-->
+	<!--	<Button id="openMenu" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>-->
+	<!--</l:HorizontalLayout>-->
 			<!--<Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>-->
 		</OverflowToolbar>
 		<!--	</form:content>-->

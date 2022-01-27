@@ -1,0 +1,30 @@
+{
+	"StockMenuPage":[
+			{
+			"PageName":"Select Menu"
+		},
+		{
+			"PageName":"Excess Material"
+		},
+		{
+			"PageName":"Stock Transfer"
+		},
+		{
+			"PageName":"Po Decision"
+		},
+		{
+			"PageName":"BuyerSheet"
+		},
+		{
+			"PageName":"Sku List"
+		},
+		
+		{
+			"PageName":"Analyics"
+		}
+		
+		
+		]
+	
+	
+}
