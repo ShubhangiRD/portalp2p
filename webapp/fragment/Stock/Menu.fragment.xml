@@ -1,14 +1,12 @@
-<core:FragmentDefinition
-		xmlns="sap.m"
-		xmlns:core="sap.ui.core">
-	<Menu itemSelected="onMenuAction">
-		<MenuItem text="BuyerSheet"/>
-		<MenuItem text="Stock Transfer"/>
-		<MenuItem text="Sku List"/>
-		<MenuItem text="Excess Material"/>
-		<MenuItem text="Po Decision"/>
-		<MenuItem text="Analyics"/>
-		<MenuItem text="Maintain Thresholds"/>
-		<MenuItem text="Mass Update"/>
-	</Menu>
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact"   xmlns:u="sap.ui.unified">
+	<u:Menu itemSelect="handleMenuItemPress">
+		<u:MenuItem text="BuyerSheet"/>
+		<u:MenuItem text="Stock Transfer"/>
+		<u:MenuItem text="Sku List"></u:MenuItem>
+		<u:MenuItem text="Excess Material" startsSection="true"/>
+		<u:MenuItem text="Po Decision"/>
+		<u:MenuItem text="Analyics"/>
+	
+	</u:Menu>
 </core:FragmentDefinition>

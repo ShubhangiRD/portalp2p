@@ -32,10 +32,11 @@ sap.ui.define([
 	'sap/m/Bar',
 	'sap/ui/core/IconPool',
 	"sap/m/MenuItem",
-	"com/vSimpleApp/Classes/ServiceF4"
+	"com/vSimpleApp/Classes/ServiceF4",
+	'sap/ui/core/Popup'
 ], function(Controller, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator, JSONModel, library, Input, Fragment,
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
-	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool, ServiceF4, MenuItem) {
+	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool,  MenuItem,ServiceF4,Popup) {
 	"use strict";
 	var oView, oComponent,
 		sPathThreshold,
@@ -3182,26 +3183,27 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ShowTiles");
 		},
-		onPress: function() {
-			var oView = this.getView(),
-				oButton = oView.byId("button");
+	
+		handlePressOpenMenu: function(oEvent) {
+			var oButton = oEvent.getSource();
 
-			if (!this._oMenuFragment) {
-				this._oMenuFragment = Fragment.load({
-					id: oView.getId(),
+			// create menu only once
+			if (!this._menu) {
+				Fragment.load({
 					name: "com.vSimpleApp.fragment.Stock.Menu",
 					controller: this
-				}).then(function(oMenu) {
-					oMenu.openBy(oButton);
-					this._oMenuFragment = oMenu;
-					return this._oMenuFragment;
+				}).then(function(oMenu){
+					this._menu = oMenu;
+					this.getView().addDependent(this._menu);
+					this._menu.open(this._bKeyboard, oButton, Popup.Dock.BeginTop, Popup.Dock.BeginBottom, oButton);
 				}.bind(this));
 			} else {
-				this._oMenuFragment.openBy(oButton);
+				this._menu.open(this._bKeyboard, oButton, Popup.Dock.BeginTop, Popup.Dock.BeginBottom, oButton);
 			}
 		},
-		onMenuAction: function(oEvent) {
-			var oItem = oEvent.getParameter("item");
+
+		handleMenuItemPress : function(oEvent){
+				var oItem = oEvent.getParameter("item");
 			var sPage = oItem.getText();
 			if (sPage === "BuyerSheet") {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -3257,7 +3259,6 @@ sap.ui.define([
 					MessageBox.error("Please Select Material");
 				}
 			}
-
 		}
 
 	});
