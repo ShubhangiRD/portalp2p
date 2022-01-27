@@ -31,17 +31,18 @@ sap.ui.define([
 	'sap/m/Popover',
 	'sap/m/Bar',
 	'sap/ui/core/IconPool',
-		"com/vSimpleApp/Classes/ServiceF4"
+	"sap/m/MenuItem",
+	"com/vSimpleApp/Classes/ServiceF4"
 ], function(Controller, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator, JSONModel, library, Input, Fragment,
 	Filter, FilterOperator, Button, Toolbar, Dialog, DialogType, ButtonType, Label, Text, TextArea, Core, formatter, RebateConditionItemPO,
-	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool,ServiceF4) {
+	PurchaseHeader, StockContract, Link, MessageItem, MessageView, Popover, Bar, IconPool, ServiceF4, MenuItem) {
 	"use strict";
 	var oView, oComponent,
 		sPathThreshold,
 		PoDocumentNumber = [];
 	var groups, StockTransfer = [];
 	var Massupload = [];
-	
+
 	var ChildarrIndex = [];
 	var itemindex = [];
 	var StockList;
@@ -58,7 +59,7 @@ sap.ui.define([
 	var Totalsaleset = [];
 	var EventArray = [];
 	var UniqueMatnrGlobal = [];
-		var Service = new ServiceF4();
+	var Service = new ServiceF4();
 	return Controller.extend("com.vSimpleApp.controller.StockTable", {
 		//formatter: formatter,
 		formatter: formatter,
@@ -164,9 +165,9 @@ sap.ui.define([
 			var oPoData = new JSONModel();
 			oView.setModel(oPoData, "oPoData");
 		},
-			goHome: function(oEvent) {
-					this.getOwnerComponent().getRouter().navTo("ShowTiles");
-		
+		goHome: function(oEvent) {
+			this.getOwnerComponent().getRouter().navTo("ShowTiles");
+
 		},
 		initializeView: function() {
 			/*	define  collectionItemMode  model which  which is used for the which level we can select,
@@ -577,7 +578,7 @@ sap.ui.define([
 					var data = oData.results;
 
 					PoQuantity = data;
-					},
+				},
 
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -640,7 +641,7 @@ sap.ui.define([
 						}
 
 					}
-					},
+				},
 				error: function(oerror) {
 					MessageBox.error(oerror);
 				}
@@ -756,7 +757,7 @@ sap.ui.define([
 		getPurchaseOrder: function(critstate) {
 			var oModels = this.getOwnerComponent().getModel("PurchaseSet");
 			return new Promise(function(resolve, reject) {
-			//	return new Promise(function(res,rej){
+				//	return new Promise(function(res,rej){
 				var lsb = critstate.length - 1;
 				//	return new Promise(function(res4,rej4){
 				//	for(var i=0 ; i<critstate.length ; i++){
@@ -773,7 +774,7 @@ sap.ui.define([
 				oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet/" + ld + " /Plant", sPlant);
 				oModels.create("/PoDisplaySet", oRequestPayload, {
 					success: function(oRes, obj) {
-				
+
 						//resolve("Sucess promiss");
 					},
 
@@ -785,7 +786,6 @@ sap.ui.define([
 
 			});
 
-	
 		},
 		//	});
 
@@ -926,7 +926,6 @@ sap.ui.define([
 		/*Material SEarch end*/
 
 		/*Plant search start */
-	
 
 		_handlePlantClose: function(evt) {
 			var oMatModel = oView.getModel("MatData");
@@ -985,7 +984,7 @@ sap.ui.define([
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-		//	this.getPOPlant();
+			//	this.getPOPlant();
 			//	var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
@@ -1041,7 +1040,7 @@ sap.ui.define([
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-		//	this.getPOPlant();
+			//	this.getPOPlant();
 			//var Service = new ServiceF4();
 			Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
@@ -2791,8 +2790,8 @@ sap.ui.define([
 						Changedon: Data[i].Changedon,
 						markupDescription: true
 					});
-			sap.ui.getCore().getModel("oExcessDataModel").setData(array);
-				
+					sap.ui.getCore().getModel("oExcessDataModel").setData(array);
+
 				}
 			}
 
@@ -3163,6 +3162,83 @@ sap.ui.define([
 		onMenuButtonPress: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("ShowTiles");
+		},
+		onPress: function() {
+			var oView = this.getView(),
+				oButton = oView.byId("button");
+
+			if (!this._oMenuFragment) {
+				this._oMenuFragment = Fragment.load({
+					id: oView.getId(),
+					name: "com.vSimpleApp.fragment.Stock.Menu",
+					controller: this
+				}).then(function(oMenu) {
+					oMenu.openBy(oButton);
+					this._oMenuFragment = oMenu;
+					return this._oMenuFragment;
+				}.bind(this));
+			} else {
+				this._oMenuFragment.openBy(oButton);
+			}
+		},
+		onMenuAction: function(oEvent) {
+			var oItem = oEvent.getParameter("item");
+			var sPage = oItem.getText();
+			if (sPage === "BuyerSheet") {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("BuyerSheet");
+				var oTable = this.byId("TreeTableBasic2");
+				oTable.clearSelection();
+			}
+			if (sPage === "Sku List") {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("SkuList");
+			}
+			if (sPage === "Analyics") {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("Analytics");
+				var oTable = this.byId("TreeTableBasic2");
+				oTable.clearSelection();
+			}
+			if (sPage === "Excess Material") {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("ExcessData");
+				var table = this.byId("TreeTableBasic2");
+				table.clearSelection();
+				window.location.reload();
+			}
+			if (sPage === "Po Decision") {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+				oRouter.navTo("PoDecision");
+				var table = this.byId("TreeTableBasic2");
+				table.clearSelection();
+			}
+			if (sPage === "Mass Update") {
+		           this.MassUpdatePo();
+			}
+			if (sPage === "Maintain Thresholds") {
+					this.UpdateCard = this.getView().byId("updateDialog");
+			if (!this.UpdateCard) {
+				this.UpdateCard = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.updateDialog", this);
+
+				this.UpdateCard.open();
+			}
+			}
+			if (sPage === "Stock Transfer") {
+				var oTreetable = this.byId("TreeTableBasic2");
+				var aSelectedIndex = oTreetable.getSelectedIndices();
+				if (aSelectedIndex.length) {
+					this.pressidMainitainPlant = oView.byId("idMainitainPlant");
+					if (!this.pressidMainitainPlant) {
+						this.pressidMainitainPlant = sap.ui.xmlfragment("com.vSimpleApp.fragment.Stock.MaintainPlant", this);
+						this.pressidMainitainPlant.open();
+					}
+				} else {
+					MessageBox.error("Please Select Material");
+				}
+			}
+
 		}
 
 	});

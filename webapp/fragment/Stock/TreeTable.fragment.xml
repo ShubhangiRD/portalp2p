@@ -6,18 +6,21 @@ toggleOpenState="onPressItem"    cellClick="OnTreecellclick"  visibleRowCount="8
 			<m:OverflowToolbar style="Clear">
 				<m:Title id="title" text="Stock Material Details"/>
 				<m:ToolbarSpacer/>
-					<m:Button text="Analytics"  id="idana" press="onAnalytics"/>
-					<m:Button text="Excess Material"  id="idExcessButton" press="onExcessMaterial"/>
+					<!--<m:Button text="Analytics"  id="idana" press="onAnalytics"/>-->
+					<!--<m:Button text="Excess Material"  id="idExcessButton" press="onExcessMaterial"/>-->
 				<!--<m:Button tooltip="Notification" type="Attention" text="{count>/count}" id="onbellid" icon="sap-icon://bell" press="onNotify"/>-->
-				<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>
+				<!--<m:Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="updatePData" press="updateProductData"/>-->
 				<!--		<Button tooltip="{i18n>addItem}" text="AutoPO"  id="AutopoMaterial" press="AutoPoCreationforMaterial"/>
 			-->
-				<m:Button tooltip="{i18n>addItem}" text="PoDecision" id="onPressPoDecision" press="onPressPoDecision"/>
-				<m:Button tooltip="{i18n>addItem}" text="MassUpdate" id="idMassUpdate" press="MassUpdatePo"/>
-				<m:Button tooltip="{i18n>addItem}" text="BuyerSheet" id="idBuyersheet" press="BuyerSheetChat"/>
+				<!--<m:Button tooltip="{i18n>addItem}" text="PoDecision" id="onPressPoDecision" press="onPressPoDecision"/>-->
+				<!--<m:Button tooltip="{i18n>addItem}" text="MassUpdate" id="idMassUpdate" press="MassUpdatePo"/>-->
+				<!--<m:Button tooltip="{i18n>addItem}" text="BuyerSheet" id="idBuyersheet" press="BuyerSheetChat"/>-->
+				<m:Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>
 				<m:Button text="Collapse all" press="onCollapseAll"/>
 				<m:Button text="Expand level" press="onExpandFirstLevel"/>
 				<m:Button text="Expand selection" press="onExpandSelection"/>
+						<!--<m:Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
+				
 			</m:OverflowToolbar>
 		</extension>
 		<columns>
