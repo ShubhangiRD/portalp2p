@@ -3208,7 +3208,7 @@ sap.ui.define([
 		},
 
 		handleMenuItemPress : function(oEvent){
-				var oItem = oEvent.getParameter("item");
+				var oItem = oEvent.getSource().getSelectedItem();
 			var sPage = oItem.getText();
 			if (sPage === "BuyerSheet") {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
