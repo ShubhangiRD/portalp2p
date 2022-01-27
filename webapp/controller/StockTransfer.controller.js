@@ -11,7 +11,7 @@ sap.ui.define([
 	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/RebateConditionItemPO",
 	"sap/m/MessageBox",
-		"com/vSimpleApp/Classes/ServiceF4"
+	"com/vSimpleApp/Classes/ServiceF4"
 ], function(Controller, BusyIndicator, JSONModel, library, Input, Fragment, Filter, FilterOperator, MessageToast, PurchaseHeader,
 	RebateConditionItemPO, MessageBox,ServiceF4) {
 	"use strict";
