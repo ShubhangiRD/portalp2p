@@ -12,7 +12,7 @@
 				<Button  icon="sap-icon://refresh" press="OnclearFilterHierarchy"/>
 				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="onAddproductitem" press="onAddHierarchyitems"/>
 		<!--	<Button tooltip="{i18n>addItem}" text="AutoPo"  id="idAutoHier" press="AutoPoCreationforHierarchy"/>
-	-->
+	-->	
 			</Toolbar>
 		</headerToolbar>
 		<columns>

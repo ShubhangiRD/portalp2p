@@ -40,29 +40,38 @@
 		<!--	visible="true" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"-->
 		<!--	columnsL="2" columnsM="1" class="sapUiLargeMarginBeginEnd sapUiSmallMarginTop" singleContainerFullSize="false">-->
 		<!--	<form:content>-->
-			
-				<OverflowToolbar class="sapUiTinyMarginBegin sapUiSmallMarginTop" id="idButtonForm" height="50px">
-					<Button text="All" id="idAll"  press="onFilterSelect" class="sapUiSmallMarginBegin">
-							<layoutData><OverflowToolbarLayoutData priority="Low" /></layoutData>
-							</Button>
-					<Button text="Critical" id="idRedb" type="Reject" press="onFilterSelect" class="sapUiSmallMarginBegin">
-										<layoutData><OverflowToolbarLayoutData priority="High" /></layoutData>
-							</Button>
-					<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect" class="sapUiSmallMarginBegin">
-									<layoutData><OverflowToolbarLayoutData priority="High" /></layoutData>
-							</Button>
-					<Button text="Green" type="Accept" id="idGreenb" press="onFilterSelect" class="sapUiSmallMarginBegin">
-									<layoutData><OverflowToolbarLayoutData priority="High" /></layoutData>
-							</Button>
-					<Button text="Excess" id="idBlueb" press="onFilterSelect" class="sapUiSmallMarginBegin stckblueBtn">
-									<layoutData><OverflowToolbarLayoutData priority="High" /></layoutData>
-							</Button>
-								<ToolbarSpacer></ToolbarSpacer>
+		<OverflowToolbar class="sapUiTinyMarginBegin sapUiTinyMarginTop" id="idButtonForm">
+			<Button text="All" id="idAll" press="onFilterSelect" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+			</Button>
+			<Button text="Critical" id="idRedb" type="Reject" press="onFilterSelect" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
+			</Button>
+			<Button text="Warning" id="idYellowb" type="Attention" press="onFilterSelect" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
+			</Button>
+			<Button text="Green" type="Accept" id="idGreenb" press="onFilterSelect" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
+			</Button>
+			<Button text="Excess" id="idBlueb" press="onFilterSelect" class="sapUiSmallMarginBegin stckblueBtn">
+				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
+			</Button>
+			<ToolbarSpacer></ToolbarSpacer>
 			<!---->
-			
-					<!--<Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>-->
-				</OverflowToolbar>
-				
+			<MenuButton text="Menu">
+				<menu>
+					<Menu itemSelected="onMenuAction">
+						<MenuItem text="Excess Material"/>
+						<MenuItem text="Stock Transfer" id="StockTrnfer"/>
+						<MenuItem text="BuyerSheet"/>
+						<MenuItem text="Po Decision"/>
+						<MenuItem text="Sku List"/>
+						<MenuItem text="Analyics"/>
+					</Menu>
+				</menu>
+			</MenuButton>
+			<!--<Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>-->
+		</OverflowToolbar>
 		<!--	</form:content>-->
 		<!--</form:SimpleForm>-->
 		<!--<Button text="Stc.Transfer" id="StockTrnfer"  press="onStockSelectionItem" class="sapUiSmallMarginBegin"/>-->
