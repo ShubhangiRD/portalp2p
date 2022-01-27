@@ -2,54 +2,54 @@
 	xmlns:mycassini="com.vSimpleApp.controls">
 	<!--	<ScrollContainer width="100%" horizontal="true" vertical="true" focusable="true">
 -->
-	<Table id="awaitingTable2" class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop sapUiSizeCompact casTiles" width="1250px"
+	<Table id="awaitingTable2" class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" 
  	noDataText="" items="{ path: 'HierarchyData>/'}" visible="{VisibleModel>/ProductHirarchyTable}">
 		<headerToolbar>
-			<Toolbar>
+			<OverflowToolbar>
 				<Title text="Stock thresholds" level="H2"/>
-				<ToolbarSpacer/>
+				<ToolbarSpacer></ToolbarSpacer>
 					<Button tooltip ="Notification" type="Attention" text="{countMod>/count}"  id="onbellid2" icon="sap-icon://bell" press="onNotifyHierarchy"/>
 				<Button  icon="sap-icon://refresh" press="OnclearFilterHierarchy"/>
 				<Button tooltip="{i18n>addItem}" text="Maintain thresholds" icon="sap-icon://add" id="onAddproductitem" press="onAddHierarchyitems"/>
 		<!--	<Button tooltip="{i18n>addItem}" text="AutoPo"  id="idAutoHier" press="AutoPoCreationforHierarchy"/>
 	-->	
-			</Toolbar>
+				</OverflowToolbar>
 		</headerToolbar>
 		<columns>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Main Group"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Group"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="SubGroup"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Available Qnty"/>
 			</Column>
 			<!--<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true" class="ClassQuantity">
 				<Text text="Unit"/>
 			</Column>-->
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Critical threshold"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Warning threshold"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Green threshold"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Excess threshold"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" visible="false" demandPopin="true">
+			<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible="false" >
 				<Text text="Color"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Changed On"/>
 			</Column>
-			<Column hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+			<Column  minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 				<Text text="Action"/>
 			</Column>
 		</columns>
