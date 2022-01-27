@@ -959,6 +959,25 @@ sap.ui.define([
 				evt.getSource().getBinding("rows").filter([]);
 			}
 		},
+					getPOPlant: function() {
+			var that = this;
+			var oModel = this.getOwnerComponent().getModel("VHeader");
+			BusyIndicator.show(true);
+			oModel.read("/get_plant_f4helpSet", {
+				success: function(oData) {
+					BusyIndicator.hide();
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					oLookupModel.setProperty("/POPlant", oData.results);
+					oLookupModel.refresh(true);
+					//that.getMaterialList();
+				},
+				error: function(oError) {
+					BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
 		handleValueHelpPlant: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
@@ -984,9 +1003,9 @@ sap.ui.define([
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-			//	this.getPOPlant();
-			//	var Service = new ServiceF4();
-			Service.getPOPlant(this);
+				this.getPOPlant();
+			// 	var Service1 = new ServiceF4();
+			// Service1.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogp.open(sInputValue);
 
@@ -1040,9 +1059,9 @@ sap.ui.define([
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-			//	this.getPOPlant();
+				this.getPOPlant();
 			//var Service = new ServiceF4();
-			Service.getPOPlant(this);
+			// Service.getPOPlant(this);
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogpp.open(sInputValue);
 
