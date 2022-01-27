@@ -104,7 +104,7 @@ sap.ui.define([
 				}
 			});
 		},
-				getSpecialStockList: function(oController) {
+			getSpecialStockList: function(oController) {
 		//	var that = this;
 			var oModel = oController.getOwnerComponent().getModel("StockModel");
 
@@ -200,7 +200,7 @@ sap.ui.define([
 				}
 			});
 		},
-				getSalesOrgforCondition: function(oController) {
+			getSalesOrgforCondition: function(oController) {
 			var that = this;
 			//get all data from odata model
 			var oModel = oController.getOwnerComponent().getModel("StockModel");
