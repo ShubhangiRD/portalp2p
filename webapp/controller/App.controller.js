@@ -41,21 +41,28 @@ sap.ui.define([
 				//	this.getOwnerComponent().getRouter().navTo("ShowTiles");
 				
 				var oHistory = History.getInstance();
-			var sPreviousHash = oHistory.getPreviousHash();
-			if(sPreviousHash == ""){
+				var sPreviousHash = oHistory.getPreviousHash();
+			var sHistoryPath = 	oHistory.aHistory[1];
+		
+			if(sHistoryPath == undefined){
+				this.getOwnerComponent().getRouter().navTo("StockTable");
+			}
+		else	if(sPreviousHash == ""){
 					this.getOwnerComponent().getRouter().navTo("ShowTiles");
 			
-			}
+			} 
 			else if(sPreviousHash == undefined){
 					this.getOwnerComponent().getRouter().navTo("LoginPage");
 		
 				}
+			
 			else if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
 					this.getOwnerComponent().getRouter().navTo("ShowTiles");
 				
 			}
+				
 		}
 		
 		

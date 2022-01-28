@@ -492,19 +492,20 @@
 					"viewName": "SalesCreation"
 				},
 				"ExcessData": {
-					"viewName": "ExcessData"
+					"viewName": "ExcessData",
+					"controlId": "idApp"
 				},
 				"ShowTiles": {
-					"viewName": "ShowTiles",
-					"controlId": "idApp"
+					"viewName": "ShowTiles"
+				
 				},
 				"PoDecision": {
 					"viewName": "PoDecision",
 					"controlId": "idApp"
 				},
 				"VendorDetail": {
-					"viewName": "VendorDetail",
-					"controlId": "idApp"
+					"viewName": "VendorDetail"
+				
 				},
 				"PoCreation": {
 					"viewName": "PoCreation",
@@ -542,17 +543,20 @@
 					"viewName": "VendorRebate"
 				},
 				"Home": {
-					"viewName": "Home"
+					"viewName": "Home",
+					"controlId": "idApp"
 				},
 
 				"CreateContract": {
-					"viewName": "CreateContract"
+					"viewName": "CreateContract",
+					"controlId": "idApp"
 				},
 				"PoRequisitions": {
 					"viewName": "PoRequisitions"
 				},
 				"DashboardVendor": {
-					"viewName": "DashboardVendor"
+					"viewName": "DashboardVendor",
+					"controlId": "idApp"
 				},
 				"MassAccrualPost": {
 					"viewName": "MassAccrualPost"
@@ -561,20 +565,24 @@
 					"viewName": "MassUpload"
 				},
 				"ViewContract": {
-					"viewName": "ViewContract"
+					"viewName": "ViewContract",
+					"controlId": "idApp"
 				},
 				"ChangeContract": {
-					"viewName": "ChangeContract"
+					"viewName": "ChangeContract",
+					"controlId": "idApp"
 				},
 				"BookInvoice": {
-					"viewName": "BookInvoice"
+					"viewName": "BookInvoice",
+					"controlId": "idApp"
 				},
 				"Dashboard": {
 					"viewName": "Dashboard",
 					"controlId": "idApp"
 				},
 				"Dashboard2": {
-					"viewName": "Dashboard2"
+					"viewName": "Dashboard2",
+					"controlId": "idApp"
 				},
 				"OCRHome": {
 					"viewType": "XML",
