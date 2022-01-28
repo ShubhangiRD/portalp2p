@@ -35,7 +35,7 @@
 		<headerToolbar>
 			<OverflowToolbar width="">
 				<!--<HBox width="50%">-->
-				<Button icon="sap-icon://nav-back" visible="{range>/isNoPhone}" press="onSkuBack"/>
+				<!--<Button icon="sap-icon://nav-back" visible="{range>/isNoPhone}" press="onSkuBack"/>-->
 				<Title text="SKU List With No Movement" tooltip="sku with no movements">
 					<layoutData>
 						<ToolbarLayoutData shrinkable="false"/>

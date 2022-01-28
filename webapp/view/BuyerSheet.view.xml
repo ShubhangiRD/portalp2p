@@ -14,7 +14,7 @@
 				<!--</ff:expandedContent>-->
 				<ff:actions>
 					<Button id="iddownload" icon="sap-icon://download" press="onDownloadExcess" class="sapUiTinyMarginBeginEnd"/>
-					<Button icon="sap-icon://nav-back" press="onMenuButtonPress"/>
+					<!--<Button icon="sap-icon://nav-back" press="onMenuButtonPress"/>-->
 				</ff:actions>
 			</ff:DynamicPageTitle>
 		</ff:title>

@@ -57,15 +57,13 @@
 				<layoutData><OverflowToolbarLayoutData priority="High"/></layoutData>
 			</Button>
 			<ToolbarSpacer></ToolbarSpacer>
-				<Select
-					items="{oMenuModel>/StockMenuPage}" change="handleMenuItemPress"
-				>
-					<core:Item key="{oMenuModel>PageName}" text="{oMenuModel>PageName}" />
-				</Select>
-			<!---->
+			<Select id="idPageSelect" items="{oMenuModel>/StockMenuPage}" change="handleMenuItemPress">
+				<core:Item key="{oMenuModel>PageName}" text="{oMenuModel>PageName}"/>
+			</Select>
+
 			<!--<MenuButton text="Menu">-->
 			<!--	<menu>-->
-			<!--		<Menu itemSelected="onMenuAction">-->
+			<!--		<Menu itemSelected="handleMenuItemPress">-->
 			<!--			<MenuItem text="Excess Material"/>-->
 			<!--			<MenuItem text="Stock Transfer" id="StockTrnfer"/>-->
 			<!--			<MenuItem text="BuyerSheet"/>-->
@@ -75,9 +73,9 @@
 			<!--		</Menu>-->
 			<!--	</menu>-->
 			<!--</MenuButton>-->
-	<!--			<l:HorizontalLayout>-->
-	<!--	<Button id="openMenu" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>-->
-	<!--</l:HorizontalLayout>-->
+			<!--			<l:HorizontalLayout>-->
+			<!--	<Button id="openMenu" text="Open Menu" press="handlePressOpenMenu" ariaHasPopup="Menu"/>-->
+			<!--</l:HorizontalLayout>-->
 			<!--<Button id="idStockMenuBtn" text="Menu" press="onPress" ariaHasPopup="Menu" type="Emphasized"/>-->
 		</OverflowToolbar>
 		<!--	</form:content>-->
@@ -90,24 +88,24 @@
 		<!--	visible="false" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2"-->
 		<!--	columnsL="2" columnsM="1" class=" sapUiLargeMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd " singleContainerFullSize="false">-->
 		<!--	<form:content>-->
-			<OverflowToolbar class="sapUiTinyMarginBegin sapUiTinyMarginTop" id="idButtonForm2" visible="false">
-				<Button text="All" id="idAll1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
-					<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+		<OverflowToolbar class="sapUiTinyMarginBegin sapUiTinyMarginTop" id="idButtonForm2" visible="false">
+			<Button text="All" id="idAll1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
 			</Button>
-				<Button text="Critical" id="idRedb1" type="Reject" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
-					<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+			<Button text="Critical" id="idRedb1" type="Reject" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
 			</Button>
-				<Button text="Warning" id="idYellowb1" type="Attention" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
-					<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+			<Button text="Warning" id="idYellowb1" type="Attention" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
 			</Button>
-				<Button text="Green" type="Accept" id="idGreenb1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
-					<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+			<Button text="Green" type="Accept" id="idGreenb1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
 			</Button>
-				<Button text="Excess" id="idBlueb1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
-					<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
+			<Button text="Excess" id="idBlueb1" press="onFilterSelectHierarchy" class="sapUiSmallMarginBegin">
+				<layoutData><OverflowToolbarLayoutData priority="Low"/></layoutData>
 			</Button>
-				<!--<Button text="Allq" id="idAll3" visible="false" press="onFilterSelect"/>-->
-					</OverflowToolbar>
+			<!--<Button text="Allq" id="idAll3" visible="false" press="onFilterSelect"/>-->
+		</OverflowToolbar>
 		<!--	</form:content>-->
 		<!--</form:SimpleForm>-->
 		<CheckBox class="sapUiMediumMarginBegin sapUiSmallMarginTop" text="Material" selected="{oCheckModel>/Material}" select="onShowTable"/>
