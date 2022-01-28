@@ -3266,11 +3266,11 @@ sap.ui.define([
 				} else {
 					MessageBox.error("Please Select Material");
 					//var Timeout = setTimeout(that.handleMenuItemPress(), 5000);
-					oEvent.getSource().setSelectedKey("");
+				
 				}
 
 			}
-
+                   	oEvent.getSource().setSelectedKey("");
 		}
 
 	});
