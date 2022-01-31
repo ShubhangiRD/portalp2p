@@ -2603,10 +2603,10 @@ sap.ui.define([
 						var vln = oRequestPayload.PoitemSet.length;
 						for (var vlen = 0; vlen < vln; vlen++) {
 
-							oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
-							oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
-							oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
-							oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
+							oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Material;
+							oRequestPayload.PoitemSet[vlen].Material = Podata.Material;
+							oRequestPayload.PoitemSet[vlen].ShortText = Podata.ShortText;
+							oRequestPayload.PoitemSet[vlen].Plant = Podata.Plant;
 							delete oRequestPayload.PoitemSet[vlen].Vendor;
 
 						}
@@ -2673,10 +2673,10 @@ sap.ui.define([
 					var vln = oRequestPayload.PoitemSet.length;
 					for (var vlen = 0; vlen < vln; vlen++) {
 
-						oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
-						oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
-						oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
-						oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
+						oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Material;
+						oRequestPayload.PoitemSet[vlen].Material = Podata.Material;
+						oRequestPayload.PoitemSet[vlen].ShortText = Podata.ShortText;
+						oRequestPayload.PoitemSet[vlen].Plant = Podata.Plant;
 						delete oRequestPayload.PoitemSet[vlen].Vendor;
 
 					}
