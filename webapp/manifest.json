@@ -253,14 +253,17 @@
 			}]
 		},
 		"routing": {
-			"config": {
+			
+				"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
+				"async": true,
 				"viewPath": "com.vSimpleApp.view",
-				"controlId": "idApp",
 				"controlAggregation": "pages",
-				"async": true
+				"controlId": "idApp",
+				"clearControlAggregation": false
 			},
+			
 			"routes": [{
 					"pattern": "",
 					"name": "LoginPage",
