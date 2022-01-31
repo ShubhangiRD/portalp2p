@@ -83,7 +83,7 @@ sap.ui.define([
 		},
 	goHome: function(oEvent) {
 		
-			this.getOwnerComponent().getRouter().navTo("ShowTiles");
+			this.getOwnerComponent().getRouter().navTo("StockTable");
 
 		},
 		getStock: function() {
