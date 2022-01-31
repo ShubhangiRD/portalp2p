@@ -556,9 +556,10 @@ sap.ui.define([
 						}
 
 					}
+					
 					oView.getModel("oStockDataModel").setSizeLimit(ListofSrs.length);
 					oView.getModel("oStockDataModel").setData(ListofSrs);
-
+console.log(ListofSrs);
 					that.getOwnerComponent().getModel("ColorStateModel").setData(ListofSrs);
 
 					Massupload = ListofSrs;
