@@ -2655,47 +2655,47 @@ sap.ui.define([
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
-			//  (async function loop() {
-			//   for (let criticle = 0; criticle < Massupload.length; criticle++) {
+			 (async function loop() {
+			  for (let criticle = 0; criticle < Massupload.length; criticle++) {
 
-			//   		var Labst = parseInt(Massupload[criticle].Labst),
-			// 	Cgtlv = parseInt(Massupload[criticle].Cgtlv);
-			// var count = Cgtlv - Labst;
+			  		var Labst = parseInt(Massupload[criticle].Labst),
+				Cgtlv = parseInt(Massupload[criticle].Cgtlv);
+			var count = Cgtlv - Labst;
 
-			//     for (let CritCount = 0; CritCount < count; CritCount++) {
-			//         await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
-			//      //   console.log(i);
-			//         			var Podata = new PurchaseHeader(Massupload[criticle]);
-			// 		oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
+			    for (let CritCount = 0; CritCount < count; CritCount++) {
+			        await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
+			     //   console.log(i);
+			        			var Podata = new PurchaseHeader(Massupload[criticle]);
+					oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
 
-			// 		var oRequestPayload = oPurchaseContract.getPayloadRefill();
+					var oRequestPayload = oPurchaseContract.getPayloadRefill();
 
-			// 		var vln = oRequestPayload.PoitemSet.length;
-			// 		for (var vlen = 0; vlen < vln; vlen++) {
+					var vln = oRequestPayload.PoitemSet.length;
+					for (var vlen = 0; vlen < vln; vlen++) {
 
-			// 			oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
-			// 			oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
-			// 			oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
-			// 			oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
-			// 			delete oRequestPayload.PoitemSet[vlen].Vendor;
+						oRequestPayload.PoitemSet[vlen].Ematerial = Podata.Matnr;
+						oRequestPayload.PoitemSet[vlen].Material = Podata.Matnr;
+						oRequestPayload.PoitemSet[vlen].ShortText = Podata.Description;
+						oRequestPayload.PoitemSet[vlen].Plant = Podata.Werks;
+						delete oRequestPayload.PoitemSet[vlen].Vendor;
 
-			// 		}
+					}
 
-			// 		oModel.create("/PoDisplaySet", oRequestPayload, {
-			// 			success: function(oRes, obj) {
-			// 				var PoNumber = oRes.Purchaseorder;
-			// 				MessageBox.show("Standard PO created under the number  #" + PoNumber + " ");
+					oModel.create("/PoDisplaySet", oRequestPayload, {
+						success: function(oRes, obj) {
+							var PoNumber = oRes.Purchaseorder;
+							MessageBox.show("Standard PO created under the number  #" + PoNumber + " ");
 
-			// 			},
-			// 			error: function(Error) {
-			// 				MessageBox.error(oError);
-			// 			}
-			// 		});
+						},
+						error: function(Error) {
+							MessageBox.error(Error);
+						}
+					});
 
-			//     }
+			    }
 
-			//   }
-			// })();
+			  }
+			})();
 
 		},
 
