@@ -59,7 +59,9 @@ sap.ui.define([
 			this.oRouter.getRoute("GoodReceipt").attachPatternMatched(this._onRouteMatched1, this);
 		},
 			goHome: function(oEvent) {
-			this.getRouter().navTo("ShowTiles");
+		
+			this.getOwnerComponent().getRouter().navTo("ShowTiles");
+
 		},
 		_onRouteMatched1: function() {
 			//window.location.reload();

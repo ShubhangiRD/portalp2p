@@ -58,7 +58,8 @@ sap.ui.define([
 
 		},
 			goHome: function(oEvent) {
-			this.getRouter().navTo("PoHeaderList");
+		
+				this.getOwnerComponent().getRouter().navTo("PoHeaderList");
 		},
 		_onRouteMatched1: function() {
 			//window.location.reload();

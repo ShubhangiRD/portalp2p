@@ -77,7 +77,8 @@ sap.ui.define([
 			}.bind(this), null, "Std");
 		},
 	goHome: function(oEvent) {
-			this.getRouter().navTo("StockTable");
+		
+				this.getOwnerComponent().getRouter().navTo("StockTable");
 		},
 		OnSelectRButton: function(oEvent) {
 

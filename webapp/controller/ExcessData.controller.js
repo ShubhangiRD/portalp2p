@@ -82,7 +82,9 @@ sap.ui.define([
 
 		},
 	goHome: function(oEvent) {
-			this.getRouter().navTo("ShowTiles");
+		
+			this.getOwnerComponent().getRouter().navTo("ShowTiles");
+
 		},
 		getStock: function() {
 			//get all data from odata model
