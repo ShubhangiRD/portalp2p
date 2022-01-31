@@ -519,7 +519,6 @@
 				},
 				"VendorDetail": {
 				
-					
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,

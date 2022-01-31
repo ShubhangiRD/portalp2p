@@ -76,7 +76,9 @@ sap.ui.define([
 				this._setRangeModel(mParams.name);
 			}.bind(this), null, "Std");
 		},
-
+	goHome: function(oEvent) {
+			this.getRouter().navTo("StockTable");
+		},
 		OnSelectRButton: function(oEvent) {
 
 			var oselecttab = oEvent.oSource.mProperties.text;

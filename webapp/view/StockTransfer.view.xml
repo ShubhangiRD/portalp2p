@@ -2,32 +2,32 @@
 	xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m"
 	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
 
-	<!--<tnt:ToolHeader>-->
-	<!--	<m:Button icon="sap-icon://menu2" type="Transparent" press="goHome">-->
-	<!--		<m:layoutData>-->
-	<!--			<m:FlexItemData growFactor="1"/>-->
-	<!--		</m:layoutData>-->
-	<!--	</m:Button>-->
-	<!--	<m:Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">-->
-	<!--		<m:layoutData>-->
-	<!--			<m:FlexItemData growFactor="1"/>-->
-	<!--		</m:layoutData>-->
-	<!--	</m:Image>-->
+	<tnt:ToolHeader>
+		<m:Button icon="sap-icon://home" type="Transparent" press="goHome">
+			<m:layoutData>
+				<m:FlexItemData growFactor="1"/>
+			</m:layoutData>
+		</m:Button>
+		<m:Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
+			<m:layoutData>
+				<m:FlexItemData growFactor="1"/>
+			</m:layoutData>
+		</m:Image>
 	
-	<!--	<m:ToolbarSpacer/>-->
+		<m:ToolbarSpacer/>
 	
-	<!--	<m:ToolbarSpacer/>-->
-	<!--	<m:Button icon="sap-icon://comment" type="Transparent">-->
-	<!--		<m:layoutData>-->
-	<!--			<m:OverflowToolbarLayoutData priority="NeverOverflow"/>-->
-	<!--		</m:layoutData>-->
-	<!--	</m:Button>-->
-	<!--	<m:Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">-->
-	<!--		<m:layoutData>-->
-	<!--			<m:FlexItemData growFactor="1"/>-->
-	<!--		</m:layoutData>-->
-	<!--	</m:Switch>-->
-	<!--</tnt:ToolHeader>-->
+		<m:ToolbarSpacer/>
+		<m:Button icon="sap-icon://comment" type="Transparent">
+			<m:layoutData>
+				<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+			</m:layoutData>
+		</m:Button>
+		<m:Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
+			<m:layoutData>
+				<m:FlexItemData growFactor="1"/>
+			</m:layoutData>
+		</m:Switch>
+	</tnt:ToolHeader>
 
 	<m:Page showNavButton="true" showHeader="false" navButtonPress="onBackStock">
 		<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" preserveHeaderStateOnScroll="true">

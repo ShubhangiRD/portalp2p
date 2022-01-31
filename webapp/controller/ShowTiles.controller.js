@@ -129,7 +129,9 @@ sap.ui.define([
 			this.getVendorCountListByPO();
 
 		},
-
+	goHome: function(oEvent) {
+			this.getRouter().navTo("ShowTiles");
+		},
 		switchState: function(sKey) {
 			var oTable = this.byId("tablePoorders");
 			var iCount = 0;

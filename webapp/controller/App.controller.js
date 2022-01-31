@@ -37,6 +37,8 @@ sap.ui.define([
 		goHome: function(oEvent) {
 			this.getRouter().navTo("Dashboard");
 		},
+	
+	
 			onMenuButtonPress: function(oEvent) {
 				//	this.getOwnerComponent().getRouter().navTo("ShowTiles");
 				

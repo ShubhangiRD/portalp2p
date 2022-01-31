@@ -4,7 +4,7 @@
 	xmlns:u="sap.ui.unified" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:w="sap.ui.integration.widgets" xmlns:t="sap.ui.table" xmlns:form="sap.ui.layout.form">
 	<tnt:ToolHeader>
-		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
+		<Button icon="sap-icon://menu2" type="Transparent" press="goHome">
 			<layoutData>
 				<FlexItemData growFactor="1"/>
 			</layoutData>

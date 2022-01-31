@@ -62,7 +62,7 @@ sap.ui.define([
 			//	this._getLabst_matlab();
 		},
 			goHome: function(oEvent) {
-					this.getOwnerComponent().getRouter().navTo("ShowTiles");
+					this.getOwnerComponent().getRouter().navTo("StockTable");
 		
 		},
 		onNavBack: function() {

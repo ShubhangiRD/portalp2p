@@ -57,6 +57,9 @@ sap.ui.define([
 			//window.location.reload();
 
 		},
+			goHome: function(oEvent) {
+			this.getRouter().navTo("PoHeaderList");
+		},
 		_onRouteMatched1: function() {
 			//window.location.reload();
 			//******************** customization code **********************************

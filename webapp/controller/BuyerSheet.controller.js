@@ -185,6 +185,9 @@ sap.ui.define([
 			this.getView().setModel(oVisibleModel, "VisibleModel");
 
 		},
+			goHome: function(oEvent) {
+			this.getRouter().navTo("StockTable");
+		},
 		datatime: function(dDate) {
 			//returns complete date after calling this function
 			var m = new Date(dDate);
