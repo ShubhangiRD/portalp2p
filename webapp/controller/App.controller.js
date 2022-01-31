@@ -47,7 +47,7 @@ sap.ui.define([
 			if(sHistoryPath == undefined){
 				this.getOwnerComponent().getRouter().navTo("StockTable");
 			}
-		else	if(sPreviousHash == ""){
+			else if(sPreviousHash == ""){
 					this.getOwnerComponent().getRouter().navTo("ShowTiles");
 			
 			} 
