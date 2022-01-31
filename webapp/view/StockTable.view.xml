@@ -1,36 +1,36 @@
 <mvc:View controllerName="com.vSimpleApp.controller.StockTable" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" displayBlock="true"
 	xmlns:tnt="sap.tnt" class="sapUiSizeCompact" xmlns:core="sap.ui.core" xmlns:mycassini="com.vSimpleApp.controls">
-		<tnt:ToolHeader>
-		<Button icon="sap-icon://menu2" type="Transparent" press="goHome">
-			<layoutData>
-				<FlexItemData growFactor="1"/>
-			</layoutData>
-		</Button>
-		<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">
-			<layoutData>
-				<FlexItemData growFactor="1"/>
-			</layoutData>
-		</Image>
-		<FlexBox direction="Column" alignItems="Start">
-			<items></items>
-		</FlexBox>
-		<ToolbarSpacer/>
-		<FlexBox class="logoContent" direction="Column" alignItems="Start">
-			<items></items>
-		</FlexBox>
-		<ToolbarSpacer/>
-		<Button icon="sap-icon://comment" type="Transparent">
-			<layoutData>
-				<OverflowToolbarLayoutData priority="NeverOverflow"/>
-			</layoutData>
-		</Button>
-		<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">
-			<layoutData>
-				<FlexItemData growFactor="1"/>
-			</layoutData>
-		</Switch>
-	</tnt:ToolHeader>
+	<!--	<tnt:ToolHeader>-->
+	<!--	<Button icon="sap-icon://menu2" type="Transparent" press="goHome">-->
+	<!--		<layoutData>-->
+	<!--			<FlexItemData growFactor="1"/>-->
+	<!--		</layoutData>-->
+	<!--	</Button>-->
+	<!--	<Image src="./images/Cassini-logo.png" densityAware="false" class="logo" width="9rem">-->
+	<!--		<layoutData>-->
+	<!--			<FlexItemData growFactor="1"/>-->
+	<!--		</layoutData>-->
+	<!--	</Image>-->
+	<!--	<FlexBox direction="Column" alignItems="Start">-->
+	<!--		<items></items>-->
+	<!--	</FlexBox>-->
+	<!--	<ToolbarSpacer/>-->
+	<!--	<FlexBox class="logoContent" direction="Column" alignItems="Start">-->
+	<!--		<items></items>-->
+	<!--	</FlexBox>-->
+	<!--	<ToolbarSpacer/>-->
+	<!--	<Button icon="sap-icon://comment" type="Transparent">-->
+	<!--		<layoutData>-->
+	<!--			<OverflowToolbarLayoutData priority="NeverOverflow"/>-->
+	<!--		</layoutData>-->
+	<!--	</Button>-->
+	<!--	<Switch state="true" customTextOn="EN" customTextOff="DE" change="onChangeLanguage">-->
+	<!--		<layoutData>-->
+	<!--			<FlexItemData growFactor="1"/>-->
+	<!--		</layoutData>-->
+	<!--	</Switch>-->
+	<!--</tnt:ToolHeader>-->
 	<Page showHeader="false">
 		<!--<form:SimpleForm id="idButtonForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="12"-->
 		<!--	labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"-->

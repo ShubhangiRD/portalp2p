@@ -27,8 +27,9 @@
 	<!--		</m:layoutData>-->
 	<!--	</m:Switch>-->
 	<!--</tnt:ToolHeader>-->
-	<m:Page showNavButton="true" showHeader="false" navButtonPress="onNavBack">
-		<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" preserveHeaderStateOnScroll="true">
+	<!--<m:Page showNavButton="true" showHeader="false" navButtonPress="onNavBack">-->
+	
+		<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" preserveHeaderStateOnScroll="false">
 			<headerTitle>
 				<ObjectPageDynamicHeaderTitle>
 					<expandedHeading>
@@ -516,5 +517,6 @@
 				</ObjectPageSection>
 			</sections>
 		</ObjectPageLayout>
-	</m:Page>
+		
+	<!--</m:Page>-->
 </mvc:View>

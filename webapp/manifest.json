@@ -488,7 +488,12 @@
 					"viewName": "Sample"
 				},
 				"LoginPage": {
+				
+						"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
 					"viewName": "LoginPage",
+					"viewLevel": 1,
 					"controlId": "idApp"
 				},
 				"SalesCreation": {
@@ -499,7 +504,13 @@
 					"controlId": "idApp"
 				},
 				"ShowTiles": {
-					"viewName": "ShowTiles"
+				
+						"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "ShowTiles",
+					"viewLevel": 1,
+					"controlId": "idApp"
 				
 				},
 				"PoDecision": {
@@ -507,8 +518,14 @@
 					"controlId": "idApp"
 				},
 				"VendorDetail": {
-					"viewName": "VendorDetail"
 				
+					
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "VendorDetail",
+					"viewLevel": 1,
+					"controlId": "idApp"
 				},
 				"PoCreation": {
 					"viewName": "PoCreation",
